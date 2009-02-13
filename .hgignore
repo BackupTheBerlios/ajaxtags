@@ -1,0 +1,5 @@
+syntax: glob
+*.class
+*.ignore
+#syntax: regex
+target
