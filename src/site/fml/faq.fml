@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<faqs id="General FAQ">
+	<part id="General">
+		<faq id="A">
+			<question>Why is the ajax:autocomplete dropdown not positioned correctly?</question>
+			<answer>
+				<p>
+					At present the
+					<code>ajax:autocomplete</code>
+					tag writes a
+					<code>DIV</code>
+					HTML element to the page to act as a placeholder for the dropdown or suggest list.
+					Normally, you are free to put the
+					<code>ajax:autocomplete</code>
+					tag anywhere on the page (between the
+					<code>BODY</code>
+					tags).
+				</p>
+				<p>
+					However, if your page contains complex CSS positioning which surrounds the location of the
+					<code>ajax:autocomplete</code>
+					tag, you may get unexpected results. That is, the dropdown won't appear directly beneath
+					the input field.
+				</p>
+				<p>
+					<strong>Solution:</strong>
+					place the
+					<code>ajax:autocomplete</code>
+					tag outside any elements using CSS positioning, or simply the last element before the
+					closing
+					<code>BODY</code>
+					tag. A future release of the tag library may resolve this issue.
+				</p>
+				<p style="font-size: 90%; font-style:italic; text-align: right">
+					Report courtesy of Keith Sherwood (Bright House Networks)
+				</p>
+			</answer>
+		</faq>
+
+		<faq id="B">
+			<question>The ajax:callout tag requires a class definition.  How do define a class for an element that already has a class assigned?</question>
+			<answer>
+				<p>
+					CSS allows you to assign multiple style classes to a single element.  For example:
+				</p>
+				<source><![CDATA[<a href="" class="linkStyle ajaxStyle otherStyle">Link to nowhere</a>]]></source>
+			</answer>
+		</faq>
+
+		<faq id="C">
+			<question>Can I include special characters in the AJAX XML response?</question>
+			<answer>
+				<p>
+					In short, yes you can.  However, you must remember to properly encode the response sent
+					back to the Ajax client.  We recommend you set the XML encoding to UTF-8 or UTF-16 because
+					to our knowledge, they are the only two encodings mandated by the XML spec.  Also, it is
+					wise to set the page encoding and character set on the response to match that set in the
+					XML file.
+				</p>
+				<p>For more information, see the following:</p>
+				<ul>
+					<li><a href="http://www.w3.org/TR/REC-xml/">XML Spec</a></li>
+					<li><a href="http://java.sun.com/j2ee/1.4/docs/tutorial/doc/WebI18N5.html">J2EE 1.4 Tutorial, Character Sets and Encodings</a></li>
+					<li><a href="http://java.sun.com/j2ee/1.4/docs/tutorial/doc/IntroXML3.html">J2EE 1.4 Tutorial, Generating XML Data</a></li>
+					<li><a href="http://weblogs.java.net/blog/joconner/archive/2005/07/charset_traps.html">John O'Conner's Blog, Charset Pitfalls in JSP/Servlet Containers</a></li>
+				</ul>
+			</answer>
+		</faq>
+
+		<faq id="D">
+			<question>Are there any plans to add a validation tag?</question>
+			<answer>
+				<p>
+					No.  There are currently no plans to support AJAX-based form validation.  As with all open
+					source, if anyone wants to contribute a solution, we're open to that possibility.
+				</p>
+			</answer>
+		</faq>
+
+		<faq id="E">
+			<question>Why does the ajax:autocomplete tag submit the form when I press Enter to select a value from the list?</question>
+			<answer>
+				<p>
+					This is a known issue with the tag's JavaScript.  The way in which the ajax:autocomplete
+					tag binds itself to key events is a bit problematic.  When you use the mouse to make a
+					selection from the suggestion list, everything works properly.  However, if you use the
+					Enter key to make your selection, the enclosing HTML form will submit itself if a submit
+					button is present.  We know it's odd, but we just haven't been able to lick this problem.
+				</p>
+				<p>
+					Fortunately, we have a solution.  Instead of using submit button, simply replace it with a
+					button field and use the onclick event to submit the form.
+				</p>
+				<p>For example:</p>
+				<source><![CDATA[<input type="button" value="Go" onclick="this.form.submit()" />]]></source>
+			</answer>
+		</faq>
+
+		<faq id="F">
+			<question>Why aren't my tags working with Struts forms?</question>
+			<answer>
+				<p>
+					Don't forget to set the <code>styleId</code> attribute.
+				</p>
+				<source><![CDATA[<html:text property="myFormField" styleId="myFormField" />]]></source>
+			</answer>
+		</faq>
+
+		<faq id="G">
+			<question>Can I save having to write the XML on the server side?</question>
+			<answer>
+				<p>
+					There is a helper class to assist in building the XML if you don't want to do it by
+					hand...see the <a href="advanced.html">Advanced Usage section</a> for more information.
+				</p>
+			</answer>
+		</faq>
+
+		<faq id="H">
+			<question>Why is Struts Validator breaking with AjaxTags/Prototype?</question>
+			<answer>
+				<p>
+					There appears to be a conflict between Struts' client-side validator and the Prototype
+					framework.  Essentially, Prototype extends the JavaScript Object class, which in turn
+					breaks the way Struts Validator handles it's arrays.  There is a workaround, but it has
+					not been verified by the AjaxTags team.  According to one user, you should add the
+					following to every JavaScript validator:
+				</p>
+				<source><![CDATA[for (x in oInteger) {
+					if(x == 'extend') // Protoype Array() fix
+					continue; 
+					var field = form[oInteger[x][0]];
+					}]]></source>
+				<p>
+					For a complete discussion of the problem, visit the following
+					<a href="http://sourceforge.net/forum/forum.php?thread_id=1371695&amp;forum_id=471271">forum
+						post</a>.
+				</p>
+			</answer>
+		</faq>
+
+		<faq id="I">
+			<question>How can I prevent the response from being cached on IE?</question>
+			<answer>
+				<p>
+					Several people have reported that their responses are being cached under IE, but not
+					Firefox.  To explicitly tell IE not to cache responses, you need to set a response header
+					as follows in your servlet or JSP:
+				</p>
+				<source><![CDATA[response.setHeader("Cache-Control", "no-cache");]]></source>
+			</answer>
+		</faq>
+
+	</part>
+
+</faqs>

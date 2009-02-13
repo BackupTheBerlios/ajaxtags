@@ -1,0 +1,707 @@
+---
+Jens Kapitza 29.11.2008
+---
+
+
+Usage
+~~~~~
+
+* Base URL
+~~~~~~~~~~~
+
+  The <<<baseUrl>>> property is used by the tag to make a request to
+  the serverside. The responding resource (e.g., servlet, JSP, etc.) is
+  responsible for returning the response in the appropriate format 
+  (plain text, HTML, XML, etc.). This take is used as a normal URL you are
+  able to append parameters.
+
+** Parameters
+~~~~~~~~~~~~~
+
+  Each tag has a common <<<parameters>>> property, composed of name-value pairs that eventually get
+  passed to the URL specified in the <<<baseUrl>>> property.  You may specify multiple name-value
+  pairs by separating them with commas.  Within each pair, you can also indicate that you want a
+  certain form field value to be inserted at the time the request is made by surrounding the value
+  with curly brackets.
+
+  Let's look at an example.  Assume we want to pass two parameters on the URL, one indicating the
+  make of our automobile and another that is a plain text constant.  The value of the make parameter
+  will be inserted at request time.  In this case, we assume the makeId form field contains a value
+  of "Honda".
+
++------------------------------------------------------------------------+
+parameters="make={makeId},q=someConstantValue"
++------------------------------------------------------------------------+
+
+  ...will be replaced at request time with...
+
++------------------------------------------------------------------------+
+parameters="make=Honda,q=someConstantValue"
++------------------------------------------------------------------------+
+
+*** Implicit Parameters
+~~~~~~~~~~~~~~~~~~~~~~~
+
+  The ajax:htmlContent and ajax:callout tags will accept an implicit parameter in place of the value
+  of the source element.  For instance, if you want to include the value of the source element on
+  the querystring when making the AJAX call, simply define the parameters attribute as follows:
+
++------------------------------------------------------------------------+
+parameters="someId={ajaxParameter}"
++------------------------------------------------------------------------+
+
+
+** Pre- / Post- and Error Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  If you will invoke a JavaScript function befor the request is started for example
+  to modify the <<parameters>> you can use the <<preFunction>>.
+
+  If you've wondered how to either chain AJAX tags together by having one execute after another has
+  completed then you'll like this.  The <<<postFunction>>> attribute allows you do just that. This
+  attribute expects a JavaScript function name to be passed. The AJAX JavaScript will execute the
+  function you define after it has finished its work.
+
+  In addition to post-functions, you may also define functions to be executed when the AJAX request
+  could not be completed (e.g., invalid URL, server exception).  You simply enter the name of the
+  user-defined JavaScript function into the optional <<<errorFunction>>> tag attribute.
+
+
+* ajax:anchors
+~~~~~~~~~~~~~~
+
+  The anchors tag will convert any HTML anchor tags (\<A\>) within it's area to be AJAX-enabled.
+  Essentially the href is removed and its contents placed within an onclick event for the anchor,
+  thus forcing the resource to be accessed through AJAX instead.  The response will then be loaded
+  in any area on the page you define.
+
++------------------------------------------------------------------------+
+<ajax:anchors target="ajaxFrame">
+  <!-- Ajax this link -->
+  Refresh first area <a href="pagearea.jsp" class="contentLink"></a>
+</ajax:anchors>
+
+<div id="ajaxFrame"></div>
++------------------------------------------------------------------------+
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ target               | The target region on the page where the AJAX response will be written, often a DIV tag | yes
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:area
+~~~~~~~~~~~
+
+  The area tag lets you wrap a piece of the webpage and force all links and resources to be loaded
+  inside of it instead of refreshing the entire page.
+
+  If you use ajaxAnchors your content have to be xhtml conform.
+
++------------------------------------------------------------------------+
+<ajax:area id="ajaxFrame"
+  styleClass="textArea"
+  ajaxAnchors="true">
+  This is the first area and should be refreshed only when the first link or
+  the link inside itself is clicked:
+
+  It may include a link to <a href="${contextPath}/pagearea.jsp"> itself </a>
+</ajax:area>
++------------------------------------------------------------------------+
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ id                   | Name of ID used for enclosing DIV tag written by tag       | yes
+*---------------------+------------------------------------------------------------+-------------*
+ styleClass           | CSS class name to use                                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ ajaxAnchors          | Whether to rewrite HTML anchor tags with an onclick event  | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:autocomplete
+~~~~~~~~~~~~~~~~~~~
+
+  The autocomplete tag allows one to retrieve a list of probable values from a backend servlet (or
+  other server-side control) and display them in a dropdown beneath an HTML text input field. The
+  user may then use the cursor and ENTER keys or the mouse to make a selection from that list of
+  labels, which is then populated into the text field. This JSP tag also allows for a second field
+  to be populated with the value or ID of the item in the dropdown.
+
++------------------------------------------------------------------------+
+<form>
+  Make: <input id="model" name="model" type="text" size="30" class="form-autocomplete" />
+  Model: <input id="make" name="make" type="text" size="30" />
+</form>
+
+<ajax:autocomplete
+  baseUrl="${pageContext.request.contextPath}/GetModel.view"
+  source="make"
+  target="model"
+  parameters="model={model}"
+  className="autocomplete"
+  indicator="throbbing"
+  minimumCharacters="1" />
++------------------------------------------------------------------------+
+
+  <<Note: Tag must appear AFTER the web form.>>
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ var                  | Name of the JavaScript object created                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ attachTo             | Name of the JavaScript object to which autocompleter will attach.  You must define 'var' for this to work. | no
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes search and returns list of values used in autocomplete dropdown; expression language (EL) is supported for this field | yes
+*---------------------+------------------------------------------------------------+-------------*
+ source               | Text field where label of autocomplete selection will be populated; also the field in which the user types out the search string | yes
+*---------------------+------------------------------------------------------------+-------------*
+ target               | Text field where value of autocomplete selection will be populated; you may set this to the same value as the source field | yes
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | yes
+*---------------------+------------------------------------------------------------+-------------*
+ className            | CSS class name to apply to the popup autocomplete dropdown | yes
+*---------------------+------------------------------------------------------------+-------------*
+ indicator            | ID of indicator region that will show during Ajax request call | no
+*---------------------+------------------------------------------------------------+-------------*
+ minimumCharacters    | Minimum number of characters needed before autocomplete is executed | no
+*---------------------+------------------------------------------------------------+-------------*
+ appendSeparator      | The separator to use for the target field when values are appended [default=space]. If appendValue is not set or is set to "false", this parameter has no effect. | no
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+ parser               | The response parser to implement [default=ResponseHtmlParser] | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:callout
+~~~~~~~~~~~~~~
+
+  The callout tag is an easy way to attach a callout or popup balloon to any HTML element supporting
+  an onclick event.  The style of this callout is fairly flexible, but generally has a header/title,
+  a close link ('X'), and the content itself, of course.  All of this (since AjaxTags 1.2) is
+  handled by the OverLIBMWS JavaScript library.  See {{http://www.macridesweb.com/oltest/}} for
+  complete instructions on using OverLIBMWS.
+
++------------------------------------------------------------------------+
+<div>
+  <p>
+    The Hitchhiker's Guide to the Galaxy is a science fiction series written by Douglas Adams
+    (1952?2001).  The series follows the adventures of
+    <a href="#" class="definition">Arthur Dent</a>, a hapless
+    <a href="#" class="definition">Englishman</a> who escapes the destruction of Earth by an alien
+    race called the <a href="javascript://nop/" class="definition">Vogons</a> with his friend
+    <a href="#" class="definition">Ford Prefect</a>, an alien from a small planet somewhere in the
+    vicinity of <a href="#" class="definition">Betelgeuse</a> and researcher for the eponymous
+    guide.
+  </p>
+</div>
+
+<ajax:callout
+  baseUrl="${pageContext.request.contextPath}/GetInfo.view"
+  sourceClass="definition"
+  parameters="q={ajaxCallout}"
+  title="Definition"
+  overlib="STICKY,CLOSECLICK,DELAY,250,TIMEOUT,5000,VAUTO,WRAPMAX,240" />
++------------------------------------------------------------------------+
+
+  <<Note: Tag must appear AFTER the web form.>>
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ var                  | Name of the JavaScript object created                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ attachTo             | Name of the JavaScript object to which callout will attach.  You must define 'var' for this to work. | no
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes a simple command | yes
+*---------------------+------------------------------------------------------------+-------------*
+ source               | ID of the element to which the callout will be attached    | either source or sourceClass must be defined
+*---------------------+------------------------------------------------------------+-------------*
+ sourceClass          | CSS class name of the elements to which the callout will be attached | either source or sourceClass must be defined
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | yes
+*---------------------+------------------------------------------------------------+-------------*
+ title                | Title for callout's box header. If <<<useTitleBar==false>>> and no title is specified, then the <<<value>>> attribute of the returned XML will be used as the title. | no
+*---------------------+------------------------------------------------------------+-------------*
+ overlib              | Options for OverLib                                        | no
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:displayTag
+~~~~~~~~~~~~~~~~~
+
+  The displayTag is similar to the area tag, but it specifically tailored to the Display Tag. It
+  wraps DisplayTag ajaxing pagination and sorting.
+  
+  If you use this tag your content have to be xhtml conform.
+  
+
++------------------------------------------------------------------------+
+<ajax:displayTag id="displayTagFrame">
+
+  <display:table name="service.allCars" class="displaytag" pagesize="10" scope="page"
+    defaultsort="1" defaultorder="descending" export="true" id="row" excludedParams="ajax">
+    <display:column property="make" title="Make" sortable="true" headerClass="sortable" />
+    <display:column property="model" title="Model" sortable="true" headerClass="sortable" />
+    <display:column title="Link" media="html">
+      <a href="http://www.${row.make}.com">${row.make} Web Page</a>
+    </display:column>
+    <display:column title="Link" media="excel xml">
+      www.${row.make}.com
+    </display:column>
+  </display:table>
+
+</ajax:displayTag>
++------------------------------------------------------------------------+
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ id                   | Name of ID used for enclosing DIV tag written by tag       | yes
+*---------------------+------------------------------------------------------------+-------------*
+ pagelinksClass       | CSS class name of the DisplayTag's navigation links [default="pagelinks"] | no
+*---------------------+------------------------------------------------------------+-------------*
+ columnClass          | The CSS class of the TD within the THEAD of the table that should have their HREFs rewritten [default="sortable"] | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | false
+*---------------------+------------------------------------------------------------+-------------*
+
+* ajax:htmlContent
+~~~~~~~~~~~~~~~~~~
+
+  The HTML content tag allows you to fill a region on the page (often a DIV tag) with any HTML
+  content pulled from another webpage.  The AJAX action may be activated by attaching it to an
+  anchor link or form field.
+
+  This tag expects an HTML response instead of XML and the AJAX function will not parse it as XML;
+  it will simply insert the content of the response as is.
+
++------------------------------------------------------------------------+
+<div id="modelDescription"></div>
+<div id="htmlContentForm">
+  <p>Select by ANCHOR link.</p>
+  <ul>
+    <li><a href="javascript://nop/" class="contentLink">Ford</a></li>
+    <li><a href="javascript://nop/" class="contentLink">Honda</a></li>
+    <li><a href="javascript://nop/" class="contentLink">Mazda</a></li>
+  </ul>
+</div>
+
+<ajax:htmlContent
+  baseUrl="${pageContext.request.contextPath}/htmlcontent.view"
+  sourceClass="contentLink"
+  target="modelDescription"
+  parameters="q={ajaxParameter}" />
++------------------------------------------------------------------------+
+
+  <<Note: Tag must appear AFTER the web form.>>
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ var                  | Name of the JavaScript object created                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ attachTo             | Name of the JavaScript object to which htmlContent will attach.  You must define 'var' for this to work. | no
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes a simple command | yes
+*---------------------+------------------------------------------------------------+-------------*
+ source               | ID of the element to which the event will be attached      | either source or sourceClass must be defined
+*---------------------+------------------------------------------------------------+-------------*
+ sourceClass          | The CSS class name of the elements to which the event will be attached | either source or sourceClass must be defined
+*---------------------+------------------------------------------------------------+-------------*
+ target               | ID of DIV tag or other element that will be filled with the response's HTML | yes
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | yes
+*---------------------+------------------------------------------------------------+-------------*
+ eventType            | Specifies the event type to attach to the source field(s)  | no
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:portlet
+~~~~~~~~~~~~~~
+
+  The portlet tag simulates a <a href="http://www.jcp.org/en/jsr/detail?id=168">JSR-168</a>
+          style portlet by allowing you to define a portion of the page that pulls content from
+          another location using Ajax with or without a periodic refresh.
+
+  This tag expects an HTML response instead of XML and the AJAX function will not parse it
+          as XML; it will simply insert the content of the response as is.
+
++------------------------------------------------------------------------+
+<ajax:portlet
+  source="portlet_1"
+  baseUrl="${pageContext.request.contextPath}/htmlcontent.view?make=ford"
+  classNamePrefix="portlet"
+  title="Ford Portlet"
+  imageClose="${pageContext.request.contextPath}/img/close.png"
+  imageMaximize="${pageContext.request.contextPath}/img/maximize.png"
+  imageMinimize="${pageContext.request.contextPath}/img/minimize.png"
+  imageRefresh="${pageContext.request.contextPath}/img/refresh.png" />
++------------------------------------------------------------------------+
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ var                  | Name of the JavaScript object created                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ attachTo             | Name of the JavaScript object to which portlet will attach.  You must define 'var' for this to work. | no
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes a simple command | yes
+*---------------------+------------------------------------------------------------+-------------*
+ source               | ID of the portlet                                          | yes
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | no
+*---------------------+------------------------------------------------------------+-------------*
+ classNamePrefix      | CSS class name prefix to use for the portlet's 'Box', 'Tools', 'Refresh', 'Size', 'Close', 'Title', and 'Content' elements | yes
+*---------------------+------------------------------------------------------------+-------------*
+ title                | Title for portlet header                                   | yes
+*---------------------+------------------------------------------------------------+-------------*
+ imageClose           | Image used for the close icon                              | no
+*---------------------+------------------------------------------------------------+-------------*
+ imageMaximize        | Image used for the maximize icon                           | no
+*---------------------+------------------------------------------------------------+-------------*
+ imageMinimize        | Image used for the minimize icon                           | no
+*---------------------+------------------------------------------------------------+-------------*
+ imageRefresh         | Image used for the refresh icon                            | no
+*---------------------+------------------------------------------------------------+-------------*
+ refreshPeriod        | The time (in seconds) the portlet waits before automatically refreshing its content. If no period is specified, the portlet will not refresh itself automatically, but must be commanded to do so by clicking the refresh image/link (if one is defined). Lastly, the refresh will not occur until after the first time the content is loaded, so if executeOnLoad is set to false, the refresh will not begin until you manually refresh the first time. | no
+*---------------------+------------------------------------------------------------+-------------*
+ executeOnLoad        | Indicates whether the portlet's content should be retrieved when the page loads [default=true] | no
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:select
+~~~~~~~~~~~~~
+
+  The select tag allows one to retrieve a list of values from a backend servlet (or other
+  server-side control) and display them in another HTML select box.
+
++------------------------------------------------------------------------+
+<form>
+  Make:
+  <select id="make" name="make">
+    <option value="">Select make</option>
+    <c:forEach items="${makes}" var="make">
+      <option value="${make}">${make}</option>
+    </c:forEach>
+  </select>
+
+  Model:
+  <select id="model" name="model">
+    <option value="">Select model</option>
+  </select>
+</form>
+
+<ajax:select
+  baseUrl="${pageContext.request.contextPath}/GetCarModel.view"
+  source="make"
+  target="model"
+  parameters="make={make}"
+  postFunction="doOtherThings" />
++------------------------------------------------------------------------+
+
+  <<Note: Tag must appear AFTER the web form.>>
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ var                  | Name of the JavaScript object created                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ attachTo             | Name of the JavaScript object to which select will attach.  You must define 'var' for this to work. | no
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes a simple command | yes
+*---------------------+------------------------------------------------------------+-------------*
+ source               | The initial select field that will form the basis for the search via AJAX | yes
+*---------------------+------------------------------------------------------------+-------------*
+ target               | Select field where value of AJAX search will be populated  | yes
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | no
+*---------------------+------------------------------------------------------------+-------------*
+ eventType            | Specifies the event type to attach to the source field(s)  | no
+*---------------------+------------------------------------------------------------+-------------*
+ executeOnLoad        | Indicates whether the target select/dropdown should be populated when the object is initialized (this is essentially when the form loads) [default=false] | no
+*---------------------+------------------------------------------------------------+-------------*
+ defaultOptions       | A comma-seperated list of values of options to be marked as selected by default if they exist in the new set of options | no
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+ parser               | The response parser to implement [default=ResponseHtmlParser] | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:tabPanel
+~~~~~~~~~~~~~~~
+
+  Provides a tabbed page view of content from different resources
+
++------------------------------------------------------------------------+
+<ajax:tabPanel
+    id="ajaxCurrentTab">
+  <ajax:tab caption="Ford"
+    baseUrl="${pageContext.request.contextPath}/htmlcontent.view?make=ford"
+    defaultTab="true"/>
+  <ajax:tab caption="Honda"
+    baseUrl="${pageContext.request.contextPath}/htmlcontent.view"
+    parameters="make=honda"/>
+  <ajax:tab caption="Mazda"
+    baseUrl="${pageContext.request.contextPath}/htmlcontent.view"
+    parameters="make=mazda"/>
+</ajax:tabPanel>
++------------------------------------------------------------------------+
+
+** ajax:tabPanel
+~~~~~~~~~~~~~~~~
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ id         | ID of the tab panel                                        | yes
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+ parser               | The response parser to implement [default=ResponseHtmlParser] | no
+*---------------------+------------------------------------------------------------+-------------*
+
+** ajax:tab
+~~~~~~~~~~
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | The URL to use for the AJAX action, which will return content for this tab | yes
+*---------------------+------------------------------------------------------------+-------------*
+ caption              | The caption for this tab                                   | yes
+*---------------------+------------------------------------------------------------+-------------*
+ defaultTab           | Indicates whether this tab is the initial one loaded [true|false] | no
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:toggle
+~~~~~~~~~~~~~
+
+  The toggle tag uses a single image to represent the display of the ratings with the help of CSS
+  to manage the mouseover/mouseout.  Additionally, you may supply the tag with a form field to hold
+  the value of the selected rating.
+
++------------------------------------------------------------------------+
+<!-- To hold value of the selected rating; maps to the 'state' attribute -->
+<form id="toggleForm" action=".">
+  <input type="hidden" id="raterField" />
+</form>
+
+<h4>AJAX Rating System <span style="font:normal 8pt Verdana;">[${toggleRating}]</span></h4>
+<ajax:toggle
+  baseUrl="${pageContext.request.contextPath}/toggle.view"
+  source="rater1"
+  ratings="One,Two,Three,Four,Five"
+  defaultRating="${toggleRating}"
+  containerClass="star-rating"
+  messageClass="star-rating-message"
+  selectedClass="selected"
+  selectedOverClass="selectedover"
+  selectedLessClass="selectedless"
+  overClass="over"
+  onOff="false"
+  state="raterField"
+  preFunction="initProgress"
+  postFunction="resetProgress"
+  errorFunction="reportError"
+  />
++------------------------------------------------------------------------+
+
+  <<Note: Tag must appear AFTER the web form.>>
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ var                  | Name of the JavaScript object created                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ attachTo             | Name of the JavaScript object to which toggle will attach.  You must define 'var' for this to work. | no
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes a simple command from a toggle action; responds with a single option value and label | yes
+*---------------------+------------------------------------------------------------+-------------*
+ source               | A unique ID for each toggle tag                            | yes
+*---------------------+------------------------------------------------------------+-------------*
+ ratings              | Comma-delimited list of rating values                      | yes
+*---------------------+------------------------------------------------------------+-------------*
+ defaultRating        | The default rating to use from the 'ratings' list          | yes
+*---------------------+------------------------------------------------------------+-------------*
+ state                | ID of hidden form field used to hold the current state     | yes
+*---------------------+------------------------------------------------------------+-------------*
+ onOff                | Whether this is a simple on/off (two-value) rating [default=false] | no
+*---------------------+------------------------------------------------------------+-------------*
+ containerClass       | CSS style class for the container wrapping the toggle      | yes
+*---------------------+------------------------------------------------------------+-------------*
+ messageClass         | CSS style class for the message displayed as you mouseover each toggle image | no
+*---------------------+------------------------------------------------------------+-------------*
+ selectedClass        | CSS style class for the rating that's selected             | yes
+*---------------------+------------------------------------------------------------+-------------*
+ selectedLessClass    | CSS style class for the rating that is less than the selected one as you mouseover | yes
+*---------------------+------------------------------------------------------------+-------------*
+ selectedOverClass    | CSS style class for the rating that is greater than the selected one as you mouseover | yes
+*---------------------+------------------------------------------------------------+-------------*
+ overClass            | CSS style class for the rating that is greater than the selected one | yes
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | rating={ajaxParameter}
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+ parser               | The response parser to implement [default=ResponseHtmlParser] | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+* ajax:updateField
+~~~~~~~~~~~~~~~~~~
+
+  Builds the JavaScript required to update one or more form fields based on the value of another
+  single field.
+
++------------------------------------------------------------------------+
+<form>
+  <fieldset>
+  <legend>Velocity Conversion</legend>
+  <label for="mph">Miles/Hour (mph)</label>
+  <input type="text" id="mph" />
+  <input id="action" type="button" value="Go"/>
+
+  <label for="kph">Kilometers/Hour (kph)</label>
+  <input type="text" id="kph" />
+
+  <label for="mps">Meters/Second (m/s)</label>
+  <input type="text" id="mps" />
+  </fieldset>
+</form>
+
+<ajax:updateField
+  baseUrl="${pageContext.request.contextPath}/ConvertMPH.view"
+  source="mph"
+  target="kph,mps"
+  action="action"
+  parameters="mph={mph}" />
++------------------------------------------------------------------------+
+
+  <<Note: Tag must appear AFTER the web form.>>
+
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ var                  | Name of the JavaScript object created                      | no
+*---------------------+------------------------------------------------------------+-------------*
+ attachTo             | Name of the JavaScript object to which updateField will attach.  You must define 'var' for this to work. | no
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes a simple command | yes
+*---------------------+------------------------------------------------------------+-------------*
+ source               | The form field that will hold the parameter passed to the servlet | yes
+*---------------------+------------------------------------------------------------+-------------*
+ target               | A comma-delimited list of form field IDs that will be populated with results | yes
+*---------------------+------------------------------------------------------------+-------------*
+ action               | ID of form button or image tag that will fire the onclick event | yes
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | no
+*---------------------+------------------------------------------------------------+-------------*
+ eventType            | Specifies the event type to attach to the source field(s)  | no
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+ parser               | The response parser to implement [default=ResponseHtmlParser] | no
+*---------------------+------------------------------------------------------------+-------------*
+
+* ajax:tree
+~~~~~~~~~~~~~~~~~~
+
+  Builds the JavaScript required to create a tree
+
++------------------------------------------------------------------------+
+
+
+<ajax:tree 
+	baseUrl="${contextPath}/tree.view" 
+	id="cars"
+	parameters="node={ajaxParameter}"
+	nodeClass="nodeClass"
+	expandedClass="expandedNode"
+	collapsedClass="collapsedNode"
+	treeClass="tree">
+</ajax:tree>
++------------------------------------------------------------------------+
+
+  <<Note: The styleId value will be the first one sent to the baseUrl to get the nodes on the first level>>
+
+
+*---------------------+------------------------------------------------------------+-------------*
+ <<Parameter>>        | <<Description>>                                            | <<Required>>
+*---------------------+------------------------------------------------------------+-------------*
+ baseUrl              | URL of server-side action or servlet that processes a simple command | yes
+*---------------------+------------------------------------------------------------+-------------*
+ action               | ID of form button or image tag that will fire the onclick event | yes
+*---------------------+------------------------------------------------------------+-------------*
+ parameters           | A comma-separated list of parameters to pass to the server-side action or servlet | yes
+*---------------------+------------------------------------------------------------+-------------*
+ id              | The ID of the tree   | yes
+*---------------------+------------------------------------------------------------+-------------*
+ preFunction          | Function to execute before Ajax is begun                   | no
+*---------------------+------------------------------------------------------------+-------------*
+ postFunction         | Function to execute after Ajax is finished, allowing for a chain of additional functions to execute | no
+*---------------------+------------------------------------------------------------+-------------*
+ errorFunction        | Function to execute if there is a server exception (non-200 HTTP response) | no
+*---------------------+------------------------------------------------------------+-------------*
+ parser               | The response parser to implement [default=ResponseXmlToHtmlLinkListParser] | no
+*---------------------+------------------------------------------------------------+-------------*
+ collapsedClass       | CSS style class for the node's image(when collapsed) | no
+*---------------------+------------------------------------------------------------+-------------*
+ expandedClass        | CSS style class for the node's image(when expanded) | no
+*---------------------+------------------------------------------------------------+-------------*
+ treeClass            | CSS style class for the unsorted list(each node is hosted on one) | no
+*---------------------+------------------------------------------------------------+-------------*
+ nodeClass        | CSS style class for the node's link | no
+*---------------------+------------------------------------------------------------+-------------*
+
+
+

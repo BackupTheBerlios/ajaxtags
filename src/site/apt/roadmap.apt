@@ -1,0 +1,50 @@
+Roadmap
+~~~~~~~~
+
+* Dokumentation
+~~~~~~~~
+
+ [[1]] write plugins/parser for Ajaxtags
+ 
+ [[2]] howto implement/use Ajaxtags in other frameworks
+ 
+  [[1]] Struts
+  
+  [[2]] JSP 2.0 / Servlets
+
+* Version 1.5
+~~~~~~~~~~~
+
+** beta-X
+~~~~~~~
+
+ [[1]] users of this lib are now forced to write xhtml / fallback parser
+
+ [[2]] skip parsing wrong xhtml code! and throw JSPException DONE
+
+ [[3]] a bigger demo with more example to show and learn
+
+ [[5]] portlet changed no cookie is used now DONE (break JSR ???)
+
+ []
+
+** stable
+~~~~~~~~
+
+ [[1]] use of prototype >=(v1.6.0.2) DONE
+
+ [[2]] use of scriptaculous >=(v1.8.1) DONE
+
+ [[3]] overlib >=(25.10.2008) DONE
+
+ [[4]] only CSS style-class in default css file DONE
+
+ [[5]] SourceLoader for images, Javascript and CSS DONE
+
+ [[6]] update old JavaScript things (e.g. parsers and controls) DONE
+ 
+ [[7]] update dokumentation to version 1.5 
+
+ [[8]] warpper for jericho-html parser.
+
+ []

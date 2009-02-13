@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+  <!--
+  "type" attribute can be: add, remove, update or fix.
+-->
+<document>
+  <properties>
+    <title>Changes</title>
+    <author email="j.kapitza(at)schwarze-allianz.de">Jens Kapitza</author>
+  </properties>
+  <body>
+    <release version="1.5" date="In HG" description="">
+      <action type="update" dev="jenskapitza">we moved to Mercurial.</action>
+      <action type="add" dev="jenskapitza">import version 1.3.</action>
+      <action type="remove" dev="jenskapitza">drop support for java 1.4 and later</action>
+      <action type="remove" dev="jenskapitza">drop jericho html. and use integrated xml parser. this force the user to write xhtml</action>
+    </release>
+    <release version="1.4" date="BLACKLISTED" description="">
+      <action type="add" dev="jenskapitza">this version is blacklisted this version was used for testing javascript functions. this version was not compatible.</action>
+    </release>
+  </body>
+</document>

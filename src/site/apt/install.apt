@@ -1,0 +1,178 @@
+---
+Jens Kapitza 29.11.2008
+---
+
+Installation
+~~~~~~~~~~~~
+
+* Requirements
+~~~~~~~~~~~~~~
+
+ * JDK 1.5+
+ 
+ * Servlet container running Servlets 2.4+ and JSP 2.0+
+ 
+ * {{{dependencies.html}AjaxTags dependencies}}
+ 
+ * Maven 2 (If you intend to build from the source)
+
+
+* Installation and Set Up
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+** Step 1: Copy AjaxTags jar file
+~~~~~~~~~~~~~~~~~~~
+
+  Copy the <<<ajaxtags-$version$.jar>>> into your <<<WEB-INF/lib>>> directory. 
+
+
+** Step 2: Create Server-side Handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  There must be a server-side handler that will process the AJAX request.
+  This could be a servlet, Struts action, another JSP, or even a non-Java,
+  server-side component. The only requirement of this component is that it
+  return an XML file that represents a list of results based on the query
+  passed to it from the client-side AJAX functions.
+
+  There are helper classes to assist in building the XML if you don't want to 
+  do it by hand...see the {{{advanced.html}advanced guide}} for more information.
+
+*** XML Response
+~~~~~~~~~~~~~~~
+
++------------------------------------------------------------------------+
+<?xml version="1.0" encoding="UTF-8"?>
+<ajax-response>
+  <response>
+    <item>
+      <name>Record 1</name>
+      <value>1</value>
+    </item>
+    <item>
+      <name>Record 2</name>
+      <value>2</value>
+    </item>
+    <item>
+      <name>Record 3</name>
+      <value>3</value>
+    </item>
+  </response>
+</ajax-response>
++------------------------------------------------------------------------+
+
+
+*** Text Response
+~~~~~~~~~~~~~~~~
+
++------------------------------------------------------------------------+
+Record 1,1
+Record 2,2
+Record 3,3
++------------------------------------------------------------------------+
+
+*** Javascript Response
+~~~~~~~~~~~~~~~~~~~~~~~
+
++-----------------------------+
+var i=10;
+for (;i>0;i--){
+doStuff(i);
+}
++-----------------------------+
+
+*** HTML Response
+~~~~~~~~~~~~~~~~~~~
+
++-----------------------------+
+<p>Simple test</p>
+<b>Bold</b>
++-----------------------------+
+
+
+** Step 3: Declare TLD Reference on JSP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  For each JSP in which you wish to use the AJAX tag, simply define it as with any other tag
+  library.
+
++------------------------------------------------------------------------+
+<%@ taglib uri="http://ajaxtags.sourceforge.net/tags/ajaxtags" prefix="ajax" %>
++------------------------------------------------------------------------+
+
+** Step 4: Do the Servlet Mapping 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Map the resources wich are stored in jar file to an url
+
++------------------------------------------------------------------------+
+    <servlet>
+        <servlet-name>sourceloader</servlet-name>
+        <servlet-class>
+            net.sourceforge.ajaxtags.servlets.SourceLoader
+        </servlet-class>
+        <!-- you don't need this, don't use spaces in url-pattern!-->
+        <init-param>
+            <param-name>prefix</param-name>
+            <param-value>/ajaxtags</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>sourceloader</servlet-name>
+        <!-- if you have /js/ in use in you webapp just map the url (use the prefix)-->
+        <url-pattern>/ajaxtags/js/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>sourceloader</servlet-name>
+        <url-pattern>/img/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>sourceloader</servlet-name>
+        <url-pattern>/css/*</url-pattern>
+    </servlet-mapping>
++------------------------------------------------------------------------+
+
+
+
+** Step 5: Include JavaScript Core
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  With AJAX, you'll need JavaScript.  Fortunately, everything you'll 
+  need is included with a javascript loader file.
+  Incidentally, the reason why a (bulky) JavaScript source file was chosen
+  versus having each JSP tag generate only what it needs is because it's
+  assumed that most browsers cache external resources like stylesheets,
+  images, and JavaScript files.  This should increase performance slightly.
+  Besides, this core JavaScript is generic enough to use for other 
+  purposes that the tag library does not yet provide.
+
++------------------------------------------------------------------------+
+<script type="text/javascript" src="js/prototype.js"></script>
+<script type="text/javascript" src="js/scriptaculous/scriptaculous.js"></script>
+<script type="text/javascript" src="js/overlibmws/overlibmws.js"></script>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/ajaxtags.js"></script>
++------------------------------------------------------------------------+
+
+
+** Step 6: Define CSS Styles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Many tags rely heavily on CSS to help visually represent their function. For
+  example, in the case of the <code>ajax:autocomplete</code> tag, CSS
+  transforms a simple unordered list (i.e., <<<UL > LI>>> tags) into a dropdown list.
+
++------------------------------------------------------------------------+
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ajaxtags.css" />
+  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/displaytag.css" />
++------------------------------------------------------------------------+
+
+
+* Next: Usage
+~~~~~~~~~~~~~
+
+  Once everything is set up, all that's left is to pick you tag. See
+  {{{usage.html}how they're used}}.

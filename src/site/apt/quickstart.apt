@@ -1,0 +1,94 @@
+---
+Jens Kapitza 29.11.2008
+---
+
+Quick Start
+~~~~~~~~~~~
+
+ First follow the steps at {{{install.html}install}} page
+
+* Prepare JSP View
+~~~~~~~~~~~~~~~~~~
+
+  Your JSP, of course, is where it all comes together.
+
+  [[1]] declare the taglib
+  
+  [[2]] include a reference to the JavaScript source
+  
+  [[3]] include a reference to any CSS required
+  
+  [[4]] add your content
+  
+  [[5]] include the AJAX tag you want to use.
+
++------------------------------------------------------------------------+
+<!--Step 1 -->
+<%@ taglib uri="http://ajaxtags.org/tags/ajax" prefix="ajax" %>
+<!-- ..... -->
+
+<html>
+<head>
+  <title>AJAX JSP Tag Library</title>
+
+
+<!--Step 2 -->
+<script type="text/javascript" src="js/prototype.js"></script>
+<script type="text/javascript" src="js/scriptaculous/scriptaculous.js"></script>
+<script type="text/javascript" src="js/overlibmws/overlibmws.js"></script>
+<script type="text/javascript" src="js/ajaxtags.js"></script>
+
+
+<!--Step 3 -->
+  <!-- defaults for Autocomplete and displaytag -->
+  <link type="text/css" rel="stylesheet" href="/css/ajaxtags.css" />
+  <link type="text/css" rel="stylesheet" href="/css/displaytag.css" />
+
+
+</head>
+<body>
+
+
+<!--Step 4 -->
+<form>
+  Make:
+  <select id="make" name="make">
+    <option value="">Select make</option>
+    <c:forEach items="${makes}" var="make">
+      <option value="${make}">${make}</option>
+    </c:forEach>
+  </select>
+
+  Model:
+  <select id="model" name="model">
+    <option value="">Select model</option>
+  </select>
+</form>
+
+
+<!--Step 5 -->
+
+<ajax:select
+  baseUrl="${pageContext.request.contextPath}/GetCarModel.view"
+  source="make"
+  target="model"
+  parameters="make={make}" />
+
+
+
+</body>
+</html>
++------------------------------------------------------------------------+
+
+
+* Servlet example handler
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ TODO
+ 
+ 
+* Next: Usage
+~~~~~~~~~~~~~
+
+ See {{{usage.html}how they're used}}.
+ 

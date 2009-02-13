@@ -1,0 +1,80 @@
+---
+Jens Kapitza 27.11.2008
+---
+
+Ajax JSP Tag Library
+~~~~~~~~~~~~~~~~~~~~
+ The AJAX Tag Library is a set of JSP tags that simplify the use of Asynchronous
+ JavaScript and XML (AJAX) technology in JavaServer Pages.
+
+ AJAX is primarily rooted in JavaScript. However, many server-side developers
+ do not have an extensive knowledge of client-side programming in the browser.
+ It's much easier in some cases for J2EE developers, especially, to simply add
+ a JSP tag to the page to gain the function desired.
+
+ This tag library fills that need by not forcing J2EE developers to write
+ the necessary JavaScript to implement an AJAX-capable web form.
+ The tag library provides support for live form updates for the following
+ use cases: autocomplete based on character input to an input field,
+ select box population based on selections made from another field,
+ callout or balloon popups for highlighting content, refreshing form fields,
+ toggling images and form field states on/off.
+
+ The implementation is a combination of Java classes and JavaScript source files.
+ The Java code should be OS independent as there are no client side components.
+ However, the Java is dependent on JDK 1.5+ and requires a Servlet container to
+ run at least JSP version 2.0. The JavaScript should run in at least Firefox 2.0+
+ and Internet Explorer 6.0+. To get started, check out the
+ {{{install.html}install}} and {{{quickstart.html}quickstart}} guides.
+
+ While using the tag library please write XHTML code in your WEB application otherwise
+ tag will fail and throw an error. 
+ 
+* Tags Available
+~~~~~~~~~~~~~~~~
+
+*---------------------+--------------------------------------------------------------------------+
+ <<Tag>>              | <<Description>>
+*---------------------+--------------------------------------------------------------------------+
+ Autocomplete         | Retrieves a list of values that matches the string entered in a text form field as the user types.
+*---------------------+--------------------------------------------------------------------------+
+ Callout              | Displays a callout or popup balloon, anchored to an HTML element with an onclick event.
+*---------------------+--------------------------------------------------------------------------+
+ HTML Content Replace | Builds the JavaScript required to hook a content area (e.g., DIV tag) to a link, image, or other HTML element's onclick event.
+*---------------------+--------------------------------------------------------------------------+
+ Portlet              | Portlet-style capability from a AJAX-enabled JSP tag.
+*---------------------+--------------------------------------------------------------------------+
+ Select/dropdown      | Based on a selection within a dropdown field, a second select field will be populated.
+*---------------------+--------------------------------------------------------------------------+
+ Tab Panel / Tab      | Enable an AJAX-based set of property pages.
+*---------------------+--------------------------------------------------------------------------+
+ Toggle               | Uses images to create either a single on/off toggle or a sequential rating system.
+*---------------------+--------------------------------------------------------------------------+
+ Update Field         | Updates one or more form field values based on response to text entered in another field.
+*---------------------+--------------------------------------------------------------------------+
+ Area and Anchor      | Shows how to AJAX-enable any area of your page.
+*---------------------+--------------------------------------------------------------------------+
+ Ajax DisplayTag      | Shows how to AJAX-enable DisplayTag
+*---------------------+--------------------------------------------------------------------------+
+ Editor				  | Create an in-place editor		
+*---------------------+--------------------------------------------------------------------------+
+ Tree                 | Create an Tree view
+*---------------------+--------------------------------------------------------------------------+
+
+
+* Links
+~~~~~
+
+ [[1]] {{{http://www.adaptivepath.com/publications/essays/archives/000385.php}A New Approach to Web Applications}}
+
+ [[2]] {{{http://sourcelabs.com/ajb/archives/2005/05/ajax_mistakes.html}Ajax Mistakes}}
+
+ [[3]] {{{http://www.sitepoint.com/blog-post-view.php?id=171725}XMLHttpRequest and Javascript Closures}}
+
+ [[4]] {{{http://msdn.microsoft.com/library/default.asp?url=/library/en-us/xmlsdk/html/7924f6be-c035-411f-acd2-79de7a711b38.asp}XmlHttpRequest IE Spec}}
+
+ [[5]] {{{http://jpspan.sourceforge.net/wiki/doku.php?id=javascript:xmlhttprequest}XmlHttpRequest Intro}}
+
+ [[6]] {{{http://developer.apple.com/internet/webcontent/xmlhttpreq.html}XmlHttpRequest Apple}}
+
+

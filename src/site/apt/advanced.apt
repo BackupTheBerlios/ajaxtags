@@ -1,0 +1,305 @@
+---
+Jens Kapitza 29.11.2008
+---
+
+Advanced Techniques
+~~~~~~~~~~~~~~~~~~~
+
+* Chaining
+~~~~~~~~~~
+
+  Multiple fields can be hooked together in a way that implies dependencies between fields. The most
+  common use case is when using multiple select or dropdown fields. For example, let's say we want
+  to have the user select a make, model, and year of car. The form may look like this:
+
++------------------------------------------------------------------------+
+<form>
+  Make:
+  <select id="make" name="make">
+    <option value="">Select make</option>
+    <c:forEach items="${makes}" var="make">
+      <option value="${make}">${make}</option>
+    </c:forEach>
+  </select>
+
+  Model:
+  <select id="model" name="model" disabled="true">
+    <option value="">Select make</option>
+  </select>
+
+  Year:
+  <select id="year" name="year" disabled="true">
+    <option value="">Select model</option>
+  </select>
+</form>
++------------------------------------------------------------------------+
+
+  In this case, we're not defining any values for model or year because we'll have our AJAX
+  component populate them when the user selects a make and model, respectively.
+
+  Now, we need to define two ajax:select tags. The first will link the make and model fields. The
+  second will link the model and year fields.
+
++------------------------------------------------------------------------+
+<ajax:select
+  source="make"
+  target="model"
+  baseUrl="${pageContext.request.contextPath}/GetCarModel.view"
+  parameters="make"
+  postFunction="doOtherThings"/>
+
+<ajax:select
+  source="model"
+  target="year"
+  baseUrl="${pageContext.request.contextPath}/GetCarYear.view"
+  parameters="model"
+  postFunction="doOtherThings"/>
++------------------------------------------------------------------------+
+
+
+* Pre- and Post-Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Let's face it, every framework has limitations. So, in order to provide you with some way to
+  incorporate your existing JavaScript with these tags, the concept of pre- and post-functions was
+  developed. A pre-function is a JavaScript function that is called <before> the XMLHttpRequest
+  (i.e., to your backend action servlet) is executed. A post-function is, naturally, one called
+  <after> the XMLHttpRequest (and AJAX tag's base function) is completed. So, for those of you only
+  reading bullets:
+
+  * <<Pre-Function:>> JavaScript executed <before> AJAX executes.
+
+  * <<Post-Function:>> JavaScript executed <after> AJAX tag's base function completes.
+
+  []
+
+  Let's say we're using the ajax:select tag to help populate a list of automobile model names when
+  the user selects an automobile make. This is the same example used in the demo application.
+  However, we want to take it a step further and display an image of the auto maker's logo when that
+  first selection is made.
+
+  For instance, if the user selects "Ford" from the list of makes, we not only populate the second
+  dropdown field with names of Ford models but we also get that classic Ford emblem displayed on the
+  page. This second action merely requires a bit of JavaScript to replace a blank placeholder image
+  with that of the auto maker's. Because we AJAX JSP Tag authors didn't anticipate such fantastic
+  uses for web interfaces, we provided the means to attach a post-function to the AJAX tags so that
+  you more creative developers could tackle these harsh, real-world problems. Observe...
+
++------------------------------------------------------------------------+
+<div>
+  <img id="makerEmblem" src="images/placeholder.gif" width="76" height="29" />
+</div>
+
+<form name="carForm">
+  <label>Make:</label>
+  <select id="make" name="make">
+    <option value="">Select make</option>
+    <c:forEach items="${makes}" var="make">
+      <option value="${make}">${make}</option>
+    </c:forEach>
+  </select>
+
+  <label>Model</label>
+  <select id="model" name="model" disabled="true">
+    <option value="">Select make</option>
+  </select>
+</form>
+
+<script type="text/javascript">
+function showMakerEmblem() {
+  var index = document.forms["carForm"].make.selectedIndex;
+  if (index > 0) {
+    var automaker = document.forms["carForm"].make.options[index].text;
+    var imgTag = document.getElementById("makerEmblem");
+    imgTag.src = "images/" + automaker.toLowerCase() + "_logo.gif";
+  }
+}
+</script>
+
+<ajax:select
+  fieldId="make"
+  targetId="model"
+  baseUrl="${contextPath}/GetCarModel.view"
+  paramName="make"
+  postFunc="showMakerEmblem"/>
++------------------------------------------------------------------------+
+
+
+* Helper Classes
+~~~~~~~~~~~~~~~~
+
+** org.ajaxtags.helpers.AjaxXmlBuilder
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  The AjaxXmlBuilder class will help you construct a valid, well-formed XML string to pass back to
+  the client.  You can either add items selectively or add an entire collections.
+
+*** Passing a Collection
+~~~~~~~~~~~~~~~~~~~~~~~~
+
++------------------------------------------------------------------------+
+// Get maker from your service bean
+CarService service = new CarService();
+List list = service.getModelsByMake(make);
+
+return new AjaxXmlBuilder().addItems(list, "model", "make").toString();
++------------------------------------------------------------------------+
+
+  ...returns...
+
++------------------------------------------------------------------------+
+<?xml version="1.0" encoding="UTF-8"?>
+<ajax-response>
+  <response>
+    <item>
+      <name>Expedition</name>
+      <value>Ford</value>
+    </item>
+    <item>
+      <name>Focus</name>
+      <value>Ford</value>
+    </item>
+    ...
+  </response>
+</ajax-response>
++------------------------------------------------------------------------+
+
+*** Adding Individual Items
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
++------------------------------------------------------------------------+
+// Get maker from your service bean
+CarService service = new CarService();
+List list = service.getModelsByMake(make);
+
+AjaxXmlBuilder builder = new AjaxXmlBuilder();
+for (Iterator iter = list.iterator(); iter.hasNext();) {
+  Car car = (Car) iter.next();
+  builder.addItem(car.getModel(), car.getMake());
+}
+
+return builder.toString();
++------------------------------------------------------------------------+
+
+  ...returns the same as in the collections example above.
+
+
+* BaseAjaxServlet and BaseAjaxAction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+** org.ajaxtags.servlets.BaseAjaxServlet
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  AJAX functions require a backend resource to handle and respond to requests.  We've created an
+  abstract class to help you with that task.  Simply extend the BaseAjaxServlet and implement the
+  <<<getXmlContent(HttpServletRequest, HttpServletResponse)>>> method.
+
+** org.ajaxtags.servlets.BaseAjaxAction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  This is very similar to the BaseAjaxServlet, providing a Struts-based implementation.
+
+
+* Cascading StyleSheets
+~~~~~~~~~~~~~~~~~~~~~~~
+
+  While most of the features in AjaxTags comes from JavaScript, there is a heavy reliance on CSS for
+  the visual parts.  This is both a blessing and curse.  On the one hand, you have a great range of
+  flexibility to create your own visual appearance for the tags. However, if you forget to set up
+  the CSS (either with your own definitions or via our handy sample ones), you may get quite an
+  unexpected look.
+
+  We don't claim to be CSS experts.  <<If *you* happen to be a CSS guru, we'd love to have you join
+  the project!>>  Anyway, it should be easy enough to start with the sample CSS that's included in
+  both the distribution and demo application.  We would like to provide more examples or skins, so
+  please submit them and we'll consider adding them to the samples.
+
+  
+* Custom Response Parsers
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  One of the latest additions to the AjaxTags is the delegation of response parsing to separate
+  JavaScript functions.  What this means to you is that you have the ability of write your own
+  parser to suit the needs of any formatted response you decide to send from the backend.  We
+  provide several default ones for you.
+
+** Generic Structure
+~~~~~~~~~~~~~~~~~~~~
+
+  Your parser should extend the AbstractResponseParser (JavaScript) class.  You can do this using
+  the Protoype framework's Object.extend method as shown in the example below.
+
++------------------------------------------------------------------------+
+ResponseTextParser = Class.create();
+ResponseTextParser.prototype = Object.extend(new AbstractResponseParser(), {
+});
++------------------------------------------------------------------------+
+
+  You must implement at least two methods: initialize and load.  Think of the initialize method as
+  a pseudo-constructor.  The load method is called by each AjaxTag to perform the parsing of the
+  response.  It takes the XMLHttpRequest object as the only parameter.
+
++------------------------------------------------------------------------+
+ResponseTextParser = Class.create();
+ResponseTextParser.prototype = Object.extend(new AbstractResponseParser(), {
+  initialize: function() {
+  },
+
+  load: function(request) {
+  }
+});
++------------------------------------------------------------------------+
+
+  In the default parsers, the intialize function only serves to set a type property to a meaningful
+  descriptor for the parser.  For example:
+
++------------------------------------------------------------------------+
+ResponseTextParser = Class.create();
+ResponseTextParser.prototype = Object.extend(new AbstractResponseParser(), {
+  initialize: function() {
+    this.type = "text";
+  },
+
+  load: function(request) {
+  }
+});
++------------------------------------------------------------------------+
+
+  The load method pulls the response content and parses it.  In the case of the ResponseTextParser
+  shown below, we call a separate function called split to parse the comma-delimited text response.
+
++------------------------------------------------------------------------+
+ResponseTextParser = Class.create();
+ResponseTextParser.prototype = Object.extend(new AbstractResponseParser(), {
+  initialize: function() {
+    this.type = "text";
+  },
+
+  load: function(request) {
+    this.content = request.responseText;
+    this.split();
+  },
+
+  split: function() {
+    this.itemList = new Array();
+    var lines = this.content.split('\n');
+    for (var i=0; i<lines.length; i++) {
+      this.itemList.push(lines[i].split(','));
+    }
+  }
+});
++------------------------------------------------------------------------+
+
+  In the JSP itself, you simply define the parser you want to use.  Of course, you must (1) write
+  that custom parser and include the JavaScript code in your page, and (2) ensure that you send back
+  the appropriate response format you expect to the page.
+
++------------------------------------------------------------------------+
+<ajax:updateField
+  baseUrl="${contextPath}/formupdate.view"
+  source="mph"
+  target="kph,mps"
+  action="action"
+  parameters="mph={mph}"
+  parser="new ResponseTextParser()" />
++------------------------------------------------------------------------+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<publishDate position="navigation-bottom" format="yyyy-dd-MM" />
+	<body>
+		<!--
+		${project.name}
+		<breadcrumbs>
+			<item name="{ModulName}" href="index.html" mce_href="index.html"/>
+		</breadcrumbs>
+		-->
+		<menu ref="parent" />
+		<menu ref="modules" />
+		<menu ref="reports" />
+		<!-- <menu ref="reports"/> -->
+		<menu name="Overview">
+			<item name="Home" href="index.html" />
+			<item name="Quick Start" href="quickstart.html" />
+			<item name="Installation" href="install.html" />
+			<item name="Tag Reference" href="usage.html" />
+			<item name="Advanced Usage" href="advanced.html" />
+			<item name="Roadmap" href="roadmap.html" />
+			<item name="Download"
+				href="http://sourceforge.net/project/showfiles.php?group_id=140499" />
+		</menu>
+		<menu name="Support">
+			<item name="SourceForge Project Page" href="http://sourceforge.net/projects/ajaxtags/" />
+			<item name="Forums"
+				href="http://sourceforge.net/forum/forum.php?forum_id=471271" />
+			<item name="Issue Tracking" href="http://sourceforge.net/tracker/?group_id=140499" />
+			<item name="Mailing Lists" href="mail-lists.html" />
+			<item name="FAQ" href="faq.html" />
+		</menu>
+
+		<menu name="AJAX Links">
+			<item name="Dojo browser toolkit" href="http://dojotoolkit.org/" />
+			<item name="Direct Web Remoting" href="http://www.getahead.ltd.uk/dwr/" />
+			<item name="Scriptaculous" href="http://script.aculo.us/" />
+			<item name="Prototype framework" href="http://www.prototypejs.org/" />
+			<item name="JSON-RPC-Java" href="http://oss.metaparadigm.com/jsonrpc/" />
+			<item name="Java Web Parts" href="http://javawebparts.sourceforge.net/" />
+			<item name="AJAX Matters" href="http://www.ajaxmatters.com/" />
+			<item name="Tag Ajax Patterns" href="http://ajaxpatterns.org/" />
+			<item name="Ajaxian" href="http://ajaxian.com/" />
+			<item name="Ajax Blog" href="http://ajaxblog.com/" />
+		</menu>
+
+		<menu name="People Using AjaxTags">
+			<item name="ART" href="http://art.sourceforge.net" />
+		</menu>
+	</body>
+</project>
