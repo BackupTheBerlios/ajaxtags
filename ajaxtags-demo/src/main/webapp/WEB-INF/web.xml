@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>AjaxTagsDemo</display-name>
+    <servlet>
+        <servlet-name>sourceloader</servlet-name>
+        <servlet-class>net.sourceforge.ajaxtags.servlets.SourceLoader</servlet-class>
+
+        <init-param>
+            <param-name>prefix</param-name>
+            <param-value>/ajaxtags</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>sourceloader</servlet-name>
+        <url-pattern>/ajaxtags/js/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>sourceloader</servlet-name>
+        <url-pattern>/img/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>sourceloader</servlet-name>
+        <url-pattern>/css/*</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>autocomplete</servlet-name>
+        <servlet-class>
+			net.sourceforge.ajaxtags.demo.servlet.AutocompleteServlet
+        </servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>autocomplete</servlet-name>
+        <url-pattern>/autocomplete.view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>nameinput</servlet-name>
+        <servlet-class>net.sourceforge.ajaxtags.demo.servlet.NameInput</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>nameinput</servlet-name>
+        <url-pattern>/nameinput.view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>dropdown</servlet-name>
+        <servlet-class>net.sourceforge.ajaxtags.demo.servlet.DropdownServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dropdown</servlet-name>
+        <url-pattern>/dropdown.view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>formupdate</servlet-name>
+        <servlet-class>
+			net.sourceforge.ajaxtags.demo.servlet.FormUpdateServlet
+        </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>formupdate</servlet-name>
+        <url-pattern>/formupdate.view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>callout</servlet-name>
+        <servlet-class>net.sourceforge.ajaxtags.demo.servlet.CalloutServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>callout</servlet-name>
+        <url-pattern>/callout.view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>toggle</servlet-name>
+        <servlet-class>net.sourceforge.ajaxtags.demo.servlet.ToggleServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>toggle</servlet-name>
+        <url-pattern>/toggle.view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>htmlcontent</servlet-name>
+        <servlet-class>
+			net.sourceforge.ajaxtags.demo.servlet.HtmlContentServlet
+        </servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>htmlcontent</servlet-name>
+        <url-pattern>/htmlcontent.view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>tree</servlet-name>
+        <servlet-class>net.sourceforge.ajaxtags.demo.servlet.TreeServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>tree</servlet-name>
+        <url-pattern>/tree.view</url-pattern>
+    </servlet-mapping>
+	<!--
+
+		<filter> <filter-name>ResponseOverrideFilter</filter-name>
+		<filter-class> org.displaytag.filter.ResponseOverrideFilter
+		</filter-class> </filter> <filter-mapping>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<url-pattern>/displaytag.jsp</url-pattern> </filter-mapping>
+	-->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

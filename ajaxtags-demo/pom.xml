@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>ajaxtags-doc</artifactId>
+		<groupId>ajaxtags</groupId>
+		<version>1.5-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ajaxtags</groupId>
+	<artifactId>ajaxtags-demo</artifactId>
+	<packaging>war</packaging>
+	<name>Ajaxtags library examples</name>
+	<version>1.5-SNAPSHOT</version>
+	<description>Example webapp for the ajaxtags tag library</description>
+	<dependencies>
+		<dependency>
+			<groupId>displaytag</groupId>
+			<artifactId>displaytag</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.ajaxtags</groupId>
+			<artifactId>ajaxtags</artifactId>
+			<version>${version}</version>
+		</dependency>
+	</dependencies>
+</project>
