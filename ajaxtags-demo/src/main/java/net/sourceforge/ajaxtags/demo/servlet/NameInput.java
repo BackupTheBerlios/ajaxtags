@@ -31,7 +31,7 @@ public class NameInput extends BaseAjaxServlet {
     private static final long serialVersionUID = 1L;
 
 
-    public String getXmlContent(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+    public String getXmlContent(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException  {
         AjaxXmlBuilder xml = new AjaxXmlBuilder();
         xml.addItem("name", arg0.getParameter("name"));
         int age = -1;

@@ -196,11 +196,12 @@
 				<!-- generating the documentation -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<executions>
 					<!--
 					if we execute the package goal then,
 					generate the site, too
 					-->
+<!--
+				<executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
@@ -208,6 +209,7 @@
 						</goals>
 					</execution>
 				</executions>
+-->
 
 			</plugin>
 			<plugin>

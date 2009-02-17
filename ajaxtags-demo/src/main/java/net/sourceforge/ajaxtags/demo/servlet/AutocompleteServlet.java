@@ -57,7 +57,7 @@ public class AutocompleteServlet extends BaseAjaxServlet {
      *      javax.servlet.http.HttpServletResponse)
      */
     public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
-                    throws Exception {
+                    throws  ServletException, IOException {
         String model = request.getParameter("model");
         CarService service = new CarService();
         List<Car> list = service.getModelsByName(model);

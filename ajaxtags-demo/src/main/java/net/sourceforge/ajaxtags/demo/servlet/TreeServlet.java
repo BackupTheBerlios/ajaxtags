@@ -46,7 +46,7 @@ public class TreeServlet extends BaseAjaxServlet {
      *      javax.servlet.http.HttpServletResponse)
      */
     public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
-                    throws Exception {
+                    throws ServletException, IOException  {
         String action = request.getParameter("action");
         String node = request.getParameter("node");
         if ((action != null) && action.equalsIgnoreCase("info")) {

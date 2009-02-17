@@ -46,7 +46,7 @@ public class DropdownServlet extends BaseAjaxServlet {
      *      javax.servlet.http.HttpServletResponse)
      */
     public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
-                    throws Exception {
+                    throws ServletException, IOException {
         String make = request.getParameter("make");
         // Get maker from your service bean
         CarService service = new CarService();

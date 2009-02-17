@@ -47,7 +47,7 @@ public class FormUpdateServlet extends BaseAjaxServlet {
      * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
      */
-    public String getXmlContent(HttpServletRequest request, HttpServletResponse response) {
+    public String getXmlContent(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
         double mph = 0, kph = 0, mps = 0;
         try {
             mph = Double.parseDouble(request.getParameter("mph"));

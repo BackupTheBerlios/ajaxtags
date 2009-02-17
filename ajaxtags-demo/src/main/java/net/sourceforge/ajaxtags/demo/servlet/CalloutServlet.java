@@ -52,7 +52,7 @@ public class CalloutServlet extends BaseAjaxServlet {
      * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
      */
-    public String getXmlContent(HttpServletRequest request, HttpServletResponse response) {
+    public String getXmlContent(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
 
         String param = request.getParameter("q");
         if (param == null) {

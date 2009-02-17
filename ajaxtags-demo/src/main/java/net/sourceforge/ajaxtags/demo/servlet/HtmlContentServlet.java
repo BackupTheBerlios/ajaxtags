@@ -44,7 +44,7 @@ public class HtmlContentServlet extends BaseAjaxServlet {
      *      javax.servlet.http.HttpServletResponse)
      */
     public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
-                    throws Exception {
+                    throws ServletException, IOException  {
         String make = request.getParameter("make");
         if (make == null) {
             make = "";
