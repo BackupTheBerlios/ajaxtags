@@ -15,8 +15,10 @@
  */
 package net.sourceforge.ajaxtags.demo.servlet;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,8 +26,6 @@ import net.sourceforge.ajaxtags.demo.Car;
 import net.sourceforge.ajaxtags.demo.CarService;
 import net.sourceforge.ajaxtags.servlets.BaseAjaxServlet;
 import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
-
-
 
 /**
  * An example servlet that responds to an ajax:autocomplete tag action. This
@@ -46,24 +46,28 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
  */
 public class AutocompleteServlet extends BaseAjaxServlet {
 
-    /**
+	/**
      * 
      */
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-
-    /**
-     * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse)
-     */
-    public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
-                    throws  ServletException, IOException {
-        String model = request.getParameter("model");
-        CarService service = new CarService();
-        List<Car> list = service.getModelsByName(model);
-        // Thread.sleep(3000); // sleep 3 sec
-        // Create xml schema
-        return new AjaxXmlBuilder().addItems(list, "model", "make", true).toString();
-    }
+	/**
+	 * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
+	 */
+	public String getXmlContent(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String model = request.getParameter("model");
+		CarService service = new CarService();
+		List<Car> list = service.getModelsByName(model);
+		// Thread.sleep(3000); // sleep 3 sec
+		// Create xml schema
+		try {
+			return new AjaxXmlBuilder().addItems(list, "model", "make", true)
+					.toString();
+		} catch (Exception e) {
+			throw new ServletException(e);
+		}
+	}
 
 }

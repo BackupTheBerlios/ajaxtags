@@ -15,9 +15,11 @@
  */
 package net.sourceforge.ajaxtags.demo.servlet;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
