@@ -148,6 +148,7 @@
 	</prerequisites>
 	-->
 	<build>
+		<defaultGoal>package</defaultGoal>
 		<!-- the following lines should be the default -->
 		<!--
 		<resources>
