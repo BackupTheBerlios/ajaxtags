@@ -9,6 +9,7 @@
   </properties>
   <body>
     <release version="1.5" date="In HG" description="">
+      <action type="update" dev="jenskapitza">Depends on JSP-API 2.1 and Servlet-API 2.5, cause flush does not work with area styled tags.</action>
       <action type="update" dev="jenskapitza">we moved to Mercurial.</action>
       <action type="add" dev="jenskapitza">import version 1.3.</action>
       <action type="remove" dev="jenskapitza">drop support for java 1.4 and later</action>

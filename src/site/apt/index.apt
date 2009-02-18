@@ -23,8 +23,7 @@ Ajax JSP Tag Library
  The implementation is a combination of Java classes and JavaScript source files.
  The Java code should be OS independent as there are no client side components.
  However, the Java is dependent on JDK 1.5+ and requires a Servlet container to
- run at least JSP version 2.0. The JavaScript should run in at least Firefox 2.0+
- and Internet Explorer 6.0+. To get started, check out the
+ run at least JSP version 2.0. Just if you need includes with the area Tag you will need JSP version 2.1 (Tomcat6+). The JavaScript should run in at least Firefox 2.0+  and Internet Explorer 6.0+. To get started, check out the
  {{{install.html}install}} and {{{quickstart.html}quickstart}} guides.
 
  While using the tag library please write XHTML code in your WEB application otherwise

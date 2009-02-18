@@ -10,7 +10,7 @@ Installation
 
  * JDK 1.5+
  
- * Servlet container running Servlets 2.4+ and JSP 2.0+
+ * Servlet container running Servlets 2.5+ and JSP 2.1+, cause you need flush=false if you use include with areaTag. For all other things you can use JSP 2.0.
  
  * {{{dependencies.html}AjaxTags dependencies}}
  
