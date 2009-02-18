@@ -18,3 +18,11 @@ Date: ${now}
 	<jsp:include page="displaytag_bug.jsp" flush="false"></jsp:include>
 </ajax:displayTag>
 <br />
+<strong>No flush here</strong>
+<!-- true woun't work here -->
+<jsp:include page="simple.jsp" flush="false"></jsp:include>
+<br />
+<ajax:displayTag id="displayTagFrame1">
+	<jsp:include page="displaytag_bug.jsp" flush="false"></jsp:include>
+</ajax:displayTag>
+<br />
