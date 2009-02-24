@@ -20,6 +20,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -87,13 +88,16 @@ public final class XMLUtils {
 
     public static Object evaluateXPathExpression(final String expression, final Node node,
                     final QName returnValue) throws XPathExpressionException {
-        return xPathFactory.get().newXPath().evaluate(expression, node, returnValue);
+        return xPathFactory.get().newXPath().evaluate(expression, node, returnValue == null ? XPathConstants.NODE : returnValue);
     }
 
 
+    private static DocumentBuilder getNewDocumentBuilder() throws ParserConfigurationException {
+    	return docFactory.get().newDocumentBuilder();
+    }
     public static Document getXMLDocument(String xml) throws SAXException {
         try {
-            return docFactory.get().newDocumentBuilder().parse(
+            return getNewDocumentBuilder().parse(
                             new InputSource(new StringReader(xml)));
         }
         catch (IOException e) {
@@ -112,7 +116,7 @@ public final class XMLUtils {
      * @throws ParserConfigurationException
      */
     public static Document createDocument() throws ParserConfigurationException {
-        return docFactory.get().newDocumentBuilder().newDocument();
+        return getNewDocumentBuilder().newDocument();
     }
 
 
