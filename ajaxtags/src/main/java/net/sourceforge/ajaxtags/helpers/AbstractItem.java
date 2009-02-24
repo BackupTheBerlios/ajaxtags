@@ -123,7 +123,7 @@ public abstract class AbstractItem<T> {
      * set an attribute to extend the item
      * 
      * @param name
-     *            the name for the attrubute
+     *            the name for the attribute
      * @param value
      *            the value for the attribute
      */
@@ -136,7 +136,7 @@ public abstract class AbstractItem<T> {
      * set an attribute to extend the item
      * 
      * @param name
-     *            the name for the attrubute
+     *            the name for the attribute
      * @param value
      *            the value for the attribute
      * @param evenIfNull
