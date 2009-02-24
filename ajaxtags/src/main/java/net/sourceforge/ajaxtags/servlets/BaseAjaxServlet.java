@@ -41,7 +41,7 @@ public abstract class BaseAjaxServlet extends GenericServlet implements BaseAjax
 
     @Override
     public String getServletInfo() {
-        return "Ajax Servlet (ajaxtags)";
+        return "Ajax Servlet (AjaxTags)";
     }
 
 

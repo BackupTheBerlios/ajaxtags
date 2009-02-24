@@ -56,7 +56,7 @@ public final class AjaxActionHelper {
         // prepare CALL
         try {
             request.setCharacterEncoding("UTF-8");
-        }
+        } // we will use utf-8
         catch (UnsupportedEncodingException e) {
             throw new ServletException(e);
         }

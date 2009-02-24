@@ -5,10 +5,7 @@
 		<artifactId>ajaxtags-doc</artifactId>
 		<groupId>ajaxtags</groupId>
 		<version>1.5-SNAPSHOT</version>
-<!--
-		<relativePath>../</relativePath>
--->	</parent>
-
+	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ajaxtags</groupId>
 	<artifactId>ajaxtags</artifactId>
