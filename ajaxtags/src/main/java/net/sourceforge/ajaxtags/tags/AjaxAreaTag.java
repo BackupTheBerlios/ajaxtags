@@ -17,6 +17,7 @@ package net.sourceforge.ajaxtags.tags;
 
 import java.io.IOException;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
@@ -94,12 +95,13 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
         div.append(processContent(getBody()));
         div.setClassName(getStyleClass());
         out(isAjaxRequest() ? div.getBody() : div);
+
+        if (isAjaxRequest() && getHttpServletResponse().isCommitted()){
+            throw new JspException("the request was flushed before");
+        }
+
         return isAjaxRequest() ? SKIP_PAGE : EVAL_PAGE;
-        // XXX SKIP will not work if
-        // it is buffed!
-        // check if this is a buffed tag!
-        // then all the out string must go to the request!
-    }
+     }
 
 
     /**
@@ -117,19 +119,13 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      * 
      * @throws JspException
      */
+    @Override
     public void initParameters() throws JspException {
-        // XXX displaxtag error ????
-        // TODO skip page make problems
-        if (isAjaxRequest()) {
-            try {
-                pageContext.getOut().clearBuffer();
-                // pageContext.getOut().clear();
-                // pageContext.getOut().flush();
-            }
-            catch (IOException ex) {
-                throw new JspException(ex.getMessage());
-            }
-        }
+        if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
+           throw new JspException("try to avoid flush befor");
+        } else {
+            getHttpServletResponse().reset();
+       }
     }
 
 
@@ -144,4 +140,5 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     protected String processContent(String content) throws JspException {
         return isAjaxAnchors() ? ajaxAnchors(content, getId()) : content;
     }
+
 }

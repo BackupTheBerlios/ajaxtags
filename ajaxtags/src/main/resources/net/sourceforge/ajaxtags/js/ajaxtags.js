@@ -333,8 +333,11 @@ AjaxJspTag.Base = Class.create({
         }
         options = Object.extend( {
             frequency : this.options.refreshPeriod
+        //  onComplete : function(){ options.onComplete(); }
         }, this.getDefaultOptions(options, ajaxParam));
         // XXX bug this isn't released if target is not available
+        // we need to check here if target is available, else wie should
+        // stop the request
         return new Ajax.PeriodicalUpdater(this.options.target,
             this.options.baseUrl, options);
     },

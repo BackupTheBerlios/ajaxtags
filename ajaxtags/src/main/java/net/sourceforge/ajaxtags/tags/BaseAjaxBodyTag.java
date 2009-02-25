@@ -18,6 +18,7 @@ package net.sourceforge.ajaxtags.tags;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -48,6 +49,9 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return (HttpServletRequest) pageContext.getRequest();
     }
 
+    protected HttpServletResponse getHttpServletResponse() {
+        return (HttpServletResponse) pageContext.getResponse();
+    }
 
     protected boolean isHttpRequestHeader(final String headerName, final String headerValue) {
         return headerValue.equalsIgnoreCase(getHttpRequestHeader(headerName));
@@ -100,11 +104,8 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     @Override
     final public int doStartTag() throws JspException {
-        initParameters();
-        return skipBody ? SKIP_BODY : EVAL_BODY_BUFFERED; // XXX area tag and
-        // displaytag have
-        // problems
-        // with this!
+        initParameters(); // EVAL_BODY need to be flushed if it is nested!
+        return skipBody ? SKIP_BODY : EVAL_BODY_BUFFERED;
     }
 
 

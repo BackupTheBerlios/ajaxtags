@@ -53,7 +53,6 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
         options.add("valueUpdateByName", String.valueOf(this.valueUpdateByName), false);
 
         JavaScript script = new JavaScript();
-        // XXX check js data
         script.append(getJSVariable());
         script.append(" new AjaxJspTag.UpdateField(\n").append("{\n").append(options.toString())
                         .append("});\n");
