@@ -9,6 +9,7 @@
 	<inceptionYear>2005</inceptionYear>
 	<modules>
 		<module>ajaxtags</module>
+		<module>ajaxtags-resources</module>
 		<module>ajaxtags-demo</module>
 	</modules>
 	<url>http://ajaxtags.sourceforge.net/</url>

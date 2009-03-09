@@ -24,5 +24,10 @@
 			<artifactId>ajaxtags</artifactId>
 			<version>${version}</version>
 		</dependency>
+		<dependency>
+			<groupId>ajaxtags</groupId>
+			<artifactId>ajaxtags-resources</artifactId>
+			<version>${version}</version>
+		</dependency>
 	</dependencies>
 </project>
