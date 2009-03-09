@@ -15,7 +15,7 @@
  */
 
 var AjaxJspTag = {
-    Version :'1.3',
+    Version :'1.5',
     /**
 	 * store all tags wich have listeners
 	 */
@@ -812,15 +812,16 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base,{
     setOptions : function(options) {
 
         this.options = Object.extend( {
-            close :  (options.imageClose && options.withBar && options.source),
-            refresh: (options.imageRefresh && options.withBar && options.source),
-            toggle : (options.imageMinimize && options.imageMaximize && options.withBar && options.source),
+            close :  (options.imageClose &&  options.source),
+            refresh: (options.imageRefresh  && options.source),
+            toggle : (options.imageMinimize && options.imageMaximize && options.source),
             eventType : "click",
             parser : new DefaultResponseParser("html")
         }, options || {});
-        
-    },
+        // bar yes if any image is set!
+           this.options.withBar = (this.options.close || this.options.refresh || this.options.toggle);
 
+    },
     setListeners : function() {
         var o = this.options;
         if (o.close) {

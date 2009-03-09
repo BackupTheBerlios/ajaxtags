@@ -134,20 +134,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
     public void setTitle(String title) {
         this.title = title;
     }
-
-
-    @Override
-    protected void initParameters() throws JspException {
-        if (!this.withBar) {
-            this.imageClose = null;
-            this.imageMaximize = null;
-            this.imageMinimize = null;
-            this.imageRefresh = null;
-        }
-        super.initParameters();
-    }
-
-
+    
     @Override
     public int doEndTag() throws JspException {
         OptionsBuilder options = getOptionsBuilder();
@@ -160,7 +147,6 @@ public class AjaxPortletTag extends BaseAjaxTag {
         options.add("refreshPeriod", this.refreshPeriod, true);
         options.add("executeOnLoad", this.executeOnLoad);
         options.add("startMinimize", this.startMinimize);
-        options.add("withBar", this.withBar);
 
         final DIVElement div = new DIVElement(getSource());
         final JavaScript script = new JavaScript();
@@ -175,7 +161,6 @@ public class AjaxPortletTag extends BaseAjaxTag {
     @Override
     protected void releaseTag() {
         this.startMinimize = false;
-        this.withBar = false;
         this.classNamePrefix = null;
         this.title = null;
         this.imageClose = null;
@@ -186,16 +171,4 @@ public class AjaxPortletTag extends BaseAjaxTag {
         this.executeOnLoad = false;
     }
 
-
-    public boolean getWithBar() {
-        return withBar;
-    }
-
-
-    private boolean withBar;
-
-
-    public void setWithBar(boolean withBar) {
-        this.withBar = withBar;
-    }
 }
