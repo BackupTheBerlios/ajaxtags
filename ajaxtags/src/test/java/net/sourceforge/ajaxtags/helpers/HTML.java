@@ -27,11 +27,7 @@ public class HTML {
 
     @Test
     public void test() {
-        DIVElement e = new DIVElement("ka");
-        e.setClassName("bla");
-        System.out.println(e);
-        JavaScript es = new JavaScript();
-        System.out.println(es);
+   
     }
 
 }
