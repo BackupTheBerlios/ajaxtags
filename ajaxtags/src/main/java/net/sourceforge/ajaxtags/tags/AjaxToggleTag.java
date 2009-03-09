@@ -21,8 +21,6 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 import net.sourceforge.ajaxtags.helpers.HTMLElementFactory;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
-
-
 /**
  * Tag handler for the toggle (on/off, true/false) AJAX tag.
  * 
@@ -45,126 +43,103 @@ public class AjaxToggleTag extends BaseAjaxTag {
     private String overClass;
     private String updateFunction;
 
-
     public String getUpdateFunction() {
         return updateFunction;
     }
-
 
     public void setUpdateFunction(String updateFunction) {
         this.updateFunction = updateFunction;
     }
 
-
     public String getContainerClass() {
         return containerClass;
     }
-
 
     public void setContainerClass(String containerClass) {
         this.containerClass = containerClass;
     }
 
-
     public String getDefaultRating() {
         return defaultRating;
     }
-
 
     public void setDefaultRating(String defaultRating) {
         this.defaultRating = defaultRating;
     }
 
-
     public String getMessageClass() {
         return messageClass;
     }
-
 
     public void setMessageClass(String messageClass) {
         this.messageClass = messageClass;
     }
 
-
     public String getOnOff() {
         return onOff;
     }
-
 
     public void setOnOff(String onOff) {
         this.onOff = onOff;
     }
 
-
     public String getOverClass() {
         return overClass;
     }
-
 
     public void setOverClass(String overClass) {
         this.overClass = overClass;
     }
 
-
     public String getRatings() {
         return ratings;
     }
-
 
     public void setRatings(String ratings) {
         this.ratings = ratings;
     }
 
-
     public String getSelectedClass() {
         return selectedClass;
     }
-
 
     public void setSelectedClass(String selectedClass) {
         this.selectedClass = selectedClass;
     }
 
-
     public String getSelectedLessClass() {
         return selectedLessClass;
     }
-
 
     public void setSelectedLessClass(String selectedLessClass) {
         this.selectedLessClass = selectedLessClass;
     }
 
-
     public String getSelectedOverClass() {
         return selectedOverClass;
     }
-
 
     public void setSelectedOverClass(String selectedOverClass) {
         this.selectedOverClass = selectedOverClass;
     }
 
-
     public String getState() {
         return state;
     }
-
 
     public void setState(String state) {
         this.state = state;
     }
 
-
     @Override
     public int doEndTag() throws JspException {
         OptionsBuilder options = getOptionsBuilder();
-        options.add("ratings", this.ratings, true).add("containerClass", this.containerClass, true)
-                        .add("selectedClass", this.selectedClass, true).add("selectedOverClass",
-                                        this.selectedOverClass, true).add("selectedLessClass",
-                                        this.selectedLessClass, true).add("overClass",
-                                        this.overClass, true);
-
+        options.add("ratings", this.ratings, true);
+        options.add("containerClass", this.containerClass, true);
+        options.add("selectedClass", this.selectedClass, true);
+        options.add("selectedOverClass",this.selectedOverClass, true);
+        options.add("selectedLessClass",this.selectedLessClass, true);
+        options.add("overClass",this.overClass, true);
         options.add("messageClass", this.messageClass, true);
         options.add("state", this.state, true);
         options.add("onOff", this.onOff, true);
@@ -182,17 +157,13 @@ public class AjaxToggleTag extends BaseAjaxTag {
         // write links
         if (xOnOff) {
             div.append("<a href=\"").append(AJAX_VOID_URL).append("\" title=\"");
-            if (defaultRating != null && defaultRating.length() != 0 && ratings != null
-                            && ratings.length() != 0
-                            && this.defaultRating.equalsIgnoreCase(this.ratings.split(",")[0])) {
+            if (defaultRating != null && defaultRating.length() != 0 && ratings != null && ratings.length() != 0 && this.defaultRating.equalsIgnoreCase(this.ratings.split(",")[0])) {
                 div.append(this.ratings.split(",")[0]).append("\" class=\"").append(
-                                this.selectedClass).append("\"></a>");
-            }
-            else {
+                        this.selectedClass).append("\"></a>");
+            } else {
                 div.append(this.ratings.split(",")[1]).append("\"></a>");
             }
-        }
-        else {
+        } else {
             boolean ratingMatch = false;
             String[] ratingValues = this.ratings.split(",");
             for (int i = 0; i < ratingValues.length; i++) {
@@ -201,10 +172,9 @@ public class AjaxToggleTag extends BaseAjaxTag {
 
                 if (defaultRating == null || defaultRating.trim().length() == 0 || ratingMatch) {
                     div.append(val).append("\"></a>");
-                }
-                else if (!ratingMatch || this.defaultRating.equalsIgnoreCase(val)) {
+                } else if (!ratingMatch || this.defaultRating.equalsIgnoreCase(val)) {
                     div.append(val).append("\" class=\"").append(this.selectedClass).append(
-                                    "\"></a>");
+                            "\"></a>");
                     if (this.defaultRating.equalsIgnoreCase(val)) {
                         ratingMatch = true;
                     }
@@ -221,7 +191,6 @@ public class AjaxToggleTag extends BaseAjaxTag {
         out(div);
         return EVAL_PAGE;
     }
-
 
     @Override
     public void releaseTag() {
