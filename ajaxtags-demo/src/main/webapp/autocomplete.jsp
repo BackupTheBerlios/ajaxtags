@@ -33,15 +33,6 @@
 list of probable values from a backend servlet (or other server-side
 control) and display them in a dropdown beneath an HTML text input
 field.</p>
-<p>The user may then use the cursor and ENTER keys or the mouse to
-make a selection from that list of labels, which is then populated into
-the text field. This JSP tag also allows for a second field to be
-populated with the value or ID of the item in the dropdown.</p>
-<p>You'll notice that an image is used to indicate a busy state
-while the XMLHttpRequest object is making it's request to the
-server-side. This is a bit of JavaScript/CSS trickery--check the source
-to see how it's done.</p>
-</div>
 
 <form action="." class="basicForm">
 <fieldset><legend>Enter Car Model</legend>

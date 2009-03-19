@@ -1,4 +1,4 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%--
  * Copyright 2005 Darren L. Spurgeon
@@ -81,21 +81,25 @@ You can not only run each example, but you can view the JSP and backend
 servlet source code.</p>
 </div>
 
-<ajax:tabPanel id="panelIndex">
-<ajax:tab caption="Autocomplete" baseUrl="autocomplete.jsp"/>
-<ajax:tab caption="Callout" baseUrl="callout.jsp"/>
-<ajax:tab caption="Form Update" baseUrl="formupdate.jsp"  defaultTab="true"/>
-<ajax:tab caption="HtmlContent" baseUrl="htmlcontent.jsp"/>
-<ajax:tab caption="Portlet" baseUrl="portlet.jsp"/>
-<ajax:tab caption="Select/Dropdown" baseUrl="dropdown.jsp"/>
-<ajax:tab caption="Tab Panel" baseUrl="tabpanel.jsp"/>
-<ajax:tab caption="Toggle" baseUrl="toggle.jsp"/>
-<ajax:tab caption="Area and Anchor" baseUrl="pagearea.jsp"/>
-<ajax:tab caption="Ajax DisplayTag" baseUrl="displaytag.jsp"/>
-<ajax:tab caption="Tree" baseUrl="tree.jsp"/>
-<ajax:tab caption="In Place Editor" baseUrl="inplaceeditor.jsp"/>
-<ajax:tab caption="Input with dynamic parameters" baseUrl="nameinput.jsp"/>
 
+<jsp:include page="autocomplete.jsp" flush="false" />
+<jsp:include page="callout.jsp" flush="false" />
+
+
+<br />
+<br />
+
+<ajax:tabPanel id="panelIndex">
+	<ajax:tab caption="Form Update" baseUrl="formupdate.jsp"  defaultTab="true"/>
+	<ajax:tab caption="HtmlContent" baseUrl="htmlcontent.jsp"/>
+	<ajax:tab caption="Portlet" baseUrl="portlet.jsp"/>
+	<ajax:tab caption="Select/Dropdown" baseUrl="dropdown.jsp"/>
+	<ajax:tab caption="Tab Panel" baseUrl="tabpanel.jsp"/>
+	<ajax:tab caption="Toggle" baseUrl="toggle.jsp"/>
+	<ajax:tab caption="Area and Anchor" baseUrl="pagearea.jsp"/>
+	<ajax:tab caption="Ajax DisplayTag" baseUrl="displaytag.jsp"/>
+	<ajax:tab caption="Tree" baseUrl="tree.jsp"/>
+	<ajax:tab caption="In Place Editor" baseUrl="inplaceeditor.jsp"/>
 </ajax:tabPanel>
 
 <p>Page loaded at: <span id="datum"> ${now}</span></p>

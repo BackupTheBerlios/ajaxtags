@@ -31,6 +31,44 @@ conversion tool.</p>
 	/*
 	 * USER DEFINED FUNCTIONS
 	 */
+	 
+	 window.isNumber = function(n) {
+		    return  (/^\d+$/g).test(n);
+		 };
+
+	 window.addAgeToParameters = function() {
+		var name = $('name');
+		name.value = prompt("enter your name", "");
+		var age = $('age');
+
+		if (age.value.length > 1 && age.value.charAt(0) == "$") {
+			var c = 0;
+			var n = age.value;
+			
+			while (! window.isNumber(n) && c < 5) {
+				var text = c > 0 ? "enter your age, have to be a number try count = "
+						+ c
+						: "enter your age";
+				if (c == 4)
+					alert("last one now i'll send it");
+				n = prompt(text, "");
+				c++;
+			}
+			age.value = n;
+		}
+		this.parameters = "";
+		var i;
+		var eles = document.forms["updateForm2"].elements;
+		for (i = 0; i < eles.length; i++) {
+			if (eles[i].id && eles[i].type) {
+				if (this.parameters != "") {
+					this.parameters += ",";
+				}
+				this.parameters += eles[i].id + "={" + eles[i].id + "}";
+			}
+		}
+	};
+	
 	 /// use window. XXX to make XXX visible!
 	 // eval function error?
 	window.initProgress2 = function () {
@@ -79,3 +117,19 @@ complete</div>
 	parameters="mph={mph}" parser="new DefaultResponseParser('xml')"
 	preFunction="initProgress2" postFunction="resetProgress2" />
 
+
+
+<div style="width: 400px;">
+<form action="." id="updateForm2">
+<fieldset><legend>age and name submit</legend>
+<p>Enter your age</p>
+
+<label for="age">Your age</label> <input type="text" id="age" /> <input
+	id="action2" type="button" value="Say Hello" /> <label for="name">Your
+Name is</label> <input type="text" id="name" /></fieldset>
+</form>
+</div>
+<ajax:updateField baseUrl="nameinput.view" source="age"
+	valueUpdateByName="true" target="name,age" action="action2"
+	parser="new DefaultResponseParser('xml')"
+	preFunction="addAgeToParameters" />

@@ -62,11 +62,11 @@ public class TreeServlet extends BaseAjaxServlet {
 
         AjaxTreeXmlBuilder treeBuilder = new AjaxTreeXmlBuilder();
         if ("cars".equals(node)) {
-            treeBuilder.addItem("American", "American", true, "#");
-            treeBuilder.addItem("Japanese", "Japanese", false, "#");
+            treeBuilder.addItem("American", "American", true , "javascript://nop");
+            treeBuilder.addItem("Japanese", "Japanese", false, "javascript://nop");
         }
         else if (node.equals("American")) {
-            treeBuilder.addItem("Ford", "Ford", true, "#");
+            treeBuilder.addItem("Ford", "Ford", true, "javascript://nop");
         }
         else if (node.equals("Ford")) {
             TreeItem item = new TreeItem("Mustang", "Mustang", false);
@@ -77,15 +77,15 @@ public class TreeServlet extends BaseAjaxServlet {
             treeBuilder.add(item);
         }
         else if (node.equals("Ford")) {
-            treeBuilder.addItem("Mustang", "Mustang", false, "#");
-            treeBuilder.addItem("FordGT", "FordGT", false, "#");
+            treeBuilder.addItem("Mustang", "Mustang", false, "javascript://nop");
+            treeBuilder.addItem("FordGT", "FordGT", false, "javascript://nop");
         }
         else if (node.equals("Japanese")) {
-            treeBuilder.addItem("Honda", "Honda", true, "#");
+            treeBuilder.addItem("Honda", "Honda", true, "javascript://nop");
         }
         else if (node.equals("Honda")) {
-            treeBuilder.addItem("Civic", "Civic", true, "#");
-            treeBuilder.addItem("Accord", "Accord", true, "#");
+            treeBuilder.addItem("Civic", "Civic", true, "javascript://nop");
+            treeBuilder.addItem("Accord", "Accord", true, "javascript://nop");
         }
         return treeBuilder.toString();
     }

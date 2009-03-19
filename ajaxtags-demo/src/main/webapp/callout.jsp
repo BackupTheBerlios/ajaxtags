@@ -25,17 +25,6 @@
 callout or popup balloon to any HTML element supporting an onclick
 event. The style of this callout is fairly flexible, but generally has a
 header/title, a close link ('X'), and the content itself, of course.</p>
-<p>You may also set a timeout on the callout to disappear after some
-time has passed (expressed in milliseconds). Alternately, you have it
-not timeout at all and, thereby, can force the user to close the callout
-manually (by clicking the close link).</p>
-<p>You must include a generic DIV tag to act as the container for
-all popups. This is primarily to get around an IE bug/feature that (in
-some cases) prevents inserting DOM elements after the webpage loads.</p>
-<p>Click the "definition" link below to send a request to the
-backend servlet, retrieve the callout content, and display the callout
-itself.</p>
-</div>
 
 <h3>Callout in Action</h3>
 <div
