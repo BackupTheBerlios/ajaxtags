@@ -15,9 +15,6 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
-import java.io.IOException;
-
-import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;

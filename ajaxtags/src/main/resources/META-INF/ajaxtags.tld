@@ -1,28 +1,22 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE taglib
-  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
-  "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
-  <!--
-  xmlns="http://java.sun.com/JSP/TagLibraryDescriptor">
-  -->
-  <taglib xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd" version="2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee">
-
+<taglib xsi:schemaLocation="http://java.sun.com/xml/ns/javaee web-jsptaglibrary_2_1.xsd"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.1">
 	<tlib-version>1.5</tlib-version>
-	<jsp-version>2.0</jsp-version>
+	<jsp-version>1.2</jsp-version>
 	<short-name>ajaxtags</short-name>
-	<uri>http://ajaxtags.sourceforge.net/tags/ajaxtags</uri>
+	<uri>http://ajaxtags.sourceforge.net/tags/ajaxtags
+	</uri>
 	<display-name>AjaxTag Library</display-name>
-	<description>AjaxTag Library is a library, wich make ajax easy to
-		use by JSP</description>
-
+	<description>AjaxTag Library is a library, wich make ajax easy
+		to use by JSP </description>
 	<tag>
 		<name>select</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxSelectTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxSelectTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to populate a select box
 			based on some event
 		</description>
-
 		<attribute>
 			<name>emptyOptionValue</name>
 			<required>false</required>
@@ -179,7 +173,8 @@
 
 	<tag>
 		<name>autocomplete</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxAutocompleteTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxAutocompleteTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to populate an input field
 			as
@@ -333,7 +328,8 @@
 
 	<tag>
 		<name>toggle</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxToggleTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxToggleTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to toggle an image on/off
 		</description>
@@ -529,7 +525,8 @@
 
 	<tag>
 		<name>updateField</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxFormFieldTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxFormFieldTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to update one or more form
 			fields based on the value of another single field
@@ -665,7 +662,8 @@
 
 	<tag>
 		<name>callout</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxCalloutTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxCalloutTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to hook a callout or popup
 			balloon to a link, image, or other HTML element's onclick
@@ -793,14 +791,15 @@
 
 	<tag>
 		<name>htmlContent</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxHtmlContentTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxHtmlContentTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to hook a content area
 			(e.g.,
 			DIV tag) to a link, image, or other HTML element's onclick
 			event
 		</description>
-	
+
 		<attribute>
 			<name>var</name>
 			<required>false</required>
@@ -912,7 +911,8 @@
 
 	<tag>
 		<name>tree</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxTreeTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxTreeTag
+		</tag-class>
 		<description>TODO</description>
 
 		<attribute>
@@ -1022,7 +1022,8 @@
 
 	<tag>
 		<name>tabPanel</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxTabPanelTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxTabPanelTag
+		</tag-class>
 		<description>TODO</description>
 
 		<attribute>
@@ -1073,7 +1074,8 @@
 
 	<tag>
 		<name>tab</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxTabPageTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxTabPageTag
+		</tag-class>
 		<body-content>empty</body-content>
 		<description>TODO</description>
 		<attribute>
@@ -1116,13 +1118,14 @@
 
 	<tag>
 		<name>portlet</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxPortletTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxPortletTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to build a portlet style
 			view
 		</description>
 
-        <attribute>
+		<attribute>
 			<name>startMinimize</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -1295,7 +1298,8 @@
 
 	<tag>
 		<name>area</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxAreaTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxAreaTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to wrap an area on the
 			page
@@ -1331,7 +1335,8 @@
 
 	<tag>
 		<name>displayTag</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxDisplayTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxDisplayTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to wrap a DisplayTag with
 			AJAX capability.
@@ -1410,7 +1415,8 @@
 
 	<tag>
 		<name>anchors</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxAnchorsTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxAnchorsTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to rewrite HTML anchor
 			tags
@@ -1431,7 +1437,8 @@
 
 	<tag>
 		<name>editor</name>
-		<tag-class>net.sourceforge.ajaxtags.tags.AjaxEditorTag</tag-class>
+		<tag-class>net.sourceforge.ajaxtags.tags.AjaxEditorTag
+		</tag-class>
 		<description>
 			Builds the JavaScript required to create an in-place
 			editor
@@ -1496,7 +1503,7 @@
 			<rtexprvalue>true</rtexprvalue>
 			<description>
 				The text shown while the text is sent to the server
-            </description>
+			</description>
 		</attribute>
 
 		<attribute>
@@ -1505,7 +1512,7 @@
 			<rtexprvalue>true</rtexprvalue>
 			<description>
 				The text shown during mouseover the editable text
-            </description>
+			</description>
 		</attribute>
 
 		<attribute>
