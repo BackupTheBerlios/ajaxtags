@@ -9,6 +9,7 @@
   </properties>
   <body>
     <release version="1.5" date="In HG" description="">
+      <action type="fix" dev="jenskapitza">Protlet autorefresh never stops. Now we do break execution if source is not in DOM tree</action>
       <action type="remove" dev="jenskapitza">Protlet attribute withBar removed.</action>
       <action type="update" dev="jenskapitza">Depends on JSP-API 2.1 and Servlet-API 2.5, cause flush does not work with area styled tags.</action>
       <action type="update" dev="jenskapitza">we moved to Mercurial.</action>

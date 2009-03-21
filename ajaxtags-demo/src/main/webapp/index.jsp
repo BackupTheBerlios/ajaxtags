@@ -71,28 +71,12 @@
 
 <h1>Demos</h1>
 
-<div style="width: 650px; font-size: 90%">
-<p>The AJAX Tag Library is a set of JSP tags that simplify the use
-of Asynchronous JavaScript and XML (AJAX) technology in JavaServer
-Pages.</p>
-<p>The following examples should give a basic overview of how the
-current set of AJAX JSP tags can be used in near real-world scenarios.
-You can not only run each example, but you can view the JSP and backend
-servlet source code.</p>
-</div>
-
-
-<jsp:include page="autocomplete.jsp" flush="false" />
-<jsp:include page="callout.jsp" flush="false" />
-
-
-<br />
-<br />
-
 <ajax:tabPanel id="panelIndex">
-	<ajax:tab caption="Form Update" baseUrl="formupdate.jsp"  defaultTab="true"/>
+	<ajax:tab caption="Autocomplete" baseUrl="autocomplete.jsp" />
+	<ajax:tab caption="Callout" baseUrl="callout.jsp"  />
+	<ajax:tab caption="Form Update" baseUrl="formupdate.jsp" />
 	<ajax:tab caption="HtmlContent" baseUrl="htmlcontent.jsp"/>
-	<ajax:tab caption="Portlet" baseUrl="portlet.jsp"/>
+	<ajax:tab caption="Portlet" baseUrl="portlet.jsp"  defaultTab="true" />
 	<ajax:tab caption="Select/Dropdown" baseUrl="dropdown.jsp"/>
 	<ajax:tab caption="Tab Panel" baseUrl="tabpanel.jsp"/>
 	<ajax:tab caption="Toggle" baseUrl="toggle.jsp"/>

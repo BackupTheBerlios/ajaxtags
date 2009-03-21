@@ -327,19 +327,29 @@ AjaxJspTag.Base = Class.create({
         return new Ajax.Updater(this.options.target,
             this.options.baseUrl, options);
     },
-    getPeriodicalUpdater : function(options, ajaxParam) {
+    getPeriodicalUpdater : function(xoptions, ajaxParam) {
         if (!this.initRequest()) {
             return null;
         }
-        options = Object.extend( {
+        var data = {};
+        data.opt = xoptions;
+        data.that = this;
+        xoptions = Object.extend( {
             frequency : this.options.refreshPeriod
-        //  onComplete : function(){ options.onComplete(); }
-        }, this.getDefaultOptions(options, ajaxParam));
-        // XXX bug this isn't released if target is not available
-        // we need to check here if target is available, else wie should
-        // stop the request
-        return new Ajax.PeriodicalUpdater(this.options.target,
-            this.options.baseUrl, options);
+        }, this.getDefaultOptions(xoptions, ajaxParam));
+        
+        // onComplete is used by api itself don't try to use it
+        data._complete = xoptions.onSuccess || Prototype.emptyFunction; // cache the old one
+        xoptions.onSuccess = (function (){ // need to test!!!
+        	if ($(this.that.options.source)){ // try to get the element
+        		this._complete.bind(this.that)(); // call the function
+        	} else {
+        		this._event.stop(); // should work
+        	}
+        }).bind(data);
+        data._event =  new Ajax.PeriodicalUpdater(this.options.target,
+            this.options.baseUrl, xoptions);
+        return data._event;
     },
     buildParameterString : function(ajaxParam) {
         var returnString = '';
