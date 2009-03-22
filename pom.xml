@@ -150,18 +150,6 @@
 	-->
 	<build>
 		<defaultGoal>package</defaultGoal>
-		<!-- the following lines should be the default -->
-		<!--
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<excludes>
-					<exclude>**/.svn</exclude>
-				</excludes>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
-		-->
 		<plugins>
 			<plugin>
 				<!-- we can use jetty to start the demo -->

@@ -43,5 +43,15 @@
 				<include>src/**</include>
 			</includes>
 		</fileSet>
+		<fileSet>
+			<directory>ajaxtags-resources</directory>
+			<outputDirectory>ajaxtags-resources</outputDirectory>
+			<includes>
+				<include>README*</include>
+				<include>*.xml</include>
+				<include>*.license</include>
+				<include>src/**</include>
+			</includes>
+		</fileSet>
 	</fileSets>
 </assembly>

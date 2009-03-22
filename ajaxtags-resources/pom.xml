@@ -13,4 +13,19 @@
 	<version>1.5-SNAPSHOT</version>
 	<name>AjaxTags Resources</name>
 	<description>Here are the javascript files, the images and the css files. You can provide this resources with simple the SourceLoader Servlet or on your own  way</description>
+	<build>
+		<plugins>
+			<plugin>
+				<!-- package the stuff together -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/bin.xml</descriptor>
+					</descriptors>
+					<finalName>ajaxtags-resources-${pom.version}</finalName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
