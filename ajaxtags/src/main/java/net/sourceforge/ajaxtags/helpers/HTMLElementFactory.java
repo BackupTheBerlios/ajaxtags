@@ -15,7 +15,7 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 
@@ -40,7 +40,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      */
     private Map<String, String> attributes;
 
-
+    
     /**
      * erstelle ein html element
      * 
@@ -54,19 +54,8 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     protected HTMLElementFactory(final String name, final String id, final String body) {
         this.name = name;
         this.body = body;
-        attributes = new HashMap<String, String>() {
-
-            private static final long serialVersionUID = 1L;
-
-
-            @Override
-            public synchronized String put(final String key, final String value) {
-                if (value != null) {
-                    return super.put(key, value);
-                }
-                return null;
-            }
-        };
+        // if value is null then exception is thrown
+        attributes = new Hashtable<String, String>();
         if (id != null) {
             setId(id);
         }
@@ -93,7 +82,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      *            the id attribute
      */
     protected HTMLElementFactory(final String name, final String id) {
-        this(name, null, null);
+        this(name, id, null);
     }
 
 

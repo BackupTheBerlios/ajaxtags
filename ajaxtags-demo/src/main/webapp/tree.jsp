@@ -24,8 +24,7 @@
 <ajax:tree baseUrl="tree.view" id="cars"
 	parameters="node={ajaxParameter}" nodeClass="nodeClass"
 	expandedClass="expandedNode" collapsedClass="collapsedNode"
-	treeClass="tree">
-</ajax:tree>
+	treeClass="tree" />
 
 
 <ajax:htmlContent target="clicker" sourceClass="nodeClass"

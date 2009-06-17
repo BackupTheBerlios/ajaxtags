@@ -4,30 +4,26 @@
 	<body>
 		<!--
 		${project.name}
-		<breadcrumbs>
 			<item name="{ModulName}" href="index.html" mce_href="index.html"/>
-		</breadcrumbs>
 		-->
-		<menu ref="parent" />
-		<menu ref="modules" />
+		<breadcrumbs>
+			<item name="Home" href="index.html" />
+			<item name="AjaxTags" href="ajaxtags/index.html" />
+			<item name="AjaxTags DEMO" href="ajaxtags-demo/index.html" />
+		</breadcrumbs>
 		<menu ref="reports" />
 		<!-- <menu ref="reports"/> -->
 		<menu name="Overview">
 			<item name="Home" href="index.html" />
 			<item name="Quick Start" href="quickstart.html" />
-			<item name="Installation" href="install.html" />
-			<item name="Tag Reference" href="usage.html" />
 			<item name="Advanced Usage" href="advanced.html" />
+			<item name="Tag Reference" href="usage.html" />
 			<item name="Roadmap" href="roadmap.html" />
-			<item name="Download"
-				href="http://sourceforge.net/project/showfiles.php?group_id=140499" />
-		</menu>
-		<menu name="Support">
+			<item name="Installation" href="install.html" />
+			<item name="Download" href="http://sourceforge.net/project/showfiles.php?group_id=140499" />
 			<item name="SourceForge Project Page" href="http://sourceforge.net/projects/ajaxtags/" />
 			<item name="Forums"
 				href="http://sourceforge.net/forum/forum.php?forum_id=471271" />
-			<item name="Issue Tracking" href="http://sourceforge.net/tracker/?group_id=140499" />
-			<item name="Mailing Lists" href="mail-lists.html" />
 			<item name="FAQ" href="faq.html" />
 		</menu>
 

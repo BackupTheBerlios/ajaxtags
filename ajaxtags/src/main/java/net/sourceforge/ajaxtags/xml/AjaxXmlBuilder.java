@@ -78,7 +78,8 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
 		boolean isCData();
 	}
 
-	public AjaxXmlBuilder addItems(Collection<PropertyReader> collection) {
+	public AjaxXmlBuilder addItems(
+			Collection<? extends PropertyReader> collection) {
 		for (PropertyReader element : collection) {
 			addItem(element);
 		}

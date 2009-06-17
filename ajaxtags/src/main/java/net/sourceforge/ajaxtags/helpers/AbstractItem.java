@@ -18,8 +18,7 @@ package net.sourceforge.ajaxtags.helpers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-
+import java.util.Map.Entry;
 
 /**
  * A generic item class, basically representing a name-value pair.
@@ -32,182 +31,172 @@ import java.util.Set;
  */
 public abstract class AbstractItem<T> {
 
-    /**
-     * the name
-     */
-    private String name;
-    /**
-     * the value
-     */
-    private T value;
-    /**
-     * CDATA ?
-     */
-    private boolean asData;
-    /**
-     * all other attributes
-     */
-    private Map<String, String> attributes = new HashMap<String, String>();
+	/**
+	 * the name
+	 */
+	private String name;
+	/**
+	 * the value
+	 */
+	private T value;
+	/**
+	 * CDATA ?
+	 */
+	private boolean asData;
+	/**
+	 * all other attributes
+	 */
+	private Map<String, String> attributes = new HashMap<String, String>();
 
+	/**
+	 * Constructor for Item.
+	 * 
+	 * @param name
+	 *            the name for the item
+	 * @param value
+	 *            the value
+	 * @param asData
+	 *            response as CDATA
+	 */
+	protected AbstractItem(final String name, final T value,
+			final boolean asData) {
+		this();
+		this.name = name;
+		this.value = value;
+		this.asData = asData;
+	}
 
-    /**
-     * Constructor for Item.
-     * 
-     * @param name
-     *            the name for the item
-     * @param value
-     *            the value
-     * @param asData
-     *            response as CDATA
-     */
-    protected AbstractItem(final String name, final T value, final boolean asData) {
-        this();
-        this.name = name;
-        this.value = value;
-        this.asData = asData;
-    }
+	/**
+	 * Constructor for Item.
+	 */
+	protected AbstractItem() {
+		super();
+	}
 
+	/**
+	 * set all attributes
+	 * 
+	 * @param attributes
+	 *            the attributes to set
+	 */
+	public final void setAllAttributes(final Map<String, String> attributes) {
+		if (attributes != null) {
+			for (Entry<String, String> e : attributes.entrySet()) {
+				setAttributes(e.getKey(), e.getValue());
+			}
+		}
+	}
 
-    /**
-     * Constructor for Item.
-     */
-    protected AbstractItem() {
-        super();
-    }
+	/**
+	 * 
+	 * @return the key set of the attributes
+	 */
+	public final Set<String> getAttributeKeySet() {
+		return this.attributes.keySet();
+	}
 
+	/**
+	 * removes an attribute
+	 * 
+	 * @param name
+	 *            the name of attribute
+	 */
+	public final void removeAttribute(final String name) {
+		this.attributes.remove(name);
+	}
 
-    /**
-     * set all attributes
-     * 
-     * @param attributes
-     *            the attributes to set
-     */
-    public final void setAllAttributes(final Map<String, String> attributes) {
-        if (attributes != null) {
-            for (String key : attributes.keySet()) {
-                setAttributes(key, attributes.get(key));
-            }
-        }
-    }
+	/**
+	 * clear the attributes
+	 */
+	public final void clearAttribute() {
+		this.attributes.clear();
+	}
 
+	/**
+	 * set an attribute to extend the item
+	 * 
+	 * @param name
+	 *            the name for the attribute
+	 * @param value
+	 *            the value for the attribute
+	 */
+	public final void setAttributes(final String name, final String value) {
+		setAttributes(name, value, false);
+	}
 
-    /**
-     * 
-     * @return the key set of the attributes
-     */
-    public final Set<String> getAttributeKeySet() {
-        return this.attributes.keySet();
-    }
+	/**
+	 * set an attribute to extend the item
+	 * 
+	 * @param name
+	 *            the name for the attribute
+	 * @param value
+	 *            the value for the attribute
+	 * @param evenIfNull
+	 *            set attribute even if it is null
+	 */
+	public final void setAttributes(final String name, final String value,
+			boolean evenIfNull) {
+		if (value != null || evenIfNull) {
+			// FindeBug say we should use
+			// String.toUpperCase( Locale l )
+			// String.toLowerCase( Locale l )
+			this.attributes.put(name.toLowerCase(), value);
+		}
+	}
 
+	/**
+	 * read the attribute value
+	 * 
+	 * @param name
+	 *            the attribute name
+	 * @return the value of attribute <code>name</code>
+	 */
+	public final String getAttributeValue(final String name) {
+		return this.attributes.get(name);
+	}
 
-    /**
-     * removes an attribute
-     * 
-     * @param name
-     *            the name of attribute
-     */
-    public final void removeAttribute(final String name) {
-        this.attributes.remove(name);
-    }
+	/**
+	 * @return Returns the name.
+	 */
+	public final String getName() {
+		return this.name;
+	}
 
+	/**
+	 * @param name
+	 *            The name to set.
+	 */
+	public final void setName(final String name) {
+		this.name = name;
+	}
 
-    /**
-     * clear the attributes
-     */
-    public final void clearAttribute() {
-        this.attributes.clear();
-    }
+	/**
+	 * @return Returns the value.
+	 */
+	public final T getValue() {
+		return this.value;
+	}
 
+	/**
+	 * @param value
+	 *            The value to set.
+	 */
+	public final void setValue(final T value) {
+		this.value = value;
+	}
 
-    /**
-     * set an attribute to extend the item
-     * 
-     * @param name
-     *            the name for the attribute
-     * @param value
-     *            the value for the attribute
-     */
-    public final void setAttributes(final String name, final String value) {
-        setAttributes(name, value, false);
-    }
+	/**
+	 * @return Returns the asCData.
+	 */
+	public final boolean isAsCData() {
+		return this.asData;
+	}
 
-
-    /**
-     * set an attribute to extend the item
-     * 
-     * @param name
-     *            the name for the attribute
-     * @param value
-     *            the value for the attribute
-     * @param evenIfNull
-     *            set attribute even if it is null
-     */
-    public final void setAttributes(final String name, final String value, boolean evenIfNull) {
-        if (value != null || evenIfNull) {
-            this.attributes.put(name.toLowerCase(), value);
-        }
-    }
-
-
-    /**
-     * read the attribute value
-     * 
-     * @param name
-     *            the attribute name
-     * @return the value of attribute <code>name</code>
-     */
-    public final String getAttributeValue(final String name) {
-        return this.attributes.get(name);
-    }
-
-
-    /**
-     * @return Returns the name.
-     */
-    public final String getName() {
-        return this.name;
-    }
-
-
-    /**
-     * @param name
-     *            The name to set.
-     */
-    public final void setName(final String name) {
-        this.name = name;
-    }
-
-
-    /**
-     * @return Returns the value.
-     */
-    public final T getValue() {
-        return this.value;
-    }
-
-
-    /**
-     * @param value
-     *            The value to set.
-     */
-    public final void setValue(final T value) {
-        this.value = value;
-    }
-
-
-    /**
-     * @return Returns the asCData.
-     */
-    public final boolean isAsCData() {
-        return this.asData;
-    }
-
-
-    /**
-     * @param asData
-     *            The asData to set.
-     */
-    public final void setAsData(final boolean asData) {
-        this.asData = asData;
-    }
+	/**
+	 * @param asData
+	 *            The asData to set.
+	 */
+	public final void setAsData(final boolean asData) {
+		this.asData = asData;
+	}
 }

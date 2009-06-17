@@ -17,6 +17,8 @@ package net.sourceforge.ajaxtags.demo;
 
 import java.io.Serializable;
 
+import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder.PropertyReader;
+
 
 
 /**
@@ -27,7 +29,7 @@ import java.io.Serializable;
  * @version $Revision: 28 $ $Date: 2008-09-10 16:23:13 +0200 (Mi, 10. Sep 2008)
  *          $
  */
-public class Car implements Serializable {
+public class Car implements Serializable, PropertyReader {
 
     private static final long serialVersionUID = 1L;
     private String make;
@@ -87,4 +89,19 @@ public class Car implements Serializable {
     public void setModel(String model) {
         this.model = model;
     }
+
+
+	public String getName() {
+		return getModel();
+	}
+
+
+	public String getValue() {
+		return getMake();
+	}
+
+
+	public boolean isCData() {
+		return true;
+	}
 }

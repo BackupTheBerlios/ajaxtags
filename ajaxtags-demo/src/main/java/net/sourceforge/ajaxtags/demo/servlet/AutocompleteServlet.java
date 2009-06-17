@@ -63,7 +63,7 @@ public class AutocompleteServlet extends BaseAjaxServlet {
 		// Thread.sleep(3000); // sleep 3 sec
 		// Create xml schema
 		try {
-			return new AjaxXmlBuilder().addItems(list, "model", "make", true)
+			return new AjaxXmlBuilder().addItems(list)
 					.toString();
 		} catch (Exception e) {
 			throw new ServletException(e);
