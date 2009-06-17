@@ -15,10 +15,7 @@
  */
 package net.sourceforge.ajaxtags.xml;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-
-
 
 /**
  * Helper class to build valid XML typically returned in a response to the
@@ -30,116 +27,69 @@ import java.util.Collection;
  */
 public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
 
-    /**
-     * Add item to XML.
-     * 
-     * @param key
-     *            The name of the item
-     * @param value
-     *            The value of the item
-     * @return the xmlbuilder
-     */
-    public AjaxXmlBuilder addItem(String key, String value) {
-        return addItem(key, value, false);
-    }
+	/**
+	 * Add item to XML.
+	 * 
+	 * @param key
+	 *            The name of the item
+	 * @param value
+	 *            The value of the item
+	 * @return the xmlbuilder
+	 */
+	public AjaxXmlBuilder addItem(String key, String value) {
+		return addItem(key, value, false);
+	}
 
+	/**
+	 * Add item wrapped with inside a CDATA element.
+	 * 
+	 * @param key
+	 *            The name of the item
+	 * @param value
+	 *            The value of the item
+	 * @return the xmlbuilder
+	 */
+	public AjaxXmlBuilder addItemAsCData(String key, String value) {
+		return addItem(key, value, true);
+	}
 
-    /**
-     * Add item wrapped with inside a CDATA element.
-     * 
-     * @param key
-     *            The name of the item
-     * @param value
-     *            The value of the item
-     * @return the xmlbuilder
-     */
-    public AjaxXmlBuilder addItemAsCData(String key, String value) {
-        return addItem(key, value, true);
-    }
+	/**
+	 * Add item to XML.
+	 * 
+	 * @param name
+	 *            The name of the item
+	 * @param value
+	 *            The value of the item
+	 * @param asCData
+	 *            add as CData
+	 * @return the xmlbuilder
+	 */
+	public AjaxXmlBuilder addItem(String name, String value, boolean asCData) {
+		super.addItem(name, asCData, value);
+		return this;
+	}
 
+	public interface PropertyReader {
 
-    /**
-     * Add items from a collection.
-     * 
-     * @param collection
-     * @param nameProperty
-     * @param valueProperty
-     * @return the xmlbuilder
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    public AjaxXmlBuilder addItems(Collection<?> collection, String nameProperty,
-                    String valueProperty) throws Exception {
-        return addItems(collection, nameProperty, valueProperty, false);
-    }
+		String getName();
 
+		String getValue();
 
-    /**
-     * Add item to XML.
-     * 
-     * @param name
-     *            The name of the item
-     * @param value
-     *            The value of the item
-     * @param asCData
-     *            add as CData
-     * @return the xmlbuilder
-     */
-    public AjaxXmlBuilder addItem(String name, String value, boolean asCData) {
-        super.addItem(name, asCData, value);
-        return this;
-    }
+		boolean isCData();
+	}
 
+	public AjaxXmlBuilder addItems(Collection<PropertyReader> collection) {
+		for (PropertyReader element : collection) {
+			addItem(element);
+		}
+		return this;
+	}
 
-    public interface PropertyReader {
-
-        String getName();
-
-
-        String getValue();
-
-
-        boolean isCData();
-    }
-
-
-    /**
-     * Add items from a collection.
-     * 
-     * @param collection
-     * @param nameProperty
-     * @param valueProperty
-     * @param asCData
-     * @return the xmlbuilder
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    public AjaxXmlBuilder addItems(Collection<?> collection, String nameProperty,
-                    String valueProperty, boolean asCData) throws Exception {
-        for (Object element : collection) {
-            String name = getProperty(element, nameProperty);
-            String value = getProperty(element, valueProperty);
-            addItem(name, value, asCData);
-        }
-        return this;
-    }
-
-
-    public AjaxXmlBuilder addItems(Collection<PropertyReader> collection) {
-        for (PropertyReader element : collection) {
-            addItem(element);
-        }
-        return this;
-    }
-
-
-    public AjaxXmlBuilder addItem(PropertyReader element) {
-        String name = element.getName();
-        String value = element.getValue();
-        addItem(name, value, element.isCData());
-        return this;
-    }
+	public AjaxXmlBuilder addItem(PropertyReader element) {
+		String name = element.getName();
+		String value = element.getValue();
+		addItem(name, value, element.isCData());
+		return this;
+	}
 
 }

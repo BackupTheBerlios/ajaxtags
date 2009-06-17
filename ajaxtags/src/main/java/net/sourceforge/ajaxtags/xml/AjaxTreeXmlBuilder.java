@@ -15,7 +15,6 @@
  */
 package net.sourceforge.ajaxtags.xml;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -174,50 +173,6 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
     }
 
 
-    /**
-     * 
-     * add tree items to xml builder
-     * 
-     * @param collection
-     * @param nameProperty
-     * @param valueProperty
-     * @param collapsedProperty
-     * @param urlProperty
-     * @return AjaxTreeXmlBuilder xml builder
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     */
-    public AjaxTreeXmlBuilder addItems(Collection<?> collection, String nameProperty,
-                    String valueProperty, String collapsedProperty, String urlProperty)
-                    throws Exception {
-        return addItems(collection, nameProperty, valueProperty, collapsedProperty, urlProperty,
-                        false);
-    }
-
-
-    /**
-     * 
-     * add tree items to xml builder
-     * 
-     * @param collection
-     * @param nameProperty
-     * @param valueProperty
-     * @param collapsedProperty
-     * @param urlProperty
-     * @param asCData
-     * @return AjaxTreeXmlBuilder xml builder
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     */
-    public AjaxTreeXmlBuilder addItems(Collection<?> collection, String nameProperty,
-                    String valueProperty, String collapsedProperty, String urlProperty,
-                    boolean asCData) throws Exception, NoSuchMethodException {
-        return addItems(collection, nameProperty, valueProperty, collapsedProperty, urlProperty,
-                        null, asCData);
-    }
-
 
     public interface PropertyReader {
 
@@ -257,90 +212,6 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
         data.put(TreeItem.LEAF, String.valueOf(element.isLeaf()));
         addItem(name, value, element.isCData(), data);
         return this;
-    }
-
-
-    /**
-     * 
-     * add tree items to xml builder
-     * 
-     * @param collection
-     * @param nameProperty
-     * @param valueProperty
-     * @param collapsedProperty
-     * @param urlProperty
-     * @param leafProperty
-     * @param asCData
-     * @return AjaxTreeXmlBuilder xml builder
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     */
-    public AjaxTreeXmlBuilder addItems(Collection<?> collection, String nameProperty,
-                    String valueProperty, String collapsedProperty, String urlProperty,
-                    String leafProperty, boolean asCData) throws Exception {
-
-        for (Object element : collection) {
-            String name = getProperty(element, nameProperty);
-            String value = getProperty(element, valueProperty);
-            Map<String, String> data = new HashMap<String, String>();
-            if (urlProperty != null && urlProperty.length() != 0) {
-                data.put(TreeItem.URL, (String) getProperty(element, urlProperty));
-            }
-            if (collapsedProperty != null && collapsedProperty.length() != 0) {
-                data.put(TreeItem.COLLAPSED, (String) getProperty(element, collapsedProperty));
-            }
-            if (leafProperty != null && leafProperty.length() != 0) {
-                data.put(TreeItem.LEAF, (String) getProperty(element, leafProperty));
-            }
-            addItem(name, value, asCData, data);
-        }
-        return this;
-    }
-
-
-    /**
-     * 
-     * add tree items to xml builder
-     * 
-     * @param collection
-     * @param nameProperty
-     * @param valueProperty
-     * @param collapsedProperty
-     * @param urlProperty
-     * @return AjaxTreeXmlBuilder xml builder
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     */
-    public AjaxTreeXmlBuilder addItemsAsCData(Collection<?> collection, String nameProperty,
-                    String valueProperty, String collapsedProperty, String urlProperty)
-                    throws Exception {
-        return addItemsAsCData(collection, nameProperty, valueProperty, collapsedProperty,
-                        urlProperty, null);
-    }
-
-
-    /**
-     * 
-     * add tree items to xml builder
-     * 
-     * @param collection
-     * @param nameProperty
-     * @param valueProperty
-     * @param collapsedProperty
-     * @param urlProperty
-     * @param leafProperty
-     * @return AjaxTreeXmlBuilder xml builder
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     */
-    public AjaxTreeXmlBuilder addItemsAsCData(Collection<?> collection, String nameProperty,
-                    String valueProperty, String collapsedProperty, String urlProperty,
-                    String leafProperty) throws Exception {
-        return addItems(collection, nameProperty, valueProperty, collapsedProperty, urlProperty,
-                        leafProperty, true);
     }
 
 
