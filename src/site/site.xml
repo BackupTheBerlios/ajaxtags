@@ -31,19 +31,6 @@
 			<item name="FAQ" href="faq.html" />
 		</menu>
 
-		<menu name="AJAX Links">
-			<item name="Dojo browser toolkit" href="http://dojotoolkit.org/" />
-			<item name="Direct Web Remoting" href="http://www.getahead.ltd.uk/dwr/" />
-			<item name="Scriptaculous" href="http://script.aculo.us/" />
-			<item name="Prototype framework" href="http://www.prototypejs.org/" />
-			<item name="JSON-RPC-Java" href="http://oss.metaparadigm.com/jsonrpc/" />
-			<item name="Java Web Parts" href="http://javawebparts.sourceforge.net/" />
-			<item name="AJAX Matters" href="http://www.ajaxmatters.com/" />
-			<item name="Tag Ajax Patterns" href="http://ajaxpatterns.org/" />
-			<item name="Ajaxian" href="http://ajaxian.com/" />
-			<item name="Ajax Blog" href="http://ajaxblog.com/" />
-		</menu>
-
 		<menu name="People Using AjaxTags">
 			<item name="ART" href="http://art.sourceforge.net" />
 		</menu>
