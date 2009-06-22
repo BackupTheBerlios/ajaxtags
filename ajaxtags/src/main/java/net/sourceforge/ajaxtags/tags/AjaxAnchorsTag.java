@@ -27,8 +27,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-
 /**
  * Rewrites HTML anchor tags (<A>), replacing the href attribute with an onclick
  * event so that retrieved content is loaded inside a region on the page.
@@ -39,82 +37,79 @@ import org.xml.sax.SAXException;
  */
 public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
-    private static final long serialVersionUID = -1732745741282114289L;
+	private static final long serialVersionUID = -1732745741282114289L;
 
+	private static final String WARP0 = "<div>";
+	private static final String WARP1 = "</div>";
 
-    @Override
-    public int doEndTag() throws JspException {
-        out(ajaxAnchors());
-        return EVAL_PAGE;
-    }
+	@Override
+	public int doEndTag() throws JspException {
+		out(ajaxAnchors());
+		return EVAL_PAGE;
+	}
 
+	protected String ajaxAnchors() throws JspException {
+		return ajaxAnchors(getBody(), getTarget());
+	}
 
-    protected String ajaxAnchors() throws JspException {
-        return ajaxAnchors(getBody(), getTarget());
-    }
+	public String ajaxAnchors(final String html, final String target)
+			throws JspException {
+		try {
+			return ajaxAnchors0(html, target);
+		} catch (Exception e) {
+			throw new JspException(
+					"rewrite links faild < is the content xhtml? > \n" + html,
+					e);
+		}
+	}
 
+	private String ajaxAnchors0(final String html, final String target)
+			throws Exception {
+		Document document = getDocument(html);
+		return XMLUtils.toString(rewriteAnchors(document, target));
+	}
 
-    public String ajaxAnchors(final String html, final String target) throws JspException {
-        try {
-            return ajaxAnchors0(html, target);
-        }
-        catch (Exception e) {
-            throw new JspException("rewrite links faild < is the content xhtml? > \n" + html, e);
-        }
-    }
+	public Document rewriteAnchors(Document document, String target)
+			throws XPathExpressionException {
+		return rewriteAnchors(document, target, null);
+	}
 
+	public Document rewriteAnchors(Document document, String target,
+			String className) throws XPathExpressionException {
+		String ypath = "//a";
+		String xclass = "@class=\"" + className + "\"";
 
-    private String ajaxAnchors0(final String html, final String target) throws Exception {
-        Document document = getDocument(html);
-        return XMLUtils.toString(rewriteAnchors(document, target));
-    }
+		if (className != null) {
+			ypath = ypath + "[" + xclass + "]";
+		}
 
+		final NodeList links = XMLUtils
+				.evaluateXPathExpression(ypath, document);// document.getElementsByTagName("a");
+		for (int i = 0; i < links.getLength(); i++) {
+			rewriteLink(links.item(i), target);
+		}
+		return document;
+	}
 
-    public Document rewriteAnchors(Document document, String target)
-                    throws XPathExpressionException {
-        return rewriteAnchors(document, target, null);
-    }
+	public void rewriteLink(Node link, String target) {
+		NamedNodeMap map = link.getAttributes();
+		Attr href = (Attr) map.getNamedItem("href");
+		Attr onclick = (Attr) map.getNamedItem("onclick");
+		if (onclick == null) {
+			onclick = link.getOwnerDocument().createAttribute("onclick");
+			map.setNamedItem(onclick);
+		}
+		onclick.setValue(getOnclickAjax(target, href.getValue(),
+				getOptionsBuilder()));
+		href.setValue("javascript://nop/");
+	}
 
+	public static Document getDocument(final String html) throws SAXException {
+		String xhtml = trim2Null(html); // .replaceAll("<br(.*?)>", "<br$1/>");
+		if (xhtml == null) {
+			return null;
+		}
+		return XMLUtils.getXMLDocument(WARP0 + xhtml + WARP1);
+	}
 
-    public Document rewriteAnchors(Document document, String target, String className)
-                    throws XPathExpressionException {
-        String ypath = "//a";
-        String xclass = "@class=\"" + className + "\"";
-
-        if (className != null) {
-            ypath = ypath + "[" + xclass + "]";
-        }
-
-        final NodeList links = XMLUtils.evaluateXPathExpression(ypath, document);// document.getElementsByTagName("a");
-        for (int i = 0; i < links.getLength(); i++) {
-            rewriteLink(links.item(i), target);
-        }
-        return document;
-    }
-
-
-    public void rewriteLink(Node link, String target) {
-        NamedNodeMap map = link.getAttributes();
-        Attr href = (Attr) map.getNamedItem("href");
-        Attr onclick = (Attr) map.getNamedItem("onclick");
-        if (onclick == null) {
-            onclick = link.getOwnerDocument().createAttribute("onclick");
-            map.setNamedItem(onclick);
-        }
-        onclick.setValue(getOnclickAjax(target, href.getValue(), getOptionsBuilder()));
-        href.setValue("javascript://nop/");
-    }
-
-
-    public static Document getDocument(final String html) throws SAXException {
-        String xhtml = trim2Null(html); // .replaceAll("<br(.*?)>", "<br$1/>");
-        if (xhtml == null) {
-            return null;
-        }
-        return XMLUtils.getXMLDocument(WARP0 + xhtml + WARP1);
-    }
-
-
-    private static final String WARP0 = "<div>";
-    private static final String WARP1 = "</div>";
 }

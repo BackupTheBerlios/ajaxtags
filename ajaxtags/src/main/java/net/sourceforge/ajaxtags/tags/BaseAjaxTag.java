@@ -25,7 +25,7 @@ import javax.servlet.jsp.JspException;
  */
 public abstract class BaseAjaxTag extends BaseAjaxBodyTag {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6954908083925539558L;
 
 	@Override
 	protected void initParameters() throws JspException {

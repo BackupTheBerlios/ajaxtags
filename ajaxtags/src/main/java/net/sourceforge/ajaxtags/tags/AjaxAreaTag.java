@@ -33,6 +33,10 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 public class AjaxAreaTag extends AjaxAnchorsTag {
 
     public final static String TARGET_HEADER = "x-request-target";
+    
+    private static final long serialVersionUID = -7940387487602588115L;
+    private String styleClass;
+    private boolean ajaxAnchors;
 
 
     @Override
@@ -41,10 +45,6 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
         return super.isAjaxRequest() && isHttpRequestHeader(TARGET_HEADER, getId());
     }
 
-
-    private static final long serialVersionUID = -7940387487602588115L;
-    private String styleClass;
-    private boolean ajaxAnchors;
 
 
     /**
