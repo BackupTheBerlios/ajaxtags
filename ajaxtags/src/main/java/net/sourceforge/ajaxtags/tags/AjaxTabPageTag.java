@@ -18,8 +18,6 @@ package net.sourceforge.ajaxtags.tags;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-
-
 /**
  * Tag handler for individual page within a AJAX tabbed panel.
  * 
@@ -28,59 +26,47 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class AjaxTabPageTag extends BaseAjaxTag {
 
-    private static final long serialVersionUID = 1L;
-    private String caption;
-    private String defaultTab;
+	private static final long serialVersionUID = 1L;
+	private String caption;
+	private String defaultTab;
 
+	public final String getCaption() {
+		return caption;
+	}
 
-    public String getCaption() {
-        return caption;
-    }
+	public final void setCaption(String caption) {
+		this.caption = caption;
+	}
 
+	public final String getDefaultTab() {
+		return defaultTab;
+	}
 
-    public void setCaption(String caption) {
-        this.caption = caption;
-    }
+	public final void setDefaultTab(String defaultTab) {
+		this.defaultTab = String.valueOf(defaultTab);
+	}
 
+	@Override
+	public String toString() {
+		OptionsBuilder o = OptionsBuilder.getOptionsBuilder(); // clean one
+		o.add("caption", getCaption(), true);
+		o.add("baseUrl", getBaseUrl(), true);
+		o.add("parameters", getParameters(), true);
+		o.add("defaultTab", getDefaultTab(), false);
+		return "{" + o.toString() + "}";
+	}
 
-    public String getDefaultTab() {
-        return defaultTab;
-    }
+	@Override
+	public int doEndTag() throws JspException {
+		AjaxTabPanelTag parent = (AjaxTabPanelTag) TagSupport
+				.findAncestorWithClass(this, AjaxTabPanelTag.class);
+		parent.addPage(this);
+		return EVAL_PAGE;
+	}
 
-
-    public void setDefaultTab(Object defaultTab) {
-        setDefaultTab(String.valueOf(defaultTab));
-    }
-
-
-    public void setDefaultTab(String defaultTab) {
-        this.defaultTab = String.valueOf(defaultTab);
-    }
-
-    
-    @Override
-    public String toString() {
-        OptionsBuilder o = OptionsBuilder.getOptionsBuilder(); // clean one
-        o.add("caption", getCaption(), true);
-        o.add("baseUrl", getBaseUrl(), true);
-        o.add("parameters", getParameters(), true);
-        o.add("defaultTab", getDefaultTab(), false);
-        return "{" + o.toString() + "}";
-    }
-
-
-    @Override
-    public int doEndTag() throws JspException {
-        AjaxTabPanelTag parent = (AjaxTabPanelTag) TagSupport.findAncestorWithClass(this,
-                        AjaxTabPanelTag.class);
-        parent.addPage(this);
-        return EVAL_PAGE;
-    }
-
-
-    @Override
-    public void releaseTag() {
-        this.caption = null;
-        this.defaultTab = null;
-    }
+	@Override
+	public void releaseTag() {
+		this.caption = null;
+		this.defaultTab = null;
+	}
 }

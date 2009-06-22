@@ -89,12 +89,8 @@ public class AjaxSelectTag extends BaseAjaxTag {
         options.add("emptyOptionValue", emptyOptionValue, true);
         options.add("emptyOptionName", emptyOptionName, true);
 
-        JavaScript script = new JavaScript();
-        script.append(getJSVariable());
-        script.append("new AjaxJspTag.Select(\n");
-        script.append("{\n");
-        script.append(options.toString());
-        script.append("});\n");
+        JavaScript script = new JavaScript(this);
+        script.newSelect(options);
 
         out(script);
         return EVAL_PAGE;

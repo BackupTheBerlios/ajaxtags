@@ -21,8 +21,6 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 import net.sourceforge.ajaxtags.helpers.HTMLElementFactory;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
-
-
 /**
  * Tag handler for AJAX tabbed panel.
  * 
@@ -31,48 +29,40 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
  */
 public class AjaxTabPanelTag extends BaseAjaxBodyTag {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	private StringBuilder pages = new StringBuilder();
 
+	@Override
+	protected void initParameters() throws JspException {
+		pages = new StringBuilder();
+	}
 
-    @Override
-    protected void initParameters() throws JspException {
-        pages = new StringBuilder();
-    }
+	@Override
+	public int doEndTag() throws JspException {
+		// tabs
+		if (pages.length() > 0) {
+			pages.deleteCharAt(pages.length() - 1);
+		} else {
+			throw new JspException("no pages");
+		}
+		OptionsBuilder op = getOptionsBuilder();
+		op.add("id", getId(), true);
+		op.add("pages", "[" + pages.toString() + " ]", false);
 
+		HTMLElementFactory div = new DIVElement(getId());
+		JavaScript script = new JavaScript(this);
+		script.newTabPanel(op);
+		div.append(script);
+		out(div);
+		return EVAL_PAGE;
+	}
 
-    private StringBuilder pages = new StringBuilder();
+	@Override
+	public void releaseTag() {
+		this.pages = null;
+	}
 
-
-    @Override
-    public int doEndTag() throws JspException {
-
-        // tabs
-        if (pages.length() > 0) {
-            pages.deleteCharAt(pages.length() - 1);
-        }
-        else {
-            throw new JspException("no pages");
-        }
-        OptionsBuilder op = getOptionsBuilder();
-        op.add("id", getId(), true);
-        op.add("pages", "[" + pages.toString() + " ]", false);
-
-        HTMLElementFactory div = new DIVElement(getId());
-        JavaScript script = new JavaScript();
-        script.append("new AjaxJspTag.TabPanel({" + op + "});");
-        div.append(script);
-        out(div);
-        return EVAL_PAGE;
-    }
-
-
-    @Override
-    public void releaseTag() {
-        this.pages = null;
-    }
-
-
-    protected void addPage(AjaxTabPageTag ajaxTabPageTag) {
-        pages.append(ajaxTabPageTag.toString()).append(",");
-    }
+	public final void addPage(AjaxTabPageTag ajaxTabPageTag) {
+		pages.append(ajaxTabPageTag.toString()).append(",");
+	}
 }

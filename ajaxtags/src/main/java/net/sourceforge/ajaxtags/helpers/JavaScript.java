@@ -15,17 +15,36 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
+import net.sourceforge.ajaxtags.tags.BaseAjaxBodyTag;
+import net.sourceforge.ajaxtags.tags.OptionsBuilder;
+
 /**
  * 
  * @author Jens Kapitza
  */
 public final class JavaScript extends HTMLElementFactory {
 
+	private BaseAjaxBodyTag tag;
+	
     /**
      * create a script element
      */
     public JavaScript() {
         super("script");
+    }
+    
+    
+    public JavaScript(BaseAjaxBodyTag tag) {
+		this();
+		this.tag = tag;
+	}
+
+
+	public HTMLElementFactory newTabPanel(OptionsBuilder options){
+    	return  append(tag.getJSVariable()).append("new AjaxJspTag.TabPanel({" + options + "});") ;
+    }
+	public HTMLElementFactory newSelect(OptionsBuilder options){
+    	return  append(tag.getJSVariable()).append("new AjaxJspTag.Select({" + options + "});") ;
     }
 
 

@@ -173,7 +173,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 		return attachTo;
 	}
 
-	protected final String getJSVariable() {
+	public final String getJSVariable() {
 
 		StringBuilder script = new StringBuilder();
 
