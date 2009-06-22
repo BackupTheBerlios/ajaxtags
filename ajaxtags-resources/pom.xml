@@ -28,4 +28,12 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>ajaxtags</groupId>
+			<artifactId>ajaxtags</artifactId>
+			<version>${version}</version>
+		</dependency>
+	</dependencies>
 </project>

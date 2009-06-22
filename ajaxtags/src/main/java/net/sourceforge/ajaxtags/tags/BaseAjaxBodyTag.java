@@ -23,6 +23,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
 /**
  * 
  * @author Jens Kapitza
@@ -49,13 +50,6 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 	private String attachTo;
 	private String sourceClass;
 	private String eventType;
-
-	protected static String trim2Null(String str) {
-		if (str != null && str.trim().length() > 0) {
-			return str;
-		}
-		return null;
-	}
 
 	protected HttpServletRequest getHttpServletRequest() {
 		return (HttpServletRequest) pageContext.getRequest();
