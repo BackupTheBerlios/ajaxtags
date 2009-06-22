@@ -16,6 +16,8 @@
 package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
+import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
 
 import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
@@ -61,12 +63,12 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 	}
 
 	private String ajaxAnchors0(final String html, final String target,
-			final String clazz) throws Exception {
+			final String clazz) throws XPathExpressionException, TransformerException, SAXException  {
 		return rewriteAnchors(getDocument(html), target, clazz);
 	}
-
+	
 	private String rewriteAnchors(Document document, String target,
-			String className) throws Exception {
+			String className) throws XPathExpressionException, TransformerException  {
 		String ypath = "//a";
 		String xclass = "@class=\"" + className + "\"";
 
@@ -82,7 +84,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 		return XMLUtils.toString(document);
 	}
 
-	protected void rewriteLink(Node link, String target) {
+	protected final void rewriteLink(Node link, String target) {
 		NamedNodeMap map = link.getAttributes();
 		Attr href = (Attr) map.getNamedItem("href");
 		Attr onclick = (Attr) map.getNamedItem("onclick");
@@ -95,7 +97,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 		href.setValue("javascript://nop/");
 	}
 
-	protected static Document getDocument(final String html)
+	protected final static Document getDocument(final String html)
 			throws SAXException {
 		String xhtml = trim2Null(html); // .replaceAll("<br(.*?)>", "<br$1/>");
 		if (xhtml == null) {
