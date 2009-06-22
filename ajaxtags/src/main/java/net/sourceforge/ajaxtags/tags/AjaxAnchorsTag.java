@@ -16,7 +16,6 @@
 package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
-import javax.xml.xpath.XPathExpressionException;
 
 import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
@@ -44,18 +43,14 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
 	@Override
 	public int doEndTag() throws JspException {
-		out(ajaxAnchors());
+		out(ajaxAnchors(getBody(), getTarget(), getSourceClass()));
 		return EVAL_PAGE;
 	}
 
-	protected String ajaxAnchors() throws JspException {
-		return ajaxAnchors(getBody(), getTarget());
-	}
-
-	public String ajaxAnchors(final String html, final String target)
-			throws JspException {
+	public String ajaxAnchors(final String html, final String target,
+			final String clazz) throws JspException {
 		try {
-			return ajaxAnchors0(html, target);
+			return ajaxAnchors0(html, target, clazz);
 		} catch (Exception e) {
 			throw new JspException(
 					"rewrite links faild < is the content xhtml? > \n" + html,
@@ -63,19 +58,13 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 		}
 	}
 
-	private String ajaxAnchors0(final String html, final String target)
-			throws Exception {
-		Document document = getDocument(html);
-		return XMLUtils.toString(rewriteAnchors(document, target));
+	private String ajaxAnchors0(final String html, final String target,
+			final String clazz) throws Exception {
+		return rewriteAnchors(getDocument(html), target, clazz);
 	}
 
-	public Document rewriteAnchors(Document document, String target)
-			throws XPathExpressionException {
-		return rewriteAnchors(document, target, null);
-	}
-
-	public Document rewriteAnchors(Document document, String target,
-			String className) throws XPathExpressionException {
+	private String rewriteAnchors(Document document, String target,
+			String className) throws Exception {
 		String ypath = "//a";
 		String xclass = "@class=\"" + className + "\"";
 
@@ -88,10 +77,10 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 		for (int i = 0; i < links.getLength(); i++) {
 			rewriteLink(links.item(i), target);
 		}
-		return document;
+		return XMLUtils.toString(document);
 	}
 
-	public void rewriteLink(Node link, String target) {
+	protected void rewriteLink(Node link, String target) {
 		NamedNodeMap map = link.getAttributes();
 		Attr href = (Attr) map.getNamedItem("href");
 		Attr onclick = (Attr) map.getNamedItem("onclick");
@@ -104,7 +93,8 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 		href.setValue("javascript://nop/");
 	}
 
-	public static Document getDocument(final String html) throws SAXException {
+	protected static Document getDocument(final String html)
+			throws SAXException {
 		String xhtml = trim2Null(html); // .replaceAll("<br(.*?)>", "<br$1/>");
 		if (xhtml == null) {
 			return null;

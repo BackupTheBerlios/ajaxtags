@@ -1328,6 +1328,15 @@
 			<rtexprvalue>true</rtexprvalue>
 			<type>boolean</type>
 		</attribute>
+		<attribute>
+			<description>
+				The CSS class name of the elements to which the event
+				will be attached
+			</description>
+			<name>sourceClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 
 	<tag>
@@ -1428,6 +1437,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 
+		<attribute>
+			<description>
+				The CSS class name of the elements to which the event
+				will be attached
+			</description>
+			<name>sourceClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 
 	<tag>

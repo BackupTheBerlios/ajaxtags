@@ -12,4 +12,11 @@
 	<packaging>jar</packaging>
 	<version>1.5-SNAPSHOT</version>
 	<name>AjaxTags</name>
+	<dependencies>
+		<!--
+			<dependency> <groupId>net.htmlparser.jericho</groupId>
+			<artifactId>jericho-html</artifactId> <version>3.0</version>
+			<scope>provided</scope> </dependency>
+		-->
+	</dependencies>
 </project>

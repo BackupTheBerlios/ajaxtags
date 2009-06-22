@@ -135,7 +135,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      * @throws Exception
      */
     protected String processContent(String content) throws JspException {
-        return isAjaxAnchors() ? ajaxAnchors(content, getId()) : content;
+        return isAjaxAnchors() ? ajaxAnchors(content, getId(),getSourceClass()) : content;
     }
 
 }
