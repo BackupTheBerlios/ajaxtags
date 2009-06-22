@@ -29,17 +29,16 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
-		<developer>
-			<id>michael-o</id>
-			<name>Michael Osipov</name>
-			<email>michael-o [at] users.sourceforge.net</email>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
 	</developers>
 
 	<contributors>
+		<contributor>
+			<name>Michael Osipov</name>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</contributor>
 		<contributor>
 			<name>Darren Spurgeon</name>
 			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
@@ -115,28 +114,23 @@
 	</licenses>
 	<!-- we moved to berlios.de and using hg -->
 	<!--
-	<scm>
+		<scm>
 		<connection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</connection>
 		<developerConnection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</developerConnection>
-		<url>
-                        http://ajaxtags.svn.sourceforge.net/viewvc/ajaxtags/
-                </url>
-	</scm>
+		<url> http://ajaxtags.svn.sourceforge.net/viewvc/ajaxtags/ </url>
+		</scm>
 	-->
 	<description>
                 The ajaxtags tag library is an open source suite of custom tags that provide high-level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being easy to use.
 	</description>
 	<!-- nobody use this -->
 	<!--
-	<mailingLists>
-		<mailingList>
-			<name>Ajaxtags User Mailing list</name>
-			<subscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</subscribe>
-			<unsubscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</unsubscribe>
-			<post />
-			<archive>http://sourceforge.net/mailarchive/forum.php?forum=ajaxtags-user</archive>
-		</mailingList>
-	</mailingLists>
+		<mailingLists> <mailingList> <name>Ajaxtags User Mailing list</name>
+		<subscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</subscribe>
+		<unsubscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</unsubscribe>
+		<post />
+		<archive>http://sourceforge.net/mailarchive/forum.php?forum=ajaxtags-user</archive>
+		</mailingList> </mailingLists>
 	-->
 	<organization>
 		<name>the ajaxtags team</name>
@@ -163,15 +157,14 @@
 			</plugin>
 			<plugin>
 				<!--
-				we compile the project with 1.5 target.
-				cause of no change in java 1.6 there is no
-				1.6 target.
+					we compile the project with 1.5 target. cause of no change in java
+					1.6 there is no 1.6 target.
 				-->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<deprecation>on</deprecation>
 					<debug>on</debug>
 					<encoding>utf-8</encoding>
@@ -186,20 +179,13 @@
 				<!-- generating the documentation -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-					<!--
-					if we execute the package goal then,
-					generate the site, too
-					-->
-<!--
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>site</goal>
-						</goals>
-					</execution>
-				</executions>
--->
+				<!--
+					if we execute the package goal then, generate the site, too
+				-->
+				<!--
+					<executions> <execution> <phase>package</phase> <goals>
+					<goal>site</goal> </goals> </execution> </executions>
+				-->
 
 			</plugin>
 			<plugin>
@@ -230,7 +216,7 @@
 			<version>2.0</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- if we write junit test we use the new lib, not 3.x -->	
+		<!-- if we write junit test we use the new lib, not 3.x -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

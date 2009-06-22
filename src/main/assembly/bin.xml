@@ -1,7 +1,6 @@
 <assembly>
 	<id>bin</id>
 	<formats>
-		<format>tar.gz</format>
 		<format>zip</format>
 	</formats>
 	<fileSets>
@@ -12,6 +11,7 @@
 				<include>README*</include>
 				<include>LICENSE*</include>
 				<include>NOTICE*</include>
+				<include>pom.xml</include>
 			</includes>
 		</fileSet>
 		<fileSet>
