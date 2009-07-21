@@ -2,14 +2,14 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	version="2.1">
-	<description>AjaxTag Library is a library, wich make ajax easy
+	<description>AjaxTag Library is a library, which make ajax easy
 		to use by JSP </description>
 	<display-name>AjaxTag Library</display-name>
 	<tlib-version>1.5</tlib-version>
 	<short-name>ajaxtags</short-name>
 	<uri>http://ajaxtags.sourceforge.net/tags/ajaxtags</uri>
 
-	<!-- 	
+	<!--
 	<jsp-version>1.2</jsp-version>
 	 -->
 	<tag>
@@ -24,7 +24,7 @@
 			<description>
 				the value for the option when select target is not
 				filled by ajax response
-				default EMPTY 
+				default EMPTY
 			</description>
 			<name>emptyOptionValue</name>
 			<required>false</required>
@@ -125,7 +125,7 @@
 
 		<attribute>
 			<description>
-				A comma-seperated list of values of options to be marked
+				A comma-separated list of values of options to be marked
 				as selected by default if they exist in the new set of
 				options
 			</description>
@@ -1391,7 +1391,7 @@
 
 		<attribute>
 			<description>
-				Function to execute befor Ajax is started 
+				Function to execute befor Ajax is started
 			</description>
 			<name>preFunction</name>
 			<required>false</required>
