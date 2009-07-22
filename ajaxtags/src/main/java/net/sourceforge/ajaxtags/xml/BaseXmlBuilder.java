@@ -28,113 +28,112 @@ import java.util.List;
  */
 public abstract class BaseXmlBuilder<V> {
 
-	private List<V> liste = new ArrayList<V>();
+    private List<V> liste = new ArrayList<V>();
 
-	protected void setListe(List<V> liste) {
-		this.liste = liste;
-	}
+    /**
+     * Default encoding is utf-8.
+     */
+    private String encoding = "UTF-8";
 
-	/**
-	 * Default encoding is utf-8.
-	 */
-	private String encoding = "UTF-8";
+    protected void setListe(List<V> liste) {
+        this.liste = liste;
+    }
 
-	/**
-	 * @return the xml encoding
-	 */
-	public String getEncoding() {
-		return this.encoding;
-	}
+    /**
+     * @return the xml encoding
+     */
+    public String getEncoding() {
+        return this.encoding;
+    }
 
-	/**
-	 * Set the xml encoding.
-	 *
-	 * @param encoding
-	 */
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
+    /**
+     * Set the xml encoding.
+     *
+     * @param encoding
+     */
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
 
-	protected List<V> getListe() {
-		return this.liste;
-	}
+    protected List<V> getListe() {
+        return this.liste;
+    }
 
-	/**
-	 *
-	 * @return the item list
-	 */
-	protected List<V> getItems() {
-		return getListe();
-	}
+    /**
+     *
+     * @return the item list
+     */
+    protected List<V> getItems() {
+        return getListe();
+    }
 
-	/**
-	 *
-	 * @return the xml body, xml encoding is added by {@link #toString()}
-	 */
-	protected abstract String getXMLString();
+    /**
+     * @return the xml body, xml encoding is added by {@link #toString()}
+     */
+    protected abstract String getXMLString();
 
-	/**
-	 * @return the full XML document
-	 */
-	@Override
-	public String toString() {
-		StringBuffer xml = new StringBuffer().append("<?xml version=\"1.0\"");
-		if (getEncoding() != null) {
-			xml.append(" encoding=\"");
-			xml.append(getEncoding());
-			xml.append("\"");
-		}
-		xml.append(" ?>");
-		xml.append(getXMLString());
+    /**
+     * @return the full XML document
+     */
+    @Override
+    public String toString() {
+        StringBuffer xml = new StringBuffer().append("<?xml version=\"1.0\"");
+        if (getEncoding() != null) {
+            xml.append(" encoding=\"");
+            xml.append(getEncoding());
+            xml.append("\"");
+        }
+        xml.append(" ?>");
+        xml.append(getXMLString());
 
-		return xml.toString();
-	}
+        return xml.toString();
+    }
 
-	/**
-	 * Add item to list.
-	 *
-	 * @param o
-	 *            the item to add
-	 * @return BaseXmlBuilder
-	 * @see ArrayList#add(Object)
-	 */
-	public BaseXmlBuilder<V> add(V o) {
-		this.liste.add(o);
-		return this;
-	}
+    /**
+     * Add item to list.
+     *
+     * @param o
+     *            the item to add
+     * @return BaseXmlBuilder
+     * @see ArrayList#add(Object)
+     */
+    public BaseXmlBuilder<V> add(V o) {
+        this.liste.add(o);
+        return this;
+    }
 
-	/**
-	 * Delete all items.
-	 */
-	public void clear() {
-		this.liste.clear();
-	}
+    /**
+     * Delete all items.
+     */
+    public void clear() {
+        this.liste.clear();
+    }
 
-	/**
-	 * Return the item at index.
-	 *
-	 * @param index
-	 *            the index
-	 * @return the item at index
-	 */
-	public V get(int index) {
-		return this.liste.get(index);
-	}
+    /**
+     * Return the item at index.
+     *
+     * @param index
+     *            the index
+     * @return the item at index
+     */
+    public V get(int index) {
+        return this.liste.get(index);
+    }
 
-	/**
-	 * Check if itemlist is empty.
-	 *
-	 * @return true if it is empty else false
-	 */
-	public boolean isEmpty() {
-		return this.liste.isEmpty();
-	}
+    /**
+     * Check if itemlist is empty.
+     *
+     * @return true if it is empty else false
+     */
+    public boolean isEmpty() {
+        return this.liste.isEmpty();
+    }
 
-	/**
-	 *
-	 * @return the item count
-	 */
-	public int size() {
-		return this.liste.size();
-	}
+    /**
+     *
+     * @return the item count
+     */
+    public int size() {
+        return this.liste.size();
+    }
 }

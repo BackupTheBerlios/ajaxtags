@@ -1,12 +1,12 @@
 /**
  * Copyright 2009 Jens Kapitza
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -20,11 +20,9 @@ import javax.servlet.jsp.JspException;
 import net.sourceforge.ajaxtags.helpers.DIVElement;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
-
-
 /**
  * Tag handler for the portlet AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/28 21:50:35 $ $Author: jenskapitza $
@@ -35,17 +33,6 @@ public class AjaxPortletTag extends BaseAjaxTag {
 
     private boolean startMinimize;
 
-
-    public void setStartMinimize(boolean startMinimize) {
-        this.startMinimize = startMinimize;
-    }
-
-
-    public boolean getStartMinimize() {
-        return this.startMinimize;
-    }
-
-
     private String classNamePrefix;
     private String title;
     private String imageClose;
@@ -55,86 +42,78 @@ public class AjaxPortletTag extends BaseAjaxTag {
     private String refreshPeriod;
     private boolean executeOnLoad;
 
+    public void setStartMinimize(boolean startMinimize) {
+        this.startMinimize = startMinimize;
+    }
+
+    public boolean getStartMinimize() {
+        return this.startMinimize;
+    }
 
     public String getClassNamePrefix() {
         return classNamePrefix;
     }
 
-
     public void setClassNamePrefix(String classNamePrefix) {
         this.classNamePrefix = classNamePrefix;
     }
-
 
     public String getImageClose() {
         return imageClose;
     }
 
-
     public void setImageClose(String imageClose) {
         this.imageClose = imageClose;
     }
-
 
     public boolean getExecuteOnLoad() {
         return executeOnLoad;
     }
 
-
     public void setExecuteOnLoad(boolean executeOnLoad) {
         this.executeOnLoad = executeOnLoad;
     }
-
 
     public String getImageMaximize() {
         return imageMaximize;
     }
 
-
     public void setImageMaximize(String imageMaximize) {
         this.imageMaximize = imageMaximize;
     }
-
 
     public String getImageMinimize() {
         return imageMinimize;
     }
 
-
     public void setImageMinimize(String imageMinimize) {
         this.imageMinimize = imageMinimize;
     }
-
 
     public String getImageRefresh() {
         return imageRefresh;
     }
 
-
     public void setImageRefresh(String imageRefresh) {
         this.imageRefresh = imageRefresh;
     }
-
 
     public String getRefreshPeriod() {
         return refreshPeriod;
     }
 
-
     public void setRefreshPeriod(String refreshPeriod) {
         this.refreshPeriod = refreshPeriod;
     }
-
 
     public String getTitle() {
         return title;
     }
 
-
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     @Override
     public int doEndTag() throws JspException {
         OptionsBuilder options = getOptionsBuilder();
@@ -156,7 +135,6 @@ public class AjaxPortletTag extends BaseAjaxTag {
         out(div);
         return EVAL_PAGE;
     }
-
 
     @Override
     protected void releaseTag() {

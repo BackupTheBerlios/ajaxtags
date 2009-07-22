@@ -1,12 +1,12 @@
 /**
  * Copyright 2009 Jens Kapitza
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -38,8 +38,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-
 
 /**
  * some helper functions for xml
@@ -75,39 +73,33 @@ public final class XMLUtils {
 
     };
 
-
     private XMLUtils() {
     }
 
-
     public static NodeList evaluateXPathExpression(final String expression, final Node node)
-                    throws XPathExpressionException {
+            throws XPathExpressionException {
         return (NodeList) evaluateXPathExpression(expression, node, XPathConstants.NODESET);
     }
 
-
     public static Object evaluateXPathExpression(final String expression, final Node node,
-                    final QName returnValue) throws XPathExpressionException {
-        return xPathFactory.get().newXPath().evaluate(expression, node, returnValue == null ? XPathConstants.NODE : returnValue);
+            final QName returnValue) throws XPathExpressionException {
+        return xPathFactory.get().newXPath().evaluate(expression, node,
+                returnValue == null ? XPathConstants.NODE : returnValue);
     }
-
 
     private static DocumentBuilder getNewDocumentBuilder() throws ParserConfigurationException {
-    	return docFactory.get().newDocumentBuilder();
-    }
-    public static Document getXMLDocument(String xml) throws SAXException {
-        try {
-            return getNewDocumentBuilder().parse(
-                            new InputSource(new StringReader(xml)));
-        }
-        catch (IOException e) {
-            throw new SAXException(e);
-        }
-        catch (ParserConfigurationException e) {
-            throw new SAXException(e);
-        }
+        return docFactory.get().newDocumentBuilder();
     }
 
+    public static Document getXMLDocument(String xml) throws SAXException {
+        try {
+            return getNewDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+        } catch (IOException e) {
+            throw new SAXException(e);
+        } catch (ParserConfigurationException e) {
+            throw new SAXException(e);
+        }
+    }
 
     /**
      * create a new document
@@ -119,11 +111,9 @@ public final class XMLUtils {
         return getNewDocumentBuilder().newDocument();
     }
 
-
     public static String format(String xml) throws TransformerException, SAXException {
         return toString(getXMLDocument(xml));
     }
-
 
     public static String toString(Document document) throws TransformerException {
         StringWriter stringWriter = new StringWriter();

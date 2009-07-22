@@ -1,12 +1,12 @@
 /**
  * Copyright 2009 Jens Kapitza
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -19,11 +19,9 @@ import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
-
-
 /**
  * Tag handler for the form field AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -32,19 +30,15 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
 
     private static final long serialVersionUID = 1L;
     private String action;
-
+    private boolean valueUpdateByName;
 
     public String getAction() {
         return action;
     }
 
-
     public void setAction(String action) {
         this.action = action;
     }
-
-
-    private boolean valueUpdateByName;
 
     @Override
     public int doEndTag() throws JspException {
@@ -55,12 +49,11 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
         JavaScript script = new JavaScript();
         script.append(getJSVariable());
         script.append(" new AjaxJspTag.UpdateField(\n").append("{\n").append(options.toString())
-                        .append("});\n");
+                .append("});\n");
 
         out(script);
         return EVAL_PAGE;
     }
-
 
     @Override
     public void releaseTag() {
@@ -68,11 +61,9 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
         this.action = null;
     }
 
-
     public boolean getValueUpdateByName() {
         return valueUpdateByName;
     }
-
 
     public void setValueUpdateByName(boolean valueUpdateByName) {
         this.valueUpdateByName = valueUpdateByName;
