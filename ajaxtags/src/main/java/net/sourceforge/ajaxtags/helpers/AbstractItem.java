@@ -22,7 +22,7 @@ import java.util.Map.Entry;
 
 /**
  * A generic item class, basically representing a name-value pair.
- * 
+ *
  * @author Darren L. Spurgeon
  * @author Jens Kapitza
  * @param <T>
@@ -32,25 +32,28 @@ import java.util.Map.Entry;
 public abstract class AbstractItem<T> {
 
     /**
-     * the name
+     * The name.
      */
     private String name;
+
     /**
-     * the value
+     * The value.
      */
     private T value;
+
     /**
      * CDATA ?
      */
     private boolean asData;
+
     /**
-     * all other attributes
+     * All other attributes.
      */
     private Map<String, String> attributes = new HashMap<String, String>();
 
     /**
      * Constructor for Item.
-     * 
+     *
      * @param name
      *            the name for the item
      * @param value
@@ -73,8 +76,8 @@ public abstract class AbstractItem<T> {
     }
 
     /**
-     * set all attributes
-     * 
+     * Set all attributes.
+     *
      * @param attributes
      *            the attributes to set
      */
@@ -87,7 +90,7 @@ public abstract class AbstractItem<T> {
     }
 
     /**
-     * 
+     *
      * @return the key set of the attributes
      */
     public final Set<String> getAttributeKeySet() {
@@ -95,8 +98,8 @@ public abstract class AbstractItem<T> {
     }
 
     /**
-     * removes an attribute
-     * 
+     * Removes an attribute.
+     *
      * @param name
      *            the name of attribute
      */
@@ -105,15 +108,15 @@ public abstract class AbstractItem<T> {
     }
 
     /**
-     * clear the attributes
+     * Clear the attributes.
      */
     public final void clearAttribute() {
         this.attributes.clear();
     }
 
     /**
-     * set an attribute to extend the item
-     * 
+     * Set an attribute to extend the item.
+     *
      * @param name
      *            the name for the attribute
      * @param value
@@ -124,8 +127,8 @@ public abstract class AbstractItem<T> {
     }
 
     /**
-     * set an attribute to extend the item
-     * 
+     * Set an attribute to extend the item.
+     *
      * @param name
      *            the name for the attribute
      * @param value
@@ -135,16 +138,15 @@ public abstract class AbstractItem<T> {
      */
     public final void setAttributes(final String name, final String value, boolean evenIfNull) {
         if (value != null || evenIfNull) {
-            // FindeBug say we should use
-            // String.toUpperCase( Locale l )
+            // FindBug say we should use
             // String.toLowerCase( Locale l )
             this.attributes.put(name.toLowerCase(), value);
         }
     }
 
     /**
-     * read the attribute value
-     * 
+     * Read the attribute value.
+     *
      * @param name
      *            the attribute name
      * @return the value of attribute <code>name</code>

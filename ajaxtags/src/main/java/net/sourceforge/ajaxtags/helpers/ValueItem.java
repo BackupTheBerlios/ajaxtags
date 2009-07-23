@@ -1,12 +1,12 @@
 /**
  * Copyright 2009 Jens Kapitza
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -19,11 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-
 /**
- * holding the data for ValueListXmlBuilder
- * 
+ * Holding the data for ValueListXmlBuilder.
+ *
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:15 $ $Author: jenskapitza $
  */
@@ -31,10 +29,9 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     private static final long serialVersionUID = -5641651833544439174L;
 
-
     /**
-     * build a SimpleNode
-     * 
+     * Build a SimpleNode.
+     *
      * @param tagName
      *            name
      * @param asCData
@@ -44,10 +41,9 @@ public class ValueItem extends AbstractItem<List<String>> {
         this(tagName, null, asCData);
     }
 
-
     /**
-     * build a SimpleNode
-     * 
+     * Build a SimpleNode.
+     *
      * @param tagName
      *            name
      * @param value
@@ -59,10 +55,9 @@ public class ValueItem extends AbstractItem<List<String>> {
         this(tagName, asCData, value);
     }
 
-
     /**
-     * build a SimpleNode
-     * 
+     * Build a SimpleNode.
+     *
      * @param tagName
      *            name
      * @param asCData
@@ -75,10 +70,9 @@ public class ValueItem extends AbstractItem<List<String>> {
         getValue().addAll(Arrays.asList(value));
     }
 
-
     /**
-     * try to find the index of value
-     * 
+     * Try to find the index of value.
+     *
      * @param value
      *            the value to find
      * @return the index of this value
@@ -88,10 +82,9 @@ public class ValueItem extends AbstractItem<List<String>> {
         return getValue().indexOf(value);
     }
 
-
     /**
-     * add values to this valueitem
-     * 
+     * Add values to this valueitem.
+     *
      * @param values
      *            the value
      */
@@ -99,10 +92,9 @@ public class ValueItem extends AbstractItem<List<String>> {
         getValue().addAll(Arrays.asList(values));
     }
 
-
     /**
-     * add values to this valueitem
-     * 
+     * Add values to this valueitem.
+     *
      * @param values
      *            the value
      */
@@ -110,10 +102,9 @@ public class ValueItem extends AbstractItem<List<String>> {
         getValue().addAll(values);
     }
 
-
     /**
-     * add a value to this valueitem
-     * 
+     * Add a value to this valueitem.
+     *
      * @param value
      *            the value
      */
@@ -121,15 +112,14 @@ public class ValueItem extends AbstractItem<List<String>> {
         getValue().add(String.valueOf(value));
     }
 
-
     /**
-     * removes an item at index i
-     * 
-     * @param i
+     * Removes an item at specified index.
+     *
+     * @param index
      *            the index to remove
      * @return the removed item
      */
-    public String remove(int i) {
-        return getValue().remove(i);
+    public String remove(int index) {
+        return getValue().remove(index);
     }
 }

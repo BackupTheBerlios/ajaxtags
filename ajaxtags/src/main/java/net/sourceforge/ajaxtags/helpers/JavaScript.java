@@ -21,10 +21,11 @@ import net.sourceforge.ajaxtags.tags.OptionsBuilder;
 /**
  *
  * @author Jens Kapitza
+ * @version $Revision$ $Date$ $Author$
  */
 public final class JavaScript extends HTMLElementFactory {
 
-	private BaseAjaxBodyTag tag;
+    private BaseAjaxBodyTag tag;
 
     /**
      * Create a script element.
@@ -33,20 +34,18 @@ public final class JavaScript extends HTMLElementFactory {
         super("script");
     }
 
-
     public JavaScript(BaseAjaxBodyTag tag) {
-		this();
-		this.tag = tag;
-	}
-
-
-	public HTMLElementFactory newTabPanel(OptionsBuilder options){
-    	return  append(tag.getJSVariable()).append("new AjaxJspTag.TabPanel({" + options + "});");
-    }
-	public HTMLElementFactory newSelect(OptionsBuilder options){
-    	return  append(tag.getJSVariable()).append("new AjaxJspTag.Select({" + options + "});");
+        this();
+        this.tag = tag;
     }
 
+    public HTMLElementFactory newTabPanel(OptionsBuilder options) {
+        return append(tag.getJSVariable()).append("new AjaxJspTag.TabPanel({" + options + "});");
+    }
+
+    public HTMLElementFactory newSelect(OptionsBuilder options) {
+        return append(tag.getJSVariable()).append("new AjaxJspTag.Select({" + options + "});");
+    }
 
     /**
      * Just allow type attribute. All others are dropped.

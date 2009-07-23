@@ -40,10 +40,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * some helper functions for xml
- * 
+ * Some helper functions for xml.
+ *
  * @author jenskapitza
- * 
+ * @version $Revision$ $Date$ $Author$
  */
 public final class XMLUtils {
 
@@ -102,8 +102,8 @@ public final class XMLUtils {
     }
 
     /**
-     * create a new document
-     * 
+     * Create a new document.
+     *
      * @return an empty document
      * @throws ParserConfigurationException
      */
