@@ -16,6 +16,7 @@
 package net.sourceforge.ajaxtags.helpers;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -140,7 +141,7 @@ public abstract class AbstractItem<T> {
         if (value != null || evenIfNull) {
             // FindBug say we should use
             // String.toLowerCase( Locale l )
-            this.attributes.put(name.toLowerCase(), value);
+            this.attributes.put(name.toLowerCase(Locale.getDefault()), value);
         }
     }
 

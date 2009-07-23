@@ -46,6 +46,13 @@ public final class JavaScript extends HTMLElementFactory {
     public HTMLElementFactory newSelect(OptionsBuilder options) {
         return append(tag.getJSVariable()).append("new AjaxJspTag.Select({" + options + "});");
     }
+    
+
+    public HTMLElementFactory newToggle(OptionsBuilder options) {
+        return append(tag.getJSVariable()).append("new AjaxJspTag.Toggle({" + options + "});");
+    }
+    
+    
 
     /**
      * Just allow type attribute. All others are dropped.

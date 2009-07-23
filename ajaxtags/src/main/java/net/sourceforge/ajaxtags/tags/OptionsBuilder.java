@@ -79,20 +79,17 @@ public final class OptionsBuilder {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        for (Iterator<String> iter = this.parameters.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<String> iter = this.parameters.keySet().iterator(); iter.hasNext(); sb
+                .append(',').append('\n')) {
             String key = iter.next();
             String value = this.parameters.get(key);
             boolean quoted = this.parameterQuotes.get(key).booleanValue();
             sb.append(key).append(": ");
             if (quoted) {
-                sb.append("\"").append(value).append("\"");
+                sb.append('"').append(value).append('"');
             } else {
                 sb.append(value);
             }
-            if (iter.hasNext()) {
-                sb.append(",");
-            }
-            sb.append("\n");
         }
         return sb.toString();
     }

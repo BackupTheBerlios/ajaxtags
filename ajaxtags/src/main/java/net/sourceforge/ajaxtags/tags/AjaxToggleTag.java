@@ -77,7 +77,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
     }
 
     public void setDefaultRating(String defaultRating) {
-        this.defaultRating = defaultRating;
+        this.defaultRating = trim2Null(defaultRating);
     }
 
     public String getMessageClass() {
@@ -109,7 +109,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
     }
 
     public void setRatings(String ratings) {
-        this.ratings = ratings;
+        this.ratings = trim2Null(ratings);
     }
 
     public String getSelectedClass() {
@@ -166,49 +166,46 @@ public class AjaxToggleTag extends BaseAjaxTag {
         OptionsBuilder options = getOptions();
 
         boolean xOnOff = Boolean.parseBoolean(this.onOff);
-
+        final String AVOID_URL_START = "<a href=\"" + AJAX_VOID_URL + "\" title=\"";
+        final String AVOID_URL_END = "\"></a>";
         // write opening div
         HTMLElementFactory div = new DIVElement(getSource());
         div.setClassName(xOnOff ? getContainerClass() + " onoff" : getContainerClass());
 
+        String[] ratingValues = this.ratings == null ? null : this.ratings.split(",");
         // / TODO write this in javascript
         // / XXX write this in javascript!!!!
         // write links
         if (xOnOff) {
-            div.append("<a href=\"").append(AJAX_VOID_URL).append("\" title=\"");
-            if (trim2Null(defaultRating) != null && trim2Null(ratings) != null
-                    && this.defaultRating.equalsIgnoreCase(this.ratings.split(",")[0])) {
-                div.append(this.ratings.split(",")[0]).append("\" class=\"").append(
-                        this.selectedClass);
-            } else {
-                div.append(this.ratings.split(",")[1]);
+            div.append(AVOID_URL_START);
+            if (ratingValues != null) {
+                if (defaultRating != null && this.defaultRating.equalsIgnoreCase(ratingValues[0])) {
+                    div.append(ratingValues[0]).append("\" class=\"").append(this.selectedClass);
+                } else {
+                    div.append(ratingValues[1]);
+                }
             }
-
-            div.append("\"></a>");
+            div.append(AVOID_URL_END);
         } else {
             boolean ratingMatch = false;
-            String[] ratingValues = this.ratings.split(",");
             for (String val : ratingValues) {
-                div.append("<a href=\"").append(AJAX_VOID_URL).append("\" title=\"");
-
-                if (trim2Null(defaultRating) == null || ratingMatch) {
-                    div.append(val).append("\"></a>");
+                div.append(AVOID_URL_START);
+                if (defaultRating == null || ratingMatch) {
+                    div.append(val);
                 } else if (!ratingMatch || this.defaultRating.equalsIgnoreCase(val)) {
-                    div.append(val).append("\" class=\"").append(this.selectedClass).append(
-                            "\"></a>");
+                    div.append(val).append("\" class=\"").append(this.selectedClass);
                     if (this.defaultRating.equalsIgnoreCase(val)) {
                         ratingMatch = true;
                     }
                 }
+                div.append(AVOID_URL_END);
             }
         }
 
         // write script
-        JavaScript js = new JavaScript();
-        js.append(getJSVariable());
-        js.append("new AjaxJspTag.Toggle( {\n").append(options.toString()).append("});\n");
+        JavaScript js = new JavaScript(this);
+        js.newToggle(options);
         div.append(js);
-
         out(div);
         return EVAL_PAGE;
     }
