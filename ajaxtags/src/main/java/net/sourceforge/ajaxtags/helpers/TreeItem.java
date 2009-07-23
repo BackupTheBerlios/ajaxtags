@@ -108,14 +108,14 @@ public class TreeItem extends AbstractItem<String> {
      * @param l
      *            true if it is leaf else false
      */
-    public void setLeaf(boolean l) {
+    public final void setLeaf(boolean l) {
         setAttributes(LEAF, String.valueOf(l));
     }
 
     /**
      * @return Returns the collapsed value
      */
-    public boolean isCollapsed() {
+    public final boolean isCollapsed() {
         return Boolean.parseBoolean(getAttributeValue(COLLAPSED));
     }
 
@@ -123,14 +123,14 @@ public class TreeItem extends AbstractItem<String> {
      * @param collapsed
      *            The collapsed value to be set
      */
-    public void setCollapsed(boolean collapsed) {
+    public final void setCollapsed(boolean collapsed) {
         setAttributes(COLLAPSED, String.valueOf(collapsed));
     }
 
     /**
      * @return Return the URL
      */
-    public String getUrl() {
+    public final String getUrl() {
         return getAttributeValue(URL);
     }
 
@@ -138,7 +138,7 @@ public class TreeItem extends AbstractItem<String> {
      * @param url
      *            The url to be set
      */
-    public void setUrl(String url) {
+    public final void setUrl(String url) {
         setAttributes(URL, url);
     }
 }
