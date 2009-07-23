@@ -218,9 +218,9 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
             xml.append("</value>");
 
             for (String attr : item.getAttributeKeySet()) {
-                xml.append("<").append(attr).append(">");
+                xml.append('<').append(attr).append('>');
                 xml.append(item.getAttributeValue(attr));
-                xml.append("</").append(attr).append(">");
+                xml.append("</").append(attr).append('>');
             }
             xml.append("</item>");
         }
