@@ -1,12 +1,12 @@
 /**
  * Copyright 2009 Jens Kapitza
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -22,12 +22,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 /**
- * 
+ *
  * @author Jens Kapitza
- * 
+ * @version $Revision$ $Date$ $Author$
  */
 public final class AjaxActionHelper {
 
@@ -35,11 +33,9 @@ public final class AjaxActionHelper {
     private AjaxActionHelper() {
     }
 
-
     /**
-     * 
-     * Invoke the ajax action and setup the request and response
-     * 
+     * Invoke the ajax action and setup the request and response.
+     *
      * @param action
      *            the ajaxaction implementation
      * @param request
@@ -49,10 +45,10 @@ public final class AjaxActionHelper {
      * @return the xml content from action
      * @throws ServletException
      *             for any errors
-     * 
+     *
      */
     public static String invoke(BaseAjaxXmlAction action, HttpServletRequest request,
-                    HttpServletResponse response) throws ServletException {
+            HttpServletResponse response) throws ServletException {
         // prepare CALL
         try {
             request.setCharacterEncoding("UTF-8");
@@ -69,8 +65,7 @@ public final class AjaxActionHelper {
         response.setHeader("Pragma", "no-cache");
         try {
             return action.getXmlContent(request, response);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new ServletException(e);
         }
     }

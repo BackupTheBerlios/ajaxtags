@@ -1,12 +1,12 @@
 /**
  * Copyright 2009 Jens Kapitza
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -26,23 +26,21 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-
 /**
- * Wraps a DisplayTag (http://displaytag.org) table, enabling AJAX capabilities.
- * In the process, anchors in the navigation are rewritten on the fly so that
- * the DisplayTag table refreshes within the same region on the page without a
- * full-page reload.
- * 
+ * Wraps a DisplayTag (http://displaytag.org) table, enabling AJAX capabilities. In the process,
+ * anchors in the navigation are rewritten on the fly so that the DisplayTag table refreshes within
+ * the same region on the page without a full-page reload.
+ *
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/07/08 17:52:30 $ $Author: jenskapitza $
  */
 public class AjaxDisplayTag extends AjaxAreaTag {
 
-    private static final long serialVersionUID = 1L;
-    private String pagelinksClass;
-    private String columnClass;
+    private static final long serialVersionUID = -5945152631578965550L;
 
+    private String pagelinksClass;
+
+    private String columnClass;
 
     /**
      * @return Returns the pagelinksClass.
@@ -50,7 +48,6 @@ public class AjaxDisplayTag extends AjaxAreaTag {
     public String getPagelinksClass() {
         return this.pagelinksClass;
     }
-
 
     /**
      * @param pagelinksClass
@@ -60,14 +57,12 @@ public class AjaxDisplayTag extends AjaxAreaTag {
         this.pagelinksClass = pagelinksClass;
     }
 
-
     /**
      * @return Returns the columnClass.
      */
     public String getColumnClass() {
         return this.columnClass;
     }
-
 
     /**
      * @param columnClass
@@ -76,7 +71,6 @@ public class AjaxDisplayTag extends AjaxAreaTag {
     public void setColumnClass(String columnClass) {
         this.columnClass = columnClass;
     }
-
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#release()
@@ -87,7 +81,6 @@ public class AjaxDisplayTag extends AjaxAreaTag {
         this.pagelinksClass = "pagelinks";
         this.columnClass = "sortable";
     }
-
 
     private void rewriteAnchors0(Document document) {
         // String ypath = "//span[@class = \"" + getPagelinksClass() + "\"]//a";
@@ -111,7 +104,6 @@ public class AjaxDisplayTag extends AjaxAreaTag {
         }
     }
 
-
     /**
      * @throws JspException
      * @see net.sourceforge.ajaxtags.tags.AjaxAreaTag#processContent(java.lang.String)
@@ -122,11 +114,9 @@ public class AjaxDisplayTag extends AjaxAreaTag {
             Document doc = getDocument(content);
             rewriteAnchors0(doc);
             return XMLUtils.toString(doc);
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             throw new JspException(e);
-        }
-        catch (TransformerException e) {
+        } catch (TransformerException e) {
             throw new JspException(e);
         }
     }

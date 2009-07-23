@@ -50,6 +50,7 @@ public abstract class BaseXmlBuilder<V> {
      * Set the xml encoding.
      *
      * @param encoding
+     *            the xml encoding
      */
     public void setEncoding(String encoding) {
         this.encoding = encoding;
@@ -79,26 +80,23 @@ public abstract class BaseXmlBuilder<V> {
     public String toString() {
         StringBuffer xml = new StringBuffer().append("<?xml version=\"1.0\"");
         if (getEncoding() != null) {
-            xml.append(" encoding=\"");
-            xml.append(getEncoding());
-            xml.append("\"");
+            xml.append(" encoding=\"").append(getEncoding()).append("\"");
         }
         xml.append(" ?>");
         xml.append(getXMLString());
-
         return xml.toString();
     }
 
     /**
      * Add item to list.
      *
-     * @param o
+     * @param item
      *            the item to add
      * @return BaseXmlBuilder
      * @see ArrayList#add(Object)
      */
-    public BaseXmlBuilder<V> add(V o) {
-        this.liste.add(o);
+    public BaseXmlBuilder<V> add(final V item) {
+        this.liste.add(item);
         return this;
     }
 
@@ -130,10 +128,10 @@ public abstract class BaseXmlBuilder<V> {
     }
 
     /**
-     *
      * @return the item count
      */
     public int size() {
         return this.liste.size();
     }
+
 }

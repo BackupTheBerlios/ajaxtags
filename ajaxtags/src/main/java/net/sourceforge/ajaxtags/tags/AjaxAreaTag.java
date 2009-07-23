@@ -20,9 +20,8 @@ import javax.servlet.jsp.JspException;
 import net.sourceforge.ajaxtags.helpers.DIVElement;
 
 /**
- * Wraps any area on the page (with a DIV element) so that actions within that
- * area refresh/load inside the defined DIV region rather than inside the whole
- * browser window.
+ * Wraps any area on the page (with a DIV element) so that actions within that area refresh/load
+ * inside the defined DIV region rather than inside the whole browser window.
  *
  * @author Darren Spurgeon
  * @author Jens Kapitza
@@ -30,100 +29,101 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
  */
 public class AjaxAreaTag extends AjaxAnchorsTag {
 
-	public static final String TARGET_HEADER = "x-request-target";
-	private static final long serialVersionUID = -7940387487602588115L;
-	private String styleClass;
-	private boolean ajaxAnchors;
+    public static final String TARGET_HEADER = "x-request-target";
 
-	@Override
-	public final boolean isAjaxRequest() {
-		// this is only a ajaxrequest if the target is right!
-		return super.isAjaxRequest()
-				&& isHttpRequestHeader(TARGET_HEADER, getId());
-	}
+    private static final long serialVersionUID = -7940387487602588115L;
 
-	/**
-	 * @return Returns the styleClass.
-	 */
-	public final String getStyleClass() {
-		return this.styleClass;
-	}
+    private String styleClass;
 
-	/**
-	 * @param styleClass
-	 *            The styleClass to set.
-	 */
-	public final void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
-	}
+    private boolean ajaxAnchors;
 
-	/**
-	 * @return Returns the ajaxAnchors.
-	 */
-	public final boolean getAjaxAnchors() {
-		return this.ajaxAnchors;
-	} // we don't need it!
+    @Override
+    public final boolean isAjaxRequest() {
+        // this is only a ajaxrequest if the target is right!
+        return super.isAjaxRequest() && isHttpRequestHeader(TARGET_HEADER, getId());
+    }
 
-	public final boolean isAjaxAnchors() {
-		return this.ajaxAnchors;
-	}
+    /**
+     * @return Returns the styleClass.
+     */
+    public final String getStyleClass() {
+        return this.styleClass;
+    }
 
-	/**
-	 * @param ajaxAnchors
-	 *            The ajaxAnchors to set.
-	 */
-	public final void setAjaxAnchors(boolean ajaxAnchors) {
-		this.ajaxAnchors = ajaxAnchors;
-	}
+    /**
+     * @param styleClass
+     *            The styleClass to set.
+     */
+    public final void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
 
-	@Override
-	public int doEndTag() throws JspException {
-		DIVElement div = new DIVElement(getId());
-		div.append(processContent(getBody()));
-		div.setClassName(getStyleClass());
-		out(isAjaxRequest() ? div.getBody() : div);
+    /**
+     * @return Returns the ajaxAnchors.
+     */
+    public final boolean getAjaxAnchors() {
+        return this.ajaxAnchors;
+    } // we don't need it!
 
-		if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
-			throw new JspException("the request was flushed before");
-		}
+    public final boolean isAjaxAnchors() {
+        return this.ajaxAnchors;
+    }
 
-		return isAjaxRequest() ? SKIP_PAGE : EVAL_PAGE;
-	}
+    /**
+     * @param ajaxAnchors
+     *            The ajaxAnchors to set.
+     */
+    public final void setAjaxAnchors(boolean ajaxAnchors) {
+        this.ajaxAnchors = ajaxAnchors;
+    }
 
-	/**
-	 * @see javax.servlet.jsp.tagext.Tag#release()
-	 */
-	@Override
-	public void releaseTag() {
-		this.ajaxAnchors = false;
-		this.styleClass = null;
-	}
+    @Override
+    public int doEndTag() throws JspException {
+        DIVElement div = new DIVElement(getId());
+        div.append(processContent(getBody()));
+        div.setClassName(getStyleClass());
+        out(isAjaxRequest() ? div.getBody() : div);
 
-	/**
-	 * Set initial parameters.
-	 *
-	 * @throws JspException
-	 */
-	@Override
-	public void initParameters() throws JspException {
-		if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
-			throw new JspException("try to avoid flush befor");
-		} else {
-			getHttpServletResponse().reset();
-		}
-	}
+        if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
+            throw new JspException("the request was flushed before");
+        }
 
-	/**
-	 * Process content.
-	 *
-	 * @param content
-	 * @return processed content
-	 * @throws JspException
-	 * @throws Exception
-	 */
-	protected String processContent(String content) throws JspException {
-		return isAjaxAnchors() ? ajaxAnchors(content, getId(), getSourceClass())
-				: content;
-	}
+        return isAjaxRequest() ? SKIP_PAGE : EVAL_PAGE;
+    }
+
+    /**
+     * @see javax.servlet.jsp.tagext.Tag#release()
+     */
+    @Override
+    public void releaseTag() {
+        this.ajaxAnchors = false;
+        this.styleClass = null;
+    }
+
+    /**
+     * Set initial parameters.
+     *
+     * @throws JspException
+     */
+    @Override
+    public void initParameters() throws JspException {
+        if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
+            throw new JspException("try to avoid flush befor");
+        } else {
+            getHttpServletResponse().reset();
+        }
+    }
+
+    /**
+     * Process content.
+     *
+     * @param content
+     * @return processed content
+     * @throws JspException
+     * @throws Exception
+     */
+    protected String processContent(String content) throws JspException {
+        return isAjaxAnchors() ? ajaxAnchors(content, getId(), getSourceClass()) : content;
+    }
 
 }

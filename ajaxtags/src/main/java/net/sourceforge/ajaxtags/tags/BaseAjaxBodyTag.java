@@ -26,7 +26,7 @@ import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
@@ -38,6 +38,9 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     private static final long serialVersionUID = 2128368408391947139L;
 
+    /**
+     * True if the body should be ignored.
+     */
     private boolean skipBody;
 
     private String source;
@@ -75,8 +78,8 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * detect if the client does a ajax call or not
-     * 
+     * Detect if the client does a ajax call or not.
+     *
      * @return true only if the client send the header with with XMLHttpRequest
      */
     protected boolean isAjaxRequest() {
@@ -93,7 +96,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * 
+     *
      * @return true if the body should be ignored
      */
     protected final void skipBody() {
@@ -251,14 +254,14 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * never call release -> ends in loop
+     * Never call release -> ends in loop.
      */
     protected void releaseTag() {
     }
 
     /**
-     * 
-     * @return the Optionsbuilder with default options
+     *
+     * @return the OptionsBuilder with default options
      */
     protected OptionsBuilder getOptionsBuilder() {
         return getOptionsBuilder(false);
@@ -286,12 +289,11 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         builder.add("onFailure", this.errorFunction, false);
 
         return builder;
-
     }
 
     /**
      * Helper to define new AJAX updater for onclick attribute.
-     * 
+     *
      * @param target
      *            the target to request
      * @param href
@@ -302,9 +304,8 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
      */
     protected final String getOnclickAjax(final String target, final String href,
             final OptionsBuilder opt) {
-        OptionsBuilder options = OptionsBuilder.getOptionsBuilder(opt); // copy
-        // all
-        // options
+        OptionsBuilder options = OptionsBuilder.getOptionsBuilder(opt);
+        // copy all options
 
         options.add("target", target, true);
         options.add("baseUrl", href, true);

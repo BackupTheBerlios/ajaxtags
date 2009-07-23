@@ -1,12 +1,12 @@
 /**
  * Copyright 2009 Jens Kapitza
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -15,211 +15,215 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
+import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
+
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
 import net.sourceforge.ajaxtags.helpers.HTMLElementFactory;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
-import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
 
 /**
  * Tag handler for the toggle (on/off, true/false) AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
 public class AjaxToggleTag extends BaseAjaxTag {
 
-	private static final long serialVersionUID = 1L;
-	private String ratings;
-	private String defaultRating;
-	private String state;
-	private String onOff;
-	private String containerClass;
-	private String messageClass;
-	private String selectedClass;
-	private String selectedOverClass;
-	private String selectedLessClass;
-	private String overClass;
-	private String updateFunction;
+    private static final long serialVersionUID = 6877730352175914711L;
 
-	public String getUpdateFunction() {
-		return updateFunction;
-	}
+    private String ratings;
 
-	public void setUpdateFunction(String updateFunction) {
-		this.updateFunction = updateFunction;
-	}
+    private String defaultRating;
 
-	public String getContainerClass() {
-		return containerClass;
-	}
+    private String state;
 
-	public void setContainerClass(String containerClass) {
-		this.containerClass = containerClass;
-	}
+    private String onOff;
 
-	public String getDefaultRating() {
-		return defaultRating;
-	}
+    private String containerClass;
 
-	public void setDefaultRating(String defaultRating) {
-		this.defaultRating = defaultRating;
-	}
+    private String messageClass;
 
-	public String getMessageClass() {
-		return messageClass;
-	}
+    private String selectedClass;
 
-	public void setMessageClass(String messageClass) {
-		this.messageClass = messageClass;
-	}
+    private String selectedOverClass;
 
-	public String getOnOff() {
-		return onOff;
-	}
+    private String selectedLessClass;
 
-	public void setOnOff(String onOff) {
-		this.onOff = onOff;
-	}
+    private String overClass;
 
-	public String getOverClass() {
-		return overClass;
-	}
+    private String updateFunction;
 
-	public void setOverClass(String overClass) {
-		this.overClass = overClass;
-	}
+    public String getUpdateFunction() {
+        return updateFunction;
+    }
 
-	public String getRatings() {
-		return ratings;
-	}
+    public void setUpdateFunction(String updateFunction) {
+        this.updateFunction = updateFunction;
+    }
 
-	public void setRatings(String ratings) {
-		this.ratings = ratings;
-	}
+    public String getContainerClass() {
+        return containerClass;
+    }
 
-	public String getSelectedClass() {
-		return selectedClass;
-	}
+    public void setContainerClass(String containerClass) {
+        this.containerClass = containerClass;
+    }
 
-	public void setSelectedClass(String selectedClass) {
-		this.selectedClass = selectedClass;
-	}
+    public String getDefaultRating() {
+        return defaultRating;
+    }
 
-	public String getSelectedLessClass() {
-		return selectedLessClass;
-	}
+    public void setDefaultRating(String defaultRating) {
+        this.defaultRating = defaultRating;
+    }
 
-	public void setSelectedLessClass(String selectedLessClass) {
-		this.selectedLessClass = selectedLessClass;
-	}
+    public String getMessageClass() {
+        return messageClass;
+    }
 
-	public String getSelectedOverClass() {
-		return selectedOverClass;
-	}
+    public void setMessageClass(String messageClass) {
+        this.messageClass = messageClass;
+    }
 
-	public void setSelectedOverClass(String selectedOverClass) {
-		this.selectedOverClass = selectedOverClass;
-	}
+    public String getOnOff() {
+        return onOff;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public void setOnOff(String onOff) {
+        this.onOff = onOff;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getOverClass() {
+        return overClass;
+    }
 
-	private OptionsBuilder getOptions() {
-		OptionsBuilder options = getOptionsBuilder();
-		options.add("ratings", this.ratings, true);
-		options.add("containerClass", this.containerClass, true);
-		options.add("selectedClass", this.selectedClass, true);
-		options.add("selectedOverClass", this.selectedOverClass, true);
-		options.add("selectedLessClass", this.selectedLessClass, true);
-		options.add("overClass", this.overClass, true);
-		options.add("messageClass", this.messageClass, true);
-		options.add("state", this.state, true);
-		options.add("onOff", this.onOff, true);
-		options.add("defaultRating", this.defaultRating, true);
-		options.add("updateFunction", this.updateFunction, false);
+    public void setOverClass(String overClass) {
+        this.overClass = overClass;
+    }
 
-		return options;
-	}
+    public String getRatings() {
+        return ratings;
+    }
 
-	@Override
-	public int doEndTag() throws JspException {
-		OptionsBuilder options = getOptions();
+    public void setRatings(String ratings) {
+        this.ratings = ratings;
+    }
 
-		boolean xOnOff = Boolean.parseBoolean(this.onOff);
+    public String getSelectedClass() {
+        return selectedClass;
+    }
 
-		// write opening div
-		HTMLElementFactory div = new DIVElement(getSource());
-		div.setClassName(xOnOff ? getContainerClass() + " onoff"
-				: getContainerClass());
+    public void setSelectedClass(String selectedClass) {
+        this.selectedClass = selectedClass;
+    }
 
-		// / TODO write this in javascript
-		// / XXX write this in javascript!!!!
-		// write links
-		if (xOnOff) {
-			div.append("<a href=\"").append(AJAX_VOID_URL)
-					.append("\" title=\"");
-			if (trim2Null(defaultRating) != null
-					&& trim2Null(ratings) != null
-					&& this.defaultRating.equalsIgnoreCase(this.ratings
-							.split(",")[0])) {
-				div.append(this.ratings.split(",")[0]).append("\" class=\"")
-						.append(this.selectedClass);
-			} else {
-				div.append(this.ratings.split(",")[1]);
-			}
+    public String getSelectedLessClass() {
+        return selectedLessClass;
+    }
 
-			div.append("\"></a>");
-		} else {
-			boolean ratingMatch = false;
-			String[] ratingValues = this.ratings.split(",");
-			for (int i = 0; i < ratingValues.length; i++) {
-				String val = ratingValues[i];
-				div.append("<a href=\"").append(AJAX_VOID_URL).append(
-						"\" title=\"");
+    public void setSelectedLessClass(String selectedLessClass) {
+        this.selectedLessClass = selectedLessClass;
+    }
 
-				if (trim2Null(defaultRating) == null || ratingMatch) {
-					div.append(val).append("\"></a>");
-				} else if (!ratingMatch
-						|| this.defaultRating.equalsIgnoreCase(val)) {
-					div.append(val).append("\" class=\"").append(
-							this.selectedClass).append("\"></a>");
-					if (this.defaultRating.equalsIgnoreCase(val)) {
-						ratingMatch = true;
-					}
-				}
-			}
-		}
+    public String getSelectedOverClass() {
+        return selectedOverClass;
+    }
 
-		// write script
-		JavaScript js = new JavaScript();
-		js.append(getJSVariable());
-		js.append("new AjaxJspTag.Toggle( {\n").append(options.toString())
-				.append("});\n");
-		div.append(js);
+    public void setSelectedOverClass(String selectedOverClass) {
+        this.selectedOverClass = selectedOverClass;
+    }
 
-		out(div);
-		return EVAL_PAGE;
-	}
+    public String getState() {
+        return state;
+    }
 
-	@Override
-	public void releaseTag() {
-		this.ratings = null;
-		this.defaultRating = null;
-		this.state = null;
-		this.onOff = null;
-		this.containerClass = null;
-		this.messageClass = null;
-		this.selectedClass = null;
-		this.selectedOverClass = null;
-		this.selectedLessClass = null;
-		this.overClass = null;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    private OptionsBuilder getOptions() {
+        OptionsBuilder options = getOptionsBuilder();
+        options.add("ratings", this.ratings, true);
+        options.add("containerClass", this.containerClass, true);
+        options.add("selectedClass", this.selectedClass, true);
+        options.add("selectedOverClass", this.selectedOverClass, true);
+        options.add("selectedLessClass", this.selectedLessClass, true);
+        options.add("overClass", this.overClass, true);
+        options.add("messageClass", this.messageClass, true);
+        options.add("state", this.state, true);
+        options.add("onOff", this.onOff, true);
+        options.add("defaultRating", this.defaultRating, true);
+        options.add("updateFunction", this.updateFunction, false);
+
+        return options;
+    }
+
+    @Override
+    public int doEndTag() throws JspException {
+        OptionsBuilder options = getOptions();
+
+        boolean xOnOff = Boolean.parseBoolean(this.onOff);
+
+        // write opening div
+        HTMLElementFactory div = new DIVElement(getSource());
+        div.setClassName(xOnOff ? getContainerClass() + " onoff" : getContainerClass());
+
+        // / TODO write this in javascript
+        // / XXX write this in javascript!!!!
+        // write links
+        if (xOnOff) {
+            div.append("<a href=\"").append(AJAX_VOID_URL).append("\" title=\"");
+            if (trim2Null(defaultRating) != null && trim2Null(ratings) != null
+                    && this.defaultRating.equalsIgnoreCase(this.ratings.split(",")[0])) {
+                div.append(this.ratings.split(",")[0]).append("\" class=\"").append(
+                        this.selectedClass);
+            } else {
+                div.append(this.ratings.split(",")[1]);
+            }
+
+            div.append("\"></a>");
+        } else {
+            boolean ratingMatch = false;
+            String[] ratingValues = this.ratings.split(",");
+            for (String val : ratingValues) {
+                div.append("<a href=\"").append(AJAX_VOID_URL).append("\" title=\"");
+
+                if (trim2Null(defaultRating) == null || ratingMatch) {
+                    div.append(val).append("\"></a>");
+                } else if (!ratingMatch || this.defaultRating.equalsIgnoreCase(val)) {
+                    div.append(val).append("\" class=\"").append(this.selectedClass).append(
+                            "\"></a>");
+                    if (this.defaultRating.equalsIgnoreCase(val)) {
+                        ratingMatch = true;
+                    }
+                }
+            }
+        }
+
+        // write script
+        JavaScript js = new JavaScript();
+        js.append(getJSVariable());
+        js.append("new AjaxJspTag.Toggle( {\n").append(options.toString()).append("});\n");
+        div.append(js);
+
+        out(div);
+        return EVAL_PAGE;
+    }
+
+    @Override
+    public void releaseTag() {
+        this.ratings = null;
+        this.defaultRating = null;
+        this.state = null;
+        this.onOff = null;
+        this.containerClass = null;
+        this.messageClass = null;
+        this.selectedClass = null;
+        this.selectedOverClass = null;
+        this.selectedLessClass = null;
+        this.overClass = null;
+    }
 }

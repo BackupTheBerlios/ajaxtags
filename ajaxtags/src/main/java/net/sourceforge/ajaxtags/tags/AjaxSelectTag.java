@@ -25,14 +25,17 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/08 17:52:30 $ $Author: jenskapitza $
- *
  */
 public class AjaxSelectTag extends BaseAjaxTag {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -686763601190277341L;
+
     private String emptyOptionValue;
+
     private String emptyOptionName;
+
     private boolean executeOnLoad;
+
     private String defaultOptions;
 
     public void setEmptyOptionName(String emptyOptionName) {

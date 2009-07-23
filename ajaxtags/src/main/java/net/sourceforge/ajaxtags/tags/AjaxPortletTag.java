@@ -29,17 +29,24 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
  */
 public class AjaxPortletTag extends BaseAjaxTag {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8528089710699925100L;
 
     private boolean startMinimize;
 
     private String classNamePrefix;
+
     private String title;
+
     private String imageClose;
+
     private String imageMaximize;
+
     private String imageMinimize;
+
     private String imageRefresh;
+
     private String refreshPeriod;
+
     private boolean executeOnLoad;
 
     public void setStartMinimize(boolean startMinimize) {

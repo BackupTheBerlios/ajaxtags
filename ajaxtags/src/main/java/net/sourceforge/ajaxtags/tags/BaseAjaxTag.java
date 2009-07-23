@@ -21,15 +21,15 @@ import javax.servlet.jsp.JspException;
  * This class does not support body content.
  *
  * @author Jens Kapitza
- *
+ * @version $Revision$ $Date$ $Author$
  */
 public abstract class BaseAjaxTag extends BaseAjaxBodyTag {
 
-	private static final long serialVersionUID = -6954908083925539558L;
+    private static final long serialVersionUID = -6954908083925539558L;
 
-	@Override
-	protected void initParameters() throws JspException {
-		super.initParameters();
-		skipBody();
-	}
+    @Override
+    protected void initParameters() throws JspException {
+        super.initParameters();
+        skipBody();
+    }
 }

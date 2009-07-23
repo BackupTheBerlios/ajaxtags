@@ -28,8 +28,10 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
  */
 public class AjaxFormFieldTag extends BaseAjaxTag {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7774526024294932262L;
+
     private String action;
+
     private boolean valueUpdateByName;
 
     public String getAction() {
