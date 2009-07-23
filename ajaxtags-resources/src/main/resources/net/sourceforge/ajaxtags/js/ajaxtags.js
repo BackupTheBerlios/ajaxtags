@@ -14,29 +14,31 @@
  * limitations under the License.
  */
 
+/*global $,$$,$F,Ajax,Autocompleter,Class,Element,Event,Prototype,overlib*/
+
 var AjaxJspTag = {
-    Version :'1.5',
+    Version: '1.5',
     /**
-	 * store all tags wich have listeners
-	 */
-    tags : [],
+     * store all tags which have listeners
+     */
+    tags: [],
 
     /**
      * push listener for later reload
      */
-    add : function(tag) {
+    add: function(tag) {
         AjaxJspTag.tags.push(tag);
     },
     /**
      * remove listener this is not used all listeners are reloader at changed
      * content!
      */
-    remove : function(tag) {
+    remove: function(tag) {
         AjaxJspTag.tags = AjaxJspTag.tags.without(tag);
     },
     /**
-     * reload the listeners any listener has a function called setListeners with no
-     * arguments todo reload after each request
+     * reload the listeners any listener has a function called setListeners with
+     * no arguments todo reload after each request
      */
     reload : function() {
         AjaxJspTag.tags.each(AjaxJspTag.fireListener);
@@ -50,7 +52,7 @@ var AjaxJspTag = {
 };
 
 // load all ajaxtags stuff
-// prototype and scriptaculous must load befor parsinng this script!
+// prototype and scriptaculous must load before parsing this script!
 // IE BUG
 // prototype can/should be used by this functions!
 
@@ -58,20 +60,20 @@ var AjaxJspTag = {
  * Global Variables todo move to namespace AjaxJspTag
  */
 var AJAX_DEFAULT_PARAMETER = "ajaxParameter";
-var AJAX_DEFAULT_PARAMETER_REGEXP = new RegExp("(\\{"+ AJAX_DEFAULT_PARAMETER + "\\})", 'g');
+var AJAX_DEFAULT_PARAMETER_REGEXP = new RegExp("(\\{" + AJAX_DEFAULT_PARAMETER + "\\})", 'g');
 
-var AJAX_VOID_URL  = "javascript://nop" ;
+var AJAX_VOID_URL  = "javascript://nop";
 var AJAX_PORTLET_MAX = 1;
 var AJAX_PORTLET_MIN = 2;
 var AJAX_PORTLET_CLOSE = 3;
 var AJAX_CALLOUT_OVERLIB_DEFAULT = "STICKY,CLOSECLICK,DELAY,250,TIMEOUT,5000,VAUTO,WRAPMAX,240,CSSCLASS,FGCLASS,'olfg',BGCLASS,'olbg',CGCLASS,'olcg',CAPTIONFONTCLASS,'olcap',CLOSEFONTCLASS,'olclo',TEXTFONTCLASS,'oltxt'";
 
 /**
- * Response Parsers defaults and functions wich can be used for HTML, TEXT and
+ * Response Parsers defaults and functions which can be used for HTML, TEXT and
  * XML call DefaultResponseParser(TYPE) with the needed type
  */
-var DefaultResponseParser = Class.create( {
-    initialize : function(defaultType,isPlainText) {
+var DefaultResponseParser = Class.create({
+    initialize : function(defaultType, isPlainText) {
         this.type = defaultType || "xml";
         this.plaintext = false;
         if (arguments.length >= 2) {
@@ -93,52 +95,52 @@ var DefaultResponseParser = Class.create( {
         if (arguments.length >= 1) {
             this.type = forceType;
         }
-        if (this.type == "xml") {
+        if (this.type === "xml") {
             var root = this.contentXML.documentElement;
             var responseNodes = root.getElementsByTagName("response");
             xdata = [];
-            var i=0,j=0,k=0,len1=responseNodes.length,len2=null,len3=null;
-            var nameNodes=null,valueNodes=null,row=null,items=null;
+            var i = 0, j = 0, k = 0, len1 = responseNodes.length, len2 = null, len3 = null;
+            var nameNodes = null, valueNodes = null, row = null, items = null;
             var itemNode, nameNode, responseNode, valueNode;
-            for (i=0; i < len1; i++) {
+            for (i = 0; i < len1; i++) {
                 responseNode = responseNodes[i];
                 items = responseNode.getElementsByTagName("item");
-                len2=items.length;
-                for (j=0; j < len2; j++) {
-                    itemNode= items[j];
+                len2 = items.length;
+                for (j = 0; j < len2; j++) {
+                    itemNode = items[j];
                     nameNodes = itemNode.getElementsByTagName("name");
                     valueNodes = itemNode.getElementsByTagName("value");
                     row = [];
-                    len3=nameNodes.length;
-                    for (k=0; k < len3; k++) {
-                        nameNode=nameNodes[k];
-                        row.push( nameNode.firstChild ? nameNode.firstChild.nodeValue : "");
+                    len3 = nameNodes.length;
+                    for (k = 0; k < len3; k++) {
+                        nameNode = nameNodes[k];
+                        row.push(nameNode.firstChild ? nameNode.firstChild.nodeValue : "");
                     }
                     if (row.length != 1) {
                         throw new Error("XML is not supported");
                     }
-                    len3=valueNodes.length;
-                    for (k=0; k < len3; k++) {
-                        valueNode=valueNodes[k];
+                    len3 = valueNodes.length;
+                    for (k = 0; k < len3; k++) {
+                        valueNode = valueNodes[k];
                         row.push(valueNode.firstChild ? valueNode.firstChild.nodeValue : "");
                     }
                     xdata.push(row);
                 }
             }
-        } else if (this.type == "plain") {
+        } else if (this.type === "plain") {
             xdata = this.contentText;
-        } else if (this.type == "text") {
+        } else if (this.type === "text") {
             xdata = [];
-            this.contentText.split('\n').each( function(line) {
+            this.contentText.split('\n').each(function(line) {
                 xdata.push(line.split(','));
             });
-        } else if (this.type == "html") {
+        } else if (this.type === "html") {
             xdata = this.contentText; // response is HMTL
-        } else if (this.type == "xmltohtml"){
+        } else if (this.type === "xmltohtml") {
             // replace ResponseXmlToHtmlParser
             this.parse("xml"); // parse xml stream!
             xdata = new Element("div");
-            var div = null,h1 = null;
+            var div = null, h1 = null;
             this.content.each(function(row) {
                 h1 = new Element("h1");
                 if (!this.plaintext) {
@@ -160,12 +162,12 @@ var DefaultResponseParser = Class.create( {
             // #4 // now switch content
             xdata = (h1 !== null) ?  xdata.innerHTML : "";
         // skip plz
-        } else if (this.type == "xmltohtmllist") {
+        } else if (this.type === "xmltohtmllist") {
             this.parse("xml");
-            xdata  = new Element("div");
+            xdata = new Element("div");
             var ul = new Element("ul");
             var liElement = null;
-            this.content.each(function(row){
+            this.content.each(function(row) {
                 liElement = new Element("li");
                 liElement.id = row[1];
                 if (this.plaintext) {
@@ -183,19 +185,19 @@ var DefaultResponseParser = Class.create( {
     }
 });
 
-// ResponseCallBackXmlParser is borken!!! prototype exec javascript ?
-var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser,{
-    initialize : function($super) {
-        $super( "xmltohtmllinklist");
+// ResponseCallBackXmlParser is broken!!! prototype exec javascript ?
+var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
+    initialize: function($super) {
+        $super("xmltohtmllinklist");
     },
-    load : function($super,request) {
+    load: function($super, request) {
         this.collapsedClass = request.collapsedClass;
         this.treeClass = request.treeClass;
         this.nodeClass = request.nodeClass;
         this.expandedNodes = [];
         $super(request);
     },
-    parse : function() {
+    parse: function() {
         var responseNodes = this.contentXML.documentElement.getElementsByTagName("response");
         if (responseNodes.length > 0) {
             var itemNodes = responseNodes[0].getElementsByTagName("item");
@@ -203,13 +205,13 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser,{
             if (ul) {
                 ul.addClassName(this.treeClass);
             }
-            var nameNodes =null, valueNodes =null, urlNodes=null, collapsedNodes =null, leafnodes =null;
-            var name =null,value=null, url=null,collapsed=false,leaf=false;
-            var li=null,i=null,span=null,link=null,div=null,len = itemNodes.length;
+            var nameNodes = null, valueNodes = null, urlNodes = null, collapsedNodes = null, leafnodes = null;
+            var name = null, value = null, url = null, collapsed = false, leaf = false;
+            var li = null, i = null, span = null, link = null, div = null, len = itemNodes.length;
             var itemNode = null;
-            for (i=0; i < len; i++) {
+            for (i = 0; i < len; i++) {
                 itemNode = itemNodes[i];
-                nameNodes =itemNode.getElementsByTagName("name");
+                nameNodes = itemNode.getElementsByTagName("name");
                 valueNodes = itemNode.getElementsByTagName("value");
                 urlNodes = itemNode.getElementsByTagName("url");
                 collapsedNodes = itemNode.getElementsByTagName("collapsed");
@@ -221,10 +223,10 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser,{
                     leaf = (leafnodes.length > 0) &&  (leafnodes[0].firstChild.nodeValue).toLowerCase() == "true";
                     collapsed = (collapsedNodes.length > 0) && (collapsedNodes[0].firstChild.nodeValue).toLowerCase() == "true";
                     li = new Element('li');
-                    li.id ="li_" + value;
+                    li.id = "li_" + value;
                     if (!leaf) {
                         span = new Element('span');
-                        span.id ="span_" + value;
+                        span.id = "span_" + value;
                         span.addClassName(this.collapsedClass);
                         li.appendChild(span);
                     }
@@ -278,7 +280,7 @@ AjaxJspTag.Base = Class.create({
         if (indexOf >= 0) {
             if (indexOf < (o.baseUrl.length - 1)) {
                 qs = o.baseUrl.substr(indexOf + 1);
-                qs =(qs.length > 0)? qs.split('&').join(',') : "";
+                qs = (qs.length > 0)? qs.split('&').join(',') : "";
             }
             o.baseUrl = o.baseUrl.substr(0, indexOf);
         }
@@ -290,33 +292,34 @@ AjaxJspTag.Base = Class.create({
     initRequest : function() {
         if (Object.isFunction(this.options.onCreate)) {
             var result = this.options.onCreate();
-            if (Object.isString(result) && "cancel" == result.toLowerCase()) { // only if return is string
+            if (Object.isString(result) && "cancel" === result.toLowerCase()) {
+                // only if return is string
                 return false;
             }
         }
         this.resolveParameters();
         return true;
     },
-    getDefaultOptions: function (options,ajaxParam) {
-        return Object.extend( {
-            asynchronous :true,
-            method :this.getMethod(),
-            evalScripts :true,
-            parameters :this.buildParameterString(ajaxParam),
-            onFailure :this.options.onFailure,
-            onComplete :this.options.onComplete
-        } , options || {});
+    getDefaultOptions: function (options, ajaxParam) {
+        return Object.extend({
+            asynchronous: true,
+            method: this.getMethod(),
+            evalScripts: true,
+            parameters: this.buildParameterString(ajaxParam),
+            onFailure: this.options.onFailure,
+            onComplete: this.options.onComplete
+        }, options || {});
     },
     getAjaxRequest : function(options, ajaxParam) {
         if (!this.initRequest()) {
             return null;
         }
-        options = Object.extend( {
+        options = Object.extend({
             onSuccess : (function(request) {
                 this.options.parser.load(request);
                 this.options.handler(this);
             }).bind(this)
-        } , this.getDefaultOptions(options, ajaxParam));
+        }, this.getDefaultOptions(options, ajaxParam));
         return new Ajax.Request(this.options.baseUrl, options);
     },
     getAjaxUpdater : function(options, ajaxParam) {
@@ -334,26 +337,27 @@ AjaxJspTag.Base = Class.create({
         var data = {};
         data.opt = xoptions;
         data.that = this;
-        xoptions = Object.extend( {
-            frequency : this.options.refreshPeriod
+        xoptions = Object.extend({
+            frequency: this.options.refreshPeriod
         }, this.getDefaultOptions(xoptions, ajaxParam));
-        
+
         // onComplete is used by api itself don't try to use it
-        data._complete = xoptions.onSuccess || Prototype.emptyFunction; // cache the old one
-        xoptions.onSuccess = (function (){ // need to test!!!
-        	if ($(this.that.options.source)){ // try to get the element
-        		this._complete.bind(this.that)(); // call the function
-        	} else {
-        		this._event.stop(); // should work
-        	}
+        data._complete = xoptions.onSuccess || Prototype.emptyFunction;
+        // cache the old one
+        xoptions.onSuccess = (function () { // need to test!!!
+            if ($(this.that.options.source)) { // try to get the element
+                this._complete.bind(this.that)(); // call the function
+            } else {
+                this._event.stop(); // should work
+            }
         }).bind(data);
-        data._event =  new Ajax.PeriodicalUpdater(this.options.target,
+        data._event = new Ajax.PeriodicalUpdater(this.options.target,
             this.options.baseUrl, xoptions);
         return data._event;
     },
     buildParameterString : function(ajaxParam) {
         var returnString = '';
-        var field = null, key = null, val = null, foptions=null;
+        var field = null, key = null, val = null, v = null, foptions = null; // TODO foptions is unused
         var params = (this.replaceAJAX_DEFAULT(ajaxParam) || '');
         params.split(',').each(function(pair) {
             if (pair.strip().length === 0) {
@@ -362,25 +366,29 @@ AjaxJspTag.Base = Class.create({
             pair = pair.split('=');
             key = pair[0].strip();
             pair = pair[1];
-            val = [ ];
+            val = [];
             field = null;
             if (Object.isString(pair) && pair.strip().length > 0) {
                 field = pair.match(/\{[\w\.:\(\)\[\]]*\}/g);
                 if (field) {
-                    field = $(field[0].substring(1,field[0].length - 1));
+                    field = $(field[0].substring(1, field[0].length - 1));
                 }
             }
 
-            if (! field ){
+            if (!field) {
                 val.push(pair);
-            } else {
-                if (field.type == 'select-multiple') {
-                    $F(field.id).each(val.push,val);
-                } else if (['checkbox','radio','text','textarea','password','hidden','select-one'].indexOf(field.type) !== -1) {
-                    val.push(field.value);
-                } else {
-                    val.push(field.innerHTML);
+            } else if (field.type === 'select-multiple') {
+                if (v = $F(field)) {
+                    v.each(function(item) {val.push(item);});
                 }
+            } else if ('checkbox' === field.type) {
+                if (v = $F(field)) {
+                    val.push(v);
+                }
+            } else if (['radio', 'text', 'textarea', 'password', 'hidden', 'select-one'].include(field.type)) {
+                val.push(field.value);
+            } else {
+                val.push(field.innerHTML);
             }
 
             val.each(function (item) {
@@ -409,7 +417,8 @@ AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
     },
     setOptions : function(options) {
         this.options = Object.extend({
-            // just set options to defaults this will be changed with parameter options
+            // just set options to defaults this will be changed with parameter
+            // options
             parameters : '',
             valueUpdateByName : false,
             eventType : "click",
@@ -469,7 +478,7 @@ AjaxJspTag.Select = Class.create(AjaxJspTag.Base, {
             parser :new DefaultResponseParser("xml"),
             handler :this.handler
         }, options || {});
-        this.options.defaultOptions = this.options.defaultOptions.split(',')
+        this.options.defaultOptions = this.options.defaultOptions.split(',');
     },
     setListeners : function() {
         var o = this.options;
@@ -484,7 +493,7 @@ AjaxJspTag.Select = Class.create(AjaxJspTag.Base, {
     },
     handler : function() {
         var target = $(this.target);
-        if (! target) {
+        if (!target) {
             throw new Error("target lost");
         }
         target.options.length = 0;
@@ -492,7 +501,7 @@ AjaxJspTag.Select = Class.create(AjaxJspTag.Base, {
         var newOption = null;
         this.parser.content.each( function(line) {
             newOption = new Option(line[0], line[1]);
-            newOption.selected = (line.length === 3 && ("true" ==  line[2].toLowerCase() ) || (this.defaultOptions.indexOf(line[1]) != -1));
+            newOption.selected = (line.length === 3 && ("true" === line[2].toLowerCase() ) || (this.defaultOptions.indexOf(line[1]) != -1));
             target.options[target.options.length] = newOption;
         },this);
         if (newOption === null) {
@@ -703,9 +712,9 @@ AjaxJspTag.XmlToHtmlAutocompleter = Class.create(Autocompleter.Base,{
         }
         // parse parameters and do replacements
         this.options.defaultParams = this.autocompleteTag.buildParameterString();
-        // / don't write code a secend time
+        // / don't write code a second time
         this.getUpdatedChoices0();
-        
+
     },
     onComplete : function(request) {
         this.autocompleteTag.options.parser.load(request);
@@ -746,7 +755,7 @@ AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base,{
         }, options || {});
     },
     execute : function(e) {
-        var aj = new AjaxJspTag.XmlToHtmlAutocompleter(this);
+        var aj = new AjaxJspTag.XmlToHtmlAutocompleter(this); // TODO aj is unused
     },
     handler : function(selectedItem) {
         var target = $(this.options.target);
@@ -878,7 +887,7 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base,{
             } else {
                 Element.show(this.options.target);
                 this.options.toggle.src = this.options.imageMinimize;
- 	        this.refreshPortlet()
+ 	        this.refreshPortlet();
             }
         }
     // Save state in cookie
@@ -905,7 +914,7 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
     },
     execute : function(e) {
         var t  =$(this.options.target);
-        var o =this.options; 
+        var o =this.options;
         if (o.target) {
             var imgElem = $("span_" + o.target);
             if (imgElem) {
@@ -951,11 +960,11 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
         target.setStyle({
             display: displayValue
         });
-        if (displayValue == 'block') {
+        if (displayValue === 'block') {
             target.select("span").each(function (image) {
                 image["on" + o.eventType] = this.toggleTreeNode.bind(this,image.id.substring(5));
             },this);
-		   
+
             parser.expandedNodes.each( this.toggleTreeNode, this);
             AjaxJspTag.reload();
         }
@@ -973,7 +982,7 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
  */
 // we can create the a tags here
 AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base,{
-    initialize : function(options) {
+    initialize: function(options) {
         this.setOptions(options);
         // create message DIV
         this.container = $(this.options.source);
@@ -984,18 +993,18 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base,{
         }
 
         this.classList = [ this.options.selectedOverClass,this.options.selectedLessClass,this.options.overClass ,this.options.selectedClass];
-        
+
         this.setListeners();
         AjaxJspTag.add(this);
     },
-    setOptions : function(options) {
+    setOptions: function(options) {
         this.options = Object.extend({
             parameters : ('rating={' + AJAX_DEFAULT_PARAMETER + '}'),
             parser : new DefaultResponseParser("text"),
             handler : this.handler
         }, options || {});
     },
-    setEvent:function(element) {
+    setEvent: function(element) {
         element.onmouseover = this.raterMouseOver.bindAsEventListener(this);
         element.onmouseout = this.raterMouseOut.bindAsEventListener(this);
         element.onclick = this.raterClick.bindAsEventListener(this);
@@ -1034,47 +1043,47 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base,{
             }
         }
     },
-    raterMouseOut : function(e) {
+    raterMouseOut: function(e) {
         // clear message
         if (this.options.messageClass) {
             $(this.messageContainer).innerHTML = '';
         }
         this.clearCSSClass(this.options.selectedClass);
     },
-    clearCSSClass:function (ohne){
+    clearCSSClass: function (ohne) {
         var list = this.container.select('a');
         var li = this.classList;
         if (li.indexOf(ohne) !== -1) {
             li = li.without(ohne);
-        } 
-        list.each( function(element) {
+        }
+        list.each(function(element) {
             li.each(element.removeClassName, element);
         },this);
         return list;
     },
-    raterClick : function(e) {
+    raterClick: function(e) {
         // get list of all anchors
         var klickElement = Event.element(e);
         var selectedObject = this.container.select('.' + this.options.selectedClass).pop();
         var elements = this.clearCSSClass();
         var selectedIndex = elements.indexOf(selectedObject);
-  	  
+
         // find the index of the 'hovered' element
         var currentIndex = elements.indexOf(klickElement);
         // update styles
         var i = 0,element=null;
         for (i = 0; i <= currentIndex; i++) {
             element = elements[i];
-            if (! this.container.hasClassName('onoff') || (i === currentIndex && selectedIndex  === -1)) {
+            if (!this.container.hasClassName('onoff') || (i === currentIndex && selectedIndex  === -1)) {
                 element.addClassName(this.options.selectedClass);
-            } 
+            }
         }
         // send AJAX
         var ratingToSend = elements[currentIndex].title;
         if (this.container.hasClassName('onoff')) {
             // send opposite of what was selected
             var ratings = this.options.ratings.split(',');
-            ratingToSend =(ratings[0] == ratingToSend)? ratings[1] : ratings[0];
+            ratingToSend = (ratings[0] == ratingToSend)? ratings[1] : ratings[0];
             elements[currentIndex].title = ratingToSend;
         }
         this.execute( {
@@ -1104,20 +1113,20 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base,{
  * OnClick TAG
  */
 AjaxJspTag.OnClick = Class.create(AjaxJspTag.Base, {
-    initialize : function(options) {
+    initialize: function(options) {
         this.setOptions(options);
         this.execute();
     },
-    setOptions : function(options) {
+    setOptions: function(options) {
         this.options = options || {};
     },
-    execute : function() {
+    execute: function() {
         this.request = this.getAjaxUpdater({
             requestHeaders: this.options.requestHeaders,
             onSuccess :this.handler.bind(this)
         },this.options.eventBase);
     },
-    handler : function() {
+    handler: function() {
     // etwas machen wenn erfolgreich??
     }
 });

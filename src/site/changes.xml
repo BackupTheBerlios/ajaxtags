@@ -1,27 +1,32 @@
 <?xml version="1.0"?>
-  <!--
-  "type" attribute can be: add, remove, update or fix.
--->
+    <!-- "type" attribute can be: add, remove, update or fix. -->
 <document>
-  <properties>
-    <title>Changes</title>
-    <author email="j.kapitza(at)schwarze-allianz.de">Jens Kapitza</author>
-  </properties>
-  <body>
-	  <release version="1.5" date="In Version-Control-System" description="">
-		  <action type="fix" dev="jenskapitza">TLD now validate</action>
-		  <action type="remove" dev="jenskapitza">Remove Reflection usage and refactor to interface</action>
-		  <action type="update" dev="jenskapitza">Changed Website, and documentation </action>
-		  <action type="fix" dev="jenskapitza">Protlet autorefresh never stops. Now we do break execution if source is not in DOM tree</action>
-		  <action type="remove" dev="jenskapitza">Protlet attribute withBar removed.</action>
-		  <action type="update" dev="jenskapitza">Depends on JSP-API 2.1 and Servlet-API 2.5, cause flush does not work with area styled tags.</action>
-		  <action type="update" dev="jenskapitza">we moved to Mercurial.</action>
-		  <action type="add" dev="jenskapitza">import version 1.3.</action>
-		  <action type="remove" dev="jenskapitza">drop support for java 1.4 and later</action>
-		  <action type="remove" dev="jenskapitza">drop jericho html. and use integrated xml parser. this force the user to write xhtml</action>
-	  </release>
-	  <release version="1.4" date="BLACKLISTED" description="">
-		  <action type="add" dev="jenskapitza">this version is blacklisted this version was used for testing javascript functions. this version was not compatible.</action>
-	  </release>
-  </body>
+    <properties>
+        <title>Changes</title>
+        <author email="j.kapitza(at)schwarze-allianz.de">Jens Kapitza</author>
+    </properties>
+    <body>
+        <release version="1.5" date="In Version-Control-System" description="">
+            <action type="fix" dev="victor-homyakov">Fixed AjaxJspTag.Base#buildParameterString for checkbox
+                and select-multiple input fields.</action>
+            <action type="fix" dev="jenskapitza">TLD now validate</action>
+            <action type="remove" dev="jenskapitza">Remove Reflection usage and refactor to interface
+            </action>
+            <action type="update" dev="jenskapitza">Changed Website, and documentation</action>
+            <action type="fix" dev="jenskapitza">Portlet autorefresh never stops. Now we do break execution
+                if source is not in DOM tree</action>
+            <action type="remove" dev="jenskapitza">Portlet attribute withBar removed.</action>
+            <action type="update" dev="jenskapitza">Depends on JSP-API 2.1 and Servlet-API 2.5, cause flush
+                does not work with area styled tags.</action>
+            <action type="update" dev="jenskapitza">we moved to Mercurial.</action>
+            <action type="add" dev="jenskapitza">import version 1.3.</action>
+            <action type="remove" dev="jenskapitza">drop support for java 1.4 and later</action>
+            <action type="remove" dev="jenskapitza">drop jericho html. and use integrated xml parser. this
+                force the user to write xhtml</action>
+        </release>
+        <release version="1.4" date="BLACKLISTED" description="">
+            <action type="add" dev="jenskapitza">this version is blacklisted this version was used for
+                testing javascript functions. this version was not compatible.</action>
+        </release>
+    </body>
 </document>
