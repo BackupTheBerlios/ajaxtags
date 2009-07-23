@@ -22,7 +22,7 @@ import java.util.Map.Entry;
 
 /**
  * A generic item class, basically representing a name-value pair.
- *
+ * 
  * @author Darren L. Spurgeon
  * @author Jens Kapitza
  * @param <T>
@@ -53,7 +53,7 @@ public abstract class AbstractItem<T> {
 
     /**
      * Constructor for Item.
-     *
+     * 
      * @param name
      *            the name for the item
      * @param value
@@ -77,7 +77,7 @@ public abstract class AbstractItem<T> {
 
     /**
      * Set all attributes.
-     *
+     * 
      * @param attributes
      *            the attributes to set
      */
@@ -90,7 +90,7 @@ public abstract class AbstractItem<T> {
     }
 
     /**
-     *
+     * 
      * @return the key set of the attributes
      */
     public final Set<String> getAttributeKeySet() {
@@ -99,7 +99,7 @@ public abstract class AbstractItem<T> {
 
     /**
      * Removes an attribute.
-     *
+     * 
      * @param name
      *            the name of attribute
      */
@@ -116,7 +116,7 @@ public abstract class AbstractItem<T> {
 
     /**
      * Set an attribute to extend the item.
-     *
+     * 
      * @param name
      *            the name for the attribute
      * @param value
@@ -128,7 +128,7 @@ public abstract class AbstractItem<T> {
 
     /**
      * Set an attribute to extend the item.
-     *
+     * 
      * @param name
      *            the name for the attribute
      * @param value
@@ -146,7 +146,7 @@ public abstract class AbstractItem<T> {
 
     /**
      * Read the attribute value.
-     *
+     * 
      * @param name
      *            the attribute name
      * @return the value of attribute <code>name</code>

@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Holding the data for ValueListXmlBuilder.
- *
+ * 
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:15 $ $Author: jenskapitza $
  */
@@ -31,7 +31,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Build a SimpleNode.
-     *
+     * 
      * @param tagName
      *            name
      * @param asCData
@@ -43,7 +43,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Build a SimpleNode.
-     *
+     * 
      * @param tagName
      *            name
      * @param value
@@ -57,7 +57,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Build a SimpleNode.
-     *
+     * 
      * @param tagName
      *            name
      * @param asCData
@@ -72,7 +72,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Try to find the index of value.
-     *
+     * 
      * @param value
      *            the value to find
      * @return the index of this value
@@ -84,7 +84,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Add values to this valueitem.
-     *
+     * 
      * @param values
      *            the value
      */
@@ -94,7 +94,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Add values to this valueitem.
-     *
+     * 
      * @param values
      *            the value
      */
@@ -104,7 +104,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Add a value to this valueitem.
-     *
+     * 
      * @param value
      *            the value
      */
@@ -114,7 +114,7 @@ public class ValueItem extends AbstractItem<List<String>> {
 
     /**
      * Removes an item at specified index.
-     *
+     * 
      * @param index
      *            the index to remove
      * @return the removed item

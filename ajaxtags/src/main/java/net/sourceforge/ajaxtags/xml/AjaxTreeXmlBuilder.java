@@ -24,7 +24,7 @@ import net.sourceforge.ajaxtags.helpers.TreeItem;
 /**
  * Helper class to build valid XML, for the AjaxTreeTag, typically returned in a response to the
  * client.
- *
+ * 
  * @author Musachy Barroso
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/24 12:21:13 $ $Author: jenskapitza $
@@ -33,7 +33,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item to xml builder.
-     *
+     * 
      * @param name
      * @param value
      * @return AjaxTreeXmlBuilder xml builder
@@ -44,7 +44,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item to xml builder.
-     *
+     * 
      * @param name
      * @param value
      * @return AjaxTreeXmlBuilder xml builder
@@ -55,7 +55,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item to xml builder.
-     *
+     * 
      * @param name
      * @param value
      * @param attributes
@@ -68,7 +68,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item to xml builder.
-     *
+     * 
      * @param name
      * @param value
      * @param attributes
@@ -80,7 +80,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item to xml builder.
-     *
+     * 
      * @param name
      * @param value
      * @param asCData
@@ -96,7 +96,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item to xml builder.
-     *
+     * 
      * @param name
      * @param value
      * @param url
@@ -109,7 +109,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item.
-     *
+     * 
      * @param name
      * @param value
      * @param collapsed
@@ -122,7 +122,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item.
-     *
+     * 
      * @param name
      * @param value
      * @param collapsed
@@ -140,7 +140,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Add tree item to xml builder.
-     *
+     * 
      * @param name
      * @param value
      * @param collapsed
@@ -190,7 +190,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
      * Build an xml body to describe TreeItem.
-     *
+     * 
      * @see BaseXmlBuilder#getXMLString()
      */
     @Override

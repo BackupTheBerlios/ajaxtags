@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * Extend Item to easily have a tree item with more options.
- *
+ * 
  * @author Musachy Barroso
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 18:04:50 $ $Author: jenskapitza $
@@ -50,7 +50,7 @@ public class TreeItem extends AbstractItem<String> {
 
     /**
      * Create an item.
-     *
+     * 
      * @param name
      * @param value
      * @param asData
@@ -60,7 +60,7 @@ public class TreeItem extends AbstractItem<String> {
     }
 
     /**
-     *
+     * 
      * @param name
      * @param value
      */
@@ -95,7 +95,7 @@ public class TreeItem extends AbstractItem<String> {
 
     /**
      * Check if this treeitem is a leaf or not.
-     *
+     * 
      * @return true if this is a leaf else false
      */
     public final boolean isLeaf() {
@@ -104,7 +104,7 @@ public class TreeItem extends AbstractItem<String> {
 
     /**
      * Set node to leaf or not.
-     *
+     * 
      * @param l
      *            true if it is leaf else false
      */

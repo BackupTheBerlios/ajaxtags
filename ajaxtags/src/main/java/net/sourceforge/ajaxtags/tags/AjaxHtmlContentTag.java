@@ -21,7 +21,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the HTML Content AJAX tag.
- *
+ * 
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/07/08 18:18:52 $ $Author: jenskapitza $
  */

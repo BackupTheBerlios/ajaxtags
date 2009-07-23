@@ -19,7 +19,7 @@ import net.sourceforge.ajaxtags.helpers.ValueItem;
 
 /**
  * Helper class to build valid XML for ajax with more than one value.
- *
+ * 
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:16 $ $Author: jenskapitza $
  */
@@ -27,7 +27,7 @@ public abstract class AjaxValueListXmlBuilder extends BaseXmlBuilder<ValueItem> 
 
     /**
      * Add an Item.
-     *
+     * 
      * @param name
      *            the name
      * @param asCdata
@@ -35,7 +35,7 @@ public abstract class AjaxValueListXmlBuilder extends BaseXmlBuilder<ValueItem> 
      * @param value
      *            a list of values
      * @return the xmlbuilder
-     *
+     * 
      */
     public AjaxValueListXmlBuilder addItem(String name, boolean asCdata, String... value) {
         getListe().add(new ValueItem(name, asCdata, value));
@@ -44,7 +44,7 @@ public abstract class AjaxValueListXmlBuilder extends BaseXmlBuilder<ValueItem> 
 
     /**
      * Add an Item with asCdata = false.
-     *
+     * 
      * @param name
      *            the name
      * @param value
@@ -57,7 +57,7 @@ public abstract class AjaxValueListXmlBuilder extends BaseXmlBuilder<ValueItem> 
 
     /**
      * Build the node.
-     *
+     * 
      * @param item
      *            the item
      * @return xml string for this item
@@ -90,7 +90,7 @@ public abstract class AjaxValueListXmlBuilder extends BaseXmlBuilder<ValueItem> 
 
     /**
      * Build the xml string.
-     *
+     * 
      * @see BaseXmlBuilder#getXMLString()
      */
     @Override

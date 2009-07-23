@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * 
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -35,7 +35,7 @@ public final class AjaxActionHelper {
 
     /**
      * Invoke the ajax action and setup the request and response.
-     *
+     * 
      * @param action
      *            the ajaxaction implementation
      * @param request
@@ -45,7 +45,7 @@ public final class AjaxActionHelper {
      * @return the xml content from action
      * @throws ServletException
      *             for any errors
-     *
+     * 
      */
     public static String invoke(BaseAjaxXmlAction action, HttpServletRequest request,
             HttpServletResponse response) throws ServletException {

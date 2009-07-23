@@ -22,7 +22,7 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 /**
  * Wraps any area on the page (with a DIV element) so that actions within that area refresh/load
  * inside the defined DIV region rather than inside the whole browser window.
- *
+ * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -102,7 +102,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
      * Set initial parameters.
-     *
+     * 
      * @throws JspException
      */
     @Override
@@ -116,7 +116,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
      * Process content.
-     *
+     * 
      * @param content
      * @return processed content
      * @throws JspException

@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Simple Action which can be invoked by AjaxActionHelper.
- *
+ * 
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -32,7 +32,7 @@ public interface BaseAjaxXmlAction {
     /**
      * Each child class should override this method to generate the specific XML content necessary
      * for each AJAX action.
-     *
+     * 
      * @param request
      *            the HttpServletRequest object
      * @param response

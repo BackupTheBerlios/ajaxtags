@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Helper class to assist in building options passed to JavaScript method.
- *
+ * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $

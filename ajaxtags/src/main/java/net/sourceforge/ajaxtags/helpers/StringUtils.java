@@ -16,7 +16,7 @@
 package net.sourceforge.ajaxtags.helpers;
 
 /**
- *
+ * 
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */

@@ -22,7 +22,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 /**
  * Wraps the scriptaculous' in-place editor
  * (http://github.com/madrobby/scriptaculous/wikis/ajax-inplaceeditor).
- *
+ * 
  * @author Musachy Barroso
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $

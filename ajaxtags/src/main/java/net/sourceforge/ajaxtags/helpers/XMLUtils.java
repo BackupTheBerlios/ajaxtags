@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Some helper functions for xml.
- *
+ * 
  * @author jenskapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -103,7 +103,7 @@ public final class XMLUtils {
 
     /**
      * Create a new document.
-     *
+     * 
      * @return an empty document
      * @throws ParserConfigurationException
      */

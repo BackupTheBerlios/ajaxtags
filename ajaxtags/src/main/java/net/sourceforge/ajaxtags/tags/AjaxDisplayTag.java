@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
  * Wraps a DisplayTag (http://displaytag.org) table, enabling AJAX capabilities. In the process,
  * anchors in the navigation are rewritten on the fly so that the DisplayTag table refreshes within
  * the same region on the page without a full-page reload.
- *
+ * 
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/07/08 17:52:30 $ $Author: jenskapitza $
  */
