@@ -36,6 +36,9 @@ public abstract class BaseAjaxServlet extends GenericServlet implements BaseAjax
 
     private static final long serialVersionUID = -1772422788542156185L;
 
+    /**
+     * Get information about servlet.
+     */
     @Override
     public String getServletInfo() {
         return "Ajax Servlet (AjaxTags)";

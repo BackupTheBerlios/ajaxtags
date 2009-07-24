@@ -25,7 +25,15 @@ public final class StringUtils {
     private StringUtils() {
     }
 
-    public static String trim2Null(String str) {
+    /**
+     * Return null if argument string is null, empty or blank (contains only whitespace). Otherwise
+     * return unchanged string.
+     *
+     * @param str
+     *            string
+     * @return string or null
+     */
+    public static String trim2Null(final String str) {
         if (str != null && str.trim().length() > 0) {
             return str;
         }

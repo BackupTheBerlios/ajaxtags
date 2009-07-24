@@ -104,11 +104,13 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      * Set initial parameters.
      * 
      * @throws JspException
+     *             when HTTP response cannot be reset (has already had its status code and headers
+     *             written)
      */
     @Override
     public void initParameters() throws JspException {
         if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
-            throw new JspException("try to avoid flush befor");
+            throw new JspException("try to avoid flush before");
         } else {
             getHttpServletResponse().reset();
         }
