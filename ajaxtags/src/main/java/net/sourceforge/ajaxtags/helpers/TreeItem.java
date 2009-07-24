@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * Extend Item to easily have a tree item with more options.
- * 
+ *
  * @author Musachy Barroso
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 18:04:50 $ $Author: jenskapitza $
@@ -37,7 +37,7 @@ public class TreeItem extends AbstractItem<String> {
     public static final String COLLAPSED = "collapsed";
 
     /**
-     * Key to set url flag.
+     * Key to set URL flag.
      */
     public static final String URL = "url";
 
@@ -50,7 +50,7 @@ public class TreeItem extends AbstractItem<String> {
 
     /**
      * Create an item.
-     * 
+     *
      * @param name
      * @param value
      * @param asData
@@ -60,7 +60,7 @@ public class TreeItem extends AbstractItem<String> {
     }
 
     /**
-     * 
+     *
      * @param name
      * @param value
      */
@@ -88,14 +88,15 @@ public class TreeItem extends AbstractItem<String> {
      * @param asData
      * @param attributes
      */
-    public TreeItem(String name, String value, boolean asData, Map<String, String> attributes) {
+    public TreeItem(final String name, final String value, final boolean asData,
+            final Map<String, String> attributes) {
         super(name, value, asData);
         setAllAttributes(attributes);
     }
 
     /**
      * Check if this treeitem is a leaf or not.
-     * 
+     *
      * @return true if this is a leaf else false
      */
     public final boolean isLeaf() {
@@ -104,11 +105,11 @@ public class TreeItem extends AbstractItem<String> {
 
     /**
      * Set node to leaf or not.
-     * 
+     *
      * @param l
      *            true if it is leaf else false
      */
-    public final void setLeaf(boolean l) {
+    public final void setLeaf(final boolean l) {
         setAttributes(LEAF, String.valueOf(l));
     }
 
@@ -123,7 +124,7 @@ public class TreeItem extends AbstractItem<String> {
      * @param collapsed
      *            The collapsed value to be set
      */
-    public final void setCollapsed(boolean collapsed) {
+    public final void setCollapsed(final boolean collapsed) {
         setAttributes(COLLAPSED, String.valueOf(collapsed));
     }
 
@@ -136,9 +137,9 @@ public class TreeItem extends AbstractItem<String> {
 
     /**
      * @param url
-     *            The url to be set
+     *            The URL to be set
      */
-    public final void setUrl(String url) {
+    public final void setUrl(final String url) {
         setAttributes(URL, url);
     }
 }

@@ -40,22 +40,21 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Some helper functions for xml.
- * 
+ * Some helper functions for XML.
+ *
  * @author jenskapitza
  * @version $Revision$ $Date$ $Author$
  */
 public final class XMLUtils {
 
     private static ThreadLocal<TransformerFactory> transformerFactory = new ThreadLocal<TransformerFactory>() {
-
         @Override
         protected TransformerFactory initialValue() {
             return TransformerFactory.newInstance();
         }
     };
-    private static ThreadLocal<DocumentBuilderFactory> docFactory = new ThreadLocal<DocumentBuilderFactory>() {
 
+    private static ThreadLocal<DocumentBuilderFactory> docFactory = new ThreadLocal<DocumentBuilderFactory>() {
         @Override
         protected DocumentBuilderFactory initialValue() {
             DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
@@ -64,13 +63,12 @@ public final class XMLUtils {
             return df;
         };
     };
-    private static ThreadLocal<XPathFactory> xPathFactory = new ThreadLocal<XPathFactory>() {
 
+    private static ThreadLocal<XPathFactory> xPathFactory = new ThreadLocal<XPathFactory>() {
         @Override
         protected XPathFactory initialValue() {
             return XPathFactory.newInstance();
         }
-
     };
 
     private XMLUtils() {
@@ -103,7 +101,7 @@ public final class XMLUtils {
 
     /**
      * Create a new document.
-     * 
+     *
      * @return an empty document
      * @throws ParserConfigurationException
      */

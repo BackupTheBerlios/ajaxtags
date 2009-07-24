@@ -19,7 +19,7 @@ import net.sourceforge.ajaxtags.tags.BaseAjaxBodyTag;
 import net.sourceforge.ajaxtags.tags.OptionsBuilder;
 
 /**
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -34,25 +34,49 @@ public final class JavaScript extends HTMLElementFactory {
         super("script");
     }
 
-    public JavaScript(BaseAjaxBodyTag tag) {
+    /**
+     * Constructor.
+     *
+     * @param tag
+     *            the tag, which uses this JavaScript
+     */
+    public JavaScript(final BaseAjaxBodyTag tag) {
         this();
         this.tag = tag;
     }
 
-    public HTMLElementFactory newTabPanel(OptionsBuilder options) {
+    /**
+     * Create new AjaxJspTag.TabPanel.
+     *
+     * @param options
+     *            options for TabPanel
+     * @return updated HTML element
+     */
+    public HTMLElementFactory newTabPanel(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append("new AjaxJspTag.TabPanel({" + options + "});");
     }
 
-    public HTMLElementFactory newSelect(OptionsBuilder options) {
+    /**
+     * Create new AjaxJspTag.Select.
+     *
+     * @param options
+     *            options for Select
+     * @return updated HTML element
+     */
+    public HTMLElementFactory newSelect(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append("new AjaxJspTag.Select({" + options + "});");
     }
-    
 
-    public HTMLElementFactory newToggle(OptionsBuilder options) {
+    /**
+     * Create new AjaxJspTag.Toggle.
+     *
+     * @param options
+     *            options for Toggle
+     * @return updated HTML element
+     */
+    public HTMLElementFactory newToggle(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append("new AjaxJspTag.Toggle({" + options + "});");
     }
-    
-    
 
     /**
      * Just allow type attribute. All others are dropped.
