@@ -1,28 +1,23 @@
-<%-- 
+<%--
  * Copyright 2005 Darren L. Spurgeon
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page import="net.sourceforge.ajaxtags.demo.CarService"%>
-
-<%@page import="net.sourceforge.ajaxtags.demo.Car"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%><jsp:useBean id="service" class="net.sourceforge.ajaxtags.demo.CarService" />
-
+	pageEncoding="ISO-8859-1"
+	import="net.sourceforge.ajaxtags.demo.CarService,net.sourceforge.ajaxtags.demo.Car,java.util.Iterator,java.util.List,java.util.ArrayList"%>
+<jsp:useBean id="service"
+	class="net.sourceforge.ajaxtags.demo.CarService" />
 <%@ taglib uri="http://ajaxtags.sourceforge.net/tags/ajaxtags"
 	prefix="ajax"%>
 
@@ -36,16 +31,14 @@ field.</p>
 
 <form action="." class="basicForm">
 <fieldset><legend>Enter Car Model</legend>
-<p>Available values start with letters: 
-<%
-
-for (Iterator<Character> it = service.getModelsFirstChar().iterator(); it.hasNext();) {
-	Character firstChar   = it.next();
-	out.append('\'') .append(firstChar).append('\'') ;
-	if (it.hasNext()) {
-		out.append(',');
-	}
-}
+<p>Available values start with letters: <%
+    for (Iterator<Character> it = service.getModelsFirstChar().iterator(); it.hasNext();) {
+        Character firstChar = it.next();
+        out.append('\'').append(firstChar).append('\'');
+        if (it.hasNext()) {
+            out.append(',');
+        }
+    }
 %>
 </p>
 
@@ -57,6 +50,6 @@ for (Iterator<Character> it = service.getModelsFirstChar().iterator(); it.hasNex
 <div id="errorMsg"
 	style="display: none; border: 1px solid #e00; background-color: #fee; padding: 2px; margin-top: 8px; width: 300px; font: normal 12px Arial; color: #900"></div>
 
-<ajax:autocomplete source="model" target="make"  
+<ajax:autocomplete source="model" target="make"
 	baseUrl="autocomplete.view" className="autocomplete"
-	indicator="indicator" minimumCharacters="1" />
+	indicator="indicator" minimumCharacters="1" /></div>
