@@ -70,7 +70,9 @@
         <module name="IllegalType">
             <property name="tokens" value="METHOD_DEF, PARAMETER_DEF, VARIABLE_DEF"/>
         </module>
-        <module name="ImportOrder"/>
+        <module name="ImportOrder">
+            <property name="severity" value="info"/>
+        </module>
         <module name="InnerAssignment"/>
         <module name="InterfaceIsType"/>
 
