@@ -57,7 +57,7 @@ public final class XMLUtils {
     private static ThreadLocal<DocumentBuilderFactory> docFactory = new ThreadLocal<DocumentBuilderFactory>() {
         @Override
         protected DocumentBuilderFactory initialValue() {
-            DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+            final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
             df.setValidating(false);
             df.setIgnoringElementContentWhitespace(true);
             return df;
