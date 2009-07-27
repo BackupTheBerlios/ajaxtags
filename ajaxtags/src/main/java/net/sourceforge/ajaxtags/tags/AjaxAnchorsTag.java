@@ -105,13 +105,15 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
     protected final void rewriteLink(final Node link, final String target) {
         final NamedNodeMap map = link.getAttributes();
         final Attr href = (Attr) map.getNamedItem("href");
-        Attr onclick = (Attr) map.getNamedItem("onclick");
-        if (onclick == null) {
-            onclick = link.getOwnerDocument().createAttribute("onclick");
-            map.setNamedItem(onclick);
+        if (href != null) {
+            Attr onclick = (Attr) map.getNamedItem("onclick");
+            if (onclick == null) {
+                onclick = link.getOwnerDocument().createAttribute("onclick");
+                map.setNamedItem(onclick);
+            }
+            onclick.setValue(getOnclickAjax(target, href.getValue(), getOptionsBuilder()));
+            href.setValue("javascript://nop/");
         }
-        onclick.setValue(getOnclickAjax(target, href.getValue(), getOptionsBuilder()));
-        href.setValue("javascript://nop/");
     }
 
     /**

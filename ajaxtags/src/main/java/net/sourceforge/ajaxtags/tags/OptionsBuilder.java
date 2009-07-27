@@ -27,25 +27,21 @@ import org.apache.commons.lang.StringUtils;
  * guarantees as to the order of the options; in particular, it does not guarantee that the order
  * will remain constant over time.
  *
- * TODO create class for single option, merge two maps into one, in toString use option.toString
- *
- * TODO or add to single map already rendered strings "parameter: value"
- *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
 public final class OptionsBuilder {
 
+    private String optionsDelimiter = ", "; // ",\n"
+
     private final Map<String, String> parameters = new HashMap<String, String>();
-    private final Map<String, Boolean> parameterQuotes = new HashMap<String, Boolean>();
 
     private OptionsBuilder() {
     }
 
     private OptionsBuilder(final OptionsBuilder opt) {
         if (opt != null) {
-            this.parameterQuotes.putAll(opt.parameterQuotes);
             this.parameters.putAll(opt.parameters);
         }
     }
@@ -68,6 +64,21 @@ public final class OptionsBuilder {
      */
     public static OptionsBuilder getOptionsBuilder() {
         return getOptionsBuilder(null);
+    }
+
+    /**
+     * @return the optionsDelimiter
+     */
+    public String getOptionsDelimiter() {
+        return optionsDelimiter;
+    }
+
+    /**
+     * @param optionsDelimiter
+     *            the optionsDelimiter to set
+     */
+    public void setOptionsDelimiter(final String optionsDelimiter) {
+        this.optionsDelimiter = optionsDelimiter;
     }
 
     /**
@@ -110,8 +121,11 @@ public final class OptionsBuilder {
      */
     public OptionsBuilder add(final String parameter, final String value, final boolean quoted) {
         if (value != null && !this.parameters.containsKey(parameter)) {
-            this.parameters.put(parameter, value);
-            this.parameterQuotes.put(parameter, Boolean.valueOf(quoted));
+            if (quoted) {
+                this.parameters.put(parameter, "\"" + value + "\"");
+            } else {
+                this.parameters.put(parameter, value);
+            }
         }
         return this;
     }
@@ -125,15 +139,15 @@ public final class OptionsBuilder {
      *            value of option
      * @param quoted
      *            true if value must be surrounded with quotes
+     * @param forceWrite
+     *            boolean flag to indicate that previous value must be overwritten
      * @return updated OptionsBuilder
      */
     public OptionsBuilder add(final String parameter, final String value, final boolean quoted,
             final boolean forceWrite) {
         if (this.parameters.containsKey(parameter)) {
             this.parameters.remove(parameter);
-            this.parameterQuotes.remove(parameter);
         }
-
         return add(parameter, value, quoted);
     }
 
@@ -146,7 +160,6 @@ public final class OptionsBuilder {
      */
     public OptionsBuilder remove(final String parameter) {
         this.parameters.remove(parameter);
-        this.parameterQuotes.remove(parameter);
         return this;
     }
 
@@ -158,11 +171,9 @@ public final class OptionsBuilder {
     @Override
     public String toString() {
         final List<String> options = new ArrayList<String>();
-        for (String key : parameters.keySet()) {
-            final String value = parameters.get(key);
-            final String quote = parameterQuotes.get(key) ? "\"" : "";
-            options.add(key + ": " + quote + value + quote);
+        for (Map.Entry<String, String> e : parameters.entrySet()) {
+            options.add(e.getKey() + ": " + e.getValue());
         }
-        return StringUtils.join(options, ",\n");
+        return StringUtils.join(options, optionsDelimiter);
     }
 }
