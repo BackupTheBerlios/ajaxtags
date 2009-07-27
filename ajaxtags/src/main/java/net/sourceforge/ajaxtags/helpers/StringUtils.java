@@ -15,8 +15,10 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
+
 /**
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -34,7 +36,7 @@ public final class StringUtils {
      * @return string or null
      */
     public static String trim2Null(final String str) {
-        if (str != null && str.trim().length() > 0) {
+        if (str != null && !isBlank(str)) {
             return str;
         }
         return null;
