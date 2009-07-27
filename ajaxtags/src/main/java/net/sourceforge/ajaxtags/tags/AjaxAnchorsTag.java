@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 /**
  * Rewrites HTML anchor tags (&lt;A&gt;), replacing the href attribute with an onclick event so that
  * retrieved content is loaded inside a region on the page.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:16 $ $Author: jenskapitza $
@@ -51,39 +51,60 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
         return EVAL_PAGE;
     }
 
+    /**
+     * Rewrite anchors.
+     *
+     * @param html
+     *            XHTML source
+     * @param target
+     *            target of request
+     * @param clazz
+     *            CSS class of anchors
+     * @return rewritten and reformatted XHTML text
+     * @throws JspException
+     *             on errors
+     */
     public String ajaxAnchors(final String html, final String target, final String clazz)
             throws JspException {
         try {
-            return ajaxAnchors0(html, target, clazz);
-        } catch (Exception e) {
-            throw new JspException("rewrite links faild < is the content xhtml? > \n" + html, e);
+            return rewriteAnchors(getDocument(html), target, clazz);
+        } catch (XPathExpressionException e) {
+            throw new JspException("rewrite links failed (wrong XPath expression)\n" + html, e);
+        } catch (TransformerException e) {
+            throw new JspException(
+                    "rewrite links failed (cannot transform XHTML to text)\n" + html, e);
+        } catch (SAXException e) {
+            throw new JspException("rewrite links failed (is the content xhtml?)\n" + html, e);
         }
     }
 
-    private String ajaxAnchors0(final String html, final String target, final String clazz)
-            throws XPathExpressionException, TransformerException, SAXException {
-        return rewriteAnchors(getDocument(html), target, clazz);
-    }
-
-    private String rewriteAnchors(Document document, String target, String className)
-            throws XPathExpressionException, TransformerException {
-        String ypath = "//a";
-        String xclass = "@class=\"" + className + "\"";
-
+    private String rewriteAnchors(final Document document, final String target,
+            final String className) throws XPathExpressionException, TransformerException {
+        String xpath = "//a";
         if (className != null) {
-            ypath = ypath + "[" + xclass + "]";
+            xpath = xpath + "[@class=\"" + className + "\"]";
         }
 
-        final NodeList links = XMLUtils.evaluateXPathExpression(ypath, document);// document.getElementsByTagName("a");
+        final NodeList links = XMLUtils.evaluateXPathExpression(xpath, document);
+        // document.getElementsByTagName("a");
         for (int i = 0; i < links.getLength(); i++) {
             rewriteLink(links.item(i), target);
         }
         return XMLUtils.toString(document);
     }
 
-    protected final void rewriteLink(Node link, String target) {
-        NamedNodeMap map = link.getAttributes();
-        Attr href = (Attr) map.getNamedItem("href");
+    /**
+     * Rewrite link. Change (or create) "onclick" attribute, set "href" attribute to
+     * "javascript://nop/".
+     *
+     * @param link
+     *            node of document with link
+     * @param target
+     *            target of request
+     */
+    protected final void rewriteLink(final Node link, final String target) {
+        final NamedNodeMap map = link.getAttributes();
+        final Attr href = (Attr) map.getNamedItem("href");
         Attr onclick = (Attr) map.getNamedItem("onclick");
         if (onclick == null) {
             onclick = link.getOwnerDocument().createAttribute("onclick");
@@ -93,8 +114,17 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
         href.setValue("javascript://nop/");
     }
 
+    /**
+     * Parse XHTML document from given string.
+     *
+     * @param html
+     *            string with XHTML content
+     * @return parsed document or null
+     * @throws SAXException
+     *             if string cannot be parsed
+     */
     protected static final Document getDocument(final String html) throws SAXException {
-        String xhtml = trim2Null(html); // .replaceAll("<br(.*?)>", "<br$1/>");
+        final String xhtml = trim2Null(html); // .replaceAll("<br(.*?)>", "<br$1/>");
         if (xhtml == null) {
             return null;
         }
