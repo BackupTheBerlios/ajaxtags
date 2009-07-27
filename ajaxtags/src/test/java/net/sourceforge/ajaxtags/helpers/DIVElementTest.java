@@ -11,7 +11,7 @@ import org.junit.Test;
 
 /**
  * @author В.Хомяков
- *
+ * @version $Revision$ $Date$ $Author$
  */
 public class DIVElementTest {
 

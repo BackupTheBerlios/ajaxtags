@@ -113,7 +113,16 @@ public final class XMLUtils {
         return toString(getXMLDocument(xml));
     }
 
-    public static String toString(Document document) throws TransformerException {
+    /**
+     * Transform document to string representation.
+     *
+     * @param document
+     *            XHTML document
+     * @return string representation of document
+     * @throws TransformerException
+     *             it is not possible to create a Transformer instance or to transform document
+     */
+    public static String toString(final Document document) throws TransformerException {
         StringWriter stringWriter = new StringWriter();
         StreamResult streamResult = new StreamResult(stringWriter);
         final Transformer transformer = transformerFactory.get().newTransformer();

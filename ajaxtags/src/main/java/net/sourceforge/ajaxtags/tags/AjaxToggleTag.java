@@ -25,7 +25,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the toggle (on/off, true/false) AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -163,13 +163,13 @@ public class AjaxToggleTag extends BaseAjaxTag {
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptions();
+        final OptionsBuilder options = getOptions();
 
-        boolean xOnOff = Boolean.parseBoolean(this.onOff);
+        final boolean xOnOff = Boolean.parseBoolean(this.onOff);
         final String AVOID_URL_START = "<a href=\"" + AJAX_VOID_URL + "\" title=\"";
         final String AVOID_URL_END = "\"></a>";
         // write opening div
-        HTMLElementFactory div = new DIVElement(getSource());
+        final HTMLElementFactory div = new DIVElement(getSource());
         div.setClassName(xOnOff ? getContainerClass() + " onoff" : getContainerClass());
 
         String[] ratingValues = this.ratings == null ? null : this.ratings.split(",");
@@ -203,9 +203,9 @@ public class AjaxToggleTag extends BaseAjaxTag {
         }
 
         // write script
-        JavaScript js = new JavaScript(this);
-        js.newToggle(options);
-        div.append(js);
+        JavaScript script = new JavaScript(this);
+        script.newToggle(options);
+        div.append(script);
         out(div);
         return EVAL_PAGE;
     }
