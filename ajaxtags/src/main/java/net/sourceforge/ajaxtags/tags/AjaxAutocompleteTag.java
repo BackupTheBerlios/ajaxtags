@@ -21,7 +21,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the autocomplete AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
@@ -78,9 +78,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         options.add("appendSeparator", this.appendSeparator, true);
 
         JavaScript script = new JavaScript();
-        script.append(getJSVariable());
-        script.append("new AjaxJspTag.Autocomplete(\n").append("{\n").append(options.toString())
-                .append("});\n");
+        script.newAutocomplete(options);
         out(script);
         return EVAL_PAGE;
     }

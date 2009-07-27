@@ -79,6 +79,18 @@ public final class JavaScript extends HTMLElementFactory {
     }
 
     /**
+     * Create new AjaxJspTag.Autocomplete.
+     *
+     * @param options
+     *            options for Autocomplete
+     * @return updated HTML element
+     */
+    public HTMLElementFactory newAutocomplete(final OptionsBuilder options) {
+        return append(tag.getJSVariable())
+                .append("new AjaxJspTag.Autocomplete({" + options + "});");
+    }
+
+    /**
      * Just allow type attribute. All others are dropped.
      */
     @Override
