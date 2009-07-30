@@ -83,7 +83,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
         div.append(processContent(getBody()));
         div.setClassName(getStyleClass());
         out(isAjaxRequest() ? div.getBody() : div);
-
+        // is there a chance that we can avoid wrong ajaxcalls 
         if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
             throw new JspException("the request was flushed before");
         }
@@ -109,6 +109,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      */
     @Override
     public void initParameters() throws JspException {
+        // 
         if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
             throw new JspException("try to avoid flush before");
         } else {

@@ -94,7 +94,7 @@ public final class JavaScript extends HTMLElementFactory {
      * Just allow type attribute. All others are dropped.
      */
     @Override
-    protected void cleanAttributes() {
+    protected final void cleanAttributes() {
         getAttributes().clear();
         getAttributes().put("type", "text/javascript");
     }
