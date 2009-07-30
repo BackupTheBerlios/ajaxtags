@@ -10,7 +10,7 @@
 
 
 Last Time Table Refreshed: ${now}
-<display:table uid="${now.time}" name="pageScope.service.allCars"
+<display:table uid="${now.time}${param.num}" name="pageScope.service.allCars"
 	class="displaytag" pagesize="10" defaultsort="1"
 	defaultorder="descending" export="false" id="row" excludedParams="ajax">
 	<display:column property="make" title="Make" sortable="true"

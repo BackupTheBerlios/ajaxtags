@@ -357,6 +357,7 @@ AjaxJspTag.Base = Class.create({
     },
     buildParameterString : function(ajaxParam) {
         var returnString = '';
+        var value = Form.Element.serialize; // BUG 016027
         var field = null, key = null, val = null, v = null, foptions = null; // TODO foptions is unused
         var params = (this.replaceAJAX_DEFAULT(ajaxParam) || '');
         params.split(',').each(function(pair) {
@@ -374,18 +375,20 @@ AjaxJspTag.Base = Class.create({
                     field = $(field[0].substring(1, field[0].length - 1));
                 }
             }
-
+            
             if (!field) {
                 val.push(pair);
-            } else if (field.type === 'select-multiple') {
-                if (v = $F(field)) {
-                    v.each(function(item) {val.push(item);});
+            } else if ((field.type === 'select-multiple') || ('checkbox' === field.type) ) {
+                if (v = value(field)) {
+                	returnString += '&' + v;
                 }
-            } else if ('checkbox' === field.type) {
-                if (v = $F(field)) {
-                    val.push(v);
-                }
-            } else if (['radio', 'text', 'textarea', 'password', 'hidden', 'select-one'].include(field.type)) {
+            }
+            //else if ('checkbox' === field.type) {
+            //    if (v = value(field)) {
+            //    	returnString += '&' + v;
+            //    }
+            //} // BUG 016027
+            else if (['radio', 'text', 'textarea', 'password', 'hidden', 'select-one'].include(field.type)) {
                 val.push(field.value);
             } else {
                 val.push(field.innerHTML);

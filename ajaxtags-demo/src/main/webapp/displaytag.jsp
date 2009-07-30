@@ -15,7 +15,9 @@ Date: ${now}
 <br />
 <br />
 <ajax:displayTag id="displayTagFrame">
-	<jsp:include page="displaytag_bug.jsp" flush="false"></jsp:include>
+	<jsp:include page="displaytag_bug.jsp" flush="false">
+		<jsp:param value="num" name="1" />
+	</jsp:include>
 </ajax:displayTag>
 <br />
 <strong>No flush here</strong>
@@ -23,6 +25,8 @@ Date: ${now}
 <jsp:include page="simple.jsp" flush="false"></jsp:include>
 <br />
 <ajax:displayTag id="displayTagFrame1">
-	<jsp:include page="displaytag_bug.jsp" flush="false"></jsp:include>
+	<jsp:include page="displaytag_bug.jsp" flush="false">
+		<jsp:param value="num" name="2" />
+	</jsp:include>
 </ajax:displayTag>
 <br />

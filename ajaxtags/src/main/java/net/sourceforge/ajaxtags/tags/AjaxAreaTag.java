@@ -15,6 +15,8 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
+import static org.apache.commons.lang.StringUtils.trimToNull;
+
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
@@ -55,7 +57,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      *            The styleClass to set.
      */
     public final void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
+        this.styleClass = trimToNull(styleClass);
     }
 
     /**
@@ -81,13 +83,10 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     public int doEndTag() throws JspException {
         DIVElement div = new DIVElement(getId());
         div.append(processContent(getBody()));
-        div.setClassName(getStyleClass());
-        out(isAjaxRequest() ? div.getBody() : div);
-        // is there a chance that we can avoid wrong ajaxcalls 
-        if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
-            throw new JspException("the request was flushed before");
+        if (getStyleClass() != null) {
+            div.setClassName(getStyleClass());
         }
-
+        out(isAjaxRequest() ? div.getBody() : div);
         return isAjaxRequest() ? SKIP_PAGE : EVAL_PAGE;
     }
 

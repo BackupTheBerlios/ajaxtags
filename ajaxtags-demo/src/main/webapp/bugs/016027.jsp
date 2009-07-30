@@ -16,13 +16,16 @@
 <%--
 BUG https://developer.berlios.de/bugs/?func=detailbug&bug_id=16027&group_id=10618
 --%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://ajaxtags.sourceforge.net/tags/ajaxtags" prefix="ajax"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://ajaxtags.sourceforge.net/tags/ajaxtags"
+	prefix="ajax"%>
 
 <h1>AjaxJspTag.Base#buildParameterString</h1>
 <div>AjaxJspTag.Base#buildParameterString</div>
 
-<div id="errorMsg" style="border: 1px solid #00e; background-color: #eef; padding: 2px; margin-top: 8px; font: normal 12px Arial; color: #009"></div>
+<div id="errorMsg"
+	style="border: 1px solid #00e; background-color: #eef; padding: 2px; margin-top: 8px; font: normal 12px Arial; color: #009"></div>
 
 <script type="text/javascript">
 runTest=function(){
@@ -35,17 +38,20 @@ runTest=function(){
 };
 </script>
 
-<form id="form1" method="post" onsubmit="return false;">
-Checkbox with default value <input type="checkbox" id="checkbox1" name="checkbox1" /><br />
-Checkbox "on" <input type="checkbox" id="checkbox2" name="checkbox2" value="on" checked="checked" /><br />
-Checkbox "true" <input type="checkbox" id="checkbox3" name="checkbox3" value="true" /><br />
+<form id="form1" method="post" onsubmit="return false;">Checkbox
+with default value <input type="checkbox" id="checkbox1"
+	name="checkbox1" /><br />
+Checkbox "on" <input type="checkbox" id="checkbox2" name="checkbox2"
+	value="on" checked="checked" /><br />
+Checkbox "true" <input type="checkbox" id="checkbox3" name="checkbox3"
+	value="true" /><br />
 
 <select multiple="multiple" id="select1" name="select1">
-  <option>1</option>
-  <option selected="selected">2</option>
-  <option>3</option>
-  <option selected="selected">4</option>
-  <option>5</option>
+	<option value="1">1</option>
+	<option value="2" selected="selected">2</option>
+	<option value="3">3</option>
+	<option value="4" selected="selected">4</option>
+	<option value="5">5</option>
 </select><br />
 
 <button onclick="runTest(); return false;">Test</button>

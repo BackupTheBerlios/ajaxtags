@@ -15,12 +15,15 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Diese klasse stellt eine möglichkeit um HTML elemente zu schreiben.
- *
+ * 
  * @author jenskapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -39,11 +42,11 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     /**
      * Store the attributes of an HTML element.
      */
-    private Map<String, String> attributes;
+    private SortedMap<String, String> attributes;
 
     /**
      * Erstelle ein HTML element.
-     *
+     * 
      * @param name
      *            der name des start bzw. endtag
      * @param id
@@ -55,7 +58,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
         this.name = name;
         this.body = body;
         // if value is null then exception is thrown
-        attributes = new Hashtable<String, String>();
+        attributes = new TreeMap<String, String>();
         if (id != null) {
             setId(id);
         }
@@ -63,7 +66,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     *
+     * 
      * @param name
      *            the tag name
      */
@@ -73,7 +76,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     *
+     * 
      * @param name
      *            the tag name
      * @param id
@@ -84,7 +87,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     *
+     * 
      * @return the map of attributes
      */
     protected final Map<String, String> getAttributes() {
@@ -92,7 +95,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     *
+     * 
      * @return the tag name
      */
     protected final String getName() {
@@ -111,7 +114,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Set the body content.
-     *
+     * 
      * @param body
      *            the body content
      */
@@ -120,7 +123,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     *
+     * 
      * @return the class name attribute
      */
     public final String getClassName() {
@@ -129,7 +132,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Set the class name attribute.
-     *
+     * 
      * @param className
      *            the class attribute value
      */
@@ -138,7 +141,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     *
+     * 
      * @return the id attribute
      */
     public final String getId() {
@@ -147,7 +150,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Set the id attribute.
-     *
+     * 
      * @param id
      *            the id attribute value
      */
@@ -208,7 +211,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Append {@link CharSequence} to this object.
-     *
+     * 
      * @param string
      *            the data to append
      * @return self
@@ -224,7 +227,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Append a char.
-     *
+     * 
      * @param c
      *            the char to append
      * @return self
