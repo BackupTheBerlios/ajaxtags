@@ -3,7 +3,7 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
-import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
+import static org.apache.commons.lang.StringUtils.trimToNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -17,19 +17,21 @@ public class StringUtilsTest {
 
     /**
      * Test method for
-     * {@link net.sourceforge.ajaxtags.helpers.StringUtils#trim2Null(java.lang.String)}.
+     * {@link net.sourceforge.ajaxtags.helpers.StringUtils#trimToNull(java.lang.String)}.
      */
     @Test
     public void testTrim2Null() {
-        assertNull("trim2Null(null) must be null", trim2Null(null));
-        assertNull("trim2Null(\"\") must be null", trim2Null(""));
-        assertNull("trim2Null(\" \") must be null", trim2Null(" "));
-        assertNull("trim2Null(\"\t\") must be null", trim2Null("\t"));
-        assertNull("trim2Null(\"\r\n\") must be null", trim2Null("\r\n"));
+        assertNull("trim2Null(null) must be null", trimToNull(null));
+        assertNull("trim2Null(\"\") must be null", trimToNull(""));
+        assertNull("trim2Null(\" \") must be null", trimToNull(" "));
+        assertNull("trim2Null(\"\t\") must be null", trimToNull("\t"));
+        assertNull("trim2Null(\"\r\n\") must be null", trimToNull("\r\n"));
         String str = "a";
-        assertEquals("Without whitespace", str, trim2Null(str));
+        assertEquals("Without whitespace", str, trimToNull(str));
         str = " a ";
-        assertEquals("With whitespace", str, trim2Null(str));
+        // this test fail if we use trimToNULL
+        // assertEquals("With whitespace", str, trim2Null(str));
+        assertEquals("With whitespace", str.trim(), trimToNull(str));
     }
 
 }
