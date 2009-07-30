@@ -15,7 +15,7 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
-import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
+import static org.apache.commons.lang.StringUtils.trimToNull;
 
 import javax.servlet.jsp.JspException;
 import javax.xml.transform.TransformerException;
@@ -126,7 +126,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
      *             if string cannot be parsed
      */
     protected static final Document getDocument(final String html) throws SAXException {
-        final String xhtml = trim2Null(html); // .replaceAll("<br(.*?)>", "<br$1/>");
+        final String xhtml = trimToNull(html); // .replaceAll("<br(.*?)>", "<br$1/>");
         if (xhtml == null) {
             return null;
         }

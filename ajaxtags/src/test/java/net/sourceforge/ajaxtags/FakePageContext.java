@@ -126,7 +126,7 @@ public class FakePageContext extends PageContext {
     }
 
     @Override
-    public Enumeration getAttributeNamesInScope(int scope) {
+    public Enumeration<?> getAttributeNamesInScope(int scope) {
         // TODO Auto-generated method stub
         return null;
     }

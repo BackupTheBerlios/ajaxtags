@@ -45,4 +45,11 @@ public interface BaseAjaxXmlAction {
      */
     String getXmlContent(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException;
+
+    /**
+     * Each child class should override this method to set the specific XML encoding.
+     * 
+     * @return the XML encoding for the AJAX action
+     */
+    String getXMLEncoding();
 }

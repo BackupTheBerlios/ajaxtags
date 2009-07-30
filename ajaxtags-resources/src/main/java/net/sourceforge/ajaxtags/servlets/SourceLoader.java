@@ -26,7 +26,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
+import static org.apache.commons.lang.StringUtils.trimToNull;
 
 /**
  * this class loads the frameworks, javascript files and css files from the jar
@@ -110,6 +110,6 @@ public final class SourceLoader extends GenericServlet {
 
 	@Override
 	public void init() throws ServletException {
-		prefix = trim2Null(getInitParameter("prefix"));
+		prefix = trimToNull(getInitParameter("prefix"));
 	}
 }

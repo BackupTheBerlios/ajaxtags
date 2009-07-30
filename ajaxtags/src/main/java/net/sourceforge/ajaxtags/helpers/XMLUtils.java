@@ -89,7 +89,7 @@ public final class XMLUtils {
         return docFactory.get().newDocumentBuilder();
     }
 
-    public static Document getXMLDocument(String xml) throws SAXException {
+    public static Document getXMLDocument(final String xml) throws SAXException {
         try {
             return getNewDocumentBuilder().parse(new InputSource(new StringReader(xml)));
         } catch (IOException e) {
@@ -109,7 +109,7 @@ public final class XMLUtils {
         return getNewDocumentBuilder().newDocument();
     }
 
-    public static String format(String xml) throws TransformerException, SAXException {
+    public static String format(final String xml) throws TransformerException, SAXException {
         return toString(getXMLDocument(xml));
     }
 
@@ -123,8 +123,8 @@ public final class XMLUtils {
      *             it is not possible to create a Transformer instance or to transform document
      */
     public static String toString(final Document document) throws TransformerException {
-        StringWriter stringWriter = new StringWriter();
-        StreamResult streamResult = new StreamResult(stringWriter);
+        final StringWriter stringWriter = new StringWriter();
+        final StreamResult streamResult = new StreamResult(stringWriter);
         final Transformer transformer = transformerFactory.get().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");

@@ -15,7 +15,7 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
-import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
+import static org.apache.commons.lang.StringUtils.trimToNull;
 
 import java.io.IOException;
 
@@ -136,7 +136,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setEventType(String eventType) {
-        this.eventType = trim2Null(eventType);
+        this.eventType = trimToNull(eventType);
     }
 
     public final String getSourceClass() {
@@ -144,7 +144,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setSourceClass(String sourceClass) {
-        this.sourceClass = trim2Null(sourceClass);
+        this.sourceClass = trimToNull(sourceClass);
     }
 
     public final String getSource() {
@@ -152,7 +152,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setSource(String source) {
-        this.source = trim2Null(source);
+        this.source = trimToNull(source);
     }
 
     public final String getVar() {
@@ -160,11 +160,11 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setVar(String var) {
-        this.var = trim2Null(var);
+        this.var = trimToNull(var);
     }
 
     public final void setAttachTo(String attachTo) {
-        this.attachTo = trim2Null(attachTo);
+        this.attachTo = trimToNull(attachTo);
     }
 
     public final String getAttachTo() {
@@ -191,7 +191,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setParameters(String parameters) {
-        this.parameters = trim2Null(parameters);
+        this.parameters = trimToNull(parameters);
     }
 
     public final String getErrorFunction() {
@@ -199,7 +199,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setErrorFunction(String errorFunction) {
-        this.errorFunction = trim2Null(errorFunction);
+        this.errorFunction = trimToNull(errorFunction);
     }
 
     public final String getPostFunction() {
@@ -207,7 +207,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setPostFunction(String postFunction) {
-        this.postFunction = trim2Null(postFunction);
+        this.postFunction = trimToNull(postFunction);
     }
 
     public final String getPreFunction() {
@@ -215,7 +215,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setPreFunction(String preFunction) {
-        this.preFunction = trim2Null(preFunction);
+        this.preFunction = trimToNull(preFunction);
     }
 
     public final String getParser() {
@@ -223,7 +223,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setParser(String parser) {
-        this.parser = trim2Null(parser);
+        this.parser = trimToNull(parser);
     }
 
     public final String getBaseUrl() {
@@ -231,7 +231,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     public final void setBaseUrl(String baseUrl) {
-        this.baseUrl = trim2Null(baseUrl);
+        this.baseUrl = trimToNull(baseUrl);
 
     }
 
@@ -247,7 +247,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
      *            The target to set.
      */
     public final void setTarget(String target) {
-        this.target = trim2Null(target);
+        this.target = trimToNull(target);
     }
 
     protected void initParameters() throws JspException {

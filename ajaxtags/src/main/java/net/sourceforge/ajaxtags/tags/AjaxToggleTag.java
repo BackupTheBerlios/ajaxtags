@@ -15,7 +15,7 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
-import static net.sourceforge.ajaxtags.helpers.StringUtils.trim2Null;
+import static org.apache.commons.lang.StringUtils.trimToNull;
 
 import javax.servlet.jsp.JspException;
 
@@ -77,7 +77,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
     }
 
     public void setDefaultRating(String defaultRating) {
-        this.defaultRating = trim2Null(defaultRating);
+        this.defaultRating = trimToNull(defaultRating);
     }
 
     public String getMessageClass() {
@@ -109,7 +109,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
     }
 
     public void setRatings(String ratings) {
-        this.ratings = trim2Null(ratings);
+        this.ratings = trimToNull(ratings);
     }
 
     public String getSelectedClass() {

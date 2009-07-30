@@ -51,13 +51,13 @@ public final class AjaxActionHelper {
             HttpServletResponse response) throws ServletException {
         // prepare CALL
         try {
-            request.setCharacterEncoding("UTF-8");
+            request.setCharacterEncoding(action.getXMLEncoding());
         } // we will use utf-8
         catch (UnsupportedEncodingException e) {
             throw new ServletException(e);
         }
         // Set content to xml
-        response.setContentType("text/xml; charset=UTF-8");
+        response.setContentType("text/xml; charset="+action.getXMLEncoding());
         // Set HTTP/1.1 no-cache headers.
         response.setHeader("Cache-Control", "no-store, max-age=0, no-cache");
         response.addHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
