@@ -43,8 +43,8 @@ public class OptionsBuilderTest {
     public void testAddStringBoolean() {
         options.add("parameter", true);
         options.add("parameter with space", false);
-        assertEquals("toString", "parameter with space: false" + options.getOptionsDelimiter()
-                + "parameter: true", options.toString());
+        assertEquals("toString", "parameter: true" + options.getOptionsDelimiter()
+                + "parameter with space: false", options.toString());
     }
 
     /**
@@ -61,7 +61,7 @@ public class OptionsBuilderTest {
         assertEquals("int immutable option", expected1, options.toString());
 
         options.add("test1-param2", 0).add("test1-param3", 1);
-        assertEquals("int options", "test1-param2: 0" + options.getOptionsDelimiter() + expected1
+        assertEquals("int options", expected1 + options.getOptionsDelimiter() + "test1-param2: 0"
                 + options.getOptionsDelimiter() + "test1-param3: 1", options.toString());
     }
 
@@ -77,10 +77,9 @@ public class OptionsBuilderTest {
         options.add("test2-param2", "", true);
         options.add("test2-param3", "string3", false);
         options.add("test2-param4", "string4", true);
-        assertEquals("string options", "test2-param3: string3" + options.getOptionsDelimiter()
-                + "test2-param2: \"\"" + options.getOptionsDelimiter()
-                + "test2-param4: \"string4\"" + options.getOptionsDelimiter() + expected1, options
-                .toString());
+        assertEquals("string options", expected1 + options.getOptionsDelimiter()
+                + "test2-param2: \"\"" + options.getOptionsDelimiter() + "test2-param3: string3"
+                + options.getOptionsDelimiter() + "test2-param4: \"string4\"", options.toString());
     }
 
     /**
