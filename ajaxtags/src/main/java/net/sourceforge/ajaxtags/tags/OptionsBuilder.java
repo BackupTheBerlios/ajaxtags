@@ -16,9 +16,10 @@
 package net.sourceforge.ajaxtags.tags;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -35,7 +36,7 @@ public final class OptionsBuilder {
 
     private String optionsDelimiter = ", "; // ",\n"
 
-    private final Map<String, String> parameters = new HashMap<String, String>();
+    private final SortedMap<String, String> parameters = new TreeMap<String, String>();
 
     private OptionsBuilder() {
     }
