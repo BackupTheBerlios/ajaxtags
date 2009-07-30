@@ -8,6 +8,7 @@ package net.sourceforge.ajaxtags;
 import java.io.IOException;
 import java.util.Enumeration;
 
+import javax.el.ELContext;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -126,7 +127,7 @@ public class FakePageContext extends PageContext {
     }
 
     @Override
-    public Enumeration<?> getAttributeNamesInScope(int scope) {
+    public Enumeration<String> getAttributeNamesInScope(int scope) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -172,5 +173,11 @@ public class FakePageContext extends PageContext {
     @Override
     public void setAttribute(String name, Object value, int scope) {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public ELContext getELContext() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
