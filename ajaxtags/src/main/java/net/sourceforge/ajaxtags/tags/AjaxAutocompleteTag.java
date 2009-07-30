@@ -77,7 +77,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         options.add("minChars", this.minimumCharacters, true);
         options.add("appendSeparator", this.appendSeparator, true);
 
-        JavaScript script = new JavaScript();
+        JavaScript script = new JavaScript(this);
         script.newAutocomplete(options);
         out(script);
         return EVAL_PAGE;

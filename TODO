@@ -3,3 +3,6 @@ BUG mit callout!!
 wenn callout von  einem Button tag ausgelößt wird, (button.type)
 kommt eine exception!
 
+AreaTag und Anchor tag does not work!
+
+autocomplete need to be testet

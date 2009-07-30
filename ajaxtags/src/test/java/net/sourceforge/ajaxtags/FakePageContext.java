@@ -139,21 +139,10 @@ public class FakePageContext extends PageContext {
     }
 
     @Override
-    public ExpressionEvaluator getExpressionEvaluator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public JspWriter getOut() {
         return content;
     }
-
-    @Override
-    public VariableResolver getVariableResolver() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+ 
 
     @Override
     public void removeAttribute(String name) {
@@ -177,6 +166,18 @@ public class FakePageContext extends PageContext {
 
     @Override
     public ELContext getELContext() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public ExpressionEvaluator getExpressionEvaluator() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VariableResolver getVariableResolver() {
         // TODO Auto-generated method stub
         return null;
     }

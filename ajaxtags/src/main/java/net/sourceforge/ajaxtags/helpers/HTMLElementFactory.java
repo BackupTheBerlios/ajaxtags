@@ -15,8 +15,6 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -90,7 +88,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      * 
      * @return the map of attributes
      */
-    protected final Map<String, String> getAttributes() {
+    protected final SortedMap<String, String> getAttributes() {
         return attributes;
     }
 
