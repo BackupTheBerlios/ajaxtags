@@ -16,7 +16,6 @@ import net.sourceforge.ajaxtags.FakeBodyContent;
 import net.sourceforge.ajaxtags.FakePageContext;
 import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +27,8 @@ import org.xml.sax.SAXException;
  */
 public class AjaxAnchorsTagTest {
 
-    private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-            + IOUtils.LINE_SEPARATOR;
+    private static final String HEADER = "";// "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+    // IOUtils.LINE_SEPARATOR;
 
     private AjaxAnchorsTag tag;
 
@@ -83,7 +82,8 @@ public class AjaxAnchorsTagTest {
                 + "eventBase: this" + options.getOptionsDelimiter()
                 + "requestHeaders: ['x-request-target' , 'target']" + options.getOptionsDelimiter()
                 + "target: &quot;target&quot;" + "});" + " return false;\">test</a>"
-                + IOUtils.LINE_SEPARATOR + "</div>" + IOUtils.LINE_SEPARATOR;
+                // + IOUtils.LINE_SEPARATOR
+                + "</div>";// + IOUtils.LINE_SEPARATOR;
 
         tag.getBodyContent().print(html);
 
@@ -99,20 +99,25 @@ public class AjaxAnchorsTagTest {
      * 
      * @throws JspException
      *             on errors
+     * @throws SAXException
+     * @throws TransformerException
      */
     @Test
-    public void testAjaxAnchors() throws JspException {
+    public void testAjaxAnchors() throws JspException, TransformerException, SAXException {
         final OptionsBuilder options = OptionsBuilder.getOptionsBuilder();
         final String baseURL = "http://localhost:8080/test/test.do";
 
         String html = "HTML content";
-        String expected = HEADER + "<div>HTML content</div>" + IOUtils.LINE_SEPARATOR;
-        assertEquals("HTML w/o links", expected, tag.ajaxAnchors(html, "target", null));
+        String expected = HEADER + "<div>HTML content</div>";// + IOUtils.LINE_SEPARATOR;
+        assertEquals("HTML w/o links", XMLUtils.format(expected), tag.ajaxAnchors(html, "target",
+                null));
 
         html = "html <a>link</a>";
-        expected = HEADER + "<div>html <a>link</a>" + IOUtils.LINE_SEPARATOR + "</div>"
-                + IOUtils.LINE_SEPARATOR;
-        assertEquals("HTML with empty link", expected, tag.ajaxAnchors(html, "target", null));
+        expected = HEADER + "<div>html <a>link</a>"
+        // + IOUtils.LINE_SEPARATOR
+                + "</div>";
+        // + IOUtils.LINE_SEPARATOR;
+        assertEquals("HTML with empty link",  XMLUtils.format(expected), tag.ajaxAnchors(html, "target", null));
 
         html = "html <a href=\"" + baseURL + "\">test</a>";
         expected = HEADER + "<div>html <a href=\"javascript://nop/\" "
@@ -120,7 +125,9 @@ public class AjaxAnchorsTagTest {
                 + options.getOptionsDelimiter() + "eventBase: this" + options.getOptionsDelimiter()
                 + "requestHeaders: ['x-request-target' , 'target']" + options.getOptionsDelimiter()
                 + "target: &quot;target&quot;" + "});" + " return false;\">test</a>"
-                + IOUtils.LINE_SEPARATOR + "</div>" + IOUtils.LINE_SEPARATOR;
-        assertEquals("HTML with link", expected, tag.ajaxAnchors(html, "target", null));
+                // + IOUtils.LINE_SEPARATOR
+                + "</div>";// + IOUtils.LINE_SEPARATOR;
+        assertEquals("HTML with link", XMLUtils.format(expected), tag.ajaxAnchors(html, "target",
+                null));
     }
 }

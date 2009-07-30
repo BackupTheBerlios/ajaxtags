@@ -128,7 +128,7 @@ public final class XMLUtils {
         final Transformer transformer = transformerFactory.get().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+        transformer.setOutputProperty(OutputKeys.METHOD, "html");
         transformer.transform(new DOMSource(document.getDocumentElement()), streamResult);
         return stringWriter.toString();
     }
