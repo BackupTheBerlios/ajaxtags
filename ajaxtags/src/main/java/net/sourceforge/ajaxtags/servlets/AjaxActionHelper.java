@@ -57,16 +57,25 @@ public final class AjaxActionHelper {
             throw new ServletException(e);
         }
         // Set content to xml
-        response.setContentType("text/xml; charset="+action.getXMLEncoding());
-        // Set HTTP/1.1 no-cache headers.
-        response.setHeader("Cache-Control", "no-store, max-age=0, no-cache");
-        response.addHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        // Set standard HTTP/1.0 no-cache header.
-        response.setHeader("Pragma", "no-cache");
+        response.setContentType("text/xml; charset=" + action.getXMLEncoding());
+        addNoCacheHeaders(response);
         try {
             return action.getXmlContent(request, response);
         } catch (IOException e) {
             throw new ServletException(e);
         }
+    }
+
+    /**
+     * Add Cachecontrol header to Servlet Response
+     * 
+     * @param response
+     */
+    public static void addNoCacheHeaders(HttpServletResponse response) {
+        // Set HTTP/1.1 no-cache headers.
+        response.setHeader("Cache-Control", "no-store, max-age=0, no-cache");
+        response.addHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+        // Set standard HTTP/1.0 no-cache header.
+        response.setHeader("Pragma", "no-cache");
     }
 }

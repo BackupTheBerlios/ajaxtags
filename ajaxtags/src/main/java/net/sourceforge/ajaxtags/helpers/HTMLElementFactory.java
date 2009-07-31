@@ -15,9 +15,9 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 /**
  * Diese klasse stellt eine möglichkeit um HTML elemente zu schreiben.
@@ -196,7 +196,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
         final StringBuilder s = new StringBuilder("<");
         s.append(getName());
         cleanAttributes();
-        for (Map.Entry<String, String> e : getAttributes().entrySet()) {
+        for (Entry<String, String> e : getAttributes().entrySet()) {
             s.append(" ").append(e.getKey()).append("=\"");
             s.append(e.getValue().replaceAll("\"", "\\\"")).append("\"");
         }

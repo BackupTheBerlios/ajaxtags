@@ -25,6 +25,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import net.sourceforge.ajaxtags.servlets.AjaxActionHelper;
+
 /**
  * 
  * @author Jens Kapitza
@@ -106,6 +108,8 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     @Override
     public final int doStartTag() throws JspException {
         initParameters(); // EVAL_BODY need to be flushed if it is nested!
+        // we should set the  no cache headers!
+        AjaxActionHelper.addNoCacheHeaders(getHttpServletResponse());
         return skipBody ? SKIP_BODY : EVAL_BODY_BUFFERED;
     }
 

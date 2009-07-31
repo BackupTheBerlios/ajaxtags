@@ -64,7 +64,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      * @return Returns the ajaxAnchors.
      */
     public final boolean getAjaxAnchors() {
-        return this.ajaxAnchors;
+        return isAjaxAnchors();
     } // we don't need it!
 
     public final boolean isAjaxAnchors() {
@@ -112,7 +112,8 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
         if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
             throw new JspException("try to avoid flush before");
         } else {
-            getHttpServletResponse().reset();
+//            getHttpServletResponse().reset();
+            getHttpServletResponse().resetBuffer();
         }
     }
 
