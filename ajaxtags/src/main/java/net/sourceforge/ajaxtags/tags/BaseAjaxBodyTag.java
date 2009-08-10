@@ -28,7 +28,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import net.sourceforge.ajaxtags.servlets.AjaxActionHelper;
 
 /**
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
@@ -58,6 +58,9 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     private String sourceClass;
     private String eventType;
 
+    /**
+     * Default constructor.
+     */
     public BaseAjaxBodyTag() {
         super();
         release();
@@ -80,26 +83,24 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * Detect if the client does a ajax call or not.
-     * 
-     * @return true only if the client send the header with with XMLHttpRequest
+     * Detect if the client does an ajax call or not.
+     *
+     * @return true only if the client send the header with XMLHttpRequest
      */
     protected boolean isAjaxRequest() {
         return isHttpRequestHeader(HEADER_FLAG, HEADER_FLAG_VALUE);
     }
 
-    protected void out(CharSequence csec) throws JspException {
+    protected void out(final CharSequence csec) throws JspException {
         try {
             pageContext.getOut().append(csec);
         } catch (IOException e) {
             throw new JspException(e);
         }
-
     }
 
     /**
-     * 
-     * @return true if the body should be ignored
+     * Ignore the body of the tag.
      */
     protected final void skipBody() {
         skipBody = true;
@@ -108,7 +109,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     @Override
     public final int doStartTag() throws JspException {
         initParameters(); // EVAL_BODY need to be flushed if it is nested!
-        // we should set the  no cache headers!
+        // we should set the no cache headers!
         AjaxActionHelper.addNoCacheHeaders(getHttpServletResponse());
         return skipBody ? SKIP_BODY : EVAL_BODY_BUFFERED;
     }
@@ -139,7 +140,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return eventType;
     }
 
-    public final void setEventType(String eventType) {
+    public final void setEventType(final String eventType) {
         this.eventType = trimToNull(eventType);
     }
 
@@ -147,7 +148,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return sourceClass;
     }
 
-    public final void setSourceClass(String sourceClass) {
+    public final void setSourceClass(final String sourceClass) {
         this.sourceClass = trimToNull(sourceClass);
     }
 
@@ -155,7 +156,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return source;
     }
 
-    public final void setSource(String source) {
+    public final void setSource(final String source) {
         this.source = trimToNull(source);
     }
 
@@ -163,11 +164,11 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return var;
     }
 
-    public final void setVar(String var) {
+    public final void setVar(final String var) {
         this.var = trimToNull(var);
     }
 
-    public final void setAttachTo(String attachTo) {
+    public final void setAttachTo(final String attachTo) {
         this.attachTo = trimToNull(attachTo);
     }
 
@@ -175,17 +176,20 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return attachTo;
     }
 
+    /**
+     * Build JavaScript assignment string.
+     *
+     * @return String with assignment to variable "var x = " or field "object.field = "
+     */
     public final String getJSVariable() {
-
-        StringBuilder script = new StringBuilder();
-
+        final StringBuilder script = new StringBuilder();
         if (this.var != null) {
-            if (this.attachTo != null) {
-                script.append(this.attachTo).append(".").append(this.var);
+            if (this.attachTo == null) {
+                script.append("var ");
             } else {
-                script.append("var ").append(this.var);
+                script.append(this.attachTo).append(".");
             }
-            script.append(" = "); // needed
+            script.append(this.var).append(" = ");
         }
         return script.toString();
     }
@@ -194,7 +198,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return parameters;
     }
 
-    public final void setParameters(String parameters) {
+    public final void setParameters(final String parameters) {
         this.parameters = trimToNull(parameters);
     }
 
@@ -202,7 +206,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return errorFunction;
     }
 
-    public final void setErrorFunction(String errorFunction) {
+    public final void setErrorFunction(final String errorFunction) {
         this.errorFunction = trimToNull(errorFunction);
     }
 
@@ -210,7 +214,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return postFunction;
     }
 
-    public final void setPostFunction(String postFunction) {
+    public final void setPostFunction(final String postFunction) {
         this.postFunction = trimToNull(postFunction);
     }
 
@@ -218,7 +222,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return preFunction;
     }
 
-    public final void setPreFunction(String preFunction) {
+    public final void setPreFunction(final String preFunction) {
         this.preFunction = trimToNull(preFunction);
     }
 
@@ -226,7 +230,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return parser;
     }
 
-    public final void setParser(String parser) {
+    public final void setParser(final String parser) {
         this.parser = trimToNull(parser);
     }
 
@@ -234,9 +238,8 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return baseUrl;
     }
 
-    public final void setBaseUrl(String baseUrl) {
+    public final void setBaseUrl(final String baseUrl) {
         this.baseUrl = trimToNull(baseUrl);
-
     }
 
     /**
@@ -250,7 +253,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
      * @param target
      *            The target to set.
      */
-    public final void setTarget(String target) {
+    public final void setTarget(final String target) {
         this.target = trimToNull(target);
     }
 
@@ -264,16 +267,15 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * 
+     *
      * @return the OptionsBuilder with default options
      */
     protected OptionsBuilder getOptionsBuilder() {
         return getOptionsBuilder(false);
     }
 
-    protected OptionsBuilder getOptionsBuilder(boolean empty) {
-
-        OptionsBuilder builder = OptionsBuilder.getOptionsBuilder();
+    protected OptionsBuilder getOptionsBuilder(final boolean empty) {
+        final OptionsBuilder builder = OptionsBuilder.getOptionsBuilder();
         if (empty) {
             return builder;
         }
@@ -297,7 +299,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Helper to define new AJAX updater for onclick attribute.
-     * 
+     *
      * @param target
      *            the target to request
      * @param href
@@ -308,24 +310,24 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
      */
     protected final String getOnclickAjax(final String target, final String href,
             final OptionsBuilder opt) {
-        OptionsBuilder options = OptionsBuilder.getOptionsBuilder(opt);
+        final OptionsBuilder options = OptionsBuilder.getOptionsBuilder(opt);
         // copy all options
 
         options.add("target", target, true);
         options.add("baseUrl", href, true);
 
         options.add("eventBase", "this", false);
-        options.add("requestHeaders", "['" + AjaxAreaTag.TARGET_HEADER + "' , '" + target + "']",
+        options.add("requestHeaders", "['" + AjaxAreaTag.TARGET_HEADER + "', '" + target + "']",
                 false);
         // this.selfTargetOnClick = this.selfTargetOnClick ||
-        StringBuffer onclick = new StringBuffer("new AjaxJspTag.OnClick({");
+        final StringBuilder onclick = new StringBuilder("new AjaxJspTag.OnClick({");
         onclick.append(options.toString());
         onclick.append("}); return false;");
         return onclick.toString();
     }
 
     protected String getBody() {
-        BodyContent bc = this.getBodyContent();
+        final BodyContent bc = this.getBodyContent();
         if (bc == null) {
             return null;
         }

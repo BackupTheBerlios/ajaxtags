@@ -179,7 +179,12 @@ public final class XMLUtils {
         final Transformer transformer = transformerFactory.get().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        transformer.setOutputProperty(OutputKeys.METHOD, "html");
+        // transformer.setOutputProperty(OutputKeys.METHOD, "html");
+        // html transforms <br/> into <br>, which cannot be re-parsed
+        // transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
+        // xhtml does not work for my xalan transformer
+        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         transformer.transform(new DOMSource(document.getDocumentElement()), streamResult);
         return stringWriter.toString();
     }

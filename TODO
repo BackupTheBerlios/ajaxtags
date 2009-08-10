@@ -2,9 +2,12 @@
   wenn callout von einem Button tag ausgelößt wird, (button.type)
   kommt eine exception!
 
-- AreaTag und Anchor tag does not work!
-
 - Autocomplete need to be tested
+  JS error when switching from Autocomplete to another tab:
+  Element#hide() - element is null
+  Autocompleter#stopIndicator()
+  Autocompleter#hide()
+  ?.bind()
 
 debug mvn jetty with eclipse remote con.
 

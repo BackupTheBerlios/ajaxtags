@@ -61,7 +61,9 @@ public class AjaxAnchorsTagTest {
      * @throws IOException
      *             on BodyContent errors
      * @throws SAXException
+     *             if any parse errors occur
      * @throws TransformerException
+     *             if it is not possible to transform document to string
      */
     @Test
     public void testDoEndTag() throws JspException, IOException, TransformerException, SAXException {
@@ -78,7 +80,7 @@ public class AjaxAnchorsTagTest {
         final String expected = HEADER + "<div>" + "<a href=\"javascript://nop/\" "
                 + "onclick=\"new AjaxJspTag.OnClick({" + "baseUrl: &quot;" + BASE_URL + "&quot;"
                 + options.getOptionsDelimiter() + "eventBase: this" + options.getOptionsDelimiter()
-                + "requestHeaders: ['x-request-target' , 'target']" + options.getOptionsDelimiter()
+                + "requestHeaders: ['x-request-target', 'target']" + options.getOptionsDelimiter()
                 + "target: &quot;target&quot;" + "});" + " return false;\">testDoEndTag</a>"
                 + "</div>";
 
@@ -97,7 +99,9 @@ public class AjaxAnchorsTagTest {
      * @throws JspException
      *             on errors
      * @throws SAXException
+     *             if any parse errors occur
      * @throws TransformerException
+     *             if it is not possible to transform document to string
      */
     @Test
     public void testAjaxAnchors() throws JspException, TransformerException, SAXException {
@@ -117,7 +121,7 @@ public class AjaxAnchorsTagTest {
         expected = HEADER + "<div>html <a href=\"javascript://nop/\" "
                 + "onclick=\"new AjaxJspTag.OnClick({" + "baseUrl: &quot;" + BASE_URL + "&quot;"
                 + options.getOptionsDelimiter() + "eventBase: this" + options.getOptionsDelimiter()
-                + "requestHeaders: ['x-request-target' , 'target']" + options.getOptionsDelimiter()
+                + "requestHeaders: ['x-request-target', 'target']" + options.getOptionsDelimiter()
                 + "target: &quot;target&quot;" + "});" + " return false;\">testAjaxAnchors</a>"
                 + "</div>";
         assertEquals("HTML with link", XMLUtils.format(expected), tag.ajaxAnchors(html, "target",

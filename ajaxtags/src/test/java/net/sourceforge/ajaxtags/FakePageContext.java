@@ -31,6 +31,8 @@ import javax.servlet.jsp.tagext.BodyContent;
 public class FakePageContext extends PageContext {
 
     private BodyContent content = new FakeBodyContent();
+    private ServletRequest request = new FakeHttpServletRequest();
+    private ServletResponse response = new FakeHttpServletResponse();
 
     @Override
     public void forward(String relativeUrlPath) throws ServletException, IOException {
@@ -51,13 +53,12 @@ public class FakePageContext extends PageContext {
 
     @Override
     public ServletRequest getRequest() {
-        // TODO Auto-generated method stub
-        return null;
+        return request;
     }
 
     @Override
     public ServletResponse getResponse() {
-        return new FakeHttpServletResponse();
+        return response;
     }
 
     @Override

@@ -17,6 +17,8 @@ package net.sourceforge.ajaxtags.tags;
 
 import static org.apache.commons.lang.StringUtils.trimToNull;
 
+import java.io.IOException;
+
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
@@ -24,7 +26,7 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 /**
  * Wraps any area on the page (with a DIV element) so that actions within that area refresh/load
  * inside the defined DIV region rather than inside the whole browser window.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -39,9 +41,12 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     private boolean ajaxAnchors;
 
+    /**
+     * Returns true if we answering to AJAX request: request has proper "X-Requested-With" and
+     * "x-request-target" headers.
+     */
     @Override
     public final boolean isAjaxRequest() {
-        // this is only a ajaxrequest if the target is right!
         return super.isAjaxRequest() && isHttpRequestHeader(TARGET_HEADER, getId());
     }
 
@@ -56,16 +61,16 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      * @param styleClass
      *            The styleClass to set.
      */
-    public final void setStyleClass(String styleClass) {
+    public final void setStyleClass(final String styleClass) {
         this.styleClass = trimToNull(styleClass);
     }
 
-    /**
+    /*
      * @return Returns the ajaxAnchors.
      */
-    public final boolean getAjaxAnchors() {
+    /*public final boolean getAjaxAnchors() {
         return isAjaxAnchors();
-    } // we don't need it!
+    } // we don't need it!*/
 
     public final boolean isAjaxAnchors() {
         return this.ajaxAnchors;
@@ -75,13 +80,38 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
      * @param ajaxAnchors
      *            The ajaxAnchors to set.
      */
-    public final void setAjaxAnchors(boolean ajaxAnchors) {
+    public final void setAjaxAnchors(final boolean ajaxAnchors) {
         this.ajaxAnchors = ajaxAnchors;
     }
 
+    /**
+     * Clear page content before start of tag if we are processing ajax request.
+     *
+     * @throws JspException
+     *             when HTTP response cannot be reset (has already had its status code and headers
+     *             written)
+     */
+    @Override
+    public void initParameters() throws JspException {
+        if (isAjaxRequest()) {
+            try {
+                pageContext.getOut().clearBuffer();
+            } catch (IOException e) {
+                throw new JspException(e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Write body. Skip the rest of the page if we are processing ajax request.
+     *
+     * @return SKIP_PAGE for ajax request, EVAL_PAGE for usual request
+     * @throws JspException
+     *             on errors
+     */
     @Override
     public int doEndTag() throws JspException {
-        DIVElement div = new DIVElement(getId());
+        final DIVElement div = new DIVElement(getId());
         div.append(processContent(getBody()));
         if (getStyleClass() != null) {
             div.setClassName(getStyleClass());
@@ -100,32 +130,14 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     }
 
     /**
-     * Set initial parameters.
-     * 
-     * @throws JspException
-     *             when HTTP response cannot be reset (has already had its status code and headers
-     *             written)
-     */
-    @Override
-    public void initParameters() throws JspException {
-        // 
-        if (isAjaxRequest() && getHttpServletResponse().isCommitted()) {
-            throw new JspException("try to avoid flush before");
-        } else {
-//            getHttpServletResponse().reset();
-            getHttpServletResponse().resetBuffer();
-        }
-    }
-
-    /**
      * Process content.
-     * 
+     *
      * @param content
      * @return processed content
      * @throws JspException
      * @throws Exception
      */
-    protected String processContent(String content) throws JspException {
+    protected String processContent(final String content) throws JspException {
         return isAjaxAnchors() ? ajaxAnchors(content, getId(), getSourceClass()) : content;
     }
 
