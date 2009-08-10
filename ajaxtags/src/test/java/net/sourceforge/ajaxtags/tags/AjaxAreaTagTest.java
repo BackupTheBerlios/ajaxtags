@@ -102,8 +102,6 @@ public class AjaxAreaTagTest {
     /**
      * Test method for tag content generation in response to AJAX request.
      *
-     * TODO append some text before and after tag?
-     *
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -126,6 +124,8 @@ public class AjaxAreaTagTest {
         tag.setStyleClass(TAG_CLASS);
         tag.setAjaxAnchors(true);
 
+        context.getOut().print("<div>before tag");
+
         assertEquals("doStartTag() must return BodyTag.EVAL_BODY_BUFFERED",
                 BodyTag.EVAL_BODY_BUFFERED, tag.doStartTag());
 
@@ -142,6 +142,7 @@ public class AjaxAreaTagTest {
                 .doAfterBody());
         assertEquals("doEndTag() must return BodyTag.SKIP_PAGE", BodyTag.SKIP_PAGE, tag.doEndTag());
 
+        // context.getOut().print("after tag</div>"); SKIP_PAGE
         final String content = ((FakeBodyContent) context.getOut()).getString();
         assertEquals("HTML after doEndTag()", XMLUtils.format(expected), XMLUtils.format(content));
     }

@@ -55,7 +55,7 @@ public class FakeBodyContent extends BodyContent {
 
     @Override
     public void clearBuffer() throws IOException {
-        // TODO Auto-generated method stub
+        content = "";
     }
 
     @Override
@@ -87,7 +87,7 @@ public class FakeBodyContent extends BodyContent {
 
     @Override
     public void print(char c) throws IOException {
-        // TODO Auto-generated method stub
+        this.content += c;
     }
 
     @Override
@@ -137,7 +137,7 @@ public class FakeBodyContent extends BodyContent {
 
     @Override
     public void println(char x) throws IOException {
-        // TODO Auto-generated method stub
+        this.content += x + NEW_LINE;
     }
 
     @Override
