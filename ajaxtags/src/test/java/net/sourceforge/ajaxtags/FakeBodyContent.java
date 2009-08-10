@@ -20,6 +20,8 @@ import javax.servlet.jsp.tagext.BodyContent;
  */
 public class FakeBodyContent extends BodyContent {
 
+    private static final String NEW_LINE = "\n";
+
     private String content = "";
 
     protected FakeBodyContent(JspWriter writer) {
@@ -69,7 +71,7 @@ public class FakeBodyContent extends BodyContent {
 
     @Override
     public void newLine() throws IOException {
-        this.content += "\n";
+        this.content += NEW_LINE;
     }
 
     @Override
@@ -125,7 +127,7 @@ public class FakeBodyContent extends BodyContent {
 
     @Override
     public void println() throws IOException {
-        this.content += "\n";
+        this.content += NEW_LINE;
     }
 
     @Override
@@ -165,12 +167,12 @@ public class FakeBodyContent extends BodyContent {
 
     @Override
     public void println(String x) throws IOException {
-        this.content += x + "\n";
+        this.content += x + NEW_LINE;
     }
 
     @Override
     public void println(Object x) throws IOException {
-        this.content += x + "\n";
+        this.content += x + NEW_LINE;
     }
 
     @Override

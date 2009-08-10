@@ -74,21 +74,60 @@ public final class XMLUtils {
     private XMLUtils() {
     }
 
+    /**
+     * Evaluate XPath expression and return list of nodes.
+     *
+     * @param expression
+     *            XPath expression
+     * @param node
+     *            DOM node
+     * @return list of DOM nodes
+     * @throws XPathExpressionException
+     *             if expression cannot be evaluated
+     */
     public static NodeList evaluateXPathExpression(final String expression, final Node node)
             throws XPathExpressionException {
         return (NodeList) evaluateXPathExpression(expression, node, XPathConstants.NODESET);
     }
 
+    /**
+     * Evaluate XPath expression.
+     *
+     * @param expression
+     *            XPath expression
+     * @param node
+     *            DOM node
+     * @param returnValue
+     *            the desired return type
+     * @return result of evaluating an XPath expression as an Object of returnType
+     * @throws XPathExpressionException
+     *             if expression cannot be evaluated
+     */
     public static Object evaluateXPathExpression(final String expression, final Node node,
             final QName returnValue) throws XPathExpressionException {
         return xPathFactory.get().newXPath().evaluate(expression, node,
                 returnValue == null ? XPathConstants.NODE : returnValue);
     }
 
+    /**
+     * @return DocumentBuilder
+     * @throws ParserConfigurationException
+     *             if a DocumentBuilder cannot be created which satisfies the configuration
+     *             requested
+     */
     private static DocumentBuilder getNewDocumentBuilder() throws ParserConfigurationException {
         return docFactory.get().newDocumentBuilder();
     }
 
+    /**
+     * Parse string with XML content to {@link org.w3c.dom.Document}.
+     *
+     * @param xml
+     *            string with XML content
+     * @return Document
+     * @throws SAXException
+     *             if any parse errors occur
+     */
     public static Document getXMLDocument(final String xml) throws SAXException {
         try {
             return getNewDocumentBuilder().parse(new InputSource(new StringReader(xml)));
@@ -100,15 +139,27 @@ public final class XMLUtils {
     }
 
     /**
-     * Create a new document.
+     * Create a new {@link org.w3c.dom.Document}.
      *
      * @return an empty document
      * @throws ParserConfigurationException
+     *             if a DocumentBuilder cannot be created
      */
     public static Document createDocument() throws ParserConfigurationException {
         return getNewDocumentBuilder().newDocument();
     }
 
+    /**
+     * Parse string as XML document and return string with reformatted document.
+     *
+     * @param xml
+     *            string with XML content
+     * @return reformatted content
+     * @throws TransformerException
+     *             if it is not possible to transform document to string
+     * @throws SAXException
+     *             if any parse errors occur
+     */
     public static String format(final String xml) throws TransformerException, SAXException {
         return toString(getXMLDocument(xml));
     }
@@ -120,7 +171,7 @@ public final class XMLUtils {
      *            XHTML document
      * @return string representation of document
      * @throws TransformerException
-     *             it is not possible to create a Transformer instance or to transform document
+     *             if it is not possible to create a Transformer instance or to transform document
      */
     public static String toString(final Document document) throws TransformerException {
         final StringWriter stringWriter = new StringWriter();

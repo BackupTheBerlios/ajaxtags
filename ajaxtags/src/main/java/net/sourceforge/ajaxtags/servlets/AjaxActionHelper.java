@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -35,17 +35,17 @@ public final class AjaxActionHelper {
 
     /**
      * Invoke the ajax action and setup the request and response.
-     * 
+     *
      * @param action
      *            the ajaxaction implementation
      * @param request
      *            the request
      * @param response
      *            the response
-     * @return the xml content from action
+     * @return the XML content from action
      * @throws ServletException
      *             for any errors
-     * 
+     *
      */
     public static String invoke(BaseAjaxXmlAction action, HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -67,11 +67,12 @@ public final class AjaxActionHelper {
     }
 
     /**
-     * Add Cachecontrol header to Servlet Response
-     * 
+     * Add Cache-Control header to Servlet Response.
+     *
      * @param response
+     *            Servlet response to be modified
      */
-    public static void addNoCacheHeaders(HttpServletResponse response) {
+    public static void addNoCacheHeaders(final HttpServletResponse response) {
         // Set HTTP/1.1 no-cache headers.
         response.setHeader("Cache-Control", "no-store, max-age=0, no-cache");
         response.addHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
