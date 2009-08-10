@@ -192,3 +192,8 @@ FORM.basicForm INPUT[type="text"]:focus {
 #tabPanelWrapper {
 	width: 600px;
 }
+
+div.textArea {
+	background: #eee;
+	border: 1px dotted silver;
+}
