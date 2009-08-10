@@ -49,7 +49,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         return className;
     }
 
-    public void setClassName(String className) {
+    public void setClassName(final String className) {
         this.className = className;
     }
 
@@ -57,7 +57,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         return indicator;
     }
 
-    public void setIndicator(String indicator) {
+    public void setIndicator(final String indicator) {
         this.indicator = indicator;
     }
 
@@ -65,19 +65,19 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         return minimumCharacters;
     }
 
-    public void setMinimumCharacters(String minimumCharacters) {
+    public void setMinimumCharacters(final String minimumCharacters) {
         this.minimumCharacters = minimumCharacters;
     }
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
+        final OptionsBuilder options = getOptionsBuilder();
         options.add("className", this.className, true);
         options.add("indicator", this.indicator, true);
         options.add("minChars", this.minimumCharacters, true);
         options.add("appendSeparator", this.appendSeparator, true);
 
-        JavaScript script = new JavaScript(this);
+        final JavaScript script = new JavaScript(this);
         script.newAutocomplete(options);
         out(script);
         return EVAL_PAGE;
