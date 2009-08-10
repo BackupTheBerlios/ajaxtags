@@ -141,7 +141,7 @@ var DefaultResponseParser = Class.create({
             xdata = this.contentText; // response is HMTL
         } else if (this.type === "xmltohtml") {
             // replace ResponseXmlToHtmlParser
-            this.parse("xml"); // parse xml stream!
+            this.parse("xml"); // parse XML stream
             xdata = new Element("div");
             var div = null, h1 = null;
             this.content.each(function (row) {
@@ -171,8 +171,7 @@ var DefaultResponseParser = Class.create({
             var ul = new Element("ul");
             var liElement = null;
             this.content.each(function (row) {
-                liElement = new Element("li");
-                liElement.id = row[1];
+                liElement = new Element("li", {id: row[1]});
                 if (this.plaintext) {
                     liElement.update(row[0]);
                 } else {
@@ -210,7 +209,7 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
             }
             var nameNodes = null, valueNodes = null, urlNodes = null, collapsedNodes = null, leafnodes = null;
             var name = null, value = null, url = null, collapsed = false, leaf = false;
-            var li = null, i = null, span = null, link = null, div = null, len = itemNodes.length;
+            var li = null, i = null, link = null, div = null, len = itemNodes.length;
             var itemNode = null;
             for (i = 0; i < len; i++) {
                 itemNode = itemNodes[i];
@@ -225,19 +224,12 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
                     url = (urlNodes.length > 0) ? urlNodes[0].firstChild.nodeValue : AJAX_VOID_URL;
                     leaf = (leafnodes.length > 0) && (leafnodes[0].firstChild.nodeValue).toLowerCase() === "true";
                     collapsed = (collapsedNodes.length > 0) && (collapsedNodes[0].firstChild.nodeValue).toLowerCase() === "true";
-                    li = new Element('li');
-                    li.id = "li_" + value;
+                    li = new Element("li", {id: "li_" + value});
                     if (!leaf) {
-                        span = new Element('span');
-                        span.id = "span_" + value;
-                        span.addClassName(this.collapsedClass);
-                        li.appendChild(span);
+                        li.appendChild(new Element("span", {id: "span_" + value, className: this.collapsedClass}));
                     }
-                    link = new Element('a').update(name);
-                    link.href = url;
-                    link.addClassName(this.nodeClass);
-                    div = new Element('div');
-                    div.id = value;
+                    link = new Element("a", {href: url, className: this.nodeClass}).update(name);
+                    div = new Element("div", {id: value});
                     div.hide();
                     if (!collapsed) {
                         this.expandedNodes.push(value);
@@ -344,7 +336,7 @@ AjaxJspTag.Base = Class.create({
             frequency: this.options.refreshPeriod
         }, this.getDefaultOptions(xoptions, ajaxParam));
 
-        // onComplete is used by api itself don't try to use it
+        // onComplete is used by API itself don't try to use it
         data._complete = xoptions.onSuccess || Prototype.emptyFunction;
         // cache the old one
         xoptions.onSuccess = (function () { // need to test!!!
@@ -361,7 +353,7 @@ AjaxJspTag.Base = Class.create({
     buildParameterString: function (ajaxParam) {
         var returnString = '';
         var value = Form.Element.serialize; // BUG 016027
-        var field = null, key = null, val = null, v = null, foptions = null; // TODO foptions is unused
+        var field = null, key = null, val = null, v = null;
         var params = (this.replaceAJAX_DEFAULT(ajaxParam) || '');
         params.split(',').each(function (pair) {
             if (pair.strip().length === 0) {
@@ -379,6 +371,7 @@ AjaxJspTag.Base = Class.create({
                 }
             }
 
+            // TODO simplify val.push() and returnString +=
             if (!field) {
                 val.push(pair);
             } else if (('select-multiple' === field.type) || ('checkbox' === field.type)) {
@@ -636,8 +629,7 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
     initialize: function (options) {
         this.panel = $(options.id);
         this.panel.addClassName("tabPanel");
-        this.content = new Element('div');
-        this.content.addClassName('tabContent');
+        this.content = new Element("div", {className: "tabContent"});
         var ul = new Element('ul');
         ul.innerHTML = '';
         // this.tabs = tabs; // alle tabs als array müssen angelegt werden!
@@ -653,8 +645,7 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
             ul.appendChild(li);
         }, this);
         this.panel.innerHTML = ''; // clear first!
-        var nav = new Element('div');
-        nav.addClassName('tabNavigation');
+        var nav = new Element("div", {className: "tabNavigation"});
         nav.appendChild(ul);
         this.panel.appendChild(nav);
         this.panel.appendChild(this.content);
@@ -790,36 +781,30 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         var sourceBase = $(o.source);
         sourceBase.addClassName(o.classNamePrefix + "Box");
         if (o.withBar) {
-            var bar = new Element("div");
-            bar.addClassName(o.classNamePrefix + "Tools");
+            var bar = new Element("div", {className: o.classNamePrefix + "Tools"});
             if (o.close) {
-                o.close = new Element("img");
-                o.close.addClassName(o.classNamePrefix + "Close");
+                o.close = new Element("img", {className: o.classNamePrefix + "Close"});
                 o.close.src = o.imageClose;
                 bar.appendChild(o.close);
             }
             if (o.refresh) {
-                o.refresh = new Element("img");
-                o.refresh.addClassName(o.classNamePrefix + "Refresh");
+                o.refresh = new Element("img", {className: o.classNamePrefix + "Refresh"});
                 o.refresh.src = o.imageRefresh;
                 bar.appendChild(o.refresh);
             }
             if (o.toggle) {
-                o.toggle = new Element("img");
-                o.toggle.addClassName(o.classNamePrefix + "Size");
+                o.toggle = new Element("img", {className: o.classNamePrefix + "Size"});
                 o.toggle.src = o.imageMinimize;
                 bar.appendChild(o.toggle);
             }
             sourceBase.appendChild(bar);
         }
-        var element = new Element("div");
-        element.addClassName(o.classNamePrefix + "Title");
-        element.innerHTML = o.title;
 
+        var element = new Element("div", {className: o.classNamePrefix + "Title"});
+        element.innerHTML = o.title;
         sourceBase.appendChild(element);
 
-        o.target = new Element("div");
-        o.target.addClassName(o.classNamePrefix + "Content");
+        o.target = new Element("div", {className: o.classNamePrefix + "Content"});
         sourceBase.appendChild(o.target);
 
         this.setListeners();
@@ -989,7 +974,6 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
         if (this.options.messageClass) {
             this.messageContainer = new Element("div", {id: this.options.source + "_message", className: this.options.messageClass});
             this.container.insert({'top': this.messageContainer});
-            //console.log("messageContainer: ", this.messageContainer);
         }
         this.classList = [this.options.selectedOverClass, this.options.selectedLessClass, this.options.overClass, this.options.selectedClass];
         this.setListeners();
