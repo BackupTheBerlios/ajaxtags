@@ -10,8 +10,8 @@ Usage
 ~~~~~~~~~~~
 
   The <<<baseUrl>>> property is used by the tag to make a request to
-  the serverside. The responding resource (e.g., servlet, JSP, etc.) is
-  responsible for returning the response in the appropriate format 
+  the server side. The responding resource (e.g., servlet, JSP, etc.) is
+  responsible for returning the response in the appropriate format
   (plain text, HTML, XML, etc.). This take is used as a normal URL you are
   able to append parameters.
 
@@ -54,7 +54,7 @@ parameters="someId={ajaxParameter}"
 ** Pre- / Post- and Error Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  If you will invoke a JavaScript function befor the request is started for example
+  If you will invoke a JavaScript function before the request is started for example
   to modify the <<parameters>> you can use the <<preFunction>>.
 
   If you've wondered how to either chain AJAX tags together by having one execute after another has
@@ -194,7 +194,7 @@ parameters="someId={ajaxParameter}"
 <div>
   <p>
     The Hitchhiker's Guide to the Galaxy is a science fiction series written by Douglas Adams
-    (1952?2001).  The series follows the adventures of
+    (1952 - 2001).  The series follows the adventures of
     <a href="#" class="definition">Arthur Dent</a>, a hapless
     <a href="#" class="definition">Englishman</a> who escapes the destruction of Earth by an alien
     race called the <a href="javascript://nop/" class="definition">Vogons</a> with his friend
@@ -246,9 +246,9 @@ parameters="someId={ajaxParameter}"
 
   The displayTag is similar to the area tag, but it specifically tailored to the Display Tag. It
   wraps DisplayTag ajaxing pagination and sorting.
-  
+
   If you use this tag your content have to be xhtml conform.
-  
+
 
 +------------------------------------------------------------------------+
 <ajax:displayTag id="displayTagFrame">
@@ -661,8 +661,8 @@ parameters="someId={ajaxParameter}"
 +------------------------------------------------------------------------+
 
 
-<ajax:tree 
-	baseUrl="${contextPath}/tree.view" 
+<ajax:tree
+	baseUrl="${contextPath}/tree.view"
 	id="cars"
 	parameters="node={ajaxParameter}"
 	nodeClass="nodeClass"

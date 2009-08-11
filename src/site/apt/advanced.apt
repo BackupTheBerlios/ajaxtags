@@ -214,7 +214,7 @@ return builder.toString();
   both the distribution and demo application.  We would like to provide more examples or skins, so
   please submit them and we'll consider adding them to the samples.
 
-  
+
 * Custom Response Parsers
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -250,7 +250,7 @@ ResponseTextParser.prototype = Object.extend(new AbstractResponseParser(), {
 });
 +------------------------------------------------------------------------+
 
-  In the default parsers, the intialize function only serves to set a type property to a meaningful
+  In the default parsers, the initialize function only serves to set a type property to a meaningful
   descriptor for the parser.  For example:
 
 +------------------------------------------------------------------------+

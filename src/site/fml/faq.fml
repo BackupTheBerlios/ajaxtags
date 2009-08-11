@@ -127,8 +127,8 @@
 					following to every JavaScript validator:
 				</p>
 				<source><![CDATA[for (x in oInteger) {
-					if(x == 'extend') // Protoype Array() fix
-					continue; 
+					if(x == 'extend') // Prototype Array() fix
+					continue;
 					var field = form[oInteger[x][0]];
 					}]]></source>
 				<p>

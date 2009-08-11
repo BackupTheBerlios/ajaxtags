@@ -9,11 +9,11 @@ Installation
 ~~~~~~~~~~~~~~
 
  * JDK 1.5+
- 
+
  * Servlet container running Servlets 2.5+ and JSP 2.1+, cause you need flush=false if you use include with areaTag. For all other things you can use JSP 2.0.
- 
+
  * {{{dependencies.html}AjaxTags dependencies}}
- 
+
  * Maven 2 (If you intend to build from the source)
 
 
@@ -23,7 +23,7 @@ Installation
 ** Step 1: Copy AjaxTags jar file
 ~~~~~~~~~~~~~~~~~~~
 
-  Copy the <<<ajaxtags-$version$.jar>>> into your <<<WEB-INF/lib>>> directory. 
+  Copy the <<<ajaxtags-$version$.jar>>> into your <<<WEB-INF/lib>>> directory.
 
 
 ** Step 2: Create Server-side Handler
@@ -35,7 +35,7 @@ Installation
   return an XML file that represents a list of results based on the query
   passed to it from the client-side AJAX functions.
 
-  There are helper classes to assist in building the XML if you don't want to 
+  There are helper classes to assist in building the XML if you don't want to
   do it by hand...see the {{{advanced.html}advanced guide}} for more information.
 
 *** XML Response
@@ -100,10 +100,10 @@ doStuff(i);
 <%@ taglib uri="http://ajaxtags.sourceforge.net/tags/ajaxtags" prefix="ajax" %>
 +------------------------------------------------------------------------+
 
-** Step 4: Do the Servlet Mapping 
+** Step 4: Do the Servlet Mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- Map the resources wich are stored in jar file to an url
+ Map the resources which are stored in jar file to an url
 
 +------------------------------------------------------------------------+
     <servlet>
@@ -140,13 +140,13 @@ doStuff(i);
 ** Step 5: Include JavaScript Core
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  With AJAX, you'll need JavaScript.  Fortunately, everything you'll 
+  With AJAX, you'll need JavaScript.  Fortunately, everything you'll
   need is included with a javascript loader file.
   Incidentally, the reason why a (bulky) JavaScript source file was chosen
   versus having each JSP tag generate only what it needs is because it's
   assumed that most browsers cache external resources like stylesheets,
   images, and JavaScript files.  This should increase performance slightly.
-  Besides, this core JavaScript is generic enough to use for other 
+  Besides, this core JavaScript is generic enough to use for other
   purposes that the tag library does not yet provide.
 
 +------------------------------------------------------------------------+

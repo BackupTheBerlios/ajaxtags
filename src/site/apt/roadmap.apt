@@ -1,15 +1,15 @@
 Roadmap
 ~~~~~~~~
 
-* Dokumentation
+* Documentation
 ~~~~~~~~
 
  [[1]] write plugins/parser for Ajaxtags
- 
+
  [[2]] howto implement/use Ajaxtags in other frameworks
- 
+
   [[1]] Struts
-  
+
   [[2]] JSP 2.0 / Servlets
 
 * Version 1.5
@@ -42,9 +42,9 @@ Roadmap
  [[5]] SourceLoader for images, Javascript and CSS DONE
 
  [[6]] update old JavaScript things (e.g. parsers and controls) DONE
- 
- [[7]] update dokumentation to version 1.5 
 
- [[8]] warpper for jericho-html parser.
+ [[7]] update documentation to version 1.5
+
+ [[8]] wrapper for jericho-html parser.
 
  []

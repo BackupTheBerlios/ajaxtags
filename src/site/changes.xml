@@ -7,6 +7,7 @@
     </properties>
     <body>
         <release version="1.5" date="In Version-Control-System" description="">
+            <action type="fix" dev="victor-homyakov">Fixed AjaxAreaTag.</action>
             <action type="fix" dev="victor-homyakov">Fixed AjaxJspTag.Toggle.</action>
             <action type="fix" dev="victor-homyakov">Fixed AjaxJspTag.Base#buildParameterString for checkbox
                 and select-multiple input fields.</action>
