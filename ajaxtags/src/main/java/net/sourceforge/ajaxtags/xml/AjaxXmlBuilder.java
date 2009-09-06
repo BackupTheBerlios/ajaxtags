@@ -19,7 +19,7 @@ import java.util.Collection;
 
 /**
  * Helper class to build valid XML typically returned in a response to the client.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:16 $ $Author: jenskapitza $
@@ -28,42 +28,42 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
 
     /**
      * Add item to XML.
-     * 
-     * @param key
+     *
+     * @param name
      *            The name of the item
      * @param value
      *            The value of the item
-     * @return the xmlbuilder
+     * @return the XML builder
      */
-    public AjaxXmlBuilder addItem(String key, String value) {
-        return addItem(key, value, false);
+    public AjaxXmlBuilder addItem(final String name, final String value) {
+        return addItem(name, value, false);
     }
 
     /**
      * Add item wrapped with inside a CDATA element.
-     * 
-     * @param key
+     *
+     * @param name
      *            The name of the item
      * @param value
      *            The value of the item
-     * @return the xmlbuilder
+     * @return the XML builder
      */
-    public AjaxXmlBuilder addItemAsCData(String key, String value) {
-        return addItem(key, value, true);
+    public AjaxXmlBuilder addItemAsCData(final String name, final String value) {
+        return addItem(name, value, true);
     }
 
     /**
      * Add item to XML.
-     * 
+     *
      * @param name
      *            The name of the item
      * @param value
      *            The value of the item
      * @param asCData
      *            add as CData
-     * @return the xmlbuilder
+     * @return the XML builder
      */
-    public AjaxXmlBuilder addItem(String name, String value, boolean asCData) {
+    public AjaxXmlBuilder addItem(final String name, final String value, final boolean asCData) {
         super.addItem(name, asCData, value);
         return this;
     }
@@ -77,17 +77,15 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
         boolean isCData();
     }
 
-    public AjaxXmlBuilder addItems(Collection<? extends PropertyReader> collection) {
+    public AjaxXmlBuilder addItems(final Collection<? extends PropertyReader> collection) {
         for (PropertyReader element : collection) {
             addItem(element);
         }
         return this;
     }
 
-    public AjaxXmlBuilder addItem(PropertyReader element) {
-        String name = element.getName();
-        String value = element.getValue();
-        addItem(name, value, element.isCData());
+    public AjaxXmlBuilder addItem(final PropertyReader element) {
+        addItem(element.getName(), element.getValue(), element.isCData());
         return this;
     }
 

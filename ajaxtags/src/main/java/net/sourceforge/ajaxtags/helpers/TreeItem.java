@@ -52,7 +52,9 @@ public class TreeItem extends AbstractItem<String> {
      * Create an item.
      *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param asData
      */
     public TreeItem(final String name, final String value, final boolean asData) {
@@ -60,19 +62,27 @@ public class TreeItem extends AbstractItem<String> {
     }
 
     /**
+     * Create an item.
      *
      * @param name
+     *            name
      * @param value
+     *            value
      */
     public TreeItem(final String name, final String value) {
         this(name, value, false, null, false);
     }
 
     /**
+     * Create an item.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param collapsed
      * @param url
+     *            URL
      * @param asData
      */
     public TreeItem(final String name, final String value, final boolean collapsed,
@@ -83,8 +93,12 @@ public class TreeItem extends AbstractItem<String> {
     }
 
     /**
+     * Create an item.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param asData
      * @param attributes
      */
@@ -95,7 +109,7 @@ public class TreeItem extends AbstractItem<String> {
     }
 
     /**
-     * Check if this treeitem is a leaf or not.
+     * Check if this item is a leaf or not.
      *
      * @return true if this is a leaf else false
      */
@@ -106,11 +120,11 @@ public class TreeItem extends AbstractItem<String> {
     /**
      * Set node to leaf or not.
      *
-     * @param l
+     * @param leaf
      *            true if it is leaf else false
      */
-    public final void setLeaf(final boolean l) {
-        setAttributes(LEAF, String.valueOf(l));
+    public final void setLeaf(final boolean leaf) {
+        setAttributes(LEAF, String.valueOf(leaf));
     }
 
     /**

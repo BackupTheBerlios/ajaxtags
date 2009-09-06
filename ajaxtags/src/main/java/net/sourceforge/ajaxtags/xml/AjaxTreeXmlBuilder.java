@@ -24,7 +24,7 @@ import net.sourceforge.ajaxtags.helpers.TreeItem;
 /**
  * Helper class to build valid XML, for the AjaxTreeTag, typically returned in a response to the
  * client.
- * 
+ *
  * @author Musachy Barroso
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/24 12:21:13 $ $Author: jenskapitza $
@@ -32,124 +32,157 @@ import net.sourceforge.ajaxtags.helpers.TreeItem;
 public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
 
     /**
-     * Add tree item to xml builder.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
-     * @return AjaxTreeXmlBuilder xml builder
+     *            value
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItem(String name, String value) {
+    public AjaxTreeXmlBuilder addItem(final String name, final String value) {
         return addItem(name, value, null);
     }
 
     /**
-     * Add tree item to xml builder.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
-     * @return AjaxTreeXmlBuilder xml builder
+     *            value
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItemAsCData(String name, String value) {
+    public AjaxTreeXmlBuilder addItemAsCData(final String name, final String value) {
         return addItemAsCData(name, value, null);
     }
 
     /**
-     * Add tree item to xml builder.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param attributes
-     * @return AjaxTreeXmlBuilder xml builder
+     *            attributes
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItemAsCData(String name, String value,
-            Map<String, String> attributes) {
+    public AjaxTreeXmlBuilder addItemAsCData(final String name, final String value,
+            final Map<String, String> attributes) {
         return addItem(name, value, true, attributes);
     }
 
     /**
-     * Add tree item to xml builder.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param attributes
-     * @return AjaxTreeXmlBuilder xml builder
+     *            attributes
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItem(String name, String value, Map<String, String> attributes) {
+    public AjaxTreeXmlBuilder addItem(final String name, final String value,
+            final Map<String, String> attributes) {
         return addItem(name, value, false, attributes);
     }
 
     /**
-     * Add tree item to xml builder.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param asCData
+     *            true if item must be present as CDATA
      * @param attributes
-     * @return AjaxTreeXmlBuilder xml builder
+     *            item attributes
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItem(String name, String value, boolean asCData,
-            Map<String, String> attributes) {
-        TreeItem treeitem = new TreeItem(name, value, asCData, attributes);
-        getListe().add(treeitem);
+    public AjaxTreeXmlBuilder addItem(final String name, final String value, final boolean asCData,
+            final Map<String, String> attributes) {
+        getList().add(new TreeItem(name, value, asCData, attributes));
         return this;
     }
 
     /**
-     * Add tree item to xml builder.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param url
+     *            URL
      * @param asCData
-     * @return AjaxTreeXmlBuilder xml builder
+     *            true if item must be present as CDATA
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItem(String name, String value, String url, boolean asCData) {
+    public AjaxTreeXmlBuilder addItem(final String name, final String value, final String url,
+            final boolean asCData) {
         return addItem(name, value, false, url, asCData);
     }
 
     /**
-     * Add tree item.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param collapsed
+     *            true if subtree is initially collapsed
      * @param url
-     * @return AjaxTreeXmlBuilder xml builder
+     *            URL
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItem(String name, String value, boolean collapsed, String url) {
+    public AjaxTreeXmlBuilder addItem(final String name, final String value,
+            final boolean collapsed, final String url) {
         return addItem(name, value, collapsed, url, false);
     }
 
     /**
-     * Add tree item.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param collapsed
+     *            true if subtree is initially collapsed
      * @param url
+     *            URL
      * @param asCData
-     * @return AjaxTreeXmlBuilder xml builder
+     *            true if item must be present as CDATA
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItem(String name, String value, boolean collapsed, String url,
-            boolean asCData) {
-        Map<String, String> data = new HashMap<String, String>();
+    public AjaxTreeXmlBuilder addItem(final String name, final String value,
+            final boolean collapsed, final String url, final boolean asCData) {
+        final Map<String, String> data = new HashMap<String, String>();
         data.put(TreeItem.URL, url);
         data.put(TreeItem.COLLAPSED, String.valueOf(collapsed));
         return addItem(name, value, asCData, data);
     }
 
     /**
-     * Add tree item to xml builder.
-     * 
+     * Add tree item to XML builder.
+     *
      * @param name
+     *            name
      * @param value
+     *            value
      * @param collapsed
+     *            true if subtree is initially collapsed
      * @param url
-     * @return AjaxTreeXmlBuilder xml builder
+     *            URL
+     * @return AjaxTreeXmlBuilder XML builder
      */
-    public AjaxTreeXmlBuilder addItemAsCData(String name, String value, boolean collapsed,
-            String url) {
-        Map<String, String> data = new HashMap<String, String>();
+    public AjaxTreeXmlBuilder addItemAsCData(final String name, final String value,
+            final boolean collapsed, final String url) {
+        final Map<String, String> data = new HashMap<String, String>();
         data.put(TreeItem.URL, url);
         data.put(TreeItem.COLLAPSED, String.valueOf(collapsed));
         return addItem(name, value, true, data);
@@ -170,50 +203,46 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
         boolean isCData();
     }
 
-    public AjaxTreeXmlBuilder addItems(Collection<PropertyReader> collection) {
+    public AjaxTreeXmlBuilder addItems(final Collection<PropertyReader> collection) {
         for (PropertyReader element : collection) {
             addItem(element);
         }
         return this;
     }
 
-    public AjaxTreeXmlBuilder addItem(PropertyReader element) {
-        String name = element.getName();
-        String value = element.getValue();
-        Map<String, String> data = new HashMap<String, String>();
+    public AjaxTreeXmlBuilder addItem(final PropertyReader element) {
+        final Map<String, String> data = new HashMap<String, String>();
         data.put(TreeItem.URL, element.getURL());
         data.put(TreeItem.COLLAPSED, String.valueOf(element.isCollapsed()));
         data.put(TreeItem.LEAF, String.valueOf(element.isLeaf()));
-        addItem(name, value, element.isCData(), data);
+        addItem(element.getName(), element.getValue(), element.isCData(), data);
         return this;
     }
 
     /**
-     * Build an xml body to describe TreeItem.
-     * 
+     * Build an XML body to describe TreeItem.
+     *
      * @see BaseXmlBuilder#getXMLString()
      */
     @Override
     protected String getXMLString() {
-        StringBuffer xml = new StringBuffer();
-
-        xml.append("<ajax-response><response>");
+        final StringBuilder xml = new StringBuilder(RESPONSE_START);
         for (TreeItem item : getItems()) {
             xml.append("<item><name>");
             if (item.isAsCData()) {
-                xml.append("<![CDATA[");
+                xml.append(CDATA_START);
             }
             xml.append(item.getName());
             if (item.isAsCData()) {
-                xml.append("]]>");
+                xml.append(CDATA_END);
             }
             xml.append("</name><value>");
             if (item.isAsCData()) {
-                xml.append("<![CDATA[");
+                xml.append(CDATA_START);
             }
             xml.append(item.getValue());
             if (item.isAsCData()) {
-                xml.append("]]>");
+                xml.append(CDATA_END);
             }
             xml.append("</value>");
 
@@ -224,7 +253,7 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
             }
             xml.append("</item>");
         }
-        xml.append("</response></ajax-response>");
+        xml.append(RESPONSE_END);
         return xml.toString();
     }
 
