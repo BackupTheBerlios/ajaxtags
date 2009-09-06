@@ -28,29 +28,29 @@ import java.util.Map.Entry;
 public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
-     * der name ist das schl&uuml;sselelement f&uuml;r start bzw. endtag
+     * Name of element. For start and end of tag.
      */
     private String name;
 
     /**
-     * Der body.
+     * Body.
      */
     private CharSequence body;
 
     /**
-     * Store the attributes of an HTML element.
+     * Store the attributes of HTML element.
      */
     private SortedMap<String, String> attributes;
 
     /**
-     * Erstelle ein HTML element.
+     * Create a HTML element.
      * 
      * @param name
-     *            der name des start bzw. endtag
+     *            name of start and endtag
      * @param id
-     *            die id des elements
+     *            id of element
      * @param body
-     *            der inhalt
+     *            content
      */
     protected HTMLElementFactory(final String name, final String id, final String body) {
         this.name = name;
@@ -85,7 +85,6 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     * 
      * @return the map of attributes
      */
     protected final SortedMap<String, String> getAttributes() {
@@ -93,7 +92,6 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     * 
      * @return the tag name
      */
     protected final String getName() {
@@ -104,10 +102,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      * @return the body content or empty string if body is null
      */
     public final String getBody() {
-        if (body != null) {
-            return body.toString();
-        }
-        return "";
+        return (body == null) ? "" : body.toString();
     }
 
     /**
@@ -121,7 +116,6 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     * 
      * @return the class name attribute
      */
     public final String getClassName() {
@@ -139,7 +133,6 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     * 
      * @return the id attribute
      */
     public final String getId() {
@@ -189,7 +182,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
     }
 
     /**
-     * @return the string value of this element
+     * @return the string value of this HTML element
      */
     @Override
     public final String toString() {
@@ -200,7 +193,6 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
             s.append(" ").append(e.getKey()).append("=\"");
             s.append(e.getValue().replaceAll("\"", "\\\"")).append("\"");
         }
-
         s.append(">");
         s.append(getBody());
         s.append("</").append(getName()).append(">");
@@ -243,7 +235,6 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      *            the end index
      * @return self
      */
-
     public final HTMLElementFactory append(final CharSequence csq, final int start, final int end) {
         return append(csq.subSequence(start, end));
     }

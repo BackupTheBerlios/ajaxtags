@@ -16,7 +16,7 @@
 package net.sourceforge.ajaxtags.helpers;
 
 /**
- * Ein Div Element in html.
+ * HTML &lt;div&gt; element.
  * 
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
@@ -24,7 +24,7 @@ package net.sourceforge.ajaxtags.helpers;
 public final class DIVElement extends HTMLElementFactory {
 
     /**
-     * Create a div element.
+     * Create a HTML &lt;div&gt; element.
      * 
      * @param id
      *            the id for the div element

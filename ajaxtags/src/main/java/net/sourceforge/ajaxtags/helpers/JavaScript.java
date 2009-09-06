@@ -19,6 +19,7 @@ import net.sourceforge.ajaxtags.tags.BaseAjaxBodyTag;
 import net.sourceforge.ajaxtags.tags.OptionsBuilder;
 
 /**
+ * HTML JavaScript element.
  *
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
