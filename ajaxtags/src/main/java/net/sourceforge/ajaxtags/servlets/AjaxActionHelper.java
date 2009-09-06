@@ -45,7 +45,6 @@ public final class AjaxActionHelper {
      * @return the XML content from action
      * @throws ServletException
      *             for any errors
-     *
      */
     public static String invoke(BaseAjaxXmlAction action, HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
