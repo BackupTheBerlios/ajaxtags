@@ -66,13 +66,12 @@ public abstract class BaseAjaxServlet extends GenericServlet implements BaseAjax
 
         final PrintWriter pw = response.getWriter();
         pw.write(xml);
-        pw.flush(); // alles senden!
+        pw.flush(); // send all
     }
-    
+
     /**
      * @return the encoding default to UTF-8
      */
-    @Override
     public String getXMLEncoding() {
         return "UTF-8";
     }

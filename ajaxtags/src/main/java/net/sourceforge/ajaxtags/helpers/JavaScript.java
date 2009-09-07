@@ -54,7 +54,7 @@ public final class JavaScript extends HTMLElementFactory {
      * @return updated HTML element
      */
     public HTMLElementFactory newTabPanel(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append("new AjaxJspTag.TabPanel({" + options + "});");
+        return append(tag.getJSVariable()).append(newTag("TabPanel", options));
     }
 
     /**
@@ -65,7 +65,7 @@ public final class JavaScript extends HTMLElementFactory {
      * @return updated HTML element
      */
     public HTMLElementFactory newSelect(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append("new AjaxJspTag.Select({" + options + "});");
+        return append(tag.getJSVariable()).append(newTag("Select", options));
     }
 
     /**
@@ -76,7 +76,7 @@ public final class JavaScript extends HTMLElementFactory {
      * @return updated HTML element
      */
     public HTMLElementFactory newToggle(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append("new AjaxJspTag.Toggle({" + options + "});");
+        return append(tag.getJSVariable()).append(newTag("Toggle", options));
     }
 
     /**
@@ -87,15 +87,27 @@ public final class JavaScript extends HTMLElementFactory {
      * @return updated HTML element
      */
     public HTMLElementFactory newAutocomplete(final OptionsBuilder options) {
-        return append(tag.getJSVariable())
-                .append("new AjaxJspTag.Autocomplete({" + options + "});");
+        return append(tag.getJSVariable()).append(newTag("Autocomplete", options));
+    }
+
+    /**
+     * Create "new AjaxJspTag.tag({options});" tag expression string.
+     *
+     * @param tag
+     *            tag name
+     * @param options
+     *            options
+     * @return string with expression
+     */
+    private String newTag(final String tag, final OptionsBuilder options) {
+        return "new AjaxJspTag." + tag + "({" + options + "});";
     }
 
     /**
      * Just allow type attribute. All others are dropped.
      */
     @Override
-    protected final void cleanAttributes() {
+    protected void cleanAttributes() {
         getAttributes().clear();
         getAttributes().put("type", "text/javascript");
     }

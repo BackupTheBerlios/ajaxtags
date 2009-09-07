@@ -29,15 +29,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class AjaxActionHelper {
 
+    private static final String HDR_PRAGMA = "Pragma";
+    private static final String HDR_CACHE_CONTROL = "Cache-Control";
+
     // do not create an object
     private AjaxActionHelper() {
     }
 
     /**
-     * Invoke the ajax action and setup the request and response.
+     * Invoke the AJAX action and setup the request and response.
      *
      * @param action
-     *            the ajaxaction implementation
+     *            the BaseAjaxXmlAction implementation
      * @param request
      *            the request
      * @param response
@@ -46,16 +49,16 @@ public final class AjaxActionHelper {
      * @throws ServletException
      *             for any errors
      */
-    public static String invoke(BaseAjaxXmlAction action, HttpServletRequest request,
-            HttpServletResponse response) throws ServletException {
+    public static String invoke(final BaseAjaxXmlAction action, final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException {
         // prepare CALL
         try {
             request.setCharacterEncoding(action.getXMLEncoding());
-        } // we will use utf-8
+        } // we will use UTF-8
         catch (UnsupportedEncodingException e) {
             throw new ServletException(e);
         }
-        // Set content to xml
+        // Set content to XML
         response.setContentType("text/xml; charset=" + action.getXMLEncoding());
         addNoCacheHeaders(response);
         try {
@@ -73,9 +76,9 @@ public final class AjaxActionHelper {
      */
     public static void addNoCacheHeaders(final HttpServletResponse response) {
         // Set HTTP/1.1 no-cache headers.
-        response.setHeader("Cache-Control", "no-store, max-age=0, no-cache");
-        response.addHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+        response.setHeader(HDR_CACHE_CONTROL, "no-store, max-age=0, no-cache");
+        response.addHeader(HDR_CACHE_CONTROL, "must-revalidate, post-check=0, pre-check=0");
         // Set standard HTTP/1.0 no-cache header.
-        response.setHeader("Pragma", "no-cache");
+        response.setHeader(HDR_PRAGMA, "no-cache");
     }
 }

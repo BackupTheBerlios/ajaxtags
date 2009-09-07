@@ -45,7 +45,7 @@ public abstract class AbstractItem<T> {
     /**
      * CDATA ?
      */
-    private boolean asData;
+    private boolean asCData;
 
     /**
      * All other attributes.
@@ -59,14 +59,14 @@ public abstract class AbstractItem<T> {
      *            the name for the item
      * @param value
      *            the value
-     * @param asData
+     * @param asCData
      *            response as CDATA
      */
-    protected AbstractItem(final String name, final T value, final boolean asData) {
+    protected AbstractItem(final String name, final T value, final boolean asCData) {
         this();
         this.name = name;
         this.value = value;
-        this.asData = asData;
+        this.asCData = asCData;
     }
 
     /**
@@ -190,14 +190,14 @@ public abstract class AbstractItem<T> {
      * @return Returns the asCData.
      */
     public final boolean isAsCData() {
-        return this.asData;
+        return this.asCData;
     }
 
     /**
-     * @param asData
-     *            The asData to set.
+     * @param asCData
+     *            The asCData to set.
      */
-    public final void setAsData(final boolean asData) {
-        this.asData = asData;
+    public final void setAsCData(final boolean asCData) {
+        this.asCData = asCData;
     }
 }
