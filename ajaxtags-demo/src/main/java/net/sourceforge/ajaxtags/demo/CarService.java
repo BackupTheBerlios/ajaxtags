@@ -21,22 +21,18 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-
-
 /**
- * This class simulate a Car Service. It's not intended to be used as a good
- * example (we recomend that you use interfaces, etc).
+ * This class simulate a Car Service. It's not intended to be used as a good example (we recomend
+ * that you use interfaces, etc).
  * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
- * @version $Revision: 28 $ $Date: 2008-11-26 20:18:34 +0100 (Mi, 26. Nov 2008)
- *          $
+ * @version $Revision: 28 $ $Date: 2008-11-26 20:18:34 +0100 (Mi, 26. Nov 2008) $
  */
 public class CarService {
 
     /**
-     * Hardcoded list of cards, so that we do not have to use a database in the
-     * examples.
+     * Hardcoded list of cards, so that we do not have to use a database in the examples.
      */
     private static List<Car> cars = new ArrayList<Car>();
 
@@ -64,7 +60,6 @@ public class CarService {
 
     }
 
-
     /**
      * Constructor for CarService.
      */
@@ -72,14 +67,12 @@ public class CarService {
         super();
     }
 
-
     /**
      * Get all models for a particular car maker.
      * 
      * @param make
      *            the make of the car
-     * @return a {@java.util.List} of         {@org.ajaxtags.demo.Car
-     * } objects
+     * @return a {@link java.util.List} of {@link org.ajaxtags.demo.Car} objects
      */
     public List<Car> getModelsByMake(String make) {
         List<Car> l = new ArrayList<Car>();
@@ -94,19 +87,12 @@ public class CarService {
         return l;
     }
 
-
     /**
      * Get all models that start with name.
      * 
      * @param name
      *            the name of the car model
-     * @return a {@java.util.List} of         {@org.ajaxtags.demo.Car
-     * 
-     * 
-     * 
-     * 
-     * 
-     * } objects
+     * @return a {@link java.util.List} of {@link org.ajaxtags.demo.Car} objects
      */
     public List<Car> getModelsByName(String name) {
         List<Car> l = new ArrayList<Car>();
@@ -122,23 +108,21 @@ public class CarService {
         return l;
     }
 
-
     /**
      * Get all cars
      * 
-     * @return a {@java.util.List} of         {@org.ajaxtags.demo.Car
-     * 
-     * 
-     * 
-     * 
-     * 
-     * } objects
+     * @return a {@link java.util.List} of {@link org.ajaxtags.demo.Car} objects
      */
     public List<Car> getAllCars() {
         return cars;
     }
 
-
+    /**
+     * 
+     * Read the first char of the model and return a sorted List.
+     * 
+     * @return a list of chars.
+     */
     public List<Character> getModelsFirstChar() {
         List<Character> clist = new ArrayList<Character>();
         for (Iterator<Car> it = getAllCars().iterator(); it.hasNext();) {

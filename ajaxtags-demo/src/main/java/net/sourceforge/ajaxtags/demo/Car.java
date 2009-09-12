@@ -20,15 +20,11 @@ import java.io.Serializable;
 
 import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder.PropertyReader;
 
-
-
 /**
  * A Car entity with make and model properties.
  * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
- * @version $Revision: 28 $ $Date: 2008-09-10 16:23:13 +0200 (Mi, 10. Sep 2008)
- *          $
  */
 public class Car implements Serializable, PropertyReader {
 
@@ -36,14 +32,12 @@ public class Car implements Serializable, PropertyReader {
     private String make;
     private String model;
 
-
     /**
      * Constructor for Car.
      */
     public Car() {
         this(null, null);
     }
-
 
     /**
      * Constructor for Car.
@@ -57,14 +51,12 @@ public class Car implements Serializable, PropertyReader {
         this.model = model;
     }
 
-
     /**
      * @return Returns the make.
      */
     public String getMake() {
         return this.make;
     }
-
 
     /**
      * @param make
@@ -74,14 +66,12 @@ public class Car implements Serializable, PropertyReader {
         this.make = make;
     }
 
-
     /**
      * @return Returns the model.
      */
     public String getModel() {
         return this.model;
     }
-
 
     /**
      * @param model
@@ -91,18 +81,25 @@ public class Car implements Serializable, PropertyReader {
         this.model = model;
     }
 
+    /**
+     * @return the name of the car e.g. the model
+     */
+    public String getName() {
+        return getModel();
+    }
 
-	public String getName() {
-		return getModel();
-	}
+    /**
+     * @return the value of the car e.g. the make
+     */
+    public String getValue() {
+        return getMake();
+    }
 
-
-	public String getValue() {
-		return getMake();
-	}
-
-
-	public boolean isCData() {
-		return true;
-	}
+    /**
+     * @return true, cause we should send it as CData to make sure everything works fine if slashes
+     *         are included
+     */
+    public boolean isCData() {
+        return true;
+    }
 }

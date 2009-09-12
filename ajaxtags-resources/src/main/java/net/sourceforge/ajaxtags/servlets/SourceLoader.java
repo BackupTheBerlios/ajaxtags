@@ -109,6 +109,10 @@ public final class SourceLoader extends GenericServlet {
         service((HttpServletRequest) req0, (HttpServletResponse) resp0);
     }
 
+    /**
+     * check the configuration if we do have a prefix.
+     * 
+     */
     @Override
     public void init() throws ServletException {
         prefix = trimToNull(getInitParameter("prefix"));
