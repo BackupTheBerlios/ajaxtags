@@ -56,7 +56,7 @@ public class HtmlContentServlet extends BaseAjaxServlet {
         List<Car> list = service.getModelsByMake(make);
 
         StringBuffer html = new StringBuffer();
-        html.append("<h2>").append(make.toUpperCase()).append("</h2><p>Models</p><ul>");
+        html.append("<h2>").append(make).append("</h2><p>Models</p><ul>");
         for (Car car : list) {
             html.append("<li>").append(car.getModel()).append("</li>");
         }
