@@ -26,7 +26,7 @@ import java.util.List;
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:15 $ $Author: jenskapitza $
  */
-public class ValueItem extends AbstractItem<List<String>> {
+public class ValueItem extends AbstractItem {
 
     private static final long serialVersionUID = -5641651833544439174L;
 
@@ -122,5 +122,11 @@ public class ValueItem extends AbstractItem<List<String>> {
      */
     public String remove(int index) {
         return getValue().remove(index);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> getValue() {
+        return (List<String>) super.getValue();
     }
 }

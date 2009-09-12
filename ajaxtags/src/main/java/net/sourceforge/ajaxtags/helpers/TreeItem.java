@@ -25,7 +25,7 @@ import java.util.Map;
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 18:04:50 $ $Author: jenskapitza $
  */
-public class TreeItem extends AbstractItem<String> {
+public class TreeItem extends AbstractItem {
 
     /**
      * Key to set node or a leaf flag.

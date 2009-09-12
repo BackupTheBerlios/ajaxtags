@@ -27,11 +27,9 @@ import java.util.Map.Entry;
  * 
  * @author Darren L. Spurgeon
  * @author Jens Kapitza
- * @param <T>
- *            the item type
  * @version $Revision: 86 $ $Date: 2007/07/22 18:04:50 $ $Author: jenskapitza $
  */
-public abstract class AbstractItem<T> {
+public abstract class AbstractItem {
 
     /**
      * The name.
@@ -41,7 +39,7 @@ public abstract class AbstractItem<T> {
     /**
      * The value.
      */
-    private T value;
+    private Object value;
 
     /**
      * CDATA ?
@@ -63,11 +61,11 @@ public abstract class AbstractItem<T> {
      * @param asCData
      *            response as CDATA
      */
-    protected AbstractItem(final String name, final T value, final boolean asCData) {
+    protected AbstractItem(final String name, final Object value, final boolean asCData) {
         this();
-        this.name = name;
-        this.value = value;
-        this.asCData = asCData;
+        setName(name);
+        setValue(value);
+        setAsCData(asCData);
     }
 
     /**
@@ -95,8 +93,8 @@ public abstract class AbstractItem<T> {
      * 
      * @return the key set of the attributes
      */
-    public final Set<String> getAttributeKeySet() {
-        return this.attributes.keySet();
+    public Set<String> getAttributeKeySet() {
+        return attributes.keySet();
     }
 
     /**
@@ -153,14 +151,14 @@ public abstract class AbstractItem<T> {
      *            the attribute name
      * @return the value of attribute <code>name</code>
      */
-    public final String getAttributeValue(final String name) {
-        return this.attributes.get(name);
+    public String getAttributeValue(final String name) {
+        return attributes.get(name);
     }
 
     /**
      * @return Returns the name.
      */
-    public final String getName() {
+    public String getName() {
         return this.name;
     }
 
@@ -175,7 +173,7 @@ public abstract class AbstractItem<T> {
     /**
      * @return Returns the value.
      */
-    public final T getValue() {
+    public Object getValue() {
         return this.value;
     }
 
@@ -183,14 +181,14 @@ public abstract class AbstractItem<T> {
      * @param value
      *            The value to set.
      */
-    public final void setValue(final T value) {
+    public final void setValue(final Object value) {
         this.value = value;
     }
 
     /**
      * @return Returns the asCData.
      */
-    public final boolean isAsCData() {
+    public boolean isAsCData() {
         return this.asCData;
     }
 
