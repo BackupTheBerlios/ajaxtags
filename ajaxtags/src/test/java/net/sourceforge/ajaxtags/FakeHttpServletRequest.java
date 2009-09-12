@@ -71,12 +71,12 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return o == null ? null : String.valueOf(o);
     }
 
-    public Enumeration getHeaderNames() {
+    public Enumeration<?> getHeaderNames() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public Enumeration getHeaders(String name) {
+    public Enumeration<?> getHeaders(String name) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -176,7 +176,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public Enumeration getAttributeNames() {
+    public Enumeration<?> getAttributeNames() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -221,7 +221,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public Enumeration getLocales() {
+    public Enumeration<?> getLocales() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -231,12 +231,12 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public Map getParameterMap() {
+    public Map<?,?> getParameterMap() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public Enumeration getParameterNames() {
+    public Enumeration<?> getParameterNames() {
         // TODO Auto-generated method stub
         return null;
     }

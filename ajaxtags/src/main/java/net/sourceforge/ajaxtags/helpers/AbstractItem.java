@@ -16,7 +16,6 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -27,7 +26,6 @@ import java.util.Map.Entry;
  * 
  * @author Darren L. Spurgeon
  * @author Jens Kapitza
- * @version $Revision: 86 $ $Date: 2007/07/22 18:04:50 $ $Author: jenskapitza $
  */
 public abstract class AbstractItem {
 
@@ -90,6 +88,7 @@ public abstract class AbstractItem {
     }
 
     /**
+     * List all attribute-names
      * 
      * @return the key set of the attributes
      */
@@ -104,23 +103,25 @@ public abstract class AbstractItem {
      *            the name of attribute
      */
     public final void removeAttribute(final String name) {
-        this.attributes.remove(name);
+        attributes.remove(name);
     }
 
     /**
      * Clear the attributes.
      */
     public final void clearAttribute() {
-        this.attributes.clear();
+        attributes.clear();
     }
 
     /**
-     * Set an attribute to extend the item.
+     * Set an attribute to extend the item. This just invoke
+     * {@link #setAttributes(String, String, boolean)} with false as third parameter.
      * 
      * @param name
      *            the name for the attribute
      * @param value
      *            the value for the attribute
+     * @see #setAttributes(String, String, boolean)
      */
     public final void setAttributes(final String name, final String value) {
         setAttributes(name, value, false);
@@ -140,7 +141,9 @@ public abstract class AbstractItem {
         if (value != null || evenIfNull) {
             // FindBug say we should use
             // String.toLowerCase( Locale l )
-            this.attributes.put(name.toLowerCase(Locale.getDefault()), value);
+            // don't change the name here, we should do this
+            // in the Map implementation or never!
+            attributes.put(name, value);
         }
     }
 
@@ -163,6 +166,8 @@ public abstract class AbstractItem {
     }
 
     /**
+     * Set the Name.
+     * 
      * @param name
      *            The name to set.
      */
@@ -171,6 +176,8 @@ public abstract class AbstractItem {
     }
 
     /**
+     * The type depends on the child-class.
+     * 
      * @return Returns the value.
      */
     public Object getValue() {
