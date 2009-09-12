@@ -136,9 +136,8 @@ public class AjaxPortletTag extends BaseAjaxTag {
         options.add("startMinimize", this.startMinimize);
 
         final DIVElement div = new DIVElement(getSource());
-        final JavaScript script = new JavaScript();
-        script.append(getJSVariable());
-        script.append("new AjaxJspTag.Portlet({\n").append(options.toString()).append("});\n");
+        final JavaScript script = new JavaScript(this);
+        script.newPortlet(options);
         div.setBody(script);
         out(div);
         return EVAL_PAGE;

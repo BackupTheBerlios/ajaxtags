@@ -1,201 +1,201 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>ajaxtags</groupId>
-    <artifactId>ajaxtags-doc</artifactId>
-    <version>1.5-SNAPSHOT</version>
-    <name>AjaxTags DOC</name>
-    <packaging>pom</packaging>
-    <inceptionYear>2005</inceptionYear>
-    <modules>
-        <module>ajaxtags</module>
-        <module>ajaxtags-resources</module>
-        <module>ajaxtags-demo</module>
-    </modules>
-    <url>http://ajaxtags.sourceforge.net/</url>
-    <issueManagement>
-        <!-- we will move to berlios.de -->
-        <system>SourceForge Tracker</system>
-        <url>http://sourceforge.net/tracker/?group_id=140499</url>
-    </issueManagement>
-    <developers>
-        <developer>
-            <id>jenskapitza</id>
-            <name>Jens Kapitza</name>
-            <!-- we will move to berlios.de -->
-            <email>jenskapitza [at] users.sourceforge.net</email>
-            <roles>
-                <role>Project Manager</role>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ajaxtags</groupId>
+	<artifactId>ajaxtags-doc</artifactId>
+	<version>1.5-SNAPSHOT</version>
+	<name>AjaxTags DOC</name>
+	<packaging>pom</packaging>
+	<inceptionYear>2005</inceptionYear>
+	<modules>
+		<module>ajaxtags</module>
+		<module>ajaxtags-resources</module>
+		<module>ajaxtags-demo</module>
+	</modules>
+	<url>http://ajaxtags.sourceforge.net/</url>
+	<issueManagement>
+		<!-- we will move to berlios.de -->
+		<system>SourceForge Tracker</system>
+		<url>http://sourceforge.net/tracker/?group_id=140499</url>
+	</issueManagement>
+	<developers>
+		<developer>
+			<id>jenskapitza</id>
+			<name>Jens Kapitza</name>
+			<!-- we will move to berlios.de -->
+			<email>jenskapitza [at] users.sourceforge.net</email>
+			<roles>
+				<role>Project Manager</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
 
-    <contributors>
-        <contributor>
-            <name>Michael Osipov</name>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </contributor>
-        <contributor>
-            <name>Darren Spurgeon</name>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-            <roles>
-                <role>Project Manager</role>
-                <role>Developer</role>
-            </roles>
-        </contributor>
-        <contributor>
-            <name>sunshine</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-        <contributor>
-            <name>jluix</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-        <contributor>
-            <name>musachy</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-        <contributor>
-            <name>Pablo</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-        <contributor>
-            <name>Jose E. Gonzalez</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-        <contributor>
-            <name>Charles H</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-        <contributor>
-            <name>Serge Knystautas</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-        <contributor>
-            <name>Sudheer</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
-        </contributor>
-    </contributors>
+	<contributors>
+		<contributor>
+			<name>Michael Osipov</name>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Darren Spurgeon</name>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+			<roles>
+				<role>Project Manager</role>
+				<role>Developer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>sunshine</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+		<contributor>
+			<name>jluix</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+		<contributor>
+			<name>musachy</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+		<contributor>
+			<name>Pablo</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+		<contributor>
+			<name>Jose E. Gonzalez</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+		<contributor>
+			<name>Charles H</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+		<contributor>
+			<name>Serge Knystautas</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+		<contributor>
+			<name>Sudheer</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<url>http://sourceforge.net/project/memberlist.php?group_id=140499</url>
+		</contributor>
+	</contributors>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-            <distribution>manual</distribution>
-        </license>
-    </licenses>
-    <!-- we moved to berlios.de and using hg -->
-    <!--
-        <scm>
-        <connection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</connection>
-        <developerConnection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</developerConnection>
-        <url> http://ajaxtags.svn.sourceforge.net/viewvc/ajaxtags/ </url> </scm>
-    -->
-    <description>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>manual</distribution>
+		</license>
+	</licenses>
+	<!-- we moved to berlios.de and using hg -->
+	<!--
+		<scm>
+		<connection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</connection>
+		<developerConnection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</developerConnection>
+		<url> http://ajaxtags.svn.sourceforge.net/viewvc/ajaxtags/ </url>
+		</scm>
+	-->
+	<description>
                 The ajaxtags tag library is an open source suite of custom tags that provide high-level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being easy to use.
   </description>
-    <!-- nobody use this -->
-    <!--
-        <mailingLists> <mailingList> <name>Ajaxtags User Mailing list</name>
-        <subscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</subscribe>
-        <unsubscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</unsubscribe> <post
-        /> <archive>http://sourceforge.net/mailarchive/forum.php?forum=ajaxtags-user</archive>
-        </mailingList> </mailingLists>
-    -->
-    <organization>
-        <name>the ajaxtags team</name>
-        <url>http://ajaxtags.sourceforge.net/</url>
-    </organization>
-    <!-- not sure if we need to set this -->
-    <!--
-    <prerequisites>
-        <maven>2.0.9</maven>
-    </prerequisites>
-    -->
-    <build>
-        <defaultGoal>package</defaultGoal>
-        <plugins>
-            <plugin>
-                <!-- we can use jetty to start the demo -->
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <!-- pack the ajaxtags jar file -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <!--
-                    we compile the project with 1.5 target. cause of no change in java 1.6 there is
-                    no 1.6 target.
-                -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <deprecation>on</deprecation>
-                    <debug>on</debug>
-                    <encoding>utf-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <!-- generating reports and execute junit tests -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <!-- generating the documentation -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <!-- if we execute the package goal then, generate the site, too -->
-                <!--
-                    <executions> <execution> <phase>package</phase> <goals> <goal>site</goal>
-                    </goals> </execution> </executions>
-                -->
-            </plugin>
-            <plugin>
-                <!-- package the stuff together -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/bin.xml</descriptor>
-                        <descriptor>src/main/assembly/src.xml</descriptor>
-                    </descriptors>
-                    <finalName>ajaxtags-${pom.version}</finalName>
-                </configuration>
-            </plugin>
-            <plugin>
+	<!-- nobody use this -->
+	<!--
+		<mailingLists> <mailingList> <name>Ajaxtags User Mailing list</name>
+		<subscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</subscribe>
+		<unsubscribe>http://lists.sourceforge.net/lists/listinfo/ajaxtags-user</unsubscribe>
+		<post />
+		<archive>http://sourceforge.net/mailarchive/forum.php?forum=ajaxtags-user</archive>
+		</mailingList> </mailingLists>
+	-->
+	<organization>
+		<name>the ajaxtags team</name>
+		<url>http://ajaxtags.sourceforge.net/</url>
+	</organization>
+	<!-- not sure if we need to set this -->
+	<!--
+		<prerequisites> <maven>2.0.9</maven> </prerequisites>
+	-->
+	<build>
+		<defaultGoal>package</defaultGoal>
+		<plugins>
+			<plugin>
+				<!-- we can use jetty to start the demo -->
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<!-- pack the ajaxtags jar file -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<!--
+					we compile the project with 1.5 target. cause of no change in java
+					1.6 there is no 1.6 target.
+				-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<deprecation>on</deprecation>
+					<debug>on</debug>
+					<encoding>utf-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- generating reports and execute junit tests -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<!-- generating the documentation -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<!-- if we execute the package goal then, generate the site, too -->
+				<!--
+					<executions> <execution> <phase>package</phase> <goals>
+					<goal>site</goal> </goals> </execution> </executions>
+				-->
+			</plugin>
+			<plugin>
+				<!-- package the stuff together -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/bin.xml</descriptor>
+						<descriptor>src/main/assembly/src.xml</descriptor>
+					</descriptors>
+					<finalName>ajaxtags-${pom.version}</finalName>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>com.google.code.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
 				<version>1.4.0</version>
@@ -204,10 +204,12 @@
 					<header>${basedir}/header.txt</header>
 					<includes>
 						<include>**/**.java</include>
+						<include>**/**.jsp</include>
 					</includes>
 					<aggregate>true</aggregate>
 					<mapping>
 						<java>SLASHSTAR_STYLE</java>
+						<jsp>DYNASCRIPT_STYLE</jsp>
 					</mapping>
 					<properties>
 						<year>2009</year>
@@ -221,86 +223,88 @@
 					</execution>
 				</executions>
 			</plugin>
-        </plugins>
-    </build>
-    <dependencies>
-        <!-- we need a servlet container which provide the libs at the bottom -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- if we write junit test we use the new lib, not 3.x -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-        	<groupId>javax.servlet.jsp</groupId>
-        	<artifactId>jsp-api</artifactId>
-        	<version>2.1</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>net.sourceforge.maven-taglib</groupId>
-                <artifactId>maven-taglib-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <sourceEncoding>UTF-8</sourceEncoding>
-                    <quiet>true</quiet>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <targetJdk>1.5</targetJdk>
-                    <sourceEncoding>UTF-8</sourceEncoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <inherited>false</inherited>
-                    <link_template>%URL%/%ISSUE%</link_template>
-                    <xmlPath>${basedir}/src/site/changes.xml</xmlPath>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>${basedir}/../checkstyle.xml</configLocation>
-                    <enableRulesSummary>false</enableRulesSummary>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>1.2</version>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+		</plugins>
+	</build>
+	<dependencies>
+		<!--
+			we need a servlet container which provide the libs at the bottom
+		-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- if we write junit test we use the new lib, not 3.x -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>net.sourceforge.maven-taglib</groupId>
+				<artifactId>maven-taglib-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<sourceEncoding>UTF-8</sourceEncoding>
+					<quiet>true</quiet>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<targetJdk>1.5</targetJdk>
+					<sourceEncoding>UTF-8</sourceEncoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<inherited>false</inherited>
+					<link_template>%URL%/%ISSUE%</link_template>
+					<xmlPath>${basedir}/src/site/changes.xml</xmlPath>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<configLocation>${basedir}/../checkstyle.xml</configLocation>
+					<enableRulesSummary>false</enableRulesSummary>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+					<xmlOutput>true</xmlOutput>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

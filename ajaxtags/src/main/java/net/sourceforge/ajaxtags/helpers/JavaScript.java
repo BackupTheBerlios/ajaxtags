@@ -79,6 +79,17 @@ public final class JavaScript extends HTMLElementFactory {
     public HTMLElementFactory newToggle(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append(newTag("Toggle", options));
     }
+    
+    /**
+     * Create new AjaxJspTag.Portlet.
+     *
+     * @param options
+     *            options for Portlet
+     * @return updated HTML element
+     */
+    public HTMLElementFactory newPortlet(final OptionsBuilder options) {
+        return append(tag.getJSVariable()).append(newTag("Portlet", options));
+    }
 
     /**
      * Create new AjaxJspTag.Autocomplete.
