@@ -195,6 +195,32 @@
                     <finalName>ajaxtags-${pom.version}</finalName>
                 </configuration>
             </plugin>
+            <plugin>
+				<groupId>com.google.code.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.4.0</version>
+				<inherited>false</inherited>
+				<configuration>
+					<header>${basedir}/header.txt</header>
+					<includes>
+						<include>**/**.java</include>
+					</includes>
+					<aggregate>true</aggregate>
+					<mapping>
+						<java>SLASHSTAR_STYLE</java>
+					</mapping>
+					<properties>
+						<year>2009</year>
+					</properties>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
     </build>
     <dependencies>
