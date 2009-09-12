@@ -17,6 +17,10 @@ package net.sourceforge.ajaxtags.tags;
 
 import static org.apache.commons.lang.StringUtils.trimToNull;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
@@ -25,7 +29,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the toggle (on/off, true/false) AJAX tag.
- *
+ * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -33,6 +37,9 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 public class AjaxToggleTag extends BaseAjaxTag {
 
     private static final long serialVersionUID = 6877730352175914711L;
+
+    private static final String AVOID_URL_START = "<a href=\"" + AJAX_VOID_URL + "\" title=\"";
+    private static final String AVOID_URL_END = "\"></a>";
 
     private String ratings;
 
@@ -165,24 +172,25 @@ public class AjaxToggleTag extends BaseAjaxTag {
     public int doEndTag() throws JspException {
         final OptionsBuilder options = getOptions();
 
-        final boolean xOnOff = Boolean.parseBoolean(this.onOff);
-        final String AVOID_URL_START = "<a href=\"" + AJAX_VOID_URL + "\" title=\"";
-        final String AVOID_URL_END = "\"></a>";
+        final boolean xOnOff = Boolean.parseBoolean(onOff);
         // write opening div
         final HTMLElementFactory div = new DIVElement(getSource());
         div.setClassName(xOnOff ? getContainerClass() + " onoff" : getContainerClass());
+        List<String> ratingValues = Collections.emptyList();
+        if (ratings != null) {
+            ratingValues = Arrays.asList(ratings.split(","));
+        }
 
-        String[] ratingValues = this.ratings == null ? null : this.ratings.split(",");
         // / TODO write this in javascript
         // / XXX write this in javascript!!!!
         // write links
         if (xOnOff) {
             div.append(AVOID_URL_START);
-            if (ratingValues != null) {
-                if (defaultRating != null && this.defaultRating.equalsIgnoreCase(ratingValues[0])) {
-                    div.append(ratingValues[0]).append("\" class=\"").append(this.selectedClass);
+            if (!ratingValues.isEmpty()) {
+                if (defaultRating != null && defaultRating.equalsIgnoreCase(ratingValues.get(0))) {
+                    div.append(ratingValues.get(0)).append("\" class=\"").append(selectedClass);
                 } else {
-                    div.append(ratingValues[1]);
+                    div.append(ratingValues.get(1));
                 }
             }
             div.append(AVOID_URL_END);
@@ -192,11 +200,9 @@ public class AjaxToggleTag extends BaseAjaxTag {
                 div.append(AVOID_URL_START);
                 if (defaultRating == null || ratingMatch) {
                     div.append(val);
-                } else if (!ratingMatch || this.defaultRating.equalsIgnoreCase(val)) {
-                    div.append(val).append("\" class=\"").append(this.selectedClass);
-                    if (this.defaultRating.equalsIgnoreCase(val)) {
-                        ratingMatch = true;
-                    }
+                } else if (defaultRating.equalsIgnoreCase(val)) {
+                    div.append(val).append("\" class=\"").append(selectedClass);
+                    ratingMatch = true;
                 }
                 div.append(AVOID_URL_END);
             }

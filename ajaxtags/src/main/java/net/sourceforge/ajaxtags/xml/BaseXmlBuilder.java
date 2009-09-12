@@ -100,7 +100,7 @@ public abstract class BaseXmlBuilder<V> {
     public String toString() {
         final StringBuilder xml = new StringBuilder("<?xml version=\"1.0\"");
         if (getEncoding() != null) {
-            xml.append(" encoding=\"").append(getEncoding()).append("\"");
+            xml.append(" encoding=\"").append(getEncoding()).append('"');
         }
         xml.append(" ?>");
         xml.append(getXMLString());

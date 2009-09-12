@@ -28,9 +28,6 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
 
 public class NameInput extends BaseAjaxServlet {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
 
@@ -41,7 +38,8 @@ public class NameInput extends BaseAjaxServlet {
         try {
             age = Integer.parseInt(arg0.getParameter("age"));
         }
-        catch (Exception e) {
+        catch (NumberFormatException e) {
+            age = -1;
         }
 
         xml.addItem("age", age == -1 ? "$not a number (" + arg0.getParameter("age") + ") ;)"

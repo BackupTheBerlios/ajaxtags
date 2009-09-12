@@ -113,7 +113,7 @@ public class CarService {
             return l;
         }
         for (Car car : cars) {
-            if (car.getModel().toLowerCase().startsWith(name.toLowerCase())) {
+            if (car.getModel().startsWith(name)) {
                 l.add(car);
             }
 

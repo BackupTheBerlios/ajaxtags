@@ -24,15 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.ajaxtags.servlets.BaseAjaxServlet;
 import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
 
-
-
 /**
- * An example servlet that responds to an ajax:updateField tag action. This
- * servlet would be referenced by the baseUrl attribute of the JSP tag.
+ * An example servlet that responds to an ajax:updateField tag action. This servlet would be
+ * referenced by the baseUrl attribute of the JSP tag.
  * 
  * @author Darren L. Spurgeon
- * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008)
- *          $
+ * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */
 public class FormUpdateServlet extends BaseAjaxServlet {
 
@@ -45,23 +42,23 @@ public class FormUpdateServlet extends BaseAjaxServlet {
 
     private static final double MPH_TO_MPS = 0.44704;
 
-
     /**
      * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
      */
-    public String getXmlContent(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
+    public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         double mph = 0, kph = 0, mps = 0;
         try {
             mph = Double.parseDouble(request.getParameter("mph"));
-        }
-        catch (Exception e) {
+        } catch (NumberFormatException e) {
+            mph = -1;
         }
         kph = mph * FormUpdateServlet.MPH_TO_KPH;
         mps = mph * FormUpdateServlet.MPH_TO_MPS;
 
         return new AjaxXmlBuilder().addItem("kph", Double.toString(kph)).addItem("mps",
-                        Double.toString(mps)).toString();
+                Double.toString(mps)).toString();
     }
 
 }

@@ -59,7 +59,7 @@ public class CalloutServlet extends BaseAjaxServlet {
 
         String param = request.getParameter("q");
         if (param == null) {
-            param = request.getParameter("editorId");
+//            param = request.getParameter("editorId");
             return request.getParameter("value");
         }
         return new AjaxXmlBuilder().addItemAsCData(

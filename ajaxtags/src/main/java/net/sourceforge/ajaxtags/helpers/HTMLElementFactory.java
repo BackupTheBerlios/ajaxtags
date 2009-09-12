@@ -21,7 +21,7 @@ import java.util.Map.Entry;
 
 /**
  * Diese klasse stellt eine möglichkeit um HTML elemente zu schreiben.
- *
+ * 
  * @author jenskapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -44,7 +44,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     *
+     * 
      * @param name
      *            name of start and endtag
      * @param id
@@ -64,7 +64,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     *
+     * 
      * @param name
      *            the tag name
      */
@@ -74,7 +74,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     *
+     * 
      * @param name
      *            the tag name
      * @param id
@@ -107,7 +107,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Set the body content.
-     *
+     * 
      * @param body
      *            the body content
      */
@@ -124,7 +124,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Set the class name attribute.
-     *
+     * 
      * @param className
      *            the class attribute value
      */
@@ -141,7 +141,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Set the id attribute.
-     *
+     * 
      * @param id
      *            the id attribute value
      */
@@ -201,23 +201,19 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
 
     /**
      * Append {@link CharSequence} to this object.
-     *
+     * 
      * @param string
      *            the data to append
      * @return self
      */
     public final HTMLElementFactory append(final CharSequence string) {
-        if (getBody() == null) {
-            setBody(string);
-        } else {
-            setBody(getBody() + string);
-        }
+        setBody(getBody() + string);
         return this;
     }
 
     /**
      * Append a char.
-     *
+     * 
      * @param c
      *            the char to append
      * @return self
