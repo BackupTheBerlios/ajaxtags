@@ -205,11 +205,15 @@
 					<includes>
 						<include>**/**.java</include>
 						<include>**/**.jsp</include>
+						<include>**/**.css</include>
+						<include>**/ajaxtags.js</include>
 					</includes>
 					<aggregate>true</aggregate>
 					<mapping>
 						<java>SLASHSTAR_STYLE</java>
 						<jsp>DYNASCRIPT_STYLE</jsp>
+						<js>JAVADOC_STYLE</js>
+						<css>JAVADOC_STYLE</css>
 					</mapping>
 					<properties>
 						<year>2009</year>
