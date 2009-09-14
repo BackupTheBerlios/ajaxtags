@@ -22,13 +22,13 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder.PropertyReader;
 
 /**
  * A Car entity with make and model properties.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  */
 public class Car implements Serializable, PropertyReader {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1274650793273603808L;
     private String make;
     private String model;
 
@@ -41,7 +41,7 @@ public class Car implements Serializable, PropertyReader {
 
     /**
      * Constructor for Car.
-     * 
+     *
      * @param make
      * @param model
      */

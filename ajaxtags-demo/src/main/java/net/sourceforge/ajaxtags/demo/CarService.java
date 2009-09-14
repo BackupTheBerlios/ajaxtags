@@ -18,13 +18,12 @@ package net.sourceforge.ajaxtags.demo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * This class simulate a Car Service. It's not intended to be used as a good example (we recomend
  * that you use interfaces, etc).
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 28 $ $Date: 2008-11-26 20:18:34 +0100 (Mi, 26. Nov 2008) $
@@ -32,7 +31,7 @@ import java.util.List;
 public class CarService {
 
     /**
-     * Hardcoded list of cards, so that we do not have to use a database in the examples.
+     * Hard-coded list of cards, so that we do not have to use a database in the examples.
      */
     private static List<Car> cars = new ArrayList<Car>();
 
@@ -57,7 +56,6 @@ public class CarService {
         cars.add(new Car("VW", "Fox"));
         cars.add(new Car("VW", "Golf"));
         cars.add(new Car("VW", "Polo"));
-
     }
 
     /**
@@ -69,7 +67,7 @@ public class CarService {
 
     /**
      * Get all models for a particular car maker.
-     * 
+     *
      * @param make
      *            the make of the car
      * @return a {@link java.util.List} of {@link org.ajaxtags.demo.Car} objects
@@ -89,7 +87,7 @@ public class CarService {
 
     /**
      * Get all models that start with name.
-     * 
+     *
      * @param name
      *            the name of the car model
      * @return a {@link java.util.List} of {@link org.ajaxtags.demo.Car} objects
@@ -109,8 +107,8 @@ public class CarService {
     }
 
     /**
-     * Get all cars
-     * 
+     * Get all cars.
+     *
      * @return a {@link java.util.List} of {@link org.ajaxtags.demo.Car} objects
      */
     public List<Car> getAllCars() {
@@ -118,15 +116,13 @@ public class CarService {
     }
 
     /**
-     * 
      * Read the first char of the model and return a sorted List.
-     * 
+     *
      * @return a list of chars.
      */
     public List<Character> getModelsFirstChar() {
         List<Character> clist = new ArrayList<Character>();
-        for (Iterator<Car> it = getAllCars().iterator(); it.hasNext();) {
-            Car c = it.next();
+        for (Car c : getAllCars()) {
             char firstChar = c.getModel().charAt(0);
             if (!clist.contains(firstChar)) {
                 clist.add(firstChar);

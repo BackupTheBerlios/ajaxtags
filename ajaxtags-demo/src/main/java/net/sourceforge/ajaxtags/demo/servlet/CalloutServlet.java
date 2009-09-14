@@ -25,11 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.ajaxtags.servlets.BaseAjaxServlet;
 import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
 
-
-
 /**
- * An example servlet that responds to an ajax:callout tag action. This servlet
- * would be referenced by the baseUrl attribute of the JSP tag.
+ * An example servlet that responds to an ajax:callout tag action. This servlet would be referenced
+ * by the baseUrl attribute of the JSP tag.
  * <p>
  * This servlet should generate XML in the following format:
  * </p>
@@ -39,33 +37,29 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
  *   <item value="Item2">Second Item</item>
  *   <item value="Item3">Third Item</item>
  * </list>]]></code>
- * 
+ *
  * @author Darren L. Spurgeon
- * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008)
- *          $
+ * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */
 public class CalloutServlet extends BaseAjaxServlet {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
-
 
     /**
      * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
      */
-    public String getXmlContent(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
+    public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         String param = request.getParameter("q");
         if (param == null) {
-//            param = request.getParameter("editorId");
+            // param = request.getParameter("editorId");
             return request.getParameter("value");
         }
         return new AjaxXmlBuilder().addItemAsCData(
-                        "Callout Header",
-                        "<p>This is a test of the 'callout.view'</p><p>You asked about:<br/><b>"
-                                        + param + "</b>.</p>").toString();
+                "Callout Header",
+                "<p>This is a test of the 'callout.view'</p><p>You asked about:<br/><b>" + param
+                        + "</b>.</p>").toString();
     }
 }

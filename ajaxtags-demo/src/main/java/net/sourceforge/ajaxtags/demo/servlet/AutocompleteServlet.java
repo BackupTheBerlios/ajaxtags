@@ -29,8 +29,8 @@ import net.sourceforge.ajaxtags.servlets.BaseAjaxServlet;
 import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
 
 /**
- * An example servlet that responds to an ajax:autocomplete tag action. This
- * servlet would be referenced by the baseUrl attribute of the JSP tag.
+ * An example servlet that responds to an ajax:autocomplete tag action. This servlet would be
+ * referenced by the baseUrl attribute of the JSP tag.
  * <p>
  * This servlet should generate XML in the following format:
  * </p>
@@ -40,35 +40,30 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
  *   <item value="Item2">Second Item</item>
  *   <item value="Item3">Third Item</item>
  * </list>]]></code>
- * 
+ *
  * @author Darren L. Spurgeon
- * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008)
- *          $
+ * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */
 public class AutocompleteServlet extends BaseAjaxServlet {
 
-	/**
-     * 
-     */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 */
-	public String getXmlContent(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String model = request.getParameter("model");
-		CarService service = new CarService();
-		List<Car> list = service.getModelsByName(model);
-		// Thread.sleep(3000); // sleep 3 sec
-		// Create xml schema
-		try {
-			return new AjaxXmlBuilder().addItems(list)
-					.toString();
-		} catch (Exception e) {
-			throw new ServletException(e);
-		}
-	}
+    /**
+     * @see BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse)
+     */
+    public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String model = request.getParameter("model");
+        CarService service = new CarService();
+        List<Car> list = service.getModelsByName(model);
+        // Thread.sleep(3000); // sleep 3 seconds
+        // Create xml schema
+        try {
+            return new AjaxXmlBuilder().addItems(list).toString();
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
 
 }

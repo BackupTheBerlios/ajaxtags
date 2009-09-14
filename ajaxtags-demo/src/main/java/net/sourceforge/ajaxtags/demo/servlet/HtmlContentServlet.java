@@ -28,26 +28,22 @@ import net.sourceforge.ajaxtags.demo.Car;
 import net.sourceforge.ajaxtags.demo.CarService;
 import net.sourceforge.ajaxtags.servlets.BaseAjaxServlet;
 
-
-
 /**
  * An example servlet that responds to an ajax:htmlContent tag action.
- * 
+ *
  * @author Darren L. Spurgeon
- * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008)
- *          $
+ * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */
 public class HtmlContentServlet extends BaseAjaxServlet {
 
     private static final long serialVersionUID = 1L;
-
 
     /**
      * @see org.ajaxtags.demo.servlet.BaseAjaxServlet#getXmlContent(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
      */
     public String getXmlContent(HttpServletRequest request, HttpServletResponse response)
-                    throws ServletException, IOException  {
+            throws ServletException, IOException {
         String make = request.getParameter("make");
         if (make == null) {
             make = "";
@@ -55,7 +51,7 @@ public class HtmlContentServlet extends BaseAjaxServlet {
         CarService service = new CarService();
         List<Car> list = service.getModelsByMake(make);
 
-        StringBuffer html = new StringBuffer();
+        StringBuilder html = new StringBuilder();
         html.append("<h2>").append(make).append("</h2><p>Models</p><ul>");
         for (Car car : list) {
             html.append("<li>").append(car.getModel()).append("</li>");

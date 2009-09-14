@@ -25,26 +25,23 @@ import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.ajaxtags.servlets.BaseAjaxServlet;
 import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
 
-
-
 public class NameInput extends BaseAjaxServlet {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8397661247446643963L;
 
-
-    public String getXmlContent(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException  {
+    public String getXmlContent(HttpServletRequest arg0, HttpServletResponse arg1)
+            throws ServletException, IOException {
         AjaxXmlBuilder xml = new AjaxXmlBuilder();
         xml.addItem("name", arg0.getParameter("name"));
         int age = -1;
         try {
             age = Integer.parseInt(arg0.getParameter("age"));
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             age = -1;
         }
 
         xml.addItem("age", age == -1 ? "$not a number (" + arg0.getParameter("age") + ") ;)"
-                        : String.valueOf(age));
+                : String.valueOf(age));
         return xml.toString();
     }
 }

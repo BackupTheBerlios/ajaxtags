@@ -24,37 +24,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 /**
- * An example servlet that responds to an ajax:toggle tag action. This servlet
- * would be referenced by the baseUrl attribute of the JSP tag.
- * 
+ * An example servlet that responds to an ajax:toggle tag action. This servlet would be referenced
+ * by the baseUrl attribute of the JSP tag.
+ *
  * @author Darren L. Spurgeon
- * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008)
- *          $
+ * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */
 public class ToggleServlet extends HttpServlet {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -394141738706308222L;
 
-
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
-                    throws ServletException, IOException {
+            throws ServletException, IOException {
 
         String rating = request.getParameter("rating");
         if (rating != null && rating.length() > 0) {
-            if ("2".equals(request.getParameter("type"))){
+            if ("2".equals(request.getParameter("type"))) {
                 request.getSession().setAttribute("toggleRatingOnOff", rating);
-            }
-            else {
+            } else {
                 request.getSession().setAttribute("toggleRating", rating);
             }
-        }
-        else {
+        } else {
             rating = "";
         }
 
@@ -63,9 +55,9 @@ public class ToggleServlet extends HttpServlet {
         pw.close();
     }
 
-
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-                    throws ServletException, IOException {
+            throws ServletException, IOException {
         doGet(request, response);
     }
 
