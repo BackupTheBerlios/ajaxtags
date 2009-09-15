@@ -124,6 +124,11 @@ public class ValueItem extends AbstractItem {
         return getValue().remove(index);
     }
 
+    /**
+     * the list of values
+     * 
+     * @return the list of values
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<String> getValue() {

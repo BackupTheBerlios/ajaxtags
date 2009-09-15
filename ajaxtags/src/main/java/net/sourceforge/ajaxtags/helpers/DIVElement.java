@@ -20,9 +20,8 @@ package net.sourceforge.ajaxtags.helpers;
  * HTML &lt;div&gt; element.
  * 
  * @author Jens Kapitza
- * @version $Revision$ $Date$ $Author$
  */
-public final class DIVElement extends HTMLElementFactory {
+public final class DIVElement extends AbstractHTMLElement {
 
     /**
      * Create a HTML &lt;div&gt; element.

@@ -19,7 +19,7 @@ package net.sourceforge.ajaxtags.tags;
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
-import net.sourceforge.ajaxtags.helpers.HTMLElementFactory;
+import net.sourceforge.ajaxtags.helpers.AbstractHTMLElement;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
@@ -50,7 +50,7 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
         op.add("id", getId(), true);
         op.add("pages", "[" + pages.toString() + " ]", false);
 
-        HTMLElementFactory div = new DIVElement(getId());
+        AbstractHTMLElement div = new DIVElement(getId());
         JavaScript script = new JavaScript(this);
         script.newTabPanel(op);
         div.append(script);

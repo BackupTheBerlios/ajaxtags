@@ -24,9 +24,8 @@ import java.util.Map.Entry;
  * Diese klasse stellt eine möglichkeit um HTML elemente zu schreiben.
  * 
  * @author jenskapitza
- * @version $Revision$ $Date$ $Author$
  */
-public abstract class HTMLElementFactory implements CharSequence, Appendable {
+public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Name of element. For start and end of tag.
@@ -53,7 +52,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      * @param body
      *            content
      */
-    protected HTMLElementFactory(final String name, final String id, final String body) {
+    protected AbstractHTMLElement(final String name, final String id, final String body) {
         this.name = name;
         this.body = body;
         // if value is null then exception is thrown
@@ -69,7 +68,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      * @param name
      *            the tag name
      */
-    protected HTMLElementFactory(final String name) {
+    protected AbstractHTMLElement(final String name) {
         this(name, null);
     }
 
@@ -81,7 +80,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      * @param id
      *            the id attribute
      */
-    protected HTMLElementFactory(final String name, final String id) {
+    protected AbstractHTMLElement(final String name, final String id) {
         this(name, id, null);
     }
 
@@ -207,7 +206,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      *            the data to append
      * @return self
      */
-    public final HTMLElementFactory append(final CharSequence string) {
+    public final AbstractHTMLElement append(final CharSequence string) {
         setBody(getBody() + string);
         return this;
     }
@@ -219,7 +218,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      *            the char to append
      * @return self
      */
-    public final HTMLElementFactory append(final char c) {
+    public final AbstractHTMLElement append(final char c) {
         return append(String.valueOf(c));
     }
 
@@ -232,7 +231,7 @@ public abstract class HTMLElementFactory implements CharSequence, Appendable {
      *            the end index
      * @return self
      */
-    public final HTMLElementFactory append(final CharSequence csq, final int start, final int end) {
+    public final AbstractHTMLElement append(final CharSequence csq, final int start, final int end) {
         return append(csq.subSequence(start, end));
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
-import net.sourceforge.ajaxtags.helpers.HTMLElementFactory;
+import net.sourceforge.ajaxtags.helpers.AbstractHTMLElement;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
@@ -175,7 +175,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
 
         final boolean xOnOff = Boolean.parseBoolean(onOff);
         // write opening div
-        final HTMLElementFactory div = new DIVElement(getSource());
+        final AbstractHTMLElement div = new DIVElement(getSource());
         div.setClassName(xOnOff ? getContainerClass() + " onoff" : getContainerClass());
         List<String> ratingValues = Collections.emptyList();
         if (ratings != null) {

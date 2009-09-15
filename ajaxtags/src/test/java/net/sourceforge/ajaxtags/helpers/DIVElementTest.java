@@ -63,7 +63,7 @@ public class DIVElementTest {
 
     /**
      * Test method for
-     * {@link net.sourceforge.ajaxtags.helpers.HTMLElementFactory#setClassName(java.lang.String)}.
+     * {@link net.sourceforge.ajaxtags.helpers.AbstractHTMLElement#setClassName(java.lang.String)}.
      */
     @Test
     public void testSetClassName() {
@@ -73,7 +73,7 @@ public class DIVElementTest {
 
     /**
      * Test method for
-     * {@link net.sourceforge.ajaxtags.helpers.HTMLElementFactory#setId(java.lang.String)}.
+     * {@link net.sourceforge.ajaxtags.helpers.AbstractHTMLElement#setId(java.lang.String)}.
      */
     @Test
     public void testSetId() {
