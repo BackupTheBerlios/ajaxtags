@@ -25,7 +25,7 @@ import net.sourceforge.ajaxtags.tags.OptionsBuilder;
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */
-public final class JavaScript extends HTMLElementFactory {
+public final class JavaScript extends AbstractHTMLElement {
 
     private BaseAjaxBodyTag tag;
 
@@ -54,7 +54,7 @@ public final class JavaScript extends HTMLElementFactory {
      *            options for TabPanel
      * @return updated HTML element
      */
-    public HTMLElementFactory newTabPanel(final OptionsBuilder options) {
+    public AbstractHTMLElement newTabPanel(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append(newTag("TabPanel", options));
     }
 
@@ -65,7 +65,7 @@ public final class JavaScript extends HTMLElementFactory {
      *            options for Select
      * @return updated HTML element
      */
-    public HTMLElementFactory newSelect(final OptionsBuilder options) {
+    public AbstractHTMLElement newSelect(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append(newTag("Select", options));
     }
 
@@ -76,7 +76,7 @@ public final class JavaScript extends HTMLElementFactory {
      *            options for Toggle
      * @return updated HTML element
      */
-    public HTMLElementFactory newToggle(final OptionsBuilder options) {
+    public AbstractHTMLElement newToggle(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append(newTag("Toggle", options));
     }
     
@@ -87,7 +87,7 @@ public final class JavaScript extends HTMLElementFactory {
      *            options for Portlet
      * @return updated HTML element
      */
-    public HTMLElementFactory newPortlet(final OptionsBuilder options) {
+    public AbstractHTMLElement newPortlet(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append(newTag("Portlet", options));
     }
 
@@ -98,7 +98,7 @@ public final class JavaScript extends HTMLElementFactory {
      *            options for Autocomplete
      * @return updated HTML element
      */
-    public HTMLElementFactory newAutocomplete(final OptionsBuilder options) {
+    public AbstractHTMLElement newAutocomplete(final OptionsBuilder options) {
         return append(tag.getJSVariable()).append(newTag("Autocomplete", options));
     }
 
