@@ -23,7 +23,6 @@ import java.util.Map;
  *
  * @author Musachy Barroso
  * @author Jens Kapitza
- * @version $Revision: 86 $ $Date: 2007/07/22 18:04:50 $ $Author: jenskapitza $
  */
 public class TreeItem extends AbstractItem {
 
