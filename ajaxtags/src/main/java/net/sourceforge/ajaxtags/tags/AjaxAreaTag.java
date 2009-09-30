@@ -43,8 +43,8 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     private boolean ajaxAnchors;
 
     /**
-     * Returns true if we answering to AJAX request: request has proper "X-Requested-With" and
-     * "x-request-target" headers.
+     * @return Returns true if we answering to AJAX request: request has proper "X-Requested-With"
+     *         and "x-request-target" headers.
      */
     @Override
     public final boolean isAjaxRequest() {
@@ -66,13 +66,9 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
         this.styleClass = trimToNull(styleClass);
     }
 
-    /*
+    /**
      * @return Returns the ajaxAnchors.
      */
-    /*public final boolean getAjaxAnchors() {
-        return isAjaxAnchors();
-    } // we don't need it!*/
-
     public final boolean isAjaxAnchors() {
         return this.ajaxAnchors;
     }
@@ -86,7 +82,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     }
 
     /**
-     * Clear page content before start of tag if we are processing ajax request.
+     * Clear page content before start of tag if we are processing AJAX request.
      *
      * @throws JspException
      *             when HTTP response cannot be reset (has already had its status code and headers
@@ -104,9 +100,9 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     }
 
     /**
-     * Write body. Skip the rest of the page if we are processing ajax request.
+     * Write body. Skip the rest of the page if we are processing AJAX request.
      *
-     * @return SKIP_PAGE for ajax request, EVAL_PAGE for usual request
+     * @return SKIP_PAGE for AJAX request, EVAL_PAGE for usual request
      * @throws JspException
      *             on errors
      */
@@ -127,7 +123,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     @Override
     public void releaseTag() {
         this.ajaxAnchors = false;
-        this.styleClass = null;
+        this.styleClass = null; // NOPMD
     }
 
     /**

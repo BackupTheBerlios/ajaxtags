@@ -21,6 +21,7 @@ import javax.xml.transform.TransformerException;
 
 import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -31,7 +32,7 @@ import org.xml.sax.SAXException;
  * Wraps a DisplayTag (http://displaytag.org) table, enabling AJAX capabilities. In the process,
  * anchors in the navigation are rewritten on the fly so that the DisplayTag table refreshes within
  * the same region on the page without a full-page reload.
- * 
+ *
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/07/08 17:52:30 $ $Author: jenskapitza $
  */
@@ -44,6 +45,23 @@ public class AjaxDisplayTag extends AjaxAreaTag {
     private String columnClass;
 
     /**
+     * Default constructor.
+     */
+    public AjaxDisplayTag() {
+        super();
+        init();
+    }
+
+    /**
+     * Initialize properties to default values. Used in {@link #AjaxDisplayTag()} and in
+     * {@link #releaseTag()}.
+     */
+    private void init() {
+        this.pagelinksClass = "pagelinks";
+        this.columnClass = "sortable";
+    }
+
+    /**
      * @return Returns the pagelinksClass.
      */
     public String getPagelinksClass() {
@@ -54,8 +72,8 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      * @param pagelinksClass
      *            The pagelinksClass to set.
      */
-    public void setPagelinksClass(String pagelinksClass) {
-        this.pagelinksClass = pagelinksClass;
+    public void setPagelinksClass(final String pagelinksClass) {
+        this.pagelinksClass = pagelinksClass == null ? StringUtils.EMPTY : pagelinksClass;
     }
 
     /**
@@ -69,8 +87,8 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      * @param columnClass
      *            The columnClass to set.
      */
-    public void setColumnClass(String columnClass) {
-        this.columnClass = columnClass;
+    public void setColumnClass(final String columnClass) {
+        this.columnClass = columnClass == null ? StringUtils.EMPTY : columnClass;
     }
 
     /**
@@ -79,24 +97,28 @@ public class AjaxDisplayTag extends AjaxAreaTag {
     @Override
     public void releaseTag() {
         super.releaseTag();
-        this.pagelinksClass = "pagelinks";
-        this.columnClass = "sortable";
+        init();
     }
 
-    private void rewriteAnchors0(Document document) {
-        // String ypath = "//span[@class = \"" + getPagelinksClass() + "\"]//a";
-
-        NodeList links = document.getElementsByTagName("a");
+    private void rewriteAnchors0(final Document document) {
+        final NodeList links = document.getElementsByTagName("a");
         for (int i = 0; i < links.getLength(); i++) {
-            Node link = links.item(i);
-            Node parent = link.getParentNode();
-            boolean rewrite = false;
-            Attr clazz = (Attr) parent.getAttributes().getNamedItem("class");
-            if (parent.getNodeName().equals("span")) {
-                rewrite = clazz != null && clazz.getNodeValue().contains(getPagelinksClass());
+            final Node link = links.item(i);
+            final Node parent = link.getParentNode();
+
+            final Attr parentClass = (Attr) parent.getAttributes().getNamedItem("class");
+            if (parentClass == null) {
+                continue;
             }
-            if (parent.getNodeName().equals("th")) {
-                rewrite = clazz != null && clazz.getNodeValue().contains(getColumnClass());
+
+            boolean rewrite = false;
+            final String parentName = parent.getNodeName();
+            final String parentClassValue = parentClass.getNodeValue();
+            // TODO use null-safe StringUtils.contains
+            if ("span".equals(parentName)) {
+                rewrite = parentClassValue.contains(getPagelinksClass());
+            } else if ("th".equals(parentName)) {
+                rewrite = parentClassValue.contains(getColumnClass());
             }
 
             if (rewrite) {
@@ -110,9 +132,9 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      * @see net.sourceforge.ajaxtags.tags.AjaxAreaTag#processContent(java.lang.String)
      */
     @Override
-    protected String processContent(String content) throws JspException {
+    protected String processContent(final String content) throws JspException {
         try {
-            Document doc = getDocument(content);
+            final Document doc = getDocument(content);
             rewriteAnchors0(doc);
             return XMLUtils.toString(doc);
         } catch (SAXException e) {

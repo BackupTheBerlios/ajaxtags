@@ -1349,7 +1349,7 @@
 		<body-content>JSP</body-content>
 		<attribute>
 			<description>
-				Name of ID used for enclosing DIV tag written by tag
+				Name of ID used for enclosing DIV element written by tag.
 			</description>
 			<name>id</name>
 			<required>true</required>
@@ -1359,7 +1359,9 @@
 		<attribute>
 			<description>
 				CSS class name of the DisplayTag's navigation links,
-				often named "pagelinks" by default in DisplayTag
+				often named "pagelinks" by default in DisplayTag.
+                If empty, anchors of all SPAN elements will be processed.
+                Default value: "pagelinks".
 			</description>
 			<name>pagelinksClass</name>
 			<required>false</required>
@@ -1368,8 +1370,10 @@
 
 		<attribute>
 			<description>
-				The CSS class of the TD within the THEAD of the table
+				The CSS class of the TH within the THEAD of the table
 				that should have its HREFs rewritten.
+                If empty, anchors of all TH elements will be processed.
+                Default value: "sortable".
 			</description>
 			<name>columnClass</name>
 			<required>false</required>
