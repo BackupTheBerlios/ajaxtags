@@ -29,7 +29,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import net.sourceforge.ajaxtags.servlets.AjaxActionHelper;
 
 /**
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
@@ -76,8 +76,8 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * Detect if the client does an ajax call or not.
-     * 
+     * Detect if the client does an AJAX call or not.
+     *
      * @return true only if the client send the header with XMLHttpRequest
      */
     protected boolean isAjaxRequest() {
@@ -171,7 +171,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Build JavaScript assignment string.
-     * 
+     *
      * @return String with assignment to variable "var x = " or field "object.field = "
      */
     public final String getJSVariable() {
@@ -254,13 +254,12 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * Never call release -> ends in loop.
+     * Never call release() -> ends in loop.
      */
     protected void releaseTag() {
     }
 
     /**
-     * 
      * @return the OptionsBuilder with default options
      */
     protected OptionsBuilder getOptionsBuilder() {
@@ -292,13 +291,13 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Helper to define new AJAX updater for onclick attribute.
-     * 
+     *
      * @param target
      *            the target to request
      * @param href
      *            the url
      * @param opt
-     *            options for javascript lib
+     *            options for javascript library
      * @return the javascript code to do ajax update
      */
     protected final String getOnclickAjax(final String target, final String href,
@@ -320,10 +319,10 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     protected String getBody() {
-        final BodyContent bc = this.getBodyContent();
-        if (bc == null) {
+        final BodyContent body = this.getBodyContent();
+        if (body == null) {
             return null;
         }
-        return bc.getString();
+        return body.getString();
     }
 }

@@ -70,10 +70,11 @@ public class AjaxDisplayTag extends AjaxAreaTag {
 
     /**
      * @param pagelinksClass
-     *            The pagelinksClass to set.
+     *            The pagelinksClass to set. Null-safe.
      */
     public void setPagelinksClass(final String pagelinksClass) {
-        this.pagelinksClass = pagelinksClass == null ? StringUtils.EMPTY : pagelinksClass;
+        // this.pagelinksClass = pagelinksClass == null ? StringUtils.EMPTY : pagelinksClass;
+        this.pagelinksClass = pagelinksClass;
     }
 
     /**
@@ -85,10 +86,11 @@ public class AjaxDisplayTag extends AjaxAreaTag {
 
     /**
      * @param columnClass
-     *            The columnClass to set.
+     *            The columnClass to set. Null-safe.
      */
     public void setColumnClass(final String columnClass) {
-        this.columnClass = columnClass == null ? StringUtils.EMPTY : columnClass;
+        // this.columnClass = columnClass == null ? StringUtils.EMPTY : columnClass;
+        this.columnClass = columnClass;
     }
 
     /**
@@ -114,11 +116,10 @@ public class AjaxDisplayTag extends AjaxAreaTag {
             boolean rewrite = false;
             final String parentName = parent.getNodeName();
             final String parentClassValue = parentClass.getNodeValue();
-            // TODO use null-safe StringUtils.contains
             if ("span".equals(parentName)) {
-                rewrite = parentClassValue.contains(getPagelinksClass());
+                rewrite = StringUtils.contains(parentClassValue, getPagelinksClass());
             } else if ("th".equals(parentName)) {
-                rewrite = parentClassValue.contains(getColumnClass());
+                rewrite = StringUtils.contains(parentClassValue, getColumnClass());
             }
 
             if (rewrite) {
@@ -128,6 +129,11 @@ public class AjaxDisplayTag extends AjaxAreaTag {
     }
 
     /**
+     * Rewrite anchors in content.
+     *
+     * Parse content to XHTML {@link org.w3c.dom.Document}, rewrite DisplayTag anchor elements and
+     * return string representation of document.
+     *
      * @throws JspException
      * @see net.sourceforge.ajaxtags.tags.AjaxAreaTag#processContent(java.lang.String)
      */

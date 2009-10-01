@@ -48,6 +48,8 @@ import org.xml.sax.SAXException;
  */
 public final class XMLUtils {
 
+    private static final String TRANSFORMER_YES = "yes";
+
     private static ThreadLocal<TransformerFactory> transformerFactory = new ThreadLocal<TransformerFactory>() {
         @Override
         protected TransformerFactory initialValue() {
@@ -58,10 +60,10 @@ public final class XMLUtils {
     private static ThreadLocal<DocumentBuilderFactory> docFactory = new ThreadLocal<DocumentBuilderFactory>() {
         @Override
         protected DocumentBuilderFactory initialValue() {
-            final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
-            df.setValidating(false);
-            df.setIgnoringElementContentWhitespace(true);
-            return df;
+            final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setValidating(false);
+            dbf.setIgnoringElementContentWhitespace(true);
+            return dbf;
         };
     };
 
@@ -178,14 +180,14 @@ public final class XMLUtils {
         final StringWriter stringWriter = new StringWriter();
         final StreamResult streamResult = new StreamResult(stringWriter);
         final Transformer transformer = transformerFactory.get().newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.INDENT, TRANSFORMER_YES);
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         // transformer.setOutputProperty(OutputKeys.METHOD, "html");
-        // html transforms <br/> into <br>, which cannot be re-parsed
+        // html method transforms <br/> into <br>, which cannot be re-parsed
         // transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
-        // xhtml does not work for my xalan transformer
+        // xhtml method does not work for my xalan transformer
         transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, TRANSFORMER_YES);
         transformer.transform(new DOMSource(document.getDocumentElement()), streamResult);
         return stringWriter.toString();
     }
