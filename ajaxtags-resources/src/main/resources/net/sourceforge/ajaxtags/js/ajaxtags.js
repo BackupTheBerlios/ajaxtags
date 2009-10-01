@@ -23,7 +23,6 @@ var AjaxJspTag = {
      * Store all tags which have listeners.
      */
     tags: [],
-
     /**
      * Push listener for later reload.
      */
@@ -53,10 +52,7 @@ var AjaxJspTag = {
     }
 };
 
-// load all ajaxtags stuff
-// prototype and scriptaculous must be loaded before this script!
-// IE BUG
-// prototype can/should be used by this functions!
+// prototype and scriptaculous must be loaded before this script
 
 /**
  * Global Variables.
@@ -242,7 +238,7 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
             this.content = ul;
         }
     }
-});// parser ENDE
+});// end of parser
 
 
 /****************************************************************
@@ -262,7 +258,7 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
  *
  ****************************************************************/
 /**
- * AjaxTags
+ * AjaxTags.
  */
 AjaxJspTag.Base = Class.create({
     resolveParameters: function () {
@@ -378,12 +374,7 @@ AjaxJspTag.Base = Class.create({
                 if (v = value(field)) {
                 	returnString += '&' + v;
                 }
-            }
-            //else if ('checkbox' === field.type) {
-            //    if (v = value(field)) {
-            //    	returnString += '&' + v;
-            //    }
-            //} // BUG 016027
+            } // BUG 016027
             else if (['radio', 'text', 'textarea', 'password', 'hidden', 'select-one'].include(field.type)) {
                 val.push(field.value);
             } else {
@@ -412,6 +403,7 @@ AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
     initialize: function (options) {
         AjaxJspTag.add(this);
         this.setOptions(options);
+        this.listener = this.execute.bind(this);
         this.setListeners();
     },
     setOptions: function (options) {
@@ -427,10 +419,9 @@ AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
         }, options || {});
     },
     setListeners: function () {
-        var o = this.options;
-        var a = $(o.action);
+        var o = this.options, a = $(o.action);
         if (a) {
-            a["on" + o.eventType] = this.execute.bind(this);
+            a["on" + o.eventType] = this.listener;
         }
     },
     execute: function () {
@@ -461,6 +452,7 @@ AjaxJspTag.Select = Class.create(AjaxJspTag.Base, {
     initialize: function (options) {
         AjaxJspTag.add(this);
         this.setOptions(options);
+        this.listener = this.execute.bind(this);
         this.setListeners();
         if (this.options.executeOnLoad) {
             this.execute();
@@ -481,8 +473,8 @@ AjaxJspTag.Select = Class.create(AjaxJspTag.Base, {
     setListeners: function () {
         var o = this.options, s = $(o.source);
         if (s) {
-            s.ajaxSelect = this.execute.bind(this);
-            s["on" + o.eventType] = this.execute.bind(this);
+            s.ajaxSelect = this.listener;
+            s["on" + o.eventType] = this.listener;
         }
     },
     execute: function () {
@@ -520,18 +512,19 @@ AjaxJspTag.HtmlContent = Class.create(AjaxJspTag.Base, {
     initialize: function (options) {
         AjaxJspTag.add(this);
         this.setOptions(options);
+        this.listener = this.execute.bindAsEventListener(this);
         this.setListeners();
     },
     setOptions: function (options) {
         this.options = Object.extend({
-            parameters: '',
+            parameters: "",
             eventType: "click",
             parser: new DefaultResponseParser("html"),
             handler: this.handler
         }, options || {});
     },
     setEvent: function (element) {
-        element["on" + this.options.eventType] = this.execute.bindAsEventListener(this);
+        element["on" + this.options.eventType] = this.listener;
     },
     setListeners: function () {
         var o = this.options;
@@ -559,6 +552,8 @@ AjaxJspTag.Callout = Class.create(AjaxJspTag.Base, {
     initialize: function (options) {
         AjaxJspTag.add(this);
         this.setOptions(options);
+        this.openListener = this.calloutOpen.bindAsEventListener(this);
+        this.closeListener = this.calloutClose.bindAsEventListener(this);
         this.setListeners();
     },
     setOptions: function (options) {
@@ -572,11 +567,10 @@ AjaxJspTag.Callout = Class.create(AjaxJspTag.Base, {
         }, options || {});
     },
     setEvent: function (element) {
-        element["on" + this.options.openEvent] = this.calloutOpen.bindAsEventListener(this);
-        element["on" + this.options.closeEvent] = this.calloutClose.bindAsEventListener(this);
+        element["on" + this.options.openEvent] = this.openListener;
+        element["on" + this.options.closeEvent] = this.closeListener;
     },
     setListeners: function () {
-        // sourceClass ist pflicht
         $$("." + this.options.sourceClass).each(this.setEvent, this);
     },
     calloutOpen: function (e) {
@@ -668,13 +662,10 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
     },
     handler: function () {
         // find current anchor
-        this.panel.select(".ajaxCurrentTab").each(function (element) {
-            Element.removeClassName(element, 'ajaxCurrentTab');
-        });
+        // remove class
+        this.panel.select(".ajaxCurrentTab").invoke("removeClassName", "ajaxCurrentTab");
         // add class to selected tab
-        if (!this.source.hasClassName("ajaxCurrentTab")) {
-            this.source.addClassName("ajaxCurrentTab");
-        }
+        this.source.addClassName("ajaxCurrentTab");
     }
 });
 
@@ -710,7 +701,6 @@ AjaxJspTag.XmlToHtmlAutocompleter = Class.create(Autocompleter.Base, {
         this.options.defaultParams = this.autocompleteTag.buildParameterString();
         // / don't write code a second time
         this.getUpdatedChoices0();
-
     },
     onComplete: function (request) {
         this.autocompleteTag.options.parser.load(request);
@@ -731,17 +721,14 @@ AjaxJspTag.XmlToHtmlAutocompleter = Class.create(Autocompleter.Base, {
             // Enable onupdate event handler of input field
             inputf.onupdate = onupdateHandler;
         }
-
     }
 });
 
 AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base, {
     initialize: function (options) {
         this.setOptions(options);
-        var s = $(this.options.source);
-        s.insert({
-            after: '<div id="' + this.options.divElement + '" class="' + this.options.className + '"></div>'
-        });
+        // insert div at the top of the document so it will not be hidden in case of overflow
+        Element.insert(document.body, {top:new Element("div", {id: this.options.divElement, className: this.options.className})});
         this.execute();
     },
     setOptions: function (options) {
@@ -807,6 +794,9 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         o.target = new Element("div", {className: o.classNamePrefix + "Content"});
         sourceBase.appendChild(o.target);
 
+        this.closeListener = this.closePortlet.bindAsEventListener(this);
+        this.refreshListener = this.refreshPortlet.bindAsEventListener(this);
+        this.toggleListener = this.togglePortlet.bindAsEventListener(this);
         this.setListeners();
 
         if (o.startMinimize) {
@@ -817,7 +807,6 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         }
         AjaxJspTag.add(this);
     },
-
     setOptions: function (options) {
         this.options = Object.extend({
             close: (options.imageClose && options.source),
@@ -830,43 +819,37 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         this.options.withBar = (this.options.close || this.options.refresh || this.options.toggle);
     },
     setListeners: function () {
-        var o = this.options;
+        var o = this.options, evt = "on" + o.eventType;
         if (o.close) {
-            o.close["on" + o.eventType] = this.closePortlet.bindAsEventListener(this);
+            o.close[evt] = this.closeListener;
         }
         if (o.refresh) {
-            o.refresh["on" + o.eventType] = this.refreshPortlet.bindAsEventListener(this);
+            o.refresh[evt] = this.refreshListener;
         }
         if (o.toggle) {
-            o.toggle["on" + o.eventType] = this.togglePortlet.bindAsEventListener(this);
+            o.toggle[evt] = this.toggleListener;
         }
     },
-
     execute: function (e) {
         this.ajaxPeriodicalUpdater = this.options.refreshPeriod ? this.getPeriodicalUpdater() : this.getAjaxUpdater();
     },
-
     stopAutoRefresh: function () {
         // stop auto-update if present
         if (this.ajaxPeriodicalUpdater && this.options.refreshPeriod) {
             this.ajaxPeriodicalUpdater.stop();
         }
         this.ajaxPeriodicalUpdater = null;
-
     },
-
     refreshPortlet: function (e) {
         // clear existing updater
         this.stopAutoRefresh();
         this.execute();
     },
-
     closePortlet: function (e) {
         this.stopAutoRefresh();
         Element.remove(this.options.source);
-    // Save state in cookie
+        // TODO save state in cookie
     },
-
     togglePortlet: function (e) {
         if (this.options.toggle) {
             if (this.options.toggle.src.endsWith(this.options.imageMinimize)) {
@@ -878,7 +861,7 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
                 this.refreshPortlet();
             }
         }
-    // Save state in cookie
+        // TODO save state in cookie
     }
 });
 
@@ -907,8 +890,7 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
             if (imgElem) {
                 var expanded = this.toggle(imgElem);
                 if (!expanded) {
-                    t.innerHTML = ""; // TODO t.hide().update("");
-                    t.hide();
+                    t.hide().update("");
                     return;
                 }
             }
@@ -948,6 +930,7 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
         if (displayValue === 'block') {
             target.select("span").each(function (image) {
                 image["on" + o.eventType] = this.toggleTreeNode.bind(this, image.id.substring(5));
+                //image.observe(o.eventType, this.toggleTreeNode.bind(this, image.id.substring(5)));
             }, this);
 
             parser.expandedNodes.each(this.toggleTreeNode, this);
@@ -960,7 +943,6 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
         return new AjaxJspTag.Tree(opt);
     }
 });
-
 
 /**
  * Toggle tag.
@@ -976,6 +958,9 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
             this.container.insert({'top': this.messageContainer});
         }
         this.classList = [this.options.selectedOverClass, this.options.selectedLessClass, this.options.overClass, this.options.selectedClass];
+        this.mouseoverListener = this.raterMouseOver.bindAsEventListener(this);
+        this.mouseoutListener = this.raterMouseOut.bindAsEventListener(this);
+        this.clickListener = this.raterClick.bindAsEventListener(this);
         this.setListeners();
         AjaxJspTag.add(this);
     },
@@ -987,16 +972,15 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
         }, options || {});
     },
     setEvent: function (element) {
-        element.onmouseover = this.raterMouseOver.bindAsEventListener(this);
-        element.onmouseout = this.raterMouseOut.bindAsEventListener(this);
-        element.onclick = this.raterClick.bindAsEventListener(this);
+        element.onmouseover = this.mouseoverListener;
+        element.onmouseout = this.mouseoutListener;
+        element.onclick = this.clickListener;
     },
     setListeners: function () {
         // attach events to anchors
         this.container.select('a').each(this.setEvent, this);
     },
     raterMouseOver: function (e) {
-        // get containing div
         // get list of all anchors
         var elements = this.container.select('a');
         // find the current rating
@@ -1083,7 +1067,6 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
         }
     }
 });
-
 
 /**
  * OnClick tag.
