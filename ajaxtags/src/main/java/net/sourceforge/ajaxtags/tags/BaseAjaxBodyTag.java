@@ -111,21 +111,21 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     public final void release() {
         setId(null);
 
-        this.target = null;
-        this.baseUrl = null;
-        this.parser = null;
+        this.target = null; // NOPMD
+        this.baseUrl = null; // NOPMD
+        this.parser = null; // NOPMD
 
-        this.preFunction = null;
-        this.postFunction = null;
-        this.errorFunction = null;
-        this.parameters = null;
+        this.preFunction = null; // NOPMD
+        this.postFunction = null; // NOPMD
+        this.errorFunction = null; // NOPMD
+        this.parameters = null; // NOPMD
 
-        this.var = null;
-        this.attachTo = null;
+        this.var = null; // NOPMD
+        this.attachTo = null; // NOPMD
 
-        this.source = null;
-        this.sourceClass = null;
-        this.eventType = null;
+        this.source = null; // NOPMD
+        this.sourceClass = null; // NOPMD
+        this.eventType = null; // NOPMD
         releaseTag();
     }
 
@@ -311,7 +311,9 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         options.add("eventBase", "this", false);
         options.add("requestHeaders", "['" + AjaxAreaTag.TARGET_HEADER + "', '" + target + "']",
                 false);
-        // this.selfTargetOnClick = this.selfTargetOnClick ||
+
+
+        // TODO with JavaScript class
         final StringBuilder onclick = new StringBuilder("new AjaxJspTag.OnClick({");
         onclick.append(options.toString());
         onclick.append("}); return false;");

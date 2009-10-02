@@ -24,13 +24,13 @@ import java.util.List;
 
 import javax.servlet.jsp.JspException;
 
-import net.sourceforge.ajaxtags.helpers.DIVElement;
 import net.sourceforge.ajaxtags.helpers.AbstractHTMLElement;
+import net.sourceforge.ajaxtags.helpers.DIVElement;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the toggle (on/off, true/false) AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -68,7 +68,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return updateFunction;
     }
 
-    public void setUpdateFunction(String updateFunction) {
+    public void setUpdateFunction(final String updateFunction) {
         this.updateFunction = updateFunction;
     }
 
@@ -76,7 +76,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return containerClass;
     }
 
-    public void setContainerClass(String containerClass) {
+    public void setContainerClass(final String containerClass) {
         this.containerClass = containerClass;
     }
 
@@ -84,7 +84,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return defaultRating;
     }
 
-    public void setDefaultRating(String defaultRating) {
+    public void setDefaultRating(final String defaultRating) {
         this.defaultRating = trimToNull(defaultRating);
     }
 
@@ -92,7 +92,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return messageClass;
     }
 
-    public void setMessageClass(String messageClass) {
+    public void setMessageClass(final String messageClass) {
         this.messageClass = messageClass;
     }
 
@@ -100,7 +100,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return onOff;
     }
 
-    public void setOnOff(String onOff) {
+    public void setOnOff(final String onOff) {
         this.onOff = onOff;
     }
 
@@ -108,7 +108,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return overClass;
     }
 
-    public void setOverClass(String overClass) {
+    public void setOverClass(final String overClass) {
         this.overClass = overClass;
     }
 
@@ -116,7 +116,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return ratings;
     }
 
-    public void setRatings(String ratings) {
+    public void setRatings(final String ratings) {
         this.ratings = trimToNull(ratings);
     }
 
@@ -124,7 +124,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return selectedClass;
     }
 
-    public void setSelectedClass(String selectedClass) {
+    public void setSelectedClass(final String selectedClass) {
         this.selectedClass = selectedClass;
     }
 
@@ -132,7 +132,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return selectedLessClass;
     }
 
-    public void setSelectedLessClass(String selectedLessClass) {
+    public void setSelectedLessClass(final String selectedLessClass) {
         this.selectedLessClass = selectedLessClass;
     }
 
@@ -140,7 +140,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return selectedOverClass;
     }
 
-    public void setSelectedOverClass(String selectedOverClass) {
+    public void setSelectedOverClass(final String selectedOverClass) {
         this.selectedOverClass = selectedOverClass;
     }
 
@@ -148,12 +148,12 @@ public class AjaxToggleTag extends BaseAjaxTag {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(final String state) {
         this.state = state;
     }
 
     private OptionsBuilder getOptions() {
-        OptionsBuilder options = getOptionsBuilder();
+        final OptionsBuilder options = getOptionsBuilder();
         options.add("ratings", this.ratings, true);
         options.add("containerClass", this.containerClass, true);
         options.add("selectedClass", this.selectedClass, true);
@@ -165,14 +165,11 @@ public class AjaxToggleTag extends BaseAjaxTag {
         options.add("onOff", this.onOff, true);
         options.add("defaultRating", this.defaultRating, true);
         options.add("updateFunction", this.updateFunction, false);
-
         return options;
     }
 
     @Override
     public int doEndTag() throws JspException {
-        final OptionsBuilder options = getOptions();
-
         final boolean xOnOff = Boolean.parseBoolean(onOff);
         // write opening div
         final AbstractHTMLElement div = new DIVElement(getSource());
@@ -188,8 +185,9 @@ public class AjaxToggleTag extends BaseAjaxTag {
         if (xOnOff) {
             div.append(AVOID_URL_START);
             if (!ratingValues.isEmpty()) {
-                if (defaultRating != null && defaultRating.equalsIgnoreCase(ratingValues.get(0))) {
-                    div.append(ratingValues.get(0)).append("\" class=\"").append(selectedClass);
+                final String val = ratingValues.get(0);
+                if (defaultRating != null && defaultRating.equalsIgnoreCase(val)) {
+                    div.append(val).append("\" class=\"").append(selectedClass);
                 } else {
                     div.append(ratingValues.get(1));
                 }
@@ -210,8 +208,8 @@ public class AjaxToggleTag extends BaseAjaxTag {
         }
 
         // write script
-        JavaScript script = new JavaScript(this);
-        script.newToggle(options);
+        final JavaScript script = new JavaScript(this);
+        script.newToggle(getOptions());
         div.append(script);
         out(div);
         return EVAL_PAGE;
@@ -219,15 +217,15 @@ public class AjaxToggleTag extends BaseAjaxTag {
 
     @Override
     public void releaseTag() {
-        this.ratings = null;
-        this.defaultRating = null;
-        this.state = null;
-        this.onOff = null;
-        this.containerClass = null;
-        this.messageClass = null;
-        this.selectedClass = null;
-        this.selectedOverClass = null;
-        this.selectedLessClass = null;
-        this.overClass = null;
+        this.ratings = null; // NOPMD
+        this.defaultRating = null; // NOPMD
+        this.state = null; // NOPMD
+        this.onOff = null; // NOPMD
+        this.containerClass = null; // NOPMD
+        this.messageClass = null; // NOPMD
+        this.selectedClass = null; // NOPMD
+        this.selectedOverClass = null; // NOPMD
+        this.selectedLessClass = null; // NOPMD
+        this.overClass = null; // NOPMD
     }
 }

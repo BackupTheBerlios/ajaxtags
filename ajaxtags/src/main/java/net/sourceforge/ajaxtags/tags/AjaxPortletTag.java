@@ -23,7 +23,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the portlet AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/28 21:50:35 $ $Author: jenskapitza $
@@ -50,7 +50,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
 
     private boolean executeOnLoad;
 
-    public void setStartMinimize(boolean startMinimize) {
+    public void setStartMinimize(final boolean startMinimize) {
         this.startMinimize = startMinimize;
     }
 
@@ -62,7 +62,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return classNamePrefix;
     }
 
-    public void setClassNamePrefix(String classNamePrefix) {
+    public void setClassNamePrefix(final String classNamePrefix) {
         this.classNamePrefix = classNamePrefix;
     }
 
@@ -70,7 +70,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return imageClose;
     }
 
-    public void setImageClose(String imageClose) {
+    public void setImageClose(final String imageClose) {
         this.imageClose = imageClose;
     }
 
@@ -78,7 +78,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return executeOnLoad;
     }
 
-    public void setExecuteOnLoad(boolean executeOnLoad) {
+    public void setExecuteOnLoad(final boolean executeOnLoad) {
         this.executeOnLoad = executeOnLoad;
     }
 
@@ -86,7 +86,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return imageMaximize;
     }
 
-    public void setImageMaximize(String imageMaximize) {
+    public void setImageMaximize(final String imageMaximize) {
         this.imageMaximize = imageMaximize;
     }
 
@@ -94,7 +94,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return imageMinimize;
     }
 
-    public void setImageMinimize(String imageMinimize) {
+    public void setImageMinimize(final String imageMinimize) {
         this.imageMinimize = imageMinimize;
     }
 
@@ -102,7 +102,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return imageRefresh;
     }
 
-    public void setImageRefresh(String imageRefresh) {
+    public void setImageRefresh(final String imageRefresh) {
         this.imageRefresh = imageRefresh;
     }
 
@@ -110,7 +110,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return refreshPeriod;
     }
 
-    public void setRefreshPeriod(String refreshPeriod) {
+    public void setRefreshPeriod(final String refreshPeriod) {
         this.refreshPeriod = refreshPeriod;
     }
 
@@ -118,13 +118,13 @@ public class AjaxPortletTag extends BaseAjaxTag {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
+        final OptionsBuilder options = getOptionsBuilder();
         options.add("classNamePrefix", this.classNamePrefix, true);
         options.add("title", this.title, true);
         options.add("imageClose", this.imageClose, true);
@@ -146,13 +146,13 @@ public class AjaxPortletTag extends BaseAjaxTag {
     @Override
     protected void releaseTag() {
         this.startMinimize = false;
-        this.classNamePrefix = null;
-        this.title = null;
-        this.imageClose = null;
-        this.imageMaximize = null;
-        this.imageMinimize = null;
-        this.imageRefresh = null;
-        this.refreshPeriod = null;
+        this.classNamePrefix = null; // NOPMD
+        this.title = null; // NOPMD
+        this.imageClose = null; // NOPMD
+        this.imageMaximize = null; // NOPMD
+        this.imageMinimize = null; // NOPMD
+        this.imageRefresh = null; // NOPMD
+        this.refreshPeriod = null; // NOPMD
         this.executeOnLoad = false;
     }
 

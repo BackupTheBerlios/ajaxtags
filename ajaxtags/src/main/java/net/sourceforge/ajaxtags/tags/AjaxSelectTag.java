@@ -22,7 +22,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the select AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/08 17:52:30 $ $Author: jenskapitza $
@@ -39,7 +39,7 @@ public class AjaxSelectTag extends BaseAjaxTag {
 
     private String defaultOptions;
 
-    public void setEmptyOptionName(String emptyOptionName) {
+    public void setEmptyOptionName(final String emptyOptionName) {
         this.emptyOptionName = emptyOptionName;
     }
 
@@ -47,7 +47,7 @@ public class AjaxSelectTag extends BaseAjaxTag {
         return emptyOptionName;
     }
 
-    public void setEmptyOptionValue(String emptyOptionValue) {
+    public void setEmptyOptionValue(final String emptyOptionValue) {
         this.emptyOptionValue = emptyOptionValue;
     }
 
@@ -59,7 +59,7 @@ public class AjaxSelectTag extends BaseAjaxTag {
         return executeOnLoad;
     }
 
-    public void setExecuteOnLoad(boolean executeOnLoad) {
+    public void setExecuteOnLoad(final boolean executeOnLoad) {
         this.executeOnLoad = executeOnLoad;
     }
 
@@ -67,21 +67,20 @@ public class AjaxSelectTag extends BaseAjaxTag {
         return defaultOptions;
     }
 
-    public void setDefaultOptions(String defaultOptions) {
+    public void setDefaultOptions(final String defaultOptions) {
         this.defaultOptions = defaultOptions;
     }
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
+        final OptionsBuilder options = getOptionsBuilder();
         options.add("executeOnLoad", this.executeOnLoad);
         options.add("defaultOptions", this.defaultOptions, true);
         options.add("emptyOptionValue", emptyOptionValue, true);
         options.add("emptyOptionName", emptyOptionName, true);
 
-        JavaScript script = new JavaScript(this);
+        final JavaScript script = new JavaScript(this);
         script.newSelect(options);
-
         out(script);
         return EVAL_PAGE;
     }
@@ -89,8 +88,8 @@ public class AjaxSelectTag extends BaseAjaxTag {
     @Override
     public void releaseTag() {
         this.executeOnLoad = false;
-        this.defaultOptions = null;
-        this.emptyOptionName = null;
-        this.emptyOptionValue = null;
+        this.defaultOptions = null; // NOPMD
+        this.emptyOptionName = null; // NOPMD
+        this.emptyOptionValue = null; // NOPMD
     }
 }
