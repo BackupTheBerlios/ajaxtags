@@ -35,11 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-
-
 public class AjaxPortletTagTest {
-
-    
 
     private static final String TAG_ID = "ajaxFrame";
     private AjaxPortletTag tag;
@@ -64,7 +60,7 @@ public class AjaxPortletTagTest {
 
     /**
      * Test method for tag content generation in response to usual HTTP request.
-     * 
+     *
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -75,8 +71,7 @@ public class AjaxPortletTagTest {
      *             if it is not possible to transform document to string
      */
     @Test
-    public void testTag() throws JspException, IOException,
-            TransformerException, SAXException {
+    public void testTag() throws JspException, IOException, TransformerException, SAXException {
         final PageContext context = new FakePageContext();
         tag.setPageContext(context);
 
@@ -84,25 +79,24 @@ public class AjaxPortletTagTest {
 
         context.getOut().print("<div>before tag");
 
-        assertEquals("doStartTag() must return Tag.SKIP_BODY",
-                Tag.SKIP_BODY, tag.doStartTag());
+        assertEquals("doStartTag() must return Tag.SKIP_BODY", Tag.SKIP_BODY, tag.doStartTag());
 
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY",
-                BodyTag.SKIP_BODY, tag.doAfterBody());
-        
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE",
-                BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
+                .doAfterBody());
+
+        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
 
         context.getOut().print("after tag</div>");
         final String content = ((FakeBodyContent) context.getOut()).getString();
-        
-        final String expected = "<div>before tag<div><script type=\"text/javascript\">newAjaxJspTag.Portlet({executeOnLoad:false,startMinimize:false});</script></div>after tag</div>";
-        
-        // .replaceAll("[\\s|\n|\r\n]","") dirty hack, problem with WS remove all! cause 
+
+        final String expected = "<div>before tag<div>" + "<script type=\"text/javascript\">"
+                + "newAjaxJspTag.Portlet({executeOnLoad:false,startMinimize:false});" + "</script>"
+                + "</div>after tag</div>";
+
+        // .replaceAll("[\\s|\n|\r\n]","") dirty hack, problem with WS remove all! cause
         // we just need to check the javascript here
-        assertEquals("HTML after doEndTag()", XMLUtils.format(expected).replaceAll("[\\s|\n|\r\n]",""),
-                XMLUtils.format(content).replaceAll("[\\s|\n|\r\n]",""));
+        assertEquals("HTML after doEndTag()", XMLUtils.format(expected).replaceAll("[\\s|\n|\r\n]",
+                ""), XMLUtils.format(content).replaceAll("[\\s|\n|\r\n]", ""));
     }
 
-    
 }
