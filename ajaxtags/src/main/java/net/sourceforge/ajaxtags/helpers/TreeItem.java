@@ -56,6 +56,7 @@ public class TreeItem extends AbstractItem {
      * @param value
      *            value
      * @param asData
+     *            true if value must be set as CDATA
      */
     public TreeItem(final String name, final String value, final boolean asData) {
         this(name, value, false, null, asData);
@@ -81,9 +82,11 @@ public class TreeItem extends AbstractItem {
      * @param value
      *            value
      * @param collapsed
+     *            true if item is collapsed
      * @param url
      *            URL
      * @param asData
+     *            true if value must be set as CDATA
      */
     public TreeItem(final String name, final String value, final boolean collapsed,
             final String url, final boolean asData) {
@@ -100,7 +103,9 @@ public class TreeItem extends AbstractItem {
      * @param value
      *            value
      * @param asData
+     *            true if value must be set as CDATA
      * @param attributes
+     *            additional attributes
      */
     public TreeItem(final String name, final String value, final boolean asData,
             final Map<String, String> attributes) {

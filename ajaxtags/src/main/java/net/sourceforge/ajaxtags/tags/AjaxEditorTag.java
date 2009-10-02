@@ -23,7 +23,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 /**
  * Wraps the scriptaculous' in-place editor
  * (http://github.com/madrobby/scriptaculous/wikis/ajax-inplaceeditor).
- * 
+ *
  * @author Musachy Barroso
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -54,22 +54,21 @@ public class AjaxEditorTag extends BaseAjaxTag {
 
     @Override
     protected void releaseTag() {
-        showAcceptButton = null;
-        acceptText = null;
-        showCancelLink = null;
-        cancelText = null;
-        savingText = null;
-        mouseOverText = null;
-        formId = null;
-        rows = null;
-        columns = null;
-        highlightColor = null;
-
+        showAcceptButton = null; // NOPMD
+        acceptText = null; // NOPMD
+        showCancelLink = null; // NOPMD
+        cancelText = null; // NOPMD
+        savingText = null; // NOPMD
+        mouseOverText = null; // NOPMD
+        formId = null; // NOPMD
+        rows = null; // NOPMD
+        columns = null; // NOPMD
+        highlightColor = null; // NOPMD
     }
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
+        final OptionsBuilder options = getOptionsBuilder();
 
         options.add("okControl", this.showAcceptButton, false);
         options.add("okText", this.acceptText, true);
@@ -87,7 +86,8 @@ public class AjaxEditorTag extends BaseAjaxTag {
         options.add("rows", this.rows, true);
         options.add("cols", this.columns, true);
         options.add("highlightcolor", this.highlightColor, true);
-        JavaScript script = new JavaScript();
+
+        final JavaScript script = new JavaScript(this);
         setVar("$editor_" + getTarget());
         script.append(getJSVariable());
         script.append("new Ajax.InPlaceEditor(\"");
@@ -105,7 +105,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return acceptText;
     }
 
-    public void setAcceptText(String acceptText) {
+    public void setAcceptText(final String acceptText) {
         this.acceptText = acceptText;
     }
 
@@ -113,7 +113,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return cancelText;
     }
 
-    public void setCancelText(String cancelText) {
+    public void setCancelText(final String cancelText) {
         this.cancelText = cancelText;
     }
 
@@ -121,7 +121,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return columns;
     }
 
-    public void setColumns(String columns) {
+    public void setColumns(final String columns) {
         this.columns = columns;
     }
 
@@ -129,7 +129,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return highlightColor;
     }
 
-    public void setHighlightColor(String highlightColor) {
+    public void setHighlightColor(final String highlightColor) {
         this.highlightColor = highlightColor;
     }
 
@@ -137,7 +137,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return mouseOverText;
     }
 
-    public void setMouseOverText(String mouseOverText) {
+    public void setMouseOverText(final String mouseOverText) {
         this.mouseOverText = mouseOverText;
     }
 
@@ -145,7 +145,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return rows;
     }
 
-    public void setRows(String rows) {
+    public void setRows(final String rows) {
         this.rows = rows;
     }
 
@@ -153,7 +153,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return savingText;
     }
 
-    public void setSavingText(String savingText) {
+    public void setSavingText(final String savingText) {
         this.savingText = savingText;
     }
 
@@ -161,7 +161,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return showAcceptButton;
     }
 
-    public void setShowAcceptButton(String showAcceptButton) {
+    public void setShowAcceptButton(final String showAcceptButton) {
         this.showAcceptButton = showAcceptButton;
     }
 
@@ -169,7 +169,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return showCancelLink;
     }
 
-    public void setShowCancelLink(String showCancelLink) {
+    public void setShowCancelLink(final String showCancelLink) {
         this.showCancelLink = showCancelLink;
     }
 
@@ -177,7 +177,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         return formId;
     }
 
-    public void setFormId(String formId) {
+    public void setFormId(final String formId) {
         this.formId = formId;
     }
 }

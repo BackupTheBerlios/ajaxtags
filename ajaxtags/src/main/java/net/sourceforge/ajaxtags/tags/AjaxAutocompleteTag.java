@@ -42,7 +42,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         return appendSeparator;
     }
 
-    public void setAppendSeparator(String appendSeparator) {
+    public void setAppendSeparator(final String appendSeparator) {
         this.appendSeparator = appendSeparator;
     }
 

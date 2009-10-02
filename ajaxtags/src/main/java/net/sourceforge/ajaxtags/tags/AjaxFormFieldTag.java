@@ -22,7 +22,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the form field AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -39,17 +39,17 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
         return action;
     }
 
-    public void setAction(String action) {
+    public void setAction(final String action) {
         this.action = action;
     }
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
+        final OptionsBuilder options = getOptionsBuilder();
         options.add("action", this.action, true);
         options.add("valueUpdateByName", String.valueOf(this.valueUpdateByName), false);
 
-        JavaScript script = new JavaScript();
+        final JavaScript script = new JavaScript(this);
         script.append(getJSVariable());
         script.append(" new AjaxJspTag.UpdateField(\n").append("{\n").append(options.toString())
                 .append("});\n");
@@ -61,14 +61,14 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
     @Override
     public void releaseTag() {
         this.valueUpdateByName = false;
-        this.action = null;
+        this.action = null; // NOPMD
     }
 
     public boolean getValueUpdateByName() {
         return valueUpdateByName;
     }
 
-    public void setValueUpdateByName(boolean valueUpdateByName) {
+    public void setValueUpdateByName(final boolean valueUpdateByName) {
         this.valueUpdateByName = valueUpdateByName;
     }
 }

@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 
 /**
  * A generic item class, basically representing a name-value pair.
- * 
+ *
  * @author Darren L. Spurgeon
  * @author Jens Kapitza
  */
@@ -45,13 +45,13 @@ public abstract class AbstractItem {
     private boolean asCData;
 
     /**
-     * All other attributes. Using a TreeMap cause of Junit tests.
+     * All other attributes. Using a TreeMap cause of JUnit tests.
      */
-    private Map<String, String> attributes = new TreeMap<String, String>();
+    private final Map<String, String> attributes = new TreeMap<String, String>();
 
     /**
      * Constructor for Item.
-     * 
+     *
      * @param name
      *            the name for the item
      * @param value
@@ -75,7 +75,7 @@ public abstract class AbstractItem {
 
     /**
      * Set all attributes.
-     * 
+     *
      * @param attributes
      *            the attributes to set
      */
@@ -88,8 +88,8 @@ public abstract class AbstractItem {
     }
 
     /**
-     * List all attribute-names
-     * 
+     * List all attribute-names.
+     *
      * @return the key set of the attributes
      */
     public Set<String> getAttributeKeySet() {
@@ -98,7 +98,7 @@ public abstract class AbstractItem {
 
     /**
      * Removes an attribute.
-     * 
+     *
      * @param name
      *            the name of attribute
      */
@@ -116,7 +116,7 @@ public abstract class AbstractItem {
     /**
      * Set an attribute to extend the item. This just invoke
      * {@link #setAttributes(String, String, boolean)} with false as third parameter.
-     * 
+     *
      * @param name
      *            the name for the attribute
      * @param value
@@ -129,7 +129,7 @@ public abstract class AbstractItem {
 
     /**
      * Set an attribute to extend the item.
-     * 
+     *
      * @param name
      *            the name for the attribute
      * @param value
@@ -139,8 +139,6 @@ public abstract class AbstractItem {
      */
     public final void setAttributes(final String name, final String value, final boolean evenIfNull) {
         if (value != null || evenIfNull) {
-            // FindBug say we should use
-            // String.toLowerCase( Locale l )
             // don't change the name here, we should do this
             // in the Map implementation or never!
             attributes.put(name, value);
@@ -149,7 +147,7 @@ public abstract class AbstractItem {
 
     /**
      * Read the attribute value.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the value of attribute <code>name</code>
@@ -167,7 +165,7 @@ public abstract class AbstractItem {
 
     /**
      * Set the Name.
-     * 
+     *
      * @param name
      *            The name to set.
      */
@@ -177,7 +175,7 @@ public abstract class AbstractItem {
 
     /**
      * The type depends on the child-class.
-     * 
+     *
      * @return Returns the value.
      */
     public Object getValue() {

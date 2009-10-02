@@ -23,7 +23,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the callout AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/08/05 14:11:00 $ $Author: jenskapitza $
  */
@@ -45,7 +45,7 @@ public class AjaxCalloutTag extends BaseAjaxTag {
         return this.closeEventType;
     }
 
-    public void setCloseEventType(String closeEvent) {
+    public void setCloseEventType(final String closeEvent) {
         this.closeEventType = closeEvent;
     }
 
@@ -53,7 +53,7 @@ public class AjaxCalloutTag extends BaseAjaxTag {
         return this.openEventType;
     }
 
-    public void setOpenEventType(String openEvent) {
+    public void setOpenEventType(final String openEvent) {
         this.openEventType = openEvent;
     }
 
@@ -61,7 +61,7 @@ public class AjaxCalloutTag extends BaseAjaxTag {
         return this.emptyFunction;
     }
 
-    public void setEmptyFunction(String emptyFunction) {
+    public void setEmptyFunction(final String emptyFunction) {
         this.emptyFunction = emptyFunction;
     }
 
@@ -69,7 +69,7 @@ public class AjaxCalloutTag extends BaseAjaxTag {
         return this.overlib;
     }
 
-    public void setOverlib(String overlib) {
+    public void setOverlib(final String overlib) {
         this.overlib = overlib;
     }
 
@@ -77,20 +77,20 @@ public class AjaxCalloutTag extends BaseAjaxTag {
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
+        final OptionsBuilder options = getOptionsBuilder();
         options.add("title", this.title, true);
         options.add("overlib", this.overlib, true);
         options.add("emptyFunction", this.emptyFunction, false);
         options.add("openEvent", this.openEventType, true);
         options.add("closeEvent", this.closeEventType, true);
 
-        JavaScript script = new JavaScript();
+        final JavaScript script = new JavaScript(this);
         script.append(getJSVariable());
         script.append("new AjaxJspTag.Callout(\n").append("{\n").append(options.toString()).append(
                 "});\n");
@@ -101,10 +101,10 @@ public class AjaxCalloutTag extends BaseAjaxTag {
 
     @Override
     public void releaseTag() {
-        this.title = null;
-        this.overlib = null;
-        this.emptyFunction = null;
-        this.openEventType = null;
-        this.closeEventType = null;
+        this.title = null; // NOPMD
+        this.overlib = null; // NOPMD
+        this.emptyFunction = null; // NOPMD
+        this.openEventType = null; // NOPMD
+        this.closeEventType = null; // NOPMD
     }
 }
