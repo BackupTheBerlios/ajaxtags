@@ -35,6 +35,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+/**
+ * Test for AjaxPortletTag.
+ *
+ * @author Victor Homyakov
+ * @version $Revision$ $Date$ $Author$
+ */
 public class AjaxPortletTagTest {
 
     private static final String TAG_ID = "ajaxFrame";
@@ -62,7 +68,7 @@ public class AjaxPortletTagTest {
      * Test method for tag content generation in response to usual HTTP request.
      *
      * @throws JspException
-     *             on errors
+     *             on tag errors
      * @throws IOException
      *             on BodyContent errors
      * @throws SAXException
