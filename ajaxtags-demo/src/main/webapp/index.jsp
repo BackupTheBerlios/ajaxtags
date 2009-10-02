@@ -40,8 +40,8 @@
     prefix="ajax"%>
 <%@page import="java.util.Date"%>
 <jsp:useBean id="now" class="java.util.Date" />
-	
-<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" ></meta>
@@ -49,8 +49,8 @@
 <link type="text/css" rel="stylesheet" href="css/displaytag.css" ></link>
 <link rel="stylesheet" type="text/css" href="css0/site.css" ></link>
 <title>AJAX JSP Tag Library Examples</title>
- 
-<!-- der ie kann das dynamische laden nicht, es fehlen die informationen & es ist die falsche reihenfolge --> 
+
+<!-- der ie kann das dynamische laden nicht, es fehlen die informationen & es ist die falsche reihenfolge -->
 <script type="text/javascript" src="ajaxtags/js/prototype.js"></script>
 <script type="text/javascript" src="ajaxtags/js/scriptaculous/scriptaculous.js"></script>
 <script type="text/javascript" src="ajaxtags/js/overlibmws/overlibmws.js"></script>
@@ -60,7 +60,7 @@
     /*
      * USER DEFINED FUNCTIONS
      */
-     
+
     window.initProgress = function() {
         Element.show('progressMsg');
     };
@@ -92,6 +92,7 @@
 <ajax:tabPanel id="panelIndex">
 	<ajax:tab caption="Autocomplete" baseUrl="autocomplete.jsp" />
 	<ajax:tab caption="Callout" baseUrl="callout.jsp"  />
+	<ajax:tab caption="Form Submit" baseUrl="formsubmit.jsp" />
 	<ajax:tab caption="Form Update" baseUrl="formupdate.jsp" />
 	<ajax:tab caption="HtmlContent" baseUrl="htmlcontent.jsp"/>
 	<ajax:tab caption="Portlet" baseUrl="portlet.jsp"  defaultTab="true" />
@@ -108,5 +109,3 @@
 </div>
 </body>
 </html>
-
-
