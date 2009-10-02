@@ -28,6 +28,7 @@
     </properties>
     <body>
         <release version="1.5" date="In Version-Control-System" description="">
+            <action type="fix" dev="jenskapitza">Update Documentation</action>
             <action type="fix" dev="victor-homyakov">Autocompleter popup div is inserted at the top of the DOM
                 hierarchy to prevent overflow.</action>
             <action type="fix" dev="victor-homyakov">Added default attribute values to AjaxDisplayTag.
