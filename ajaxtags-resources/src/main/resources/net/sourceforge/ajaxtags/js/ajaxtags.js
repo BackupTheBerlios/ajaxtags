@@ -1086,6 +1086,35 @@ AjaxJspTag.OnClick = Class.create(AjaxJspTag.Base, {
         }, this.options.eventBase);
     },
     handler: function () {
-        // etwas machen wenn erfolgreich??
+        // etwas machen wenn erfolgreich?
+    }
+});
+
+/**
+ * Submit tag.
+ */
+AjaxJspTag.Submit = Class.create(AjaxJspTag.Base, {
+    initialize: function(options){
+        this.setOptions(options);
+        this.setListeners();
+    },
+    setOptions: function(options){
+        this.options = options || {};
+    },
+    setListeners: function(){
+        var o = this.options, f = $(o.source);
+        if (f) {
+            f.onsubmit = this.execute.bind(this);
+        }
+    },
+    execute: function(){
+        var o = this.options, f = $(o.source);
+        if (f) {
+            o.baseUrl = f.action;
+            this.request = this.getAjaxUpdater({
+                parameters: f.serialize(true)
+            });
+        }
+        return false;
     }
 });

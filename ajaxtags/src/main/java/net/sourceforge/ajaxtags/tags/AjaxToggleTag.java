@@ -208,9 +208,7 @@ public class AjaxToggleTag extends BaseAjaxTag {
         }
 
         // write script
-        final JavaScript script = new JavaScript(this);
-        script.newToggle(getOptions());
-        div.append(script);
+        div.append(JavaScript.newToggle(this, getOptions()));
         out(div);
         return EVAL_PAGE;
     }

@@ -19,18 +19,21 @@ package net.sourceforge.ajaxtags.tags;
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
-import net.sourceforge.ajaxtags.helpers.AbstractHTMLElement;
 import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for AJAX tabbed panel.
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
 public class AjaxTabPanelTag extends BaseAjaxBodyTag {
 
     private static final long serialVersionUID = 4008240512963947567L;
+
+    private static final char PAGES_DELIMITER = ',';
+
+    // TODO refactor with List?
     private StringBuilder pages = new StringBuilder();
 
     @Override
@@ -38,32 +41,54 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
         pages = new StringBuilder();
     }
 
+    private OptionsBuilder getOptions() {
+        final OptionsBuilder options = getOptionsBuilder();
+        options.add("id", getId(), true);
+        options.add("pages", getPages(), false);
+        return options;
+    }
+
     @Override
     public int doEndTag() throws JspException {
         // tabs
-        if (pages.length() > 0) {
-            pages.deleteCharAt(pages.length() - 1);
-        } else {
-            throw new JspException("no pages");
+        if (pages.length() == 0) {
+            throw new JspException("No tabs added to tab panel.");
         }
-        OptionsBuilder op = getOptionsBuilder();
-        op.add("id", getId(), true);
-        op.add("pages", "[" + pages.toString() + " ]", false);
 
-        AbstractHTMLElement div = new DIVElement(getId());
-        JavaScript script = new JavaScript(this);
-        script.newTabPanel(op);
-        div.append(script);
+        final DIVElement div = new DIVElement(getId());
+        div.append(JavaScript.newTabPanel(this, getOptions()));
         out(div);
         return EVAL_PAGE;
     }
 
     @Override
     public void releaseTag() {
-        this.pages = null;
+        this.pages = null; // NOPMD
     }
 
-    public final void addPage(AjaxTabPageTag ajaxTabPageTag) {
-        pages.append(ajaxTabPageTag.toString()).append(",");
+    /**
+     * Add one tab to panel.
+     *
+     * @param ajaxTabPageTag
+     *            tab
+     */
+    public final void addPage(final AjaxTabPageTag ajaxTabPageTag) {
+        if (pages.length() > 0) {
+            // append delimiter after previous tabs
+            pages.append(PAGES_DELIMITER);
+        }
+        pages.append(ajaxTabPageTag.toString());
+    }
+
+    /**
+     * Get list of tabs as JavaScript array (JSON).
+     *
+     * @return JSON string with array of tabs
+     */
+    protected String getPages() {
+        /*if (pages.length() > 0 && pages.charAt(pages.length() - 1) == PAGES_DELIMITER) {
+            pages.deleteCharAt(pages.length() - 1);
+        }*/
+        return "[" + pages.toString() + "]";
     }
 }

@@ -51,7 +51,7 @@ public class AjaxTabPageTag extends BaseAjaxTag {
 
     @Override
     public String toString() {
-        final OptionsBuilder options = OptionsBuilder.getOptionsBuilder(); // clean one
+        final OptionsBuilder options = getOptionsBuilder(true); // clean one
         options.add("caption", getCaption(), true);
         options.add("baseUrl", getBaseUrl(), true);
         options.add("parameters", getParameters(), true);

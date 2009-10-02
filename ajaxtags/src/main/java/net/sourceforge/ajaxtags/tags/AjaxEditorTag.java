@@ -87,7 +87,7 @@ public class AjaxEditorTag extends BaseAjaxTag {
         options.add("cols", this.columns, true);
         options.add("highlightcolor", this.highlightColor, true);
 
-        final JavaScript script = new JavaScript(this);
+        final JavaScript script = new JavaScript();
         setVar("$editor_" + getTarget());
         script.append(getJSVariable());
         script.append("new Ajax.InPlaceEditor(\"");

@@ -70,25 +70,26 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         this.minimumCharacters = minimumCharacters;
     }
 
-    @Override
-    public int doEndTag() throws JspException {
+    private OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("className", this.className, true);
         options.add("indicator", this.indicator, true);
         options.add("minChars", this.minimumCharacters, true);
         options.add("appendSeparator", this.appendSeparator, true);
+        return options;
+    }
 
-        final JavaScript script = new JavaScript(this);
-        script.newAutocomplete(options);
-        out(script);
+    @Override
+    public int doEndTag() throws JspException {
+        out(JavaScript.newAutocomplete(this, getOptions()));
         return EVAL_PAGE;
     }
 
     @Override
     public void releaseTag() {
-        this.className = null;
-        this.minimumCharacters = null;
-        this.appendSeparator = null;
-        this.indicator = null;
+        this.className = null; // NOPMD
+        this.minimumCharacters = null; // NOPMD
+        this.appendSeparator = null; // NOPMD
+        this.indicator = null; // NOPMD
     }
 }

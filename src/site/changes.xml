@@ -28,6 +28,8 @@
     </properties>
     <body>
         <release version="1.5" date="In Version-Control-System" description="">
+            <action type="update" dev="victor-homyakov">New form submit tag.</action>
+            <action type="update" dev="victor-homyakov">Added 'var' and 'attachTo' attributes to tree tag.</action>
             <action type="fix" dev="victor-homyakov">Autocompleter popup div is inserted at the top of the DOM
                 hierarchy to prevent overflow.</action>
             <action type="fix" dev="victor-homyakov">Added default attribute values to AjaxDisplayTag.

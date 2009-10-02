@@ -23,7 +23,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the tree AJAX tag.
- * 
+ *
  * @author Musachy Barroso
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -44,7 +44,7 @@ public class AjaxTreeTag extends BaseAjaxTag {
         return treeClass;
     }
 
-    public void setTreeClass(String treeClass) {
+    public void setTreeClass(final String treeClass) {
         this.treeClass = treeClass;
     }
 
@@ -52,7 +52,7 @@ public class AjaxTreeTag extends BaseAjaxTag {
         return nodeClass;
     }
 
-    public void setNodeClass(String nodeClass) {
+    public void setNodeClass(final String nodeClass) {
         this.nodeClass = nodeClass;
     }
 
@@ -60,7 +60,7 @@ public class AjaxTreeTag extends BaseAjaxTag {
         return collapsedClass;
     }
 
-    public void setCollapsedClass(String collapsedClass) {
+    public void setCollapsedClass(final String collapsedClass) {
         this.collapsedClass = collapsedClass;
     }
 
@@ -68,32 +68,33 @@ public class AjaxTreeTag extends BaseAjaxTag {
         return expandedClass;
     }
 
-    public void setExpandedClass(String expandedClass) {
+    public void setExpandedClass(final String expandedClass) {
         this.expandedClass = expandedClass;
     }
 
-    @Override
-    public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
+    private OptionsBuilder getOptions() {
+        final OptionsBuilder options = getOptionsBuilder();
         options.add("target", getId(), true);
-
         options.add("collapsedClass", this.collapsedClass, true);
         options.add("expandedClass", this.expandedClass, true);
         options.add("treeClass", this.treeClass, true);
         options.add("nodeClass", this.nodeClass, true);
-        DIVElement div = new DIVElement(getId());
-        JavaScript script = new JavaScript();
-        script.append("new AjaxJspTag.Tree({\n").append(options.toString()).append("});\n");
-        div.setBody(script);
+        return options;
+    }
+
+    @Override
+    public int doEndTag() throws JspException {
+        final DIVElement div = new DIVElement(getId());
+        div.setBody(JavaScript.newTree(this, getOptions()));
         out(div);
         return EVAL_PAGE;
     }
 
     @Override
     protected void releaseTag() {
-        collapsedClass = null;
-        expandedClass = null;
-        nodeClass = null;
-        treeClass = null;
+        collapsedClass = null; // NOPMD
+        expandedClass = null; // NOPMD
+        nodeClass = null; // NOPMD
+        treeClass = null; // NOPMD
     }
 }

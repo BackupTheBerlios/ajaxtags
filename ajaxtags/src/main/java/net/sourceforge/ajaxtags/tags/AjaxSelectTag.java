@@ -71,17 +71,18 @@ public class AjaxSelectTag extends BaseAjaxTag {
         this.defaultOptions = defaultOptions;
     }
 
-    @Override
-    public int doEndTag() throws JspException {
+    private OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("executeOnLoad", this.executeOnLoad);
         options.add("defaultOptions", this.defaultOptions, true);
         options.add("emptyOptionValue", emptyOptionValue, true);
         options.add("emptyOptionName", emptyOptionName, true);
+        return options;
+    }
 
-        final JavaScript script = new JavaScript(this);
-        script.newSelect(options);
-        out(script);
+    @Override
+    public int doEndTag() throws JspException {
+        out(JavaScript.newSelect(this, getOptions()));
         return EVAL_PAGE;
     }
 

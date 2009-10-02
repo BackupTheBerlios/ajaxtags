@@ -81,21 +81,19 @@ public class AjaxCalloutTag extends BaseAjaxTag {
         this.title = title;
     }
 
-    @Override
-    public int doEndTag() throws JspException {
+    private OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("title", this.title, true);
         options.add("overlib", this.overlib, true);
         options.add("emptyFunction", this.emptyFunction, false);
         options.add("openEvent", this.openEventType, true);
         options.add("closeEvent", this.closeEventType, true);
+        return options;
+    }
 
-        final JavaScript script = new JavaScript(this);
-        script.append(getJSVariable());
-        script.append("new AjaxJspTag.Callout(\n").append("{\n").append(options.toString()).append(
-                "});\n");
-
-        out(script);
+    @Override
+    public int doEndTag() throws JspException {
+        out(JavaScript.newCallout(this, getOptions()));
         return Tag.EVAL_PAGE;
     }
 

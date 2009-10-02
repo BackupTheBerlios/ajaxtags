@@ -122,8 +122,7 @@ public class AjaxPortletTag extends BaseAjaxTag {
         this.title = title;
     }
 
-    @Override
-    public int doEndTag() throws JspException {
+    private OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("classNamePrefix", this.classNamePrefix, true);
         options.add("title", this.title, true);
@@ -134,11 +133,13 @@ public class AjaxPortletTag extends BaseAjaxTag {
         options.add("refreshPeriod", this.refreshPeriod, true);
         options.add("executeOnLoad", this.executeOnLoad);
         options.add("startMinimize", this.startMinimize);
+        return options;
+    }
 
+    @Override
+    public int doEndTag() throws JspException {
         final DIVElement div = new DIVElement(getSource());
-        final JavaScript script = new JavaScript(this);
-        script.newPortlet(options);
-        div.setBody(script);
+        div.setBody(JavaScript.newPortlet(this, getOptions()));
         out(div);
         return EVAL_PAGE;
     }

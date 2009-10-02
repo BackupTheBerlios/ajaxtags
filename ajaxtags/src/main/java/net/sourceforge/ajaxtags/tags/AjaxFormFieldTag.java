@@ -43,18 +43,16 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
         this.action = action;
     }
 
-    @Override
-    public int doEndTag() throws JspException {
+    private OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("action", this.action, true);
         options.add("valueUpdateByName", String.valueOf(this.valueUpdateByName), false);
+        return options;
+    }
 
-        final JavaScript script = new JavaScript(this);
-        script.append(getJSVariable());
-        script.append(" new AjaxJspTag.UpdateField(\n").append("{\n").append(options.toString())
-                .append("});\n");
-
-        out(script);
+    @Override
+    public int doEndTag() throws JspException {
+        out(JavaScript.newUpdateField(this, getOptions()));
         return EVAL_PAGE;
     }
 

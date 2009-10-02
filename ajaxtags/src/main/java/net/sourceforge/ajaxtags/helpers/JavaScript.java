@@ -27,8 +27,6 @@ import net.sourceforge.ajaxtags.tags.OptionsBuilder;
  */
 public final class JavaScript extends AbstractHTMLElement {
 
-    private BaseAjaxBodyTag tag;
-
     /**
      * Create a script element.
      */
@@ -39,80 +37,173 @@ public final class JavaScript extends AbstractHTMLElement {
     /**
      * Constructor.
      *
-     * @param tag
-     *            the tag, which uses this JavaScript
+     * @param script
+     *            initial script content
      */
-    public JavaScript(final BaseAjaxBodyTag tag) {
+    public JavaScript(final String script) {
         this();
-        this.tag = tag;
+        append(script);
     }
 
     /**
-     * Create new AjaxJspTag.TabPanel.
+     * Create new AjaxJspTag.Autocomplete JavaScript.
      *
-     * @param options
-     *            options for TabPanel
-     * @return updated HTML element
-     */
-    public AbstractHTMLElement newTabPanel(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append(newTag("TabPanel", options));
-    }
-
-    /**
-     * Create new AjaxJspTag.Select.
+     * TODO generalize all newXxx methods and place in BaseAjaxBodyTag.
      *
-     * @param options
-     *            options for Select
-     * @return updated HTML element
-     */
-    public AbstractHTMLElement newSelect(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append(newTag("Select", options));
-    }
-
-    /**
-     * Create new AjaxJspTag.Toggle.
-     *
-     * @param options
-     *            options for Toggle
-     * @return updated HTML element
-     */
-    public AbstractHTMLElement newToggle(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append(newTag("Toggle", options));
-    }
-    
-    /**
-     * Create new AjaxJspTag.Portlet.
-     *
-     * @param options
-     *            options for Portlet
-     * @return updated HTML element
-     */
-    public AbstractHTMLElement newPortlet(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append(newTag("Portlet", options));
-    }
-
-    /**
-     * Create new AjaxJspTag.Autocomplete.
-     *
+     * @param tag
+     *            the tag, whose parameters will be used
      * @param options
      *            options for Autocomplete
      * @return updated HTML element
      */
-    public AbstractHTMLElement newAutocomplete(final OptionsBuilder options) {
-        return append(tag.getJSVariable()).append(newTag("Autocomplete", options));
+    public static JavaScript newAutocomplete(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("Autocomplete", tag.getJSVariable(), options));
     }
 
     /**
-     * Create "new AjaxJspTag.tag({options});" tag expression string.
+     * Create new AjaxJspTag.Callout JavaScript.
      *
      * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for Callout
+     * @return updated HTML element
+     */
+    public static JavaScript newCallout(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("Callout", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.HtmlContent JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for HtmlContent
+     * @return updated HTML element
+     */
+    public static JavaScript newHtmlContent(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("HtmlContent", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.Portlet JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for Portlet
+     * @return updated HTML element
+     */
+    public static JavaScript newPortlet(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("Portlet", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.Select JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for Select
+     * @return updated HTML element
+     */
+    public static JavaScript newSelect(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("Select", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.Submit JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for Submit
+     * @return updated HTML element
+     */
+    public static JavaScript newSubmit(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("Submit", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.TabPanel JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for TabPanel
+     * @return updated HTML element
+     */
+    public static JavaScript newTabPanel(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("TabPanel", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.Toggle JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for Toggle
+     * @return updated HTML element
+     */
+    public static JavaScript newToggle(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("Toggle", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.Tree JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for Tree
+     * @return updated HTML element
+     */
+    public static JavaScript newTree(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("Tree", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create new AjaxJspTag.UpdateField JavaScript.
+     *
+     * @param tag
+     *            the tag, whose parameters will be used
+     * @param options
+     *            options for UpdateField
+     * @return updated HTML element
+     */
+    public static JavaScript newUpdateField(final BaseAjaxBodyTag tag, final OptionsBuilder options) {
+        return new JavaScript(newTag("UpdateField", tag.getJSVariable(), options));
+    }
+
+    /**
+     * Create "var = new AjaxJspTag.tagName({options});" tag expression string.
+     *
+     * @param tagName
+     *            tag name
+     * @param var
+     *            name of variable or field to attach to
+     * @param options
+     *            options
+     * @return string with expression
+     */
+    private static String newTag(final String tagName, final String var,
+            final OptionsBuilder options) {
+        return var + newTag(tagName, options);
+    }
+
+    /**
+     * Create "new AjaxJspTag.tagName({options});" tag expression string.
+     *
+     * @param tagName
      *            tag name
      * @param options
      *            options
      * @return string with expression
      */
-    private String newTag(final String tag, final OptionsBuilder options) {
-        return "new AjaxJspTag." + tag + "({" + options + "});";
+    private static String newTag(final String tagName, final OptionsBuilder options) {
+        return "new AjaxJspTag." + tagName + "({" + options + "});";
     }
 
     /**

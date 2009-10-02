@@ -22,7 +22,7 @@ import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the HTML Content AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/07/08 18:18:52 $ $Author: jenskapitza $
  */
@@ -32,13 +32,7 @@ public class AjaxHtmlContentTag extends BaseAjaxTag {
 
     @Override
     public int doEndTag() throws JspException {
-        OptionsBuilder options = getOptionsBuilder();
-        JavaScript script = new JavaScript();
-        script.append(getJSVariable());
-        script.append("new AjaxJspTag.HtmlContent(").append("{\n").append(options.toString())
-                .append("});\n");
-
-        out(script);
+        out(JavaScript.newHtmlContent(this, getOptionsBuilder()));
         return EVAL_PAGE;
     }
 }
