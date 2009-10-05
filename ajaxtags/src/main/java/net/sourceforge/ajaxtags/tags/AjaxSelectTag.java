@@ -18,8 +18,6 @@ package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
 
-import net.sourceforge.ajaxtags.helpers.JavaScript;
-
 /**
  * Tag handler for the select AJAX tag.
  *
@@ -71,7 +69,13 @@ public class AjaxSelectTag extends BaseAjaxTag {
         this.defaultOptions = defaultOptions;
     }
 
-    private OptionsBuilder getOptions() {
+    @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "Select";
+    }
+
+    @Override
+    protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("executeOnLoad", this.executeOnLoad);
         options.add("defaultOptions", this.defaultOptions, true);
@@ -82,7 +86,7 @@ public class AjaxSelectTag extends BaseAjaxTag {
 
     @Override
     public int doEndTag() throws JspException {
-        out(JavaScript.newSelect(this, getOptions()));
+        out(buildScript());
         return EVAL_PAGE;
     }
 

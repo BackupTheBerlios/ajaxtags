@@ -18,8 +18,6 @@ package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
 
-import net.sourceforge.ajaxtags.helpers.JavaScript;
-
 /**
  * Builds the JavaScript required to submit form and retrieve response via AJAX.
  *
@@ -29,7 +27,14 @@ public class AjaxSubmitTag extends BaseAjaxTag {
 
     private static final long serialVersionUID = -8804246033367573302L;
 
-    private OptionsBuilder getOptions() {
+    @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "Submit";
+    }
+
+    @Override
+    protected OptionsBuilder getOptions() {
+        // empty options
         final OptionsBuilder options = getOptionsBuilder(true);
         options.add("source", getSource(), true);
         options.add("target", getTarget(), true);
@@ -38,7 +43,7 @@ public class AjaxSubmitTag extends BaseAjaxTag {
 
     @Override
     public int doEndTag() throws JspException {
-        out(JavaScript.newSubmit(this, getOptions()));
+        out(buildScript());
         return EVAL_PAGE;
     }
 }

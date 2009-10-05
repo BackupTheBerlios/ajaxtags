@@ -18,8 +18,6 @@ package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
 
-import net.sourceforge.ajaxtags.helpers.JavaScript;
-
 /**
  * Tag handler for the form field AJAX tag.
  *
@@ -43,7 +41,13 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
         this.action = action;
     }
 
-    private OptionsBuilder getOptions() {
+    @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "UpdateField";
+    }
+
+    @Override
+    protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("action", this.action, true);
         options.add("valueUpdateByName", String.valueOf(this.valueUpdateByName), false);
@@ -52,7 +56,7 @@ public class AjaxFormFieldTag extends BaseAjaxTag {
 
     @Override
     public int doEndTag() throws JspException {
-        out(JavaScript.newUpdateField(this, getOptions()));
+        out(buildScript());
         return EVAL_PAGE;
     }
 

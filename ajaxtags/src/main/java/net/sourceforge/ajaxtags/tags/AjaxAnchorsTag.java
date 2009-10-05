@@ -133,5 +133,4 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
         }
         return XMLUtils.getXMLDocument(WARP0 + xhtml + WARP1);
     }
-
 }

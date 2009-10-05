@@ -18,8 +18,6 @@ package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
 
-import net.sourceforge.ajaxtags.helpers.JavaScript;
-
 /**
  * Tag handler for the HTML Content AJAX tag.
  *
@@ -31,8 +29,13 @@ public class AjaxHtmlContentTag extends BaseAjaxTag {
     private static final long serialVersionUID = -2633087429107457075L;
 
     @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "HtmlContent";
+    }
+
+    @Override
     public int doEndTag() throws JspException {
-        out(JavaScript.newHtmlContent(this, getOptionsBuilder()));
+        out(buildScript());
         return EVAL_PAGE;
     }
 }

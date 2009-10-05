@@ -16,6 +16,8 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
+import static org.apache.commons.lang.StringUtils.trimToNull;
+
 import javax.servlet.jsp.JspException;
 import javax.xml.transform.TransformerException;
 
@@ -74,7 +76,7 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      */
     public void setPagelinksClass(final String pagelinksClass) {
         // this.pagelinksClass = pagelinksClass == null ? StringUtils.EMPTY : pagelinksClass;
-        this.pagelinksClass = pagelinksClass;
+        this.pagelinksClass = trimToNull(pagelinksClass);
     }
 
     /**
@@ -90,7 +92,7 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      */
     public void setColumnClass(final String columnClass) {
         // this.columnClass = columnClass == null ? StringUtils.EMPTY : columnClass;
-        this.columnClass = columnClass;
+        this.columnClass = trimToNull(columnClass);
     }
 
     /**

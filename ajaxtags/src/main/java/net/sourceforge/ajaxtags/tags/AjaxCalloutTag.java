@@ -19,8 +19,6 @@ package net.sourceforge.ajaxtags.tags;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
 
-import net.sourceforge.ajaxtags.helpers.JavaScript;
-
 /**
  * Tag handler for the callout AJAX tag.
  *
@@ -81,7 +79,13 @@ public class AjaxCalloutTag extends BaseAjaxTag {
         this.title = title;
     }
 
-    private OptionsBuilder getOptions() {
+    @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "Callout";
+    }
+
+    @Override
+    protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("title", this.title, true);
         options.add("overlib", this.overlib, true);
@@ -93,7 +97,7 @@ public class AjaxCalloutTag extends BaseAjaxTag {
 
     @Override
     public int doEndTag() throws JspException {
-        out(JavaScript.newCallout(this, getOptions()));
+        out(buildScript());
         return Tag.EVAL_PAGE;
     }
 

@@ -26,6 +26,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import net.sourceforge.ajaxtags.helpers.JavaScript;
 import net.sourceforge.ajaxtags.servlets.AjaxActionHelper;
 
 /**
@@ -38,6 +39,11 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     public static final String HEADER_FLAG = "X-Requested-With";
     public static final String HEADER_FLAG_VALUE = "XMLHttpRequest";
     public static final String AJAX_VOID_URL = "javascript://nop";
+
+    /**
+     * Common prefix for all JavaScript class names.
+     */
+    public static final String JSCLASS_BASE = "AjaxJspTag.";
 
     private static final long serialVersionUID = 2128368408391947139L;
 
@@ -187,6 +193,35 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return script.toString();
     }
 
+    /**
+     * Return JavaScript class for JavaScript class corresponding to this tag (e.g.
+     * "AjaxJspTag.Submit" for AjaxSubmitTag Java tag).
+     *
+     * @return String with JavaScript class suffix
+     */
+    protected String getJsClass() {
+        throw new UnsupportedOperationException(
+                "You must implement getJsClass() in your tag class to use buildScript().");
+    }
+
+    /**
+     * Options for JavaScript generation.
+     *
+     * @return default options
+     */
+    protected OptionsBuilder getOptions() {
+        return getOptionsBuilder();
+    }
+
+    /**
+     * Generate JavaScript for tag.
+     *
+     * @return JavaScript
+     */
+    public JavaScript buildScript() {
+        return new JavaScript(getJSVariable() + "new " + getJsClass() + "({" + getOptions() + "});");
+    }
+
     public final String getParameters() {
         return parameters;
     }
@@ -254,7 +289,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * Never call release() -> ends in loop.
+     * Never call release() from releaseTag() -> ends in loop.
      */
     protected void releaseTag() {
     }
@@ -295,23 +330,21 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
      * @param target
      *            the target to request
      * @param href
-     *            the url
+     *            the URL
      * @param opt
      *            options for javascript library
-     * @return the javascript code to do ajax update
+     * @return the javascript code to do AJAX update
      */
     protected final String getOnclickAjax(final String target, final String href,
             final OptionsBuilder opt) {
         final OptionsBuilder options = OptionsBuilder.getOptionsBuilder(opt);
         // copy all options
-
         options.add("target", target, true);
         options.add("baseUrl", href, true);
 
         options.add("eventBase", "this", false);
         options.add("requestHeaders", "['" + AjaxAreaTag.TARGET_HEADER + "', '" + target + "']",
                 false);
-
 
         // TODO with JavaScript class
         final StringBuilder onclick = new StringBuilder("new AjaxJspTag.OnClick({");

@@ -18,8 +18,6 @@ package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
 
-import net.sourceforge.ajaxtags.helpers.JavaScript;
-
 /**
  * Tag handler for the autocomplete AJAX tag.
  *
@@ -70,7 +68,13 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         this.minimumCharacters = minimumCharacters;
     }
 
-    private OptionsBuilder getOptions() {
+    @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "Autocomplete";
+    }
+
+    @Override
+    protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("className", this.className, true);
         options.add("indicator", this.indicator, true);
@@ -81,7 +85,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
 
     @Override
     public int doEndTag() throws JspException {
-        out(JavaScript.newAutocomplete(this, getOptions()));
+        out(buildScript());
         return EVAL_PAGE;
     }
 

@@ -19,7 +19,6 @@ package net.sourceforge.ajaxtags.tags;
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
-import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for the tree AJAX tag.
@@ -72,7 +71,13 @@ public class AjaxTreeTag extends BaseAjaxTag {
         this.expandedClass = expandedClass;
     }
 
-    private OptionsBuilder getOptions() {
+    @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "Tree";
+    }
+
+    @Override
+    protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("target", getId(), true);
         options.add("collapsedClass", this.collapsedClass, true);
@@ -85,7 +90,7 @@ public class AjaxTreeTag extends BaseAjaxTag {
     @Override
     public int doEndTag() throws JspException {
         final DIVElement div = new DIVElement(getId());
-        div.setBody(JavaScript.newTree(this, getOptions()));
+        div.setBody(buildScript());
         out(div);
         return EVAL_PAGE;
     }

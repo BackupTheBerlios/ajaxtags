@@ -19,7 +19,6 @@ package net.sourceforge.ajaxtags.tags;
 import javax.servlet.jsp.JspException;
 
 import net.sourceforge.ajaxtags.helpers.DIVElement;
-import net.sourceforge.ajaxtags.helpers.JavaScript;
 
 /**
  * Tag handler for AJAX tabbed panel.
@@ -41,7 +40,13 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
         pages = new StringBuilder();
     }
 
-    private OptionsBuilder getOptions() {
+    @Override
+    protected String getJsClass() {
+        return JSCLASS_BASE + "TabPanel";
+    }
+
+    @Override
+    protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("id", getId(), true);
         options.add("pages", getPages(), false);
@@ -56,7 +61,7 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
         }
 
         final DIVElement div = new DIVElement(getId());
-        div.append(JavaScript.newTabPanel(this, getOptions()));
+        div.append(buildScript());
         out(div);
         return EVAL_PAGE;
     }
