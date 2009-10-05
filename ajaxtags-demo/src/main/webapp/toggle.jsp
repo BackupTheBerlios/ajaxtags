@@ -29,7 +29,7 @@ a rating system or single on/off switch. In addition to the visual, you
 can also elect to store the value in a hidden form field.</p>
 <p>This tag is fairly simple and could be powerful all at the same
 time. We envision one could use this in a variety of cases such as
-checking/unchecking recordsets.</p>
+checking/unchecking record sets.</p>
 </div>
 
 
@@ -38,19 +38,19 @@ checking/unchecking recordsets.</p>
 	id="raterField" /></form>
 
 <h4>AJAX Rating System <span style="font: normal 8pt Verdana;">[${toggleRating}]</span></h4>
-<ajax:toggle baseUrl="toggle.view" source="rater1" 
+<ajax:toggle baseUrl="toggle.view" source="rater1"
 	ratings="One,Two,Three,Four,Five" defaultRating="${toggleRating}"
 	containerClass="star-rating" messageClass="star-rating-message"
 	selectedClass="selected" selectedOverClass="selectedover"
 	selectedLessClass="selectedless" overClass="over" onOff="false"
-	state="raterField"  
-	parameters="rating={ajaxParameter}" /> 
-	
+	state="raterField"
+	parameters="rating={ajaxParameter}" />
+
 	<script type="text/javascript">
 	window.on_off = function(value) {
 		$("onoff").innerHTML = value;
-	}
-</script> 
+	};
+</script>
 
 
 
@@ -60,6 +60,6 @@ checking/unchecking recordsets.</p>
 	defaultRating="${toggleRatingOnOff}" containerClass="power-rating"
 	selectedClass="selected" selectedOverClass="selectedover"
 	selectedLessClass="selectedless" overClass="over" onOff="true"
-	updateFunction="on_off" state="raterField" 
+	updateFunction="on_off" state="raterField"
 	parameters="rating={ajaxParameter}" />
 

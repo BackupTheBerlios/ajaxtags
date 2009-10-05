@@ -42,8 +42,10 @@ public class ToggleServlet extends HttpServlet {
         String rating = request.getParameter("rating");
         if (rating != null && rating.length() > 0) {
             if ("2".equals(request.getParameter("type"))) {
+                // request from second toggle sample - on-off
                 request.getSession().setAttribute("toggleRatingOnOff", rating);
             } else {
+                // request from first toggle sample - star-rating
                 request.getSession().setAttribute("toggleRating", rating);
             }
         } else {
