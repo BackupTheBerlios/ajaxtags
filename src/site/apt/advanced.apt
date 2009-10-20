@@ -1,18 +1,15 @@
----
-Jens Kapitza 29.11.2008
----
-
 Advanced Techniques
 ~~~~~~~~~~~~~~~~~~~
 
 * Chaining
 ~~~~~~~~~~
 
-  Multiple fields can be hooked together in a way that implies dependencies between fields. The most
-  common use case is when using multiple select or dropdown fields. For example, let's say we want
-  to have the user select a make, model, and year of car. The form may look like this:
+  Multiple fields can be hooked together in a way that implies dependencies
+  between fields. The most common use case is when using multiple select or
+  dropdown fields. For example, let's say we want to have the user select a
+  make, model, and year of car. The form may look like this:
 
-+------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
 <form>
   Make:
   <select id="make" name="make">
@@ -32,15 +29,15 @@ Advanced Techniques
     <option value="">Select model</option>
   </select>
 </form>
-+------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
 
-  In this case, we're not defining any values for model or year because we'll have our AJAX
-  component populate them when the user selects a make and model, respectively.
+  In this case, we're not defining any values for model or year because we'll
+  have our AJAX component populate them when the user selects a make and
+  model, respectively. Now, we need to define two ajax:select tags. The first
+  will link the make and model fields. The second will link the model and year
+  fields.
 
-  Now, we need to define two ajax:select tags. The first will link the make and model fields. The
-  second will link the model and year fields.
-
-+------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
 <ajax:select
   source="make"
   target="model"
@@ -54,36 +51,42 @@ Advanced Techniques
   baseUrl="${pageContext.request.contextPath}/GetCarYear.view"
   parameters="model"
   postFunction="doOtherThings"/>
-+------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
 
 
 * Pre- and Post-Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Let's face it, every framework has limitations. So, in order to provide you with some way to
-  incorporate your existing JavaScript with these tags, the concept of pre- and post-functions was
-  developed. A pre-function is a JavaScript function that is called <before> the XMLHttpRequest
-  (i.e., to your backend action servlet) is executed. A post-function is, naturally, one called
-  <after> the XMLHttpRequest (and AJAX tag's base function) is completed. So, for those of you only
-  reading bullets:
+  Let's face it, every framework has limitations. So, in order to provide you
+  with some way to incorporate your existing JavaScript with these tags, the 
+  concept of pre- and post-functions was developed. A pre-function is a 
+  JavaScript function that is called <before> the XMLHttpRequest 
+  (i.e., to your backend action servlet) is executed. A post-function is,
+  naturally, one called <after> the XMLHttpRequest is completed.
+  So, for those of you only reading bullets.
+  
+  <<JavaScript executed>>:
 
-  * <<Pre-Function:>> JavaScript executed <before> AJAX executes.
+  * <<Pre-Function:>> <before> AJAX executes.
 
-  * <<Post-Function:>> JavaScript executed <after> AJAX tag's base function completes.
+  * <<Post-Function:>> <after> AJAX tag's base function completes.
 
   []
 
-  Let's say we're using the ajax:select tag to help populate a list of automobile model names when
-  the user selects an automobile make. This is the same example used in the demo application.
-  However, we want to take it a step further and display an image of the auto maker's logo when that
-  first selection is made.
+  Let's say we're using the ajax:select tag to help populate a list of 
+  automobile model names when the user selects an automobile make. This
+  is the same example used in the demo application. However, we want to 
+  take it a step further and display an image of the auto maker's logo 
+  when that first selection is made.
 
-  For instance, if the user selects "Ford" from the list of makes, we not only populate the second
-  dropdown field with names of Ford models but we also get that classic Ford emblem displayed on the
-  page. This second action merely requires a bit of JavaScript to replace a blank placeholder image
-  with that of the auto maker's. Because we AJAX JSP Tag authors didn't anticipate such fantastic
-  uses for web interfaces, we provided the means to attach a post-function to the AJAX tags so that
-  you more creative developers could tackle these harsh, real-world problems. Observe...
+  For instance, if the user selects "Ford" from the list of makes, we not
+  only populate the second dropdown field with names of Ford models but we 
+  also get that classic Ford emblem displayed on the page. This second 
+  action merely requires a bit of JavaScript to replace a blank placeholder 
+  image with that of the auto maker's. Because we AJAX JSP Tag authors didn't
+  anticipate such fantastic uses for web interfaces, we provided the means 
+  to attach a post-function to the AJAX tags so that you more creative 
+  developers could tackle these harsh, real-world problems. Observe...
 
 +------------------------------------------------------------------------+
 <div>
@@ -190,8 +193,9 @@ return builder.toString();
 ** org.ajaxtags.servlets.BaseAjaxServlet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  AJAX functions require a backend resource to handle and respond to requests.  We've created an
-  abstract class to help you with that task.  Simply extend the BaseAjaxServlet and implement the
+  AJAX functions require a backend resource to handle and respond to requests.
+  We've created an abstract class to help you with that task.  Simply extend
+  the BaseAjaxServlet and implement the 
   <<<getXmlContent(HttpServletRequest, HttpServletResponse)>>> method.
 
 ** org.ajaxtags.servlets.BaseAjaxAction

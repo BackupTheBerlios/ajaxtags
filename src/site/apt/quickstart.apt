@@ -1,11 +1,20 @@
----
-Jens Kapitza 29.11.2008
----
-
 Quick Start
 ~~~~~~~~~~~
 
- First follow the steps at {{{install.html}install}} page
+* From AjaxTags 1.3
+~~~~~~~~~~~~~~~~~~~~~
+  The new version has some big changes. The new API has changed
+  the name-space so you need to check your imports.
+  You need to replace package names from <import org.ajaxtags.>
+  to <import net.sourceforge.ajaxtags.>.
+  
+  Another step is to implement the >BaseAjaxXmlAction> interface
+  You need to make sure that <AjaxActionHelper#invoke> is called
+  this is provieded by <BaseAjaxServlet> and will be provieded
+  again for struts in future release 
+  
+
+First follow the steps at {{{install.html}install}} page
 
 * Prepare JSP View
 ~~~~~~~~~~~~~~~~~~

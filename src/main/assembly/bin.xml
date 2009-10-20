@@ -54,14 +54,6 @@
 			<outputDirectory>docs/ajaxtags</outputDirectory>
 		</fileSet>
 		<fileSet>
-			<directory>ajaxtags-demo/target/site</directory>
-			<outputDirectory>docs/ajaxtags-demo</outputDirectory>
-		</fileSet>
-		<fileSet>
-			<directory>ajaxtags-resources/target/site</directory>
-			<outputDirectory>docs/ajaxtags-resources</outputDirectory>
-		</fileSet>
-		<fileSet>
 			<directory>ajaxtags/src/main/resources/META-INF/*.tld</directory>
 			<outputDirectory>docs/tags/</outputDirectory>
 		</fileSet>
