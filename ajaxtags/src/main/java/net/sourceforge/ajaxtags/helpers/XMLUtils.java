@@ -181,6 +181,7 @@ public final class XMLUtils {
         final StreamResult streamResult = new StreamResult(stringWriter);
         final Transformer transformer = transformerFactory.get().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, TRANSFORMER_YES);
+        transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         // transformer.setOutputProperty(OutputKeys.METHOD, "html");
         // html method transforms <br/> into <br>, which cannot be re-parsed

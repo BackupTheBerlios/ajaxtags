@@ -28,6 +28,7 @@
     </properties>
     <body>
         <release version="1.5" date="In Version-Control-System" description="">
+            <action type="fix" dev="jenskapitza">XML-Ident problem</action>
             <action type="fix" dev="victor-homyakov">Fixed bug with anchor titles in AjaxToggleTag.</action>
             <action type="update" dev="victor-homyakov">New form submit tag.</action>
             <action type="update" dev="victor-homyakov">Added 'var' and 'attachTo' attributes to tree tag.</action>
