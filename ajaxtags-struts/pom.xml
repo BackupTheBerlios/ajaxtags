@@ -13,21 +13,6 @@
 	<version>1.5-SNAPSHOT</version>
 	<name>AjaxTags Struts-binding</name>
 	<description>Here are the struts binding classes</description>
-	<build>
-		<plugins>
-			<plugin>
-				<!-- package the stuff together -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/bin.xml</descriptor>
-					</descriptors>
-					<finalName>ajaxtags-resources-${pom.version}</finalName>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 	<dependencies>
 		<dependency>
