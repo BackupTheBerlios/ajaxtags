@@ -27,7 +27,7 @@ import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import net.sourceforge.ajaxtags.helpers.JavaScript;
-import net.sourceforge.ajaxtags.servlets.AjaxActionHelper;
+import net.sourceforge.ajaxtags.servlets.AjaxActionHelper.HMTLAjaxHeader;
 
 /**
  * 
@@ -109,7 +109,12 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     public final int doStartTag() throws JspException {
         initParameters(); // EVAL_BODY need to be flushed if it is nested!
         // we should set the no cache headers!
-        AjaxActionHelper.addNoCacheHeaders(getHttpServletResponse());
+
+        // enable the ajaxheaders
+        for (HMTLAjaxHeader header : HMTLAjaxHeader.values()) {
+            header.enable(getHttpServletResponse());
+        }
+
         return skipBody ? SKIP_BODY : EVAL_BODY_BUFFERED;
     }
 

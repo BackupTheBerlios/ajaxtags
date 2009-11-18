@@ -23,17 +23,79 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.NotImplementedException;
+
 /**
+ * This is a helper class to avoid caching problems and duplicated code. Later we will write a
+ * action class to make the use in strutts much easier.
  * 
  * @author Jens Kapitza
- * @version $Revision$ $Date$ $Author$
  */
 public final class AjaxActionHelper {
 
-    private static final String HDR_PRAGMA = "Pragma";
-    private static final String HDR_CACHE_CONTROL = "Cache-Control";
+    /**
+     * Some HMTL-Header wich can be easily enabled
+     * 
+     * @author Jens Kapitza
+     * 
+     */
+    public static enum HMTLAjaxHeader {
+        /**
+         * Set HTTP/1.1 no-cache headers.
+         */
+        CACHE_CONTROL("Cache-Control",
+                "no-store, max-age=0, no-cache, must-revalidate, post-check=0, pre-check=0"),
+        /**
+         * Set standard HTTP/1.0 no-cache header.
+         */
+        PRAGMA("Pragma", "no-cache");
 
-    // do not create an object
+        /**
+         * Store the header name.
+         */
+        private String headerName;
+        /**
+         * Store the header value.
+         */
+        private String headerValue;
+
+        /**
+         * Create the Headerpair. This is a easy usage holding static header information.
+         * 
+         * @param name
+         *            the header name.
+         * @param value
+         *            the header value.
+         */
+        private HMTLAjaxHeader(final String name, final String value) {
+            this.headerName = name;
+            this.headerValue = value;
+        }
+
+        /**
+         * enable the header in the {@link HttpServletResponse}
+         * 
+         * @param response
+         *            the {@link HttpServletResponse} where we should write the header to.
+         */
+        public void enable(HttpServletResponse response) {
+            response.setHeader(headerName, headerValue);
+        }
+
+        /**
+         * disable the header. This is not yet implemented.
+         * 
+         * @param response
+         *            the {@link HttpServletResponse}
+         */
+        public void disable(HttpServletResponse response) {
+            throw new NotImplementedException("This is not implemented yet.");
+        }
+    }
+
+    /**
+     * do not create an object
+     */
     private AjaxActionHelper() {
     }
 
@@ -61,7 +123,12 @@ public final class AjaxActionHelper {
         }
         // Set content to XML
         response.setContentType("text/xml; charset=" + action.getXMLEncoding());
-        addNoCacheHeaders(response);
+
+        // enable the ajaxheaders
+        for (HMTLAjaxHeader header : HMTLAjaxHeader.values()) {
+            header.enable(response);
+        }
+
         try {
             return action.getXmlContent(request, response);
         } catch (IOException e) {
@@ -69,17 +136,4 @@ public final class AjaxActionHelper {
         }
     }
 
-    /**
-     * Add Cache-Control header to Servlet Response.
-     * 
-     * @param response
-     *            Servlet response to be modified
-     */
-    public static void addNoCacheHeaders(final HttpServletResponse response) {
-        // Set HTTP/1.1 no-cache headers.
-        response.setHeader(HDR_CACHE_CONTROL, "no-store, max-age=0, no-cache");
-        response.addHeader(HDR_CACHE_CONTROL, "must-revalidate, post-check=0, pre-check=0");
-        // Set standard HTTP/1.0 no-cache header.
-        response.setHeader(HDR_PRAGMA, "no-cache");
-    }
 }

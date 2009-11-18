@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
  * to the child servlet class) and submission back through the HTTP response.
  * 
  * @author Jens Kapitza
- * @version $Revision$ $Date$ $Author$
  */
 public abstract class BaseAjaxServlet extends GenericServlet implements BaseAjaxXmlAction {
 
