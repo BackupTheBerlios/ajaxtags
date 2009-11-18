@@ -20,26 +20,33 @@ import java.util.Map;
 
 /**
  * Extend Item to easily have a tree item with more options.
- *
+ * 
  * @author Musachy Barroso
  * @author Jens Kapitza
  */
 public class TreeItem extends AbstractItem {
 
     /**
-     * Key to set node or a leaf flag.
+     * All known tree-elements for the parser. <br/>
+     * This is just a subset of what we can do.
+     * 
+     * @author Jens Kapitza
      */
-    public static final String LEAF = "leaf";
+    public static enum TreeAttribute {
 
-    /**
-     * Key to set collapsed flag.
-     */
-    public static final String COLLAPSED = "collapsed";
-
-    /**
-     * Key to set URL flag.
-     */
-    public static final String URL = "url";
+        /**
+         * Key to set node or a leaf flag.
+         */
+        LEAF,
+        /**
+         * Key to set collapsed flag.
+         */
+        COLLAPSED,
+        /**
+         * Key to set URL flag.
+         */
+        URL;
+    }
 
     /**
      * Constructor for TreeItem.
@@ -50,7 +57,7 @@ public class TreeItem extends AbstractItem {
 
     /**
      * Create an item.
-     *
+     * 
      * @param name
      *            name
      * @param value
@@ -64,7 +71,7 @@ public class TreeItem extends AbstractItem {
 
     /**
      * Create an item.
-     *
+     * 
      * @param name
      *            name
      * @param value
@@ -76,7 +83,7 @@ public class TreeItem extends AbstractItem {
 
     /**
      * Create an item.
-     *
+     * 
      * @param name
      *            name
      * @param value
@@ -97,7 +104,7 @@ public class TreeItem extends AbstractItem {
 
     /**
      * Create an item.
-     *
+     * 
      * @param name
      *            name
      * @param value
@@ -108,35 +115,35 @@ public class TreeItem extends AbstractItem {
      *            additional attributes
      */
     public TreeItem(final String name, final String value, final boolean asData,
-            final Map<String, String> attributes) {
+            final Map<?, String> attributes) {
         super(name, value, asData);
         setAllAttributes(attributes);
     }
 
     /**
      * Check if this item is a leaf or not.
-     *
+     * 
      * @return true if this is a leaf else false
      */
     public final boolean isLeaf() {
-        return Boolean.parseBoolean(getAttributeValue(LEAF));
+        return Boolean.parseBoolean(getAttributeValue(TreeAttribute.LEAF));
     }
 
     /**
      * Set node to leaf or not.
-     *
+     * 
      * @param leaf
      *            true if it is leaf else false
      */
     public final void setLeaf(final boolean leaf) {
-        setAttributes(LEAF, String.valueOf(leaf));
+        setAttributes(TreeAttribute.LEAF, String.valueOf(leaf));
     }
 
     /**
      * @return Returns the collapsed value
      */
     public final boolean isCollapsed() {
-        return Boolean.parseBoolean(getAttributeValue(COLLAPSED));
+        return Boolean.parseBoolean(getAttributeValue(TreeAttribute.COLLAPSED));
     }
 
     /**
@@ -144,14 +151,14 @@ public class TreeItem extends AbstractItem {
      *            The collapsed value to be set
      */
     public final void setCollapsed(final boolean collapsed) {
-        setAttributes(COLLAPSED, String.valueOf(collapsed));
+        setAttributes(TreeAttribute.COLLAPSED, String.valueOf(collapsed));
     }
 
     /**
      * @return Return the URL
      */
     public final String getUrl() {
-        return getAttributeValue(URL);
+        return getAttributeValue(TreeAttribute.URL);
     }
 
     /**
@@ -159,6 +166,6 @@ public class TreeItem extends AbstractItem {
      *            The URL to be set
      */
     public final void setUrl(final String url) {
-        setAttributes(URL, url);
+        setAttributes(TreeAttribute.URL, url);
     }
 }

@@ -20,7 +20,7 @@ import javax.servlet.jsp.JspException;
 
 /**
  * Tag handler for the HTML Content AJAX tag.
- *
+ * 
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/07/08 18:18:52 $ $Author: jenskapitza $
  */

@@ -18,8 +18,6 @@ package net.sourceforge.ajaxtags.helpers;
 
 import org.junit.Test;
 
-
-
 /**
  * 
  * @author Jens Kapitza
@@ -28,7 +26,7 @@ public class HTML {
 
     @Test
     public void test() {
-   
+
     }
 
 }

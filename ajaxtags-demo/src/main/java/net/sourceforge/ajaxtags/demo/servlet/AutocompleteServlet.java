@@ -40,7 +40,7 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
  *   <item value="Item2">Second Item</item>
  *   <item value="Item3">Third Item</item>
  * </list>]]></code>
- *
+ * 
  * @author Darren L. Spurgeon
  * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */

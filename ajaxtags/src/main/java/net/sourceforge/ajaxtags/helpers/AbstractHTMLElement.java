@@ -16,16 +16,27 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
+import java.util.Locale;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
 /**
- * Diese klasse stellt eine möglichkeit um HTML elemente zu schreiben.
+ * This class should help to write HTML-Tags we will have a simple append operation and a easy use
+ * in connection with strings.
  * 
  * @author jenskapitza
  */
 public abstract class AbstractHTMLElement implements CharSequence, Appendable {
+
+    /**
+     * A simple enum holding some HMTL-Attributes we are using.
+     * 
+     * @author Jens Kapitza
+     */
+    public static enum HTMLAttribute {
+        CLASS, ID;
+    }
 
     /**
      * Name of element. For start and end of tag.
@@ -40,7 +51,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
     /**
      * Store the attributes of HTML element.
      */
-    private SortedMap<String, String> attributes;
+    private SortedMap<Object, String> attributes;
 
     /**
      * Create a HTML element.
@@ -56,7 +67,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
         this.name = name;
         this.body = body;
         // if value is null then exception is thrown
-        attributes = new TreeMap<String, String>();
+        attributes = new TreeMap<Object, String>();
         if (id != null) {
             setId(id);
         }
@@ -87,7 +98,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
     /**
      * @return the map of attributes
      */
-    protected final SortedMap<String, String> getAttributes() {
+    protected final SortedMap<Object, String> getAttributes() {
         return attributes;
     }
 
@@ -119,7 +130,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
      * @return the class name attribute
      */
     public final String getClassName() {
-        return attributes.get("class");
+        return attributes.get(HTMLAttribute.CLASS);
     }
 
     /**
@@ -129,14 +140,14 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
      *            the class attribute value
      */
     public final void setClassName(final String className) {
-        attributes.put("class", className);
+        attributes.put(HTMLAttribute.CLASS, className);
     }
 
     /**
      * @return the id attribute
      */
     public final String getId() {
-        return attributes.get("id");
+        return attributes.get(HTMLAttribute.ID);
     }
 
     /**
@@ -146,7 +157,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
      *            the id attribute value
      */
     public final void setId(final String id) {
-        attributes.put("id", id);
+        attributes.put(HTMLAttribute.ID, id);
     }
 
     /**
@@ -178,19 +189,25 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
         return toString().subSequence(start, end);
     }
 
+    /**
+     * cleaning the Attributes. This method do nothing per default.
+     */
     protected void cleanAttributes() {
     }
 
     /**
-     * @return the string value of this HTML element
+     * @return the string representation of this HTML element
      */
     @Override
     public final String toString() {
         final StringBuilder s = new StringBuilder("<");
         s.append(getName());
         cleanAttributes();
-        for (Entry<String, String> e : getAttributes().entrySet()) {
-            s.append(" ").append(e.getKey()).append("=\"");
+        for (Entry<Object, String> e : getAttributes().entrySet()) {
+            // if we do have a ENUM Object we try to get it in a lower case
+            // type. toString should ensure the value is valid as key in HTML
+            s.append(" ").append(e.getKey().toString().toLowerCase(Locale.getDefault())).append(
+                    "=\"");
             s.append(e.getValue().replaceAll("\"", "\\\"")).append("\"");
         }
         s.append(">");

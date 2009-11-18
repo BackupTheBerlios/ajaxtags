@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxTabPanelTag.
- *
+ * 
  * @author Victor Homyakov
  * @version $Revision$ $Date$ $Author$
  */
@@ -78,7 +78,7 @@ public class AjaxTabPanelTagTest {
 
     /**
      * Test method for tag content generation.
-     *
+     * 
      * @throws JspException
      *             on tag errors
      */
@@ -99,7 +99,7 @@ public class AjaxTabPanelTagTest {
 
     /**
      * Test method for tag content generation.
-     *
+     * 
      * @throws JspException
      *             on tag errors
      * @throws SAXException

@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxSubmitTag.
- *
+ * 
  * @author Victor Homyakov
  * @version $Revision$ $Date$ $Author$
  */
@@ -63,7 +63,7 @@ public class AjaxSubmitTagTest {
 
     /**
      * Test method for tag content generation.
-     *
+     * 
      * @throws JspException
      *             on tag errors
      * @throws SAXException

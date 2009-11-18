@@ -31,7 +31,7 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
 /**
  * An example servlet that responds to an ajax:select tag action. This servlet would be referenced
  * by the baseUrl attribute of the JSP tag.
- *
+ * 
  * @author Darren L. Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $

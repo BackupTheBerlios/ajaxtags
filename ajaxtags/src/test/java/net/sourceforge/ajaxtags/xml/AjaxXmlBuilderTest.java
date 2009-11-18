@@ -26,7 +26,7 @@ import org.junit.Test;
 
 /**
  * Test for AjaxXmlBuilder.
- *
+ * 
  * @author В.Хомяков
  * @version $Revision$ $Date$ $Author$
  */

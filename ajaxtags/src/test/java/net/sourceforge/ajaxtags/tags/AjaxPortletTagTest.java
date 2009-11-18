@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxPortletTag.
- *
+ * 
  * @author Victor Homyakov
  * @version $Revision$ $Date$ $Author$
  */
@@ -66,7 +66,7 @@ public class AjaxPortletTagTest {
 
     /**
      * Test method for tag content generation in response to usual HTTP request.
-     *
+     * 
      * @throws JspException
      *             on tag errors
      * @throws IOException

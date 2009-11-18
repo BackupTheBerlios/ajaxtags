@@ -42,22 +42,22 @@ import org.xml.sax.SAXException;
 
 /**
  * Some helper functions for XML.
- *
+ * 
  * @author jenskapitza
- * @version $Revision$ $Date$ $Author$
  */
 public final class XMLUtils {
 
     private static final String TRANSFORMER_YES = "yes";
 
-    private static ThreadLocal<TransformerFactory> transformerFactory = new ThreadLocal<TransformerFactory>() {
+    /*--------------------------------- SOME THREAD HELPER IMPLEMENTATIONS ------------------------------------------*/
+    private static final ThreadLocal<TransformerFactory> transformerFactory = new ThreadLocal<TransformerFactory>() {
         @Override
         protected TransformerFactory initialValue() {
             return TransformerFactory.newInstance();
         }
     };
 
-    private static ThreadLocal<DocumentBuilderFactory> docFactory = new ThreadLocal<DocumentBuilderFactory>() {
+    private static final ThreadLocal<DocumentBuilderFactory> docFactory = new ThreadLocal<DocumentBuilderFactory>() {
         @Override
         protected DocumentBuilderFactory initialValue() {
             final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -67,19 +67,23 @@ public final class XMLUtils {
         };
     };
 
-    private static ThreadLocal<XPathFactory> xPathFactory = new ThreadLocal<XPathFactory>() {
+    private static final ThreadLocal<XPathFactory> xPathFactory = new ThreadLocal<XPathFactory>() {
         @Override
         protected XPathFactory initialValue() {
             return XPathFactory.newInstance();
         }
     };
 
+    /*--------------------------------- END THREAD HELPER IMPLEMENTATIONS ------------------------------------------*/
+    /**
+     * Never instance this class.
+     */
     private XMLUtils() {
     }
 
     /**
      * Evaluate XPath expression and return list of nodes.
-     *
+     * 
      * @param expression
      *            XPath expression
      * @param node
@@ -95,7 +99,7 @@ public final class XMLUtils {
 
     /**
      * Evaluate XPath expression.
-     *
+     * 
      * @param expression
      *            XPath expression
      * @param node
@@ -124,7 +128,7 @@ public final class XMLUtils {
 
     /**
      * Parse string with XML content to {@link org.w3c.dom.Document}.
-     *
+     * 
      * @param xml
      *            string with XML content
      * @return Document
@@ -143,7 +147,7 @@ public final class XMLUtils {
 
     /**
      * Create a new {@link org.w3c.dom.Document}.
-     *
+     * 
      * @return an empty document
      * @throws ParserConfigurationException
      *             if a DocumentBuilder cannot be created
@@ -154,7 +158,7 @@ public final class XMLUtils {
 
     /**
      * Parse string as XML document and return string with reformatted document.
-     *
+     * 
      * @param xml
      *            string with XML content
      * @return reformatted content
@@ -169,7 +173,7 @@ public final class XMLUtils {
 
     /**
      * Transform document to string representation.
-     *
+     * 
      * @param document
      *            XHTML document
      * @return string representation of document
@@ -181,7 +185,9 @@ public final class XMLUtils {
         final StreamResult streamResult = new StreamResult(stringWriter);
         final Transformer transformer = transformerFactory.get().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, TRANSFORMER_YES);
+        // set ident for XML
         transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
+        // not all JavaSE have the same implementation
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         // transformer.setOutputProperty(OutputKeys.METHOD, "html");
         // html method transforms <br/> into <br>, which cannot be re-parsed

@@ -18,12 +18,13 @@ package net.sourceforge.ajaxtags.helpers;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
 /**
  * A generic item class, basically representing a name-value pair.
- *
+ * 
  * @author Darren L. Spurgeon
  * @author Jens Kapitza
  */
@@ -40,18 +41,18 @@ public abstract class AbstractItem {
     private Object value;
 
     /**
-     * CDATA ?
+     * CDATA is used to flag the value and force the writer to nest the value in an CDATA TAG.
      */
     private boolean asCData;
 
     /**
      * All other attributes. Using a TreeMap cause of JUnit tests.
      */
-    private final Map<String, String> attributes = new TreeMap<String, String>();
+    private final SortedMap<Object, String> attributes = new TreeMap<Object, String>();
 
     /**
      * Constructor for Item.
-     *
+     * 
      * @param name
      *            the name for the item
      * @param value
@@ -75,30 +76,42 @@ public abstract class AbstractItem {
 
     /**
      * Set all attributes.
-     *
+     * 
      * @param attributes
      *            the attributes to set
+     * @param evenIfNull
+     *            set the attribute even if value is null
      */
-    public final void setAllAttributes(final Map<String, String> attributes) {
+    public final void setAllAttributes(final Map<?, String> attributes, final boolean evenIfNull) {
         if (attributes != null) {
-            for (Entry<String, String> e : attributes.entrySet()) {
-                setAttributes(e.getKey(), e.getValue());
+            for (Entry<?, String> e : attributes.entrySet()) {
+                setAttributes(e.getKey(), e.getValue(), evenIfNull);
             }
         }
     }
 
     /**
+     * Set all attributes.
+     * 
+     * @param attributes
+     *            the attributes to set
+     */
+    public final void setAllAttributes(final Map<?, String> attributes) {
+        setAllAttributes(attributes, false);
+    }
+
+    /**
      * List all attribute-names.
-     *
+     * 
      * @return the key set of the attributes
      */
-    public Set<String> getAttributeKeySet() {
+    public Set<Object> getAttributeKeySet() {
         return attributes.keySet();
     }
 
     /**
      * Removes an attribute.
-     *
+     * 
      * @param name
      *            the name of attribute
      */
@@ -116,20 +129,20 @@ public abstract class AbstractItem {
     /**
      * Set an attribute to extend the item. This just invoke
      * {@link #setAttributes(String, String, boolean)} with false as third parameter.
-     *
+     * 
      * @param name
      *            the name for the attribute
      * @param value
      *            the value for the attribute
      * @see #setAttributes(String, String, boolean)
      */
-    public final void setAttributes(final String name, final String value) {
+    public final void setAttributes(final Object name, final String value) {
         setAttributes(name, value, false);
     }
 
     /**
      * Set an attribute to extend the item.
-     *
+     * 
      * @param name
      *            the name for the attribute
      * @param value
@@ -137,7 +150,7 @@ public abstract class AbstractItem {
      * @param evenIfNull
      *            set attribute even if it is null
      */
-    public final void setAttributes(final String name, final String value, final boolean evenIfNull) {
+    public final void setAttributes(final Object name, final String value, final boolean evenIfNull) {
         if (value != null || evenIfNull) {
             // don't change the name here, we should do this
             // in the Map implementation or never!
@@ -147,12 +160,12 @@ public abstract class AbstractItem {
 
     /**
      * Read the attribute value.
-     *
+     * 
      * @param name
      *            the attribute name
      * @return the value of attribute <code>name</code>
      */
-    public String getAttributeValue(final String name) {
+    public String getAttributeValue(final Object name) {
         return attributes.get(name);
     }
 
@@ -165,7 +178,7 @@ public abstract class AbstractItem {
 
     /**
      * Set the Name.
-     *
+     * 
      * @param name
      *            The name to set.
      */
@@ -175,7 +188,7 @@ public abstract class AbstractItem {
 
     /**
      * The type depends on the child-class.
-     *
+     * 
      * @return Returns the value.
      */
     public Object getValue() {

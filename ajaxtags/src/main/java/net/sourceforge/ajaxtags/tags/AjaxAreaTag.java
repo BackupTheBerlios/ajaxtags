@@ -27,7 +27,7 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 /**
  * Wraps any area on the page (with a DIV element) so that actions within that area refresh/load
  * inside the defined DIV region rather than inside the whole browser window.
- *
+ * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -83,7 +83,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
      * Clear page content before start of tag if we are processing AJAX request.
-     *
+     * 
      * @throws JspException
      *             when HTTP response cannot be reset (has already had its status code and headers
      *             written)
@@ -101,7 +101,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
      * Write body. Skip the rest of the page if we are processing AJAX request.
-     *
+     * 
      * @return SKIP_PAGE for AJAX request, EVAL_PAGE for usual request
      * @throws JspException
      *             on errors
@@ -128,7 +128,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
      * Process content.
-     *
+     * 
      * @param content
      * @return processed content
      * @throws JspException

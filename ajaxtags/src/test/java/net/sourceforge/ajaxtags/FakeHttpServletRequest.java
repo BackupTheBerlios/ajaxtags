@@ -228,7 +228,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public Map<?,?> getParameterMap() {
+    public Map<?, ?> getParameterMap() {
         // TODO Auto-generated method stub
         return null;
     }

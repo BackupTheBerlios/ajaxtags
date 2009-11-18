@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxAnchorsTag.
- *
+ * 
  * @author В.Хомяков
  * @version $Revision$ $Date$ $Author$
  */
@@ -71,7 +71,7 @@ public class AjaxAnchorsTagTest {
 
     /**
      * Test method for {@link AjaxAnchorsTag#doEndTag()}.
-     *
+     * 
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -111,7 +111,7 @@ public class AjaxAnchorsTagTest {
 
     /**
      * Test method for {@link AjaxAnchorsTag#ajaxAnchors(String, String, String)}.
-     *
+     * 
      * @throws JspException
      *             on errors
      * @throws SAXException

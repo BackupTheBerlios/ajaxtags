@@ -20,7 +20,7 @@ import javax.servlet.jsp.JspException;
 
 /**
  * Tag handler for the autocomplete AJAX tag.
- *
+ * 
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */

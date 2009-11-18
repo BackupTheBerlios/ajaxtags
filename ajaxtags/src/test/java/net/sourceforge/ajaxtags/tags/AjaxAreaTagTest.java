@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxAreaTag.
- *
+ * 
  * @author Victor Homyakov
  * @version $Revision$ $Date$ $Author$
  */
@@ -69,7 +69,7 @@ public class AjaxAreaTagTest {
 
     /**
      * Test method for tag content generation in response to usual HTTP request.
-     *
+     * 
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -119,7 +119,7 @@ public class AjaxAreaTagTest {
 
     /**
      * Test method for tag content generation in response to AJAX request.
-     *
+     * 
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -191,7 +191,7 @@ public class AjaxAreaTagTest {
 
     /**
      * Test method for {@link AjaxAreaTag#processContent(String)}.
-     *
+     * 
      * @throws JspException
      *             on errors
      * @throws SAXException

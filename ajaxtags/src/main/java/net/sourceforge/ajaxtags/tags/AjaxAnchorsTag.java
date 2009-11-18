@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
 /**
  * Rewrites HTML anchor tags (&lt;A&gt;), replacing the href attribute with an onclick event so that
  * retrieved content is loaded inside a region on the page.
- *
+ * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:16 $ $Author: jenskapitza $
@@ -54,7 +54,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
     /**
      * Rewrite anchors.
-     *
+     * 
      * @param html
      *            XHTML source
      * @param target
@@ -97,7 +97,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
     /**
      * Rewrite link. Change (or create) "onclick" attribute, set "href" attribute to
      * "javascript://nop/".
-     *
+     * 
      * @param link
      *            node of document with link
      * @param target
@@ -119,7 +119,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
     /**
      * Parse XHTML document from given string.
-     *
+     * 
      * @param html
      *            string with XHTML content
      * @return parsed document or null

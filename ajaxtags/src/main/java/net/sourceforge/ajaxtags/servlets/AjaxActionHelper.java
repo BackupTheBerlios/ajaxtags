@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * 
  * @author Jens Kapitza
  * @version $Revision$ $Date$ $Author$
  */
@@ -39,7 +39,7 @@ public final class AjaxActionHelper {
 
     /**
      * Invoke the AJAX action and setup the request and response.
-     *
+     * 
      * @param action
      *            the BaseAjaxXmlAction implementation
      * @param request
@@ -71,7 +71,7 @@ public final class AjaxActionHelper {
 
     /**
      * Add Cache-Control header to Servlet Response.
-     *
+     * 
      * @param response
      *            Servlet response to be modified
      */

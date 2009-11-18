@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * An example servlet that responds to an ajax:toggle tag action. This servlet would be referenced
  * by the baseUrl attribute of the JSP tag.
- *
+ * 
  * @author Darren L. Spurgeon
  * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */

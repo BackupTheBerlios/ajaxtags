@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Helper class to build valid XML as a base for all XML builders.
- *
+ * 
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:58:28 $ $Author: jenskapitza $
  * @param <V>
@@ -73,7 +73,7 @@ public abstract class BaseXmlBuilder<V> {
 
     /**
      * Set the XML encoding.
-     *
+     * 
      * @param encoding
      *            the XML encoding
      */
@@ -82,7 +82,7 @@ public abstract class BaseXmlBuilder<V> {
     }
 
     /**
-     *
+     * 
      * @return the item list
      */
     protected List<V> getItems() {
@@ -110,7 +110,7 @@ public abstract class BaseXmlBuilder<V> {
 
     /**
      * Add item to list.
-     *
+     * 
      * @param item
      *            the item to add
      * @return BaseXmlBuilder
@@ -130,7 +130,7 @@ public abstract class BaseXmlBuilder<V> {
 
     /**
      * Return the item at index.
-     *
+     * 
      * @param index
      *            the index
      * @return the item at index
@@ -141,7 +141,7 @@ public abstract class BaseXmlBuilder<V> {
 
     /**
      * Check if list contains no elements (is empty).
-     *
+     * 
      * @return true if it is empty else false
      */
     public boolean isEmpty() {

@@ -17,7 +17,8 @@
 package net.sourceforge.ajaxtags.helpers;
 
 /**
- * HTML &lt;div&gt; element.
+ * HTML &lt;div&gt; element. Try to avoid building HTML code in TAGs or Servlets. With String
+ * concat.
  * 
  * @author Jens Kapitza
  */
@@ -32,4 +33,12 @@ public final class DIVElement extends AbstractHTMLElement {
     public DIVElement(final String id) {
         super("div", id, null);
     }
+
+    /**
+     * Create a HTML &lt;div&gt; element with no ID
+     */
+    public DIVElement() {
+        this(null);
+    }
+
 }
