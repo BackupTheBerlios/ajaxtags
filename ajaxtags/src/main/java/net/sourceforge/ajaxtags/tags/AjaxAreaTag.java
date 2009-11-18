@@ -16,8 +16,6 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
-import static org.apache.commons.lang.StringUtils.trimToNull;
-
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
@@ -30,16 +28,19 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
  * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
- * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
 public class AjaxAreaTag extends AjaxAnchorsTag {
 
+    /**
+     * The header we are seraching to detect the ajax call. This should match the id of this tag.
+     */
     public static final String TARGET_HEADER = "x-request-target";
 
     private static final long serialVersionUID = -7940387487602588115L;
 
-    private String styleClass;
-
+    /**
+     * flag if we should &lt;a&gt; tags be rewritte to use ajaxlinks
+     */
     private boolean ajaxAnchors;
 
     /**
@@ -49,21 +50,6 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     @Override
     public final boolean isAjaxRequest() {
         return super.isAjaxRequest() && isHttpRequestHeader(TARGET_HEADER, getId());
-    }
-
-    /**
-     * @return Returns the styleClass.
-     */
-    public final String getStyleClass() {
-        return this.styleClass;
-    }
-
-    /**
-     * @param styleClass
-     *            The styleClass to set.
-     */
-    public final void setStyleClass(final String styleClass) {
-        this.styleClass = trimToNull(styleClass);
     }
 
     /**
@@ -123,7 +109,6 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     @Override
     public void releaseTag() {
         this.ajaxAnchors = false;
-        this.styleClass = null; // NOPMD
     }
 
     /**

@@ -52,6 +52,8 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
      */
     private boolean skipBody;
 
+    private String styleClass;
+
     private String source;
     private String target;
     private String baseUrl;
@@ -137,6 +139,9 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         this.source = null; // NOPMD
         this.sourceClass = null; // NOPMD
         this.eventType = null; // NOPMD
+        
+        this.styleClass = null;
+        
         releaseTag();
     }
 
@@ -178,6 +183,21 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     public final String getAttachTo() {
         return attachTo;
+    }
+
+    /**
+     * @return Returns the styleClass.
+     */
+    public final String getStyleClass() {
+        return this.styleClass;
+    }
+
+    /**
+     * @param styleClass
+     *            The styleClass to set.
+     */
+    public final void setStyleClass(final String styleClass) {
+        this.styleClass = trimToNull(styleClass);
     }
 
     /**
