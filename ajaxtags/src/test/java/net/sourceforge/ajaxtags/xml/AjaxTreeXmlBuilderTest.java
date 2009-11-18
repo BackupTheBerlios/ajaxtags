@@ -28,7 +28,6 @@ import org.junit.Test;
  * Test for AjaxTreeXmlBuilder.
  * 
  * @author В.Хомяков
- * @version $Revision$ $Date$ $Author$
  */
 public class AjaxTreeXmlBuilderTest {
 

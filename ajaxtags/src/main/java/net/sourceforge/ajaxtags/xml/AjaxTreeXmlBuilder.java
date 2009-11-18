@@ -250,10 +250,10 @@ public final class AjaxTreeXmlBuilder extends BaseXmlBuilder<TreeItem> {
             xml.append("</value>");
 
             for (Object attr : item.getAttributeKeySet()) {
-                xml.append('<').append(attr.toString().toLowerCase(Locale.getDefault()))
-                        .append('>');
+                final String tagName = attr.toString().toLowerCase(Locale.getDefault());
+                xml.append('<').append(tagName).append('>');
                 xml.append(item.getAttributeValue(attr));
-                xml.append("</").append(attr).append('>');
+                xml.append("</").append(tagName).append('>');
             }
             xml.append("</item>");
         }
