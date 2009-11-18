@@ -37,15 +37,17 @@ import org.xml.sax.SAXException;
  * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
- * @version $Revision: 86 $ $Date: 2007/07/22 16:29:16 $ $Author: jenskapitza $
  */
 public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
     private static final long serialVersionUID = -1732745741282114289L;
 
-    private static final String WARP0 = "<div>";
-    private static final String WARP1 = "</div>";
-
+    /**
+     * rewrite the body and make use of ajax. rewriting all &lt;a&gt; links to use javascript calls
+     * to prototype.
+     * 
+     * @return EVAL_PAGE
+     */
     @Override
     public int doEndTag() throws JspException {
         out(ajaxAnchors(getBody(), getTarget(), getSourceClass()));
@@ -131,6 +133,10 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
         if (xhtml == null) {
             return null;
         }
+        // warp dirty hack to use internal HTML parser.
+        final String WARP0 = "<div>";
+        final String WARP1 = "</div>";
+
         return XMLUtils.getXMLDocument(WARP0 + xhtml + WARP1);
     }
 }
