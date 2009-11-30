@@ -4,14 +4,14 @@
 	<parent>
 		<artifactId>ajaxtags-doc</artifactId>
 		<groupId>ajaxtags</groupId>
-		<version>1.5</version>
+		<version>1.5.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ajaxtags</groupId>
 	<artifactId>ajaxtags-demo</artifactId>
 	<packaging>war</packaging>
 	<name>Ajaxtags library examples</name>
-	<version>1.5</version>
+	<version>1.5.1</version>
 	<description>Example webapp for the ajaxtags tag library</description>
 	<dependencies>
 		<dependency>

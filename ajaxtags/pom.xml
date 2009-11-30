@@ -4,13 +4,13 @@
 	<parent>
 		<artifactId>ajaxtags-doc</artifactId>
 		<groupId>ajaxtags</groupId>
-		<version>1.5</version>
+		<version>1.5.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ajaxtags</groupId>
 	<artifactId>ajaxtags</artifactId>
 	<packaging>jar</packaging>
-	<version>1.5</version>
+	<version>1.5.1</version>
 	<name>AjaxTags</name>
 	<dependencies>
 		<dependency>

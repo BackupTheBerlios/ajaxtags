@@ -15,3 +15,4 @@ start: MAVEN_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt
 
 maven-license-plugin
 license:format
+MAVEN_OPTS="-Xmx212M -Xms212M" mvn clean site:site package assembly:assembly
