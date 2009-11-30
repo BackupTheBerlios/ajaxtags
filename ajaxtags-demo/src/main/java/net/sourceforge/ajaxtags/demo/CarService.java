@@ -26,7 +26,6 @@ import java.util.List;
  * 
  * @author Darren Spurgeon
  * @author Jens Kapitza
- * @version $Revision: 28 $ $Date: 2008-11-26 20:18:34 +0100 (Mi, 26. Nov 2008) $
  */
 public class CarService {
 

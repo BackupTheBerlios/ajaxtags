@@ -30,6 +30,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
@@ -112,8 +113,16 @@ public final class XMLUtils {
      */
     public static Object evaluateXPathExpression(final String expression, final Node node,
             final QName returnValue) throws XPathExpressionException {
-        return xPathFactory.get().newXPath().evaluate(expression, node,
+        return getNewXPath().evaluate(expression, node,
                 returnValue == null ? XPathConstants.NODE : returnValue);
+    }
+    
+    /**
+     * create and return a new {@link XPath} object from {@link ThreadLocal}
+     * @return a new {@link XPath} object.
+     */
+    public static XPath getNewXPath(){
+        return xPathFactory.get().newXPath();
     }
 
     /**
