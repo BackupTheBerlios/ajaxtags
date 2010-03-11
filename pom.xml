@@ -114,14 +114,12 @@
 			<distribution>manual</distribution>
 		</license>
 	</licenses>
-	<!-- we moved to berlios.de and using hg -->
-	<!--
-		<scm>
-		<connection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</connection>
-		<developerConnection>scm:svn:https://ajaxtags.svn.sourceforge.net/svnroot/ajaxtags/trunk</developerConnection>
-		<url> http://ajaxtags.svn.sourceforge.net/viewvc/ajaxtags/ </url>
-		</scm>
-	-->
+	<scm>
+		<connection>scm:hg:http://hg.berlios.de/repos/ajaxtags</connection>
+		<url>http://hg.berlios.de/repos/ajaxtags</url>
+	</scm>
+
+
 	<description>
                 The ajaxtags tag library is an open source suite of custom tags that provide high-level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being easy to use.
   </description>
