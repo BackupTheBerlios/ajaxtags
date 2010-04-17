@@ -32,7 +32,6 @@ import net.sourceforge.ajaxtags.FakeHttpServletRequest;
 import net.sourceforge.ajaxtags.FakePageContext;
 import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -41,30 +40,21 @@ import org.xml.sax.SAXException;
  * Test for AjaxAreaTag.
  * 
  * @author Victor Homyakov
- * @version $Revision$ $Date$ $Author$
  */
-public class AjaxAreaTagTest {
+public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
 
     private static final String TAG_CLASS = "textArea";
     private static final String TAG_ID = "ajaxFrame";
-    private AjaxAreaTag tag;
 
     /**
      * Set up.
+     *
+     * @throws Exception
+     *             if setUp fails
      */
     @Before
-    public void setUp() {
-        tag = new AjaxAreaTag();
-        tag.setBodyContent(new FakeBodyContent());
-        tag.setPageContext(new FakePageContext());
-    }
-
-    /**
-     * Tear down.
-     */
-    @After
-    public void tearDown() {
-        tag.release();
+    public void setUp() throws Exception {
+        setUp(AjaxAreaTag.class);
     }
 
     /**
@@ -90,8 +80,7 @@ public class AjaxAreaTagTest {
 
         context.getOut().print("<div>before tag");
 
-        assertEquals("doStartTag() must return BodyTag.EVAL_BODY_BUFFERED",
-                BodyTag.EVAL_BODY_BUFFERED, tag.doStartTag());
+        assertStartTagEvalBody();
 
         final String html = "<div>Text<br/>link to " + "<a href=\"pagearea.jsp\">itself</a>"
                 + "<br/>Text</div>";
@@ -104,17 +93,12 @@ public class AjaxAreaTagTest {
 
         tag.getBodyContent().print(html);
 
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertAfterBody();
+        assertEndTag();
 
         context.getOut().print("after tag</div>");
         final String content = ((FakeBodyContent) context.getOut()).getString();
-
-        // .replaceAll("[\\s|\n|\r\n]","") dirty hack, problem with WS remove all! cause
-        // we just need to check the javascript here
-        assertEquals("HTML after doEndTag()", XMLUtils.format(expected).replaceAll("[\\s|\n|\r\n]",
-                ""), XMLUtils.format(content).replaceAll("[\\s|\n|\r\n]", ""));
+        assertContent(expected, content);
     }
 
     /**
@@ -144,8 +128,7 @@ public class AjaxAreaTagTest {
 
         context.getOut().print("<div>before tag");
 
-        assertEquals("doStartTag() must return BodyTag.EVAL_BODY_BUFFERED",
-                BodyTag.EVAL_BODY_BUFFERED, tag.doStartTag());
+        assertStartTagEvalBody();
 
         final String html = "<div>Text<br/>link to " + "<a href=\"pagearea.jsp\">itself</a>"
                 + "<br/>Text</div>";
@@ -156,13 +139,11 @@ public class AjaxAreaTagTest {
                 + "<br/>Text</div>" + "</div>";
         tag.getBodyContent().print(html);
 
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
+        assertAfterBody();
         assertEquals("doEndTag() must return BodyTag.SKIP_PAGE", BodyTag.SKIP_PAGE, tag.doEndTag());
 
-        // context.getOut().print("after tag</div>"); SKIP_PAGE
         final String content = ((FakeBodyContent) context.getOut()).getString();
-        assertEquals("HTML after doEndTag()", XMLUtils.format(expected), XMLUtils.format(content));
+        assertContent(expected, content);
     }
 
     /**
@@ -227,7 +208,7 @@ public class AjaxAreaTagTest {
                 + "<a href=\"javascript://nop/\" onclick=\"new AjaxJspTag.OnClick({baseUrl: &quot;pagearea.jsp&quot;, eventBase: this, requestHeaders: ['x-request-target', '"
                 + TAG_ID + "'], target: &quot;ajaxFrame&quot;}); return false;\">itself</a>"
                 + "<br/>Text</div>" + "</div>";
-        assertEquals(XMLUtils.format(expected), tag.processContent(html));
+        assertContent(expected, tag.processContent(html));
     }
 
 }

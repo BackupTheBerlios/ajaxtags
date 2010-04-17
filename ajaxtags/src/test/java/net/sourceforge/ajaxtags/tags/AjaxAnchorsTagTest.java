@@ -14,64 +14,46 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-/**
- *
- */
 package net.sourceforge.ajaxtags.tags;
-
-import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTag;
 import javax.xml.transform.TransformerException;
 
 import net.sourceforge.ajaxtags.FakeBodyContent;
 import net.sourceforge.ajaxtags.FakePageContext;
-import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxAnchorsTag.
- * 
- * @author В.Хомяков
- * @version $Revision$ $Date$ $Author$
+ *
+ * @author Victor Homyakov
  */
-public class AjaxAnchorsTagTest {
+public class AjaxAnchorsTagTest extends AbstractTagTest<AjaxAnchorsTag> {
 
     private static final String HEADER = "";
 
     private static final String BASE_URL = "http://localhost:8080/test/test.do";
 
-    private AjaxAnchorsTag tag;
-
     /**
      * Set up.
+     *
+     * @throws Exception
+     *             if setUp fails
      */
     @Before
-    public void setUp() {
-        tag = new AjaxAnchorsTag();
-        tag.setBodyContent(new FakeBodyContent());
-        tag.setPageContext(new FakePageContext());
-    }
-
-    /**
-     * Tear down.
-     */
-    @After
-    public void tearDown() {
-        tag.release();
+    public void setUp() throws Exception {
+        setUp(AjaxAnchorsTag.class);
     }
 
     /**
      * Test method for {@link AjaxAnchorsTag#doEndTag()}.
-     * 
+     *
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -86,11 +68,9 @@ public class AjaxAnchorsTagTest {
         final OptionsBuilder options = OptionsBuilder.getOptionsBuilder();
         final PageContext context = new FakePageContext();
         tag.setPageContext(context);
-        // tag.setVar("ajaxAnchors");
         tag.setTarget("target");
 
-        assertEquals("doStartTag() must return BodyTag.EVAL_BODY_BUFFERED",
-                BodyTag.EVAL_BODY_BUFFERED, tag.doStartTag());
+        assertStartTagEvalBody();
 
         final String html = "<a href=\"" + BASE_URL + "\">testDoEndTag</a>";
         final String expected = HEADER + "<div>" + "<a href=\"javascript://nop/\" "
@@ -102,16 +82,16 @@ public class AjaxAnchorsTagTest {
 
         tag.getBodyContent().print(html);
 
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertAfterBody();
+        assertEndTag();
+
         final String content = ((FakeBodyContent) context.getOut()).getString();
-        assertEquals("HTML after doEndTag()", XMLUtils.format(expected), content);
+        assertContent(expected, content);
     }
 
     /**
      * Test method for {@link AjaxAnchorsTag#ajaxAnchors(String, String, String)}.
-     * 
+     *
      * @throws JspException
      *             on errors
      * @throws SAXException
@@ -125,13 +105,11 @@ public class AjaxAnchorsTagTest {
 
         String html = "HTML content";
         String expected = HEADER + "<div>HTML content</div>";// + IOUtils.LINE_SEPARATOR;
-        assertEquals("HTML w/o links", XMLUtils.format(expected), tag.ajaxAnchors(html, "target",
-                null));
+        assertContent(expected, tag.ajaxAnchors(html, "target", null));
 
         html = "html <a>link</a>";
         expected = HEADER + "<div>html <a>link</a>" + "</div>";
-        assertEquals("HTML with empty link", XMLUtils.format(expected), tag.ajaxAnchors(html,
-                "target", null));
+        assertContent(expected, tag.ajaxAnchors(html, "target", null));
 
         html = "html <a href=\"" + BASE_URL + "\">testAjaxAnchors</a>";
         expected = HEADER + "<div>html <a href=\"javascript://nop/\" "
@@ -140,7 +118,6 @@ public class AjaxAnchorsTagTest {
                 + "requestHeaders: ['x-request-target', 'target']" + options.getOptionsDelimiter()
                 + "target: &quot;target&quot;" + "});" + " return false;\">testAjaxAnchors</a>"
                 + "</div>";
-        assertEquals("HTML with link", XMLUtils.format(expected), tag.ajaxAnchors(html, "target",
-                null));
+        assertContent(expected, tag.ajaxAnchors(html, "target", null));
     }
 }

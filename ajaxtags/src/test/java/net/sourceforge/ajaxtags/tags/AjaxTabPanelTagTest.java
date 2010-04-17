@@ -21,14 +21,11 @@ import static org.junit.Assert.fail;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTag;
 import javax.xml.transform.TransformerException;
 
 import net.sourceforge.ajaxtags.FakeBodyContent;
 import net.sourceforge.ajaxtags.FakePageContext;
-import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -37,30 +34,23 @@ import org.xml.sax.SAXException;
  * Test for AjaxTabPanelTag.
  * 
  * @author Victor Homyakov
- * @version $Revision$ $Date$ $Author$
  */
-public class AjaxTabPanelTagTest {
-
-    private AjaxTabPanelTag tag;
+public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
 
     /**
      * Set up.
+     *
+     * @throws Exception
+     *             if setUp fails
      */
     @Before
-    public void setUp() {
-        tag = new AjaxTabPanelTag();
-        tag.setBodyContent(new FakeBodyContent());
-        tag.setPageContext(new FakePageContext());
+    public void setUp() throws Exception {
+        setUp(AjaxTabPanelTag.class);
     }
 
     /**
-     * Tear down.
+     * Test list of tabs.
      */
-    @After
-    public void tearDown() {
-        tag.release();
-    }
-
     @Test
     public void testGetPages() {
         assertEquals("No pages", "[]", tag.getPages());
@@ -84,10 +74,8 @@ public class AjaxTabPanelTagTest {
      */
     @Test
     public void testDoEndTagEmpty() throws JspException {
-        assertEquals("doStartTag() must return BodyTag.EVAL_BODY_BUFFERED",
-                BodyTag.EVAL_BODY_BUFFERED, tag.doStartTag());
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
+        assertStartTagEvalBody();
+        assertAfterBody();
 
         try {
             tag.doEndTag();
@@ -112,37 +100,31 @@ public class AjaxTabPanelTagTest {
         final PageContext context = new FakePageContext();
         tag.setPageContext(context);
 
-        assertEquals("doStartTag() must return BodyTag.EVAL_BODY_BUFFERED",
-                BodyTag.EVAL_BODY_BUFFERED, tag.doStartTag());
+        assertStartTagEvalBody();
 
         tag.addPage(page(1));
         tag.addPage(page(2));
 
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertAfterBody();
+        assertEndTag();
 
         final String content = ((FakeBodyContent) context.getOut()).getString();
         final String expected = "<div><script type=\"text/javascript\">"
                 + "new AjaxJspTag.TabPanel({pages: [" + pageText(1) + "," + pageText(2) + "]});"
                 + "</script></div>";
 
-        assertEquals("HTML after doEndTag()", reformat(expected), reformat(content));
+        assertContent(expected, content);
     }
 
-    private String reformat(final String html) throws TransformerException, SAXException {
-        return XMLUtils.format(html).replaceAll("[\\s\r\n]", "");
-    }
-
-    private AjaxTabPageTag page(final int n) {
+    private AjaxTabPageTag page(final int pageNo) {
         final AjaxTabPageTag page = new AjaxTabPageTag();
-        page.setCaption("c" + n);
-        page.setBaseUrl("b" + n);
+        page.setCaption("c" + pageNo);
+        page.setBaseUrl("b" + pageNo);
         return page;
     }
 
-    private String pageText(final int n) {
-        return "{baseUrl: \"b" + n + "\", caption: \"c" + n + "\"}";
+    private String pageText(final int pageNo) {
+        return "{baseUrl: \"b" + pageNo + "\", caption: \"c" + pageNo + "\"}";
     }
 
 }

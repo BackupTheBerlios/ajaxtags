@@ -16,21 +16,15 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTag;
-import javax.servlet.jsp.tagext.Tag;
 import javax.xml.transform.TransformerException;
 
 import net.sourceforge.ajaxtags.FakeBodyContent;
 import net.sourceforge.ajaxtags.FakePageContext;
-import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -39,29 +33,20 @@ import org.xml.sax.SAXException;
  * Test for AjaxPortletTag.
  * 
  * @author Victor Homyakov
- * @version $Revision$ $Date$ $Author$
  */
-public class AjaxPortletTagTest {
+public class AjaxPortletTagTest extends AbstractTagTest<AjaxPortletTag> {
 
     private static final String TAG_ID = "ajaxFrame";
-    private AjaxPortletTag tag;
 
     /**
      * Set up.
+     *
+     * @throws Exception
+     *             if setUp fails
      */
     @Before
-    public void setUp() {
-        tag = new AjaxPortletTag();
-        tag.setBodyContent(new FakeBodyContent());
-        tag.setPageContext(new FakePageContext());
-    }
-
-    /**
-     * Tear down.
-     */
-    @After
-    public void tearDown() {
-        tag.release();
+    public void setUp() throws Exception {
+        setUp(AjaxPortletTag.class);
     }
 
     /**
@@ -80,29 +65,21 @@ public class AjaxPortletTagTest {
     public void testTag() throws JspException, IOException, TransformerException, SAXException {
         final PageContext context = new FakePageContext();
         tag.setPageContext(context);
-
         tag.setId(TAG_ID);
 
         context.getOut().print("<div>before tag");
 
-        assertEquals("doStartTag() must return Tag.SKIP_BODY", Tag.SKIP_BODY, tag.doStartTag());
-
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertStartTagSkipBody();
+        assertAfterBody();
+        assertEndTag();
 
         context.getOut().print("after tag</div>");
-        final String content = ((FakeBodyContent) context.getOut()).getString();
 
+        final String content = ((FakeBodyContent) context.getOut()).getString();
         final String expected = "<div>before tag<div>" + "<script type=\"text/javascript\">"
                 + "newAjaxJspTag.Portlet({executeOnLoad:false,startMinimize:false});" + "</script>"
                 + "</div>after tag</div>";
-
-        // .replaceAll("[\\s|\n|\r\n]","") dirty hack, problem with WS remove all! cause
-        // we just need to check the javascript here
-        assertEquals("HTML after doEndTag()", XMLUtils.format(expected).replaceAll("[\\s|\n|\r\n]",
-                ""), XMLUtils.format(content).replaceAll("[\\s|\n|\r\n]", ""));
+        assertContent(expected, content);
     }
 
 }

@@ -16,19 +16,13 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTag;
-import javax.servlet.jsp.tagext.Tag;
 import javax.xml.transform.TransformerException;
 
 import net.sourceforge.ajaxtags.FakeBodyContent;
 import net.sourceforge.ajaxtags.FakePageContext;
-import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -37,28 +31,18 @@ import org.xml.sax.SAXException;
  * Test for AjaxToggleTag.
  * 
  * @author Victor Homyakov
- * @version $Revision$ $Date$ $Author$
  */
-public class AjaxToggleTagTest {
-
-    private AjaxToggleTag tag;
+public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
 
     /**
      * Set up.
+     *
+     * @throws Exception
+     *             if setUp fails
      */
     @Before
-    public void setUp() {
-        tag = new AjaxToggleTag();
-        tag.setBodyContent(new FakeBodyContent());
-        tag.setPageContext(new FakePageContext());
-    }
-
-    /**
-     * Tear down.
-     */
-    @After
-    public void tearDown() {
-        tag.release();
+    public void setUp() throws Exception {
+        setUp(AjaxToggleTag.class);
     }
 
     /**
@@ -78,21 +62,19 @@ public class AjaxToggleTagTest {
         tag.setContainerClass("star-rating");
         tag.setRatings(",Two,Three");
 
-        assertEquals("doStartTag() must return Tag.SKIP_BODY", Tag.SKIP_BODY, tag.doStartTag());
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertStartTagSkipBody();
+        assertAfterBody();
+        assertEndTag();
 
         final String content = ((FakeBodyContent) context.getOut()).getString();
         final String expected = "<div class=\"star-rating\">"
-                + "<a href=\"javascript://nop\" title=\"\"></a>"
-                + "<a href=\"javascript://nop\" title=\"Two\"></a>"
-                + "<a href=\"javascript://nop\" title=\"Three\"></a>"
+                + toggle("")
+                + toggle("Two")
+                + toggle("Three")
                 + "<script type=\"text/javascript\">"
                 + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", ratings: \",Two,Three\"});"
                 + "</script></div>";
-
-        assertEquals("HTML after doEndTag()", reformat(expected), reformat(content));
+        assertContent(expected, content);
     }
 
     /**
@@ -112,21 +94,19 @@ public class AjaxToggleTagTest {
         tag.setContainerClass("star-rating");
         tag.setRatings("One,Two,Three");
 
-        assertEquals("doStartTag() must return Tag.SKIP_BODY", Tag.SKIP_BODY, tag.doStartTag());
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertStartTagSkipBody();
+        assertAfterBody();
+        assertEndTag();
 
         final String content = ((FakeBodyContent) context.getOut()).getString();
         final String expected = "<div class=\"star-rating\">"
-                + "<a href=\"javascript://nop\" title=\"One\"></a>"
-                + "<a href=\"javascript://nop\" title=\"Two\"></a>"
-                + "<a href=\"javascript://nop\" title=\"Three\"></a>"
+                + toggle("One")
+                + toggle("Two")
+                + toggle("Three")
                 + "<script type=\"text/javascript\">"
                 + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", ratings: \"One,Two,Three\"});"
                 + "</script></div>";
-
-        assertEquals("HTML after doEndTag()", reformat(expected), reformat(content));
+        assertContent(expected, content);
     }
 
     /**
@@ -148,21 +128,19 @@ public class AjaxToggleTagTest {
         tag.setDefaultRating("Two");
         tag.setSelectedClass("selected");
 
-        assertEquals("doStartTag() must return Tag.SKIP_BODY", Tag.SKIP_BODY, tag.doStartTag());
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertStartTagSkipBody();
+        assertAfterBody();
+        assertEndTag();
 
         final String content = ((FakeBodyContent) context.getOut()).getString();
         final String expected = "<div class=\"star-rating\">"
-                + "<a href=\"javascript://nop\" title=\"One\"></a>"
+                + toggle("One")
                 + "<a href=\"javascript://nop\" class=\"selected\" title=\"Two\"></a>"
-                + "<a href=\"javascript://nop\" title=\"Three\"></a>"
+                + toggle("Three")
                 + "<script type=\"text/javascript\">"
                 + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", defaultRating: \"Two\", ratings: \"One,Two,Three\", selectedClass: \"selected\"});"
                 + "</script></div>";
-
-        assertEquals("HTML after doEndTag()", reformat(expected), reformat(content));
+        assertContent(expected, content);
     }
 
     /**
@@ -183,23 +161,21 @@ public class AjaxToggleTagTest {
         tag.setRatings("true,false");
         tag.setOnOff("true");
 
-        assertEquals("doStartTag() must return Tag.SKIP_BODY", Tag.SKIP_BODY, tag.doStartTag());
-        assertEquals("doAfterBody() must return BodyTag.SKIP_BODY", BodyTag.SKIP_BODY, tag
-                .doAfterBody());
-        assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
+        assertStartTagSkipBody();
+        assertAfterBody();
+        assertEndTag();
 
         final String content = ((FakeBodyContent) context.getOut()).getString();
         final String expected = "<div class=\"power-rating onoff\">"
-                + "<a href=\"javascript://nop\" title=\"false\"></a>"
+                + toggle("false")
                 + "<script type=\"text/javascript\">"
                 + "new AjaxJspTag.Toggle({containerClass: \"power-rating\", ratings: \"true,false\"});"
                 + "</script></div>";
-
-        assertEquals("HTML after doEndTag()", reformat(expected), reformat(content));
+        assertContent(expected, content);
     }
 
-    private String reformat(final String html) throws TransformerException, SAXException {
-        return XMLUtils.format(html).replaceAll("[\\s\r\n]", "");
+    private String toggle(final String rating) {
+        return "<a href=\"javascript://nop\" title=\"" + rating + "\"></a>";
     }
 
 }
