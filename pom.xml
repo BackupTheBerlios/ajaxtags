@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ajaxtags</groupId>
 	<artifactId>ajaxtags-doc</artifactId>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.5</version>
 	<name>AjaxTags DOC</name>
 	<packaging>pom</packaging>
 	<inceptionYear>2005</inceptionYear>
@@ -161,8 +161,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.5</source>
+					<target>1.5</target>
 					<deprecation>on</deprecation>
 					<debug>on</debug>
 					<encoding>utf-8</encoding>

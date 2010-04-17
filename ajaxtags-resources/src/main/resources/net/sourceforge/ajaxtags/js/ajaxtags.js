@@ -225,7 +225,7 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
                         li.appendChild(new Element("span", {id: "span_" + value, className: this.collapsedClass}));
                     }
                     link = new Element("a", {href: url, className: this.nodeClass}).update(name);
-                    div = new Element("div", {id: value});
+                    div = new Element("div", {id: "div_" + value});
                     div.hide();
                     if (!collapsed) {
                         this.expandedNodes.push(value);

@@ -4,13 +4,13 @@
     <parent>
         <artifactId>ajaxtags-doc</artifactId>
         <groupId>ajaxtags</groupId>
-        <version>1.5-SNAPSHOT</version>
+	<version>1.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>ajaxtags</groupId>
     <artifactId>ajaxtags-resources</artifactId>
     <packaging>jar</packaging>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.5</version>
     <name>AjaxTags Resources</name>
     <description>Here are the javascript files, the images and the CSS files. You can provide this resources with simple the SourceLoader Servlet or on your own way</description>
     <build>

@@ -4,13 +4,13 @@
 	<parent>
 		<artifactId>ajaxtags-doc</artifactId>
 		<groupId>ajaxtags</groupId>
-		<version>1.5-SNAPSHOT</version>
+		<version>1.5</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ajaxtags</groupId>
 	<artifactId>ajaxtags</artifactId>
 	<packaging>jar</packaging>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.5</version>
 	<name>AjaxTags</name>
 	<dependencies>
 		<dependency>
@@ -18,16 +18,5 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-			<scope>test</scope>
-		</dependency>
-			<dependency> <groupId>net.htmlparser.jericho</groupId>
-			<artifactId>jericho-html</artifactId> <version>3.0</version>
-			<scope>provided</scope> </dependency>
-		-->
 	</dependencies>
 </project>
