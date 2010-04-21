@@ -717,6 +717,14 @@ AjaxJspTag.XmlToHtmlAutocompleter = Class.create(Autocompleter.Base, {
 AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base, {
     initialize: function (options) {
         this.setOptions(options);
+        // remove previous element, if any
+        var element = $(this.options.divElement);
+        if (element) {
+            element.stopObserving();
+            if(element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
+        }
         // insert div at the top of the document so it will not be hidden in case of overflow
         Element.insert(document.body, {top:new Element("div", {id: this.options.divElement, className: this.options.className})});
         this.execute();
