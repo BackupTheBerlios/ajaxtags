@@ -81,8 +81,8 @@
 <body>
 
 <div id="header">AJAX JSP Tag Library Examples</div>
-<div id="subheader"><a href="bugs/" >BUGS solutions</a> | <a href="http://ajaxtags.sourceforge.net/"
-    class="external">Project website</a> | <a
+<div id="subheader"><a href="bugs/" >BUGS solutions</a> | <a href="tests/" >Unit tests</a> | <a
+    href="http://ajaxtags.sourceforge.net/" class="external">Project website</a> | <a
     href="http://sourceforge.net/projects/ajaxtags/" class="external">AjaxTags@SourceForge</a></div>
 <div id="buildVersion">Using Project Version 1.5</div>
 <div id="content">

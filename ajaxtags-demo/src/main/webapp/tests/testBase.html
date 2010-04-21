@@ -1,0 +1,183 @@
+<h1>AjaxJspTag.Base</h1>
+<!-- Log output -->
+<div id="testlog"> </div>
+<br/>
+<form id="form1" method="post" action="#" onsubmit="return false;">
+  <input type="text" id="text1" value="Text in input" />
+  <div id="div1">Text in div</div>
+  Checkbox with default value <input type="checkbox" id="checkbox1" name="checkbox1" />
+  <br/>
+  Checkbox "on" <input type="checkbox" id="checkbox2" name="checkbox2" value="on" checked="checked" />
+  <br/>
+  Checkbox "true" <input type="checkbox" id="checkbox3" name="checkbox3" value="true" />
+  <br/>
+  <select multiple="multiple" id="select1" name="select1">
+    <option value="1">1</option>
+    <option value="2" selected="selected">2</option>
+    <option value="3">3</option>
+    <option value="4" selected="selected">4</option>
+    <option value="5">5</option>
+  </select>
+  <textarea id="textarea1" name="textarea1" rows="2" cols="15">&copy;&#13;Z&#10;Z&#13;&#10;Z</textarea>
+</form>
+<form id="testForm" action="#">
+  <!-- parts from http://jquery.malsup.com/form/comp/ --><input id="T2" name="T2" value="YES" readonly="readonly" type="text">
+  <br/>
+  <input id="H1" name="H1" value="x" type="hidden"><input id="H2" name="H2" type="hidden">
+  <br/>
+  <input id="PWD" name="PWD" value="" type="password">
+  <br/>
+  <input name="C1" value="1" type="checkbox"><input name="C2" type="checkbox">
+  <br/>
+  <input name="R1" value="1" type="radio"><input name="R1" value="2" type="radio">
+  <br/>
+  <input name="My Name" value="me" type="text"><input name="reset" value="NO" type="reset">
+  <br/>
+  <select name="S1">
+    <option value="abc">ABC</option>
+    <option value="abc">ABC</option>
+    <option value="abc">ABC</option>
+    <option value="abc">ABC</option>
+    <option selected="selected" value="abc">ABC</option>
+  </select>
+  <select name="S2" multiple="multiple" size="3">
+    <option value="abc">ABC</option>
+    <option value="abc">ABC</option>
+    <option value="abc">ABC</option>
+    <option value="abc">ABC</option>
+    <option value="abc">ABC</option>
+  </select>
+  <select name="S3">
+    <option selected="selected">YES</option>
+  </select>
+  <select name="S4">
+    <option value="" selected="selected">NO</option>
+  </select>
+  <br/>
+  <input name="D1" value="NO" disabled="disabled" type="text"><input checked="checked" disabled="disabled" name="D2" value="NO" type="checkbox"><input name="D3" value="NO" checked="checked" disabled="disabled" type="radio">
+  <select name="D4" disabled="disabled">
+    <option selected="selected" value="NO">NO</option>
+  </select>
+  <br/>
+  <input name="TYPE-TEST" value="YES" type="bogus"><input name="SEARCH" value="YES" type="search"></form>
+<br/>
+<!-- Tests -->
+<script type="text/javascript">
+  var tag = null;
+
+  new Test.Unit.Runner({
+    setup: function() {
+      tag = new AjaxJspTag.Base();
+      tag.options = tag.options || {};
+      tag.options.baseUrl = tag.options.baseUrl || location.href;
+    },
+    teardown: function() {
+      tag = null;
+    },
+
+    testResolveParameters: function() {
+      tag.options.baseUrl = null;
+      this.assertRaise("Error", tag.resolveParameters.bind(tag));
+      tag.options.baseUrl = "";
+      this.assertRaise("Error", tag.resolveParameters.bind(tag));
+
+      var parameters = "param1=value1";
+      tag.options.baseUrl = "url";
+      tag.options.parameters = parameters;
+      tag.resolveParameters();
+      this.assertEqual("param1=value1,", tag.options.parameters);
+
+      tag.options.baseUrl = "url?param2=value2";
+      tag.options.parameters = parameters;
+      tag.resolveParameters();
+      this.assertEqual("param1=value1,param2=value2", tag.options.parameters);
+
+      tag.options.baseUrl = "url?param2=value2&param3=value3";
+      tag.options.parameters = parameters;
+      tag.resolveParameters();
+      this.assertEqual("param1=value1,param2=value2,param3=value3", tag.options.parameters);
+    },
+    testGetMethod: function() {
+      this.assertEqual("post", tag.getMethod());
+    },
+    testInitRequest: function() {
+      tag.options.onCreate = "blah";
+      this.assertEqual(true, tag.initRequest());
+
+      var result = "cancel", called = 0;
+      tag.options.onCreate = function() {
+        called++;
+        return result;
+      };
+      this.assertEqual(false, tag.initRequest());
+      this.assertEqual(1, called);
+
+      result = "CANCEL";
+      this.assertEqual(false, tag.initRequest());
+      this.assertEqual(2, called);
+
+      result = true;
+      this.assertEqual(true, tag.initRequest());
+      this.assertEqual(3, called);
+
+      result = "";
+      this.assertEqual(true, tag.initRequest());
+      this.assertEqual(4, called);
+    },
+    testGetDefaultOptions: function() {
+      var o = tag.getDefaultOptions();
+      this.assertEqual(true, o.asynchronous);
+      this.assertEqual("post", o.method);
+      this.assertEqual(true, o.evalScripts);
+
+      o = tag.getDefaultOptions({
+        method: "get"
+      });
+      this.assertEqual(true, o.asynchronous);
+      this.assertEqual("get", o.method);
+      this.assertEqual(true, o.evalScripts);
+    },
+    testGetAjaxRequest: function() {
+      var result = "cancel", called = 0;
+      tag.options.onCreate = function() {
+        called++;
+        return result;
+      };
+      this.assertEqual(null, tag.getAjaxRequest());
+      this.assertEqual(1, called);
+
+      result = "";
+      var r = tag.getAjaxRequest();
+      this.assertInstanceOf(Ajax.Request, r);
+      this.assertEqual(2, called);
+    },
+    testGetAjaxUpdater: function() {
+      tag.options.target = "non-existent-id";
+      var r = tag.getAjaxUpdater();
+      this.assertInstanceOf(Ajax.Updater, r);
+    },
+    testGetPeriodicalUpdater: function() {
+      tag.options.target = "non-existent-id";
+      var r = tag.getPeriodicalUpdater();
+      this.assertInstanceOf(Ajax.PeriodicalUpdater, r);
+    },
+    testBuildParameterString: function() {
+      tag.options.parameters = " param =value";
+      this.assertEqual("param=value", tag.buildParameterString());
+
+      tag.options.parameters = "p0=,p1=value,p2={text1},p3={div1},p4={nonexistentid}";
+      this.assertEqual(["p0=", "p1=value", "p2=Text%20in%20input", "p3=Text%20in%20div", "p4=%7Bnonexistentid%7D"].join("&"), tag.buildParameterString());
+
+      tag.options.parameters = "checkbox1={checkbox1},checkbox2={checkbox2},checkbox3={checkbox3},select1={select1},textarea1={textarea1}";
+      this.assertEqual(Form.serialize("form1"), tag.buildParameterString());
+    },
+    testReplaceAJAX_DEFAULT: function() {
+      var parameters = "param={ajaxParameter}";
+      tag.options.parameters = parameters;
+
+      this.assertEqual(parameters, tag.replaceAJAX_DEFAULT());
+      this.assertEqual("param=Text in input", tag.replaceAJAX_DEFAULT($("text1")));
+      this.assertEqual("param=Text in div", tag.replaceAJAX_DEFAULT($("div1")));
+    }
+  });
+</script>

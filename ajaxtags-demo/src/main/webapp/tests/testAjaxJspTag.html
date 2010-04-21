@@ -1,0 +1,29 @@
+<h1>AjaxJspTag static methods</h1>
+<!-- Log output -->
+<div id="testlog"> </div>
+<br/>
+<!-- Tests -->
+<script type="text/javascript">
+  new Test.Unit.Runner({
+    setup: function() {
+    },
+    teardown: function() {
+    },
+
+    testAjaxJspTag: function() {
+      this.assert(AjaxJspTag.Version.startsWith("1.5"));
+      this.assertEnumEqual([], AjaxJspTag.tags);
+      var fired = false, o = {
+        setListeners: function() {
+          fired = true;
+        }
+      };
+      AjaxJspTag.add(o);
+      this.assertEnumEqual([o], AjaxJspTag.tags);
+      AjaxJspTag.reload();
+      this.assert(fired);
+      AjaxJspTag.remove(o);
+      this.assertEnumEqual([], AjaxJspTag.tags);
+    }
+  });
+</script>

@@ -1,0 +1,58 @@
+<h1>AjaxJspTag.UpdateField</h1>
+<!-- Log output -->
+<div id="testlog"> </div>
+<br/>
+<input type="text" id="id1" value="text 1" /><input type="text" id="id2" value="text 2" />
+<br/>
+<!-- Tests -->
+<script type="text/javascript">
+  var tag = null;
+
+  new Test.Unit.Runner({
+    setup: function() {
+      tag = new AjaxJspTag.UpdateField();
+    },
+    teardown: function() {
+      tag = null;
+    },
+
+    testInitialize: function() {
+      this.assertInstanceOf(AjaxJspTag.UpdateField, tag);
+      this.assert(Object.isFunction(tag.listener));
+      this.assertEnumEqual([tag], AjaxJspTag.tags);
+      //this.assertEqual(1, AjaxJspTag.tags.length);
+    },
+    testSetOptions: function() {
+      this.assertEqual("text", tag.options.parser.type);
+      tag.setOptions({
+        valueUpdateByName: true
+      });
+      this.assertEqual("xml", tag.options.parser.type);
+    },
+    testSetListeners: function() {
+      // TODO setListeners
+    },
+    testExecute: function() {
+      // TODO execute
+    },
+    testHandler: function() {
+      tag.options.target = "id1,id2";
+      tag.options.parser.content = [["id2", "value 1"], ["id1", "value 2"]];
+
+      // 1. valueUpdateByName = false
+      tag.options.handler(tag);
+      this.assertEqual("value 1", $F("id1"));
+      this.assertEqual("value 2", $F("id2"));
+
+      // 2. valueUpdateByName = true
+      tag.setOptions({
+        valueUpdateByName: true,
+        target: "id1,id2"
+      });
+      tag.options.parser.content = [["id2", "value 1"], ["id1", "value 2"]];
+      tag.options.handler(tag);
+      this.assertEqual("value 2", $F("id1"));
+      this.assertEqual("value 1", $F("id2"));
+    }
+  });
+</script>
