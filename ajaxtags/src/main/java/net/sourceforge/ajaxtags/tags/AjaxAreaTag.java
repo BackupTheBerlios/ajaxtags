@@ -25,21 +25,21 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 /**
  * Wraps any area on the page (with a DIV element) so that actions within that area refresh/load
  * inside the defined DIV region rather than inside the whole browser window.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  */
 public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
-     * The header we are seraching to detect the ajax call. This should match the id of this tag.
+     * The header we are searching to detect the ajax call. This should match the id of this tag.
      */
     public static final String TARGET_HEADER = "x-request-target";
 
     private static final long serialVersionUID = -7940387487602588115L;
 
     /**
-     * flag if we should &lt;a&gt; tags be rewritte to use ajaxlinks
+     * Flag if we should rewrite &lt;a&gt; tags to use ajaxlinks.
      */
     private boolean ajaxAnchors;
 
@@ -69,7 +69,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
      * Clear page content before start of tag if we are processing AJAX request.
-     * 
+     *
      * @throws JspException
      *             when HTTP response cannot be reset (has already had its status code and headers
      *             written)
@@ -87,7 +87,7 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
 
     /**
      * Write body. Skip the rest of the page if we are processing AJAX request.
-     * 
+     *
      * @return SKIP_PAGE for AJAX request, EVAL_PAGE for usual request
      * @throws JspException
      *             on errors
@@ -112,11 +112,11 @@ public class AjaxAreaTag extends AjaxAnchorsTag {
     }
 
     /**
-     * Process content.
-     * 
-     * @param content
-     * @return processed content
-     * @throws JspException
+     * Process content. Rewrite anchors to AJAX links if needed.
+     *
+     * @param content XHTML source as string
+     * @return either content with rewritten anchors or unchanged content depending on flag
+     * @throws JspException when links rewriting failed
      * @throws Exception
      */
     protected String processContent(final String content) throws JspException {

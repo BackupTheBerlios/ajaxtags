@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
  * Wraps a DisplayTag (http://displaytag.org) table, enabling AJAX capabilities. In the process,
  * anchors in the navigation are rewritten on the fly so that the DisplayTag table refreshes within
  * the same region on the page without a full-page reload.
- * 
+ *
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/07/08 17:52:30 $ $Author: jenskapitza $
  */
@@ -132,11 +132,12 @@ public class AjaxDisplayTag extends AjaxAreaTag {
 
     /**
      * Rewrite anchors in content.
-     * 
+     *
      * Parse content to XHTML {@link org.w3c.dom.Document}, rewrite DisplayTag anchor elements and
      * return string representation of document.
-     * 
-     * @throws JspException
+     *
+     * @param content XHTML source as string
+     * @throws JspException when links rewriting failed
      * @see net.sourceforge.ajaxtags.tags.AjaxAreaTag#processContent(java.lang.String)
      */
     @Override

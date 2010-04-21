@@ -104,7 +104,7 @@ public class AjaxAnchorsTagTest extends AbstractTagTest<AjaxAnchorsTag> {
         final OptionsBuilder options = OptionsBuilder.getOptionsBuilder();
 
         String html = "HTML content";
-        String expected = HEADER + "<div>HTML content</div>";// + IOUtils.LINE_SEPARATOR;
+        String expected = HEADER + "<div>HTML content</div>"; // + IOUtils.LINE_SEPARATOR;
         assertContent(expected, tag.ajaxAnchors(html, "target", null));
 
         html = "html <a>link</a>";

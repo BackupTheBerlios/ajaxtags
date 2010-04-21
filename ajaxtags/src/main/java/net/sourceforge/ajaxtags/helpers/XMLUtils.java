@@ -48,9 +48,11 @@ import org.xml.sax.SAXException;
  */
 public final class XMLUtils {
 
+    /** Value for transformer output properties. */
     private static final String TRANSFORMER_YES = "yes";
 
     /* THREAD HELPER IMPLEMENTATIONS */
+    /** TransformerFactory. */
     private static final ThreadLocal<TransformerFactory> TRANSFORMER_FACTORY = new ThreadLocal<TransformerFactory>() {
         @Override
         protected TransformerFactory initialValue() {
@@ -58,16 +60,19 @@ public final class XMLUtils {
         }
     };
 
+    /** DocumentBuilderFactory. */
     private static final ThreadLocal<DocumentBuilderFactory> DOC_FACTORY = new ThreadLocal<DocumentBuilderFactory>() {
         @Override
         protected DocumentBuilderFactory initialValue() {
-            final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            final DocumentBuilderFactory dbf = DocumentBuilderFactory
+                    .newInstance();
             dbf.setValidating(false);
             dbf.setIgnoringElementContentWhitespace(true);
             return dbf;
         };
     };
 
+    /** XPathFactory. */
     private static final ThreadLocal<XPathFactory> XPATH_FACTORY = new ThreadLocal<XPathFactory>() {
         @Override
         protected XPathFactory initialValue() {
@@ -76,6 +81,7 @@ public final class XMLUtils {
     };
 
     /* END THREAD HELPER IMPLEMENTATIONS */
+
     /**
      * Never instance this class.
      */
@@ -93,9 +99,10 @@ public final class XMLUtils {
      * @throws XPathExpressionException
      *             if expression cannot be evaluated
      */
-    public static NodeList evaluateXPathExpression(final String expression, final Node node)
-            throws XPathExpressionException {
-        return (NodeList) evaluateXPathExpression(expression, node, XPathConstants.NODESET);
+    public static NodeList evaluateXPathExpression(final String expression,
+            final Node node) throws XPathExpressionException {
+        return (NodeList) evaluateXPathExpression(expression, node,
+                XPathConstants.NODESET);
     }
 
     /**
@@ -107,31 +114,35 @@ public final class XMLUtils {
      *            DOM node
      * @param returnValue
      *            the desired return type
-     * @return result of evaluating an XPath expression as an Object of returnType
+     * @return result of evaluating an XPath expression as an Object of
+     *         returnType
      * @throws XPathExpressionException
      *             if expression cannot be evaluated
      */
-    public static Object evaluateXPathExpression(final String expression, final Node node,
-            final QName returnValue) throws XPathExpressionException {
+    public static Object evaluateXPathExpression(final String expression,
+            final Node node, final QName returnValue)
+            throws XPathExpressionException {
         return getNewXPath().evaluate(expression, node,
                 returnValue == null ? XPathConstants.NODE : returnValue);
     }
 
     /**
-     * create and return a new {@link XPath} object from {@link ThreadLocal}
+     * Create and return a new {@link XPath} object from {@link ThreadLocal}.
+     *
      * @return a new {@link XPath} object.
      */
-    public static XPath getNewXPath(){
+    public static XPath getNewXPath() {
         return XPATH_FACTORY.get().newXPath();
     }
 
     /**
      * @return DocumentBuilder
      * @throws ParserConfigurationException
-     *             if a DocumentBuilder cannot be created which satisfies the configuration
-     *             requested
+     *             if a DocumentBuilder cannot be created which satisfies the
+     *             configuration requested
      */
-    private static DocumentBuilder getNewDocumentBuilder() throws ParserConfigurationException {
+    private static DocumentBuilder getNewDocumentBuilder()
+            throws ParserConfigurationException {
         return DOC_FACTORY.get().newDocumentBuilder();
     }
 
@@ -146,7 +157,8 @@ public final class XMLUtils {
      */
     public static Document getXMLDocument(final String xml) throws SAXException {
         try {
-            return getNewDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+            return getNewDocumentBuilder().parse(
+                    new InputSource(new StringReader(xml)));
         } catch (IOException e) {
             throw new SAXException(e);
         } catch (ParserConfigurationException e) {
@@ -176,7 +188,8 @@ public final class XMLUtils {
      * @throws SAXException
      *             if any parse errors occur
      */
-    public static String format(final String xml) throws TransformerException, SAXException {
+    public static String format(final String xml) throws TransformerException,
+            SAXException {
         return toString(getXMLDocument(xml));
     }
 
@@ -187,24 +200,31 @@ public final class XMLUtils {
      *            XHTML document
      * @return string representation of document
      * @throws TransformerException
-     *             if it is not possible to create a Transformer instance or to transform document
+     *             if it is not possible to create a Transformer instance or to
+     *             transform document
      */
-    public static String toString(final Document document) throws TransformerException {
+    public static String toString(final Document document)
+            throws TransformerException {
         final StringWriter stringWriter = new StringWriter();
         final StreamResult streamResult = new StreamResult(stringWriter);
-        final Transformer transformer = TRANSFORMER_FACTORY.get().newTransformer();
+        final Transformer transformer = TRANSFORMER_FACTORY.get()
+                .newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, TRANSFORMER_YES);
         // set ident for XML
-        transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
+        transformer.setOutputProperty(
+                "{http://xml.apache.org/xalan}indent-amount", "2");
         // not all JavaSE have the same implementation
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+        transformer.setOutputProperty(
+                "{http://xml.apache.org/xslt}indent-amount", "2");
         // transformer.setOutputProperty(OutputKeys.METHOD, "html");
         // html method transforms <br/> into <br>, which cannot be re-parsed
         // transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
         // xhtml method does not work for my xalan transformer
         transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, TRANSFORMER_YES);
-        transformer.transform(new DOMSource(document.getDocumentElement()), streamResult);
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                TRANSFORMER_YES);
+        transformer.transform(new DOMSource(document.getDocumentElement()),
+                streamResult);
         return stringWriter.toString();
     }
 }

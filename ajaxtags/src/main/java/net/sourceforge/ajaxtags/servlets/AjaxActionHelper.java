@@ -78,7 +78,7 @@ public final class AjaxActionHelper {
          * @param response
          *            the {@link HttpServletResponse} where we should write the header to.
          */
-        public void enable(HttpServletResponse response) {
+        public void enable(final HttpServletResponse response) {
             response.setHeader(headerName, headerValue);
         }
 
@@ -88,7 +88,7 @@ public final class AjaxActionHelper {
          * @param response
          *            the {@link HttpServletResponse}
          */
-        public void disable(HttpServletResponse response) {
+        public void disable(final HttpServletResponse response) {
             throw new NotImplementedException("This is not implemented yet.");
         }
     }
@@ -117,8 +117,8 @@ public final class AjaxActionHelper {
         // prepare CALL
         try {
             request.setCharacterEncoding(action.getXMLEncoding());
-        } // we will use UTF-8
-        catch (UnsupportedEncodingException e) {
+            // we will use UTF-8
+        } catch (UnsupportedEncodingException e) {
             throw new ServletException(e);
         }
         // Set content to XML
