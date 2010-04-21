@@ -347,18 +347,17 @@ AjaxJspTag.Base = Class.create({
         return data._event;
     },
     buildParameterString: function (ajaxParam) {
-        var returnString = '';
+        var result = [];
         var value = Form.Element.serialize; // BUG 016027
-        var field = null, key = null, val = null, v = null;
+        var field, key, v;
         var params = (this.replaceAJAX_DEFAULT(ajaxParam) || '');
         params.split(',').each(function (pair) {
             if (pair.strip().length === 0) {
                 return;
             }
             pair = pair.split('=');
-            key = pair[0].strip();
+            key = pair[0].strip() + '=';
             pair = pair[1];
-            val = [];
             field = null;
             if (Object.isString(pair) && pair.strip().length > 0) {
                 field = pair.match(/\{[\w\.:\(\)\[\]]*\}/g);
@@ -367,28 +366,19 @@ AjaxJspTag.Base = Class.create({
                 }
             }
 
-            // TODO simplify val.push() and returnString +=
             if (!field) {
-                val.push(pair);
-            } else if (('select-multiple' === field.type) || ('checkbox' === field.type)) {
-                if (v = value(field)) {
-                	returnString += '&' + v;
+                result.push(key + encodeURIComponent(pair));
+            } else if (('select-multiple' === field.type) || ('checkbox' === field.type)) { // BUG 016027
+                 if (v = value(field)) {
+                    result.push(v);
                 }
-            } // BUG 016027
-            else if (['radio', 'text', 'textarea', 'password', 'hidden', 'select-one'].include(field.type)) {
-                val.push(field.value);
+            } else if (['radio', 'text', 'textarea', 'password', 'hidden', 'select-one'].include(field.type)) {
+                result.push(key + encodeURIComponent(field.value));
             } else {
-                val.push(field.innerHTML);
+                result.push(key + encodeURIComponent(field.innerHTML));
             }
-
-            val.each(function (item) {
-                returnString += '&' + key + '=' + encodeURIComponent(item);
-            }); // sollte immer noch laufen!
         });
-        if (returnString.charAt(0) === '&') {
-            returnString = returnString.substr(1);
-        }
-        return returnString;
+        return result.join('&');
     },
     replaceAJAX_DEFAULT: function (elem) {
         var o = this.options;
@@ -408,15 +398,15 @@ AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
     },
     setOptions: function (options) {
         this.options = Object.extend({
-            // just set options to defaults this will be changed with parameter
-            // options
+            // just set options to defaults
+            // this will be changed with parameter options
             parameters: '',
             valueUpdateByName: false,
             eventType: "click",
-            // don't use object
-            parser: new DefaultResponseParser(options.valueUpdateByName ? "xml" : "text"),
             handler: this.handler
         }, options || {});
+        // TODO don't use object
+        this.options.parser = new DefaultResponseParser(this.options.valueUpdateByName ? "xml" : "text");
     },
     setListeners: function () {
         var o = this.options, a = $(o.action);
@@ -738,7 +728,7 @@ AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base, {
         }, options || {});
     },
     execute: function (e) {
-        var aj = new AjaxJspTag.XmlToHtmlAutocompleter(this); // TODO aj is unused
+        new AjaxJspTag.XmlToHtmlAutocompleter(this);
     },
     handler: function (selectedItem) {
         var target = $(this.options.target);
