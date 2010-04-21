@@ -24,14 +24,14 @@ import java.util.Map.Entry;
 /**
  * This class should help to write HTML-Tags we will have a simple append operation and a easy use
  * in connection with strings.
- * 
+ *
  * @author jenskapitza
  */
 public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
-     * A simple enum holding some HMTL-Attributes we are using.
-     * 
+     * A simple enum holding some HTML-Attributes we are using.
+     *
      * @author Jens Kapitza
      */
     public static enum HTMLAttribute {
@@ -55,7 +55,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     * 
+     *
      * @param name
      *            name of start and endtag
      * @param id
@@ -75,7 +75,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     * 
+     *
      * @param name
      *            the tag name
      */
@@ -85,7 +85,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Create a HTML element.
-     * 
+     *
      * @param name
      *            the tag name
      * @param id
@@ -118,7 +118,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Set the body content.
-     * 
+     *
      * @param body
      *            the body content
      */
@@ -135,7 +135,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Set the class name attribute.
-     * 
+     *
      * @param className
      *            the class attribute value
      */
@@ -152,7 +152,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Set the id attribute.
-     * 
+     *
      * @param id
      *            the id attribute value
      */
@@ -192,7 +192,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
     /**
      * cleaning the Attributes. This method do nothing per default.
      */
-    protected void cleanAttributes() {
+    protected void cleanAttributes() { // NOPMD
     }
 
     /**
@@ -218,7 +218,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Append {@link CharSequence} to this object.
-     * 
+     *
      * @param string
      *            the data to append
      * @return self
@@ -230,7 +230,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
 
     /**
      * Append a char.
-     * 
+     *
      * @param c
      *            the char to append
      * @return self

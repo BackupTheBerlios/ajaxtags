@@ -26,20 +26,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.NotImplementedException;
 
 /**
- * This is a helper class to avoid caching problems and duplicated code. Later we will write a
- * action class to make the use in strutts much easier.
- * 
+ * This is a helper class to avoid caching problems and duplicated code. Later we will write an
+ * action class to make the use in struts much easier.
+ *
  * @author Jens Kapitza
  */
 public final class AjaxActionHelper {
 
     /**
-     * Some HMTL-Header wich can be easily enabled
-     * 
+     * Some HTML-Header which can be easily enabled.
+     *
      * @author Jens Kapitza
-     * 
+     *
      */
-    public static enum HMTLAjaxHeader {
+    public static enum HTMLAjaxHeader {
         /**
          * Set HTTP/1.1 no-cache headers.
          */
@@ -61,20 +61,20 @@ public final class AjaxActionHelper {
 
         /**
          * Create the Headerpair. This is a easy usage holding static header information.
-         * 
+         *
          * @param name
          *            the header name.
          * @param value
          *            the header value.
          */
-        private HMTLAjaxHeader(final String name, final String value) {
+        private HTMLAjaxHeader(final String name, final String value) {
             this.headerName = name;
             this.headerValue = value;
         }
 
         /**
-         * enable the header in the {@link HttpServletResponse}
-         * 
+         * Enable the header in the {@link HttpServletResponse}.
+         *
          * @param response
          *            the {@link HttpServletResponse} where we should write the header to.
          */
@@ -83,8 +83,8 @@ public final class AjaxActionHelper {
         }
 
         /**
-         * disable the header. This is not yet implemented.
-         * 
+         * Disable the header. This is not yet implemented.
+         *
          * @param response
          *            the {@link HttpServletResponse}
          */
@@ -94,14 +94,14 @@ public final class AjaxActionHelper {
     }
 
     /**
-     * do not create an object
+     * Do not create an object.
      */
     private AjaxActionHelper() {
     }
 
     /**
      * Invoke the AJAX action and setup the request and response.
-     * 
+     *
      * @param action
      *            the BaseAjaxXmlAction implementation
      * @param request
@@ -125,7 +125,7 @@ public final class AjaxActionHelper {
         response.setContentType("text/xml; charset=" + action.getXMLEncoding());
 
         // enable the ajaxheaders
-        for (HMTLAjaxHeader header : HMTLAjaxHeader.values()) {
+        for (HTMLAjaxHeader header : HTMLAjaxHeader.values()) {
             header.enable(response);
         }
 

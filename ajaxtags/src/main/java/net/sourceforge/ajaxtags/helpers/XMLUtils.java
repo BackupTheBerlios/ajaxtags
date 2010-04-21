@@ -43,22 +43,22 @@ import org.xml.sax.SAXException;
 
 /**
  * Some helper functions for XML.
- * 
+ *
  * @author jenskapitza
  */
 public final class XMLUtils {
 
     private static final String TRANSFORMER_YES = "yes";
 
-    /*--------------------------------- SOME THREAD HELPER IMPLEMENTATIONS ------------------------------------------*/
-    private static final ThreadLocal<TransformerFactory> transformerFactory = new ThreadLocal<TransformerFactory>() {
+    /* THREAD HELPER IMPLEMENTATIONS */
+    private static final ThreadLocal<TransformerFactory> TRANSFORMER_FACTORY = new ThreadLocal<TransformerFactory>() {
         @Override
         protected TransformerFactory initialValue() {
             return TransformerFactory.newInstance();
         }
     };
 
-    private static final ThreadLocal<DocumentBuilderFactory> docFactory = new ThreadLocal<DocumentBuilderFactory>() {
+    private static final ThreadLocal<DocumentBuilderFactory> DOC_FACTORY = new ThreadLocal<DocumentBuilderFactory>() {
         @Override
         protected DocumentBuilderFactory initialValue() {
             final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -68,14 +68,14 @@ public final class XMLUtils {
         };
     };
 
-    private static final ThreadLocal<XPathFactory> xPathFactory = new ThreadLocal<XPathFactory>() {
+    private static final ThreadLocal<XPathFactory> XPATH_FACTORY = new ThreadLocal<XPathFactory>() {
         @Override
         protected XPathFactory initialValue() {
             return XPathFactory.newInstance();
         }
     };
 
-    /*--------------------------------- END THREAD HELPER IMPLEMENTATIONS ------------------------------------------*/
+    /* END THREAD HELPER IMPLEMENTATIONS */
     /**
      * Never instance this class.
      */
@@ -84,7 +84,7 @@ public final class XMLUtils {
 
     /**
      * Evaluate XPath expression and return list of nodes.
-     * 
+     *
      * @param expression
      *            XPath expression
      * @param node
@@ -100,7 +100,7 @@ public final class XMLUtils {
 
     /**
      * Evaluate XPath expression.
-     * 
+     *
      * @param expression
      *            XPath expression
      * @param node
@@ -116,13 +116,13 @@ public final class XMLUtils {
         return getNewXPath().evaluate(expression, node,
                 returnValue == null ? XPathConstants.NODE : returnValue);
     }
-    
+
     /**
      * create and return a new {@link XPath} object from {@link ThreadLocal}
      * @return a new {@link XPath} object.
      */
     public static XPath getNewXPath(){
-        return xPathFactory.get().newXPath();
+        return XPATH_FACTORY.get().newXPath();
     }
 
     /**
@@ -132,12 +132,12 @@ public final class XMLUtils {
      *             requested
      */
     private static DocumentBuilder getNewDocumentBuilder() throws ParserConfigurationException {
-        return docFactory.get().newDocumentBuilder();
+        return DOC_FACTORY.get().newDocumentBuilder();
     }
 
     /**
      * Parse string with XML content to {@link org.w3c.dom.Document}.
-     * 
+     *
      * @param xml
      *            string with XML content
      * @return Document
@@ -156,7 +156,7 @@ public final class XMLUtils {
 
     /**
      * Create a new {@link org.w3c.dom.Document}.
-     * 
+     *
      * @return an empty document
      * @throws ParserConfigurationException
      *             if a DocumentBuilder cannot be created
@@ -167,7 +167,7 @@ public final class XMLUtils {
 
     /**
      * Parse string as XML document and return string with reformatted document.
-     * 
+     *
      * @param xml
      *            string with XML content
      * @return reformatted content
@@ -182,7 +182,7 @@ public final class XMLUtils {
 
     /**
      * Transform document to string representation.
-     * 
+     *
      * @param document
      *            XHTML document
      * @return string representation of document
@@ -192,7 +192,7 @@ public final class XMLUtils {
     public static String toString(final Document document) throws TransformerException {
         final StringWriter stringWriter = new StringWriter();
         final StreamResult streamResult = new StreamResult(stringWriter);
-        final Transformer transformer = transformerFactory.get().newTransformer();
+        final Transformer transformer = TRANSFORMER_FACTORY.get().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, TRANSFORMER_YES);
         // set ident for XML
         transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");

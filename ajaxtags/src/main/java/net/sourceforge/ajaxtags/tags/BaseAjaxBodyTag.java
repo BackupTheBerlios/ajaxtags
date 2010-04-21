@@ -27,10 +27,10 @@ import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import net.sourceforge.ajaxtags.helpers.JavaScript;
-import net.sourceforge.ajaxtags.servlets.AjaxActionHelper.HMTLAjaxHeader;
+import net.sourceforge.ajaxtags.servlets.AjaxActionHelper.HTMLAjaxHeader;
 
 /**
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
@@ -85,7 +85,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Detect if the client does an AJAX call or not.
-     * 
+     *
      * @return true only if the client send the header with XMLHttpRequest
      */
     protected boolean isAjaxRequest() {
@@ -113,7 +113,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         // we should set the no cache headers!
 
         // enable the ajaxheaders
-        for (HMTLAjaxHeader header : HMTLAjaxHeader.values()) {
+        for (HTMLAjaxHeader header : HTMLAjaxHeader.values()) {
             header.enable(getHttpServletResponse());
         }
 
@@ -139,9 +139,9 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         this.source = null; // NOPMD
         this.sourceClass = null; // NOPMD
         this.eventType = null; // NOPMD
-        
+
         this.styleClass = null;
-        
+
         releaseTag();
     }
 
@@ -202,7 +202,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Build JavaScript assignment string.
-     * 
+     *
      * @return String with assignment to variable "var x = " or field "object.field = "
      */
     public final String getJSVariable() {
@@ -221,7 +221,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     /**
      * Return JavaScript class for JavaScript class corresponding to this tag (e.g.
      * "AjaxJspTag.Submit" for AjaxSubmitTag Java tag).
-     * 
+     *
      * @return String with JavaScript class suffix
      */
     protected String getJsClass() {
@@ -231,7 +231,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Options for JavaScript generation.
-     * 
+     *
      * @return default options
      */
     protected OptionsBuilder getOptions() {
@@ -240,7 +240,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Generate JavaScript for tag.
-     * 
+     *
      * @return JavaScript
      */
     public JavaScript buildScript() {
@@ -310,13 +310,13 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         this.target = trimToNull(target);
     }
 
-    protected void initParameters() throws JspException {
+    protected void initParameters() throws JspException { // NOPMD
     }
 
     /**
      * Never call release() from releaseTag() -> ends in loop.
      */
-    protected void releaseTag() {
+    protected void releaseTag() { // NOPMD
     }
 
     /**
@@ -351,7 +351,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     /**
      * Helper to define new AJAX updater for onclick attribute.
-     * 
+     *
      * @param target
      *            the target to request
      * @param href
