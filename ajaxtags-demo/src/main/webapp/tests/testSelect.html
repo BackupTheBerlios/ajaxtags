@@ -1,0 +1,136 @@
+<h1>AjaxJspTag.Select</h1>
+<!-- Log output -->
+<div id="testlog"> </div>
+<br/>
+<select id="select1"></select>
+<select id="select2">
+  <option value="defaultValue">default option</option>
+</select>
+<!-- Tests -->
+<script type="text/javascript">
+  var tag = null;
+
+  new Test.Unit.Runner({
+    setup: function() {
+      tag = new AjaxJspTag.Select();
+    },
+    teardown: function() {
+      tag.listener = null;
+      tag.options = null;
+      tag.getAjaxRequest = null;
+      tag = null;
+    },
+
+    testInitialize: function() {
+      this.assertInstanceOf(AjaxJspTag.Select, tag);
+      this.assert(Object.isFunction(tag.listener));
+      this.assertEnumEqual([tag], AjaxJspTag.tags);
+    },
+    testSetOptions: function() {
+      tag.setOptions();
+      tag.setOptions({});
+      this.assertEqual("xml", tag.options.parser.type);
+      this.assertEqual("change", tag.options.eventType);
+      this.assertEqual(tag.handler, tag.options.handler);
+    },
+    testSetListeners: function() {
+      tag.setListeners(); // should not throw any errors
+      tag.setOptions({
+        source: ""
+      });
+      tag.setListeners(); // should not throw any errors
+      tag.setOptions({
+        source: "select1"
+      });
+      var s = $("select1");
+      this.assertNotNull(s);
+      tag.setListeners();
+      this.assertEqual(tag.listener, s.ajaxSelect);
+      this.assertEqual(tag.listener, s.onchange);
+    },
+    testFireListener: function() {
+      tag.setOptions({
+        source: "select1",
+        eventType: "click"
+      });
+      var s = $("select1"), fired = 0;
+      this.assertNotNull(s);
+      tag.listener = function() {
+        fired++;
+      };
+      tag.setListeners();
+      Event.simulateMouse(s, "click");
+      this.assertEqual(1, fired);
+    },
+    testExecuteOnLoad: function() {
+      var fired = 0, getAjaxRequest = AjaxJspTag.Base.prototype.getAjaxRequest;
+      AjaxJspTag.Base.prototype.getAjaxRequest = function() {
+        fired++;
+        return "fired";
+      };
+      tag = new AjaxJspTag.Select({
+        executeOnLoad: true
+      });
+      this.assertEqual(1, fired);
+      this.assertEqual("fired", tag.request);
+      AjaxJspTag.Base.prototype.getAjaxRequest = getAjaxRequest;
+    },
+    testExecute: function() {
+      var fired = 0, getAjaxRequest = AjaxJspTag.Base.prototype.getAjaxRequest;
+      AjaxJspTag.Base.prototype.getAjaxRequest = function() {
+        fired++;
+        return "fired";
+      };
+      tag = new AjaxJspTag.Select();
+      tag.listener();
+      this.assertEqual(1, fired);
+      this.assertEqual("fired", tag.request);
+      AjaxJspTag.Base.prototype.getAjaxRequest = getAjaxRequest;
+    },
+    testHandlerNoTarget: function() {
+      this.assertRaise("Error", tag.options.handler.bind(tag.options));
+    },
+    testHandlerEmptyContent: function() {
+      // empty parser content
+      tag.setOptions({
+        emptyOptionName: "emptyOptionName",
+        emptyOptionValue: "emptyOptionValue",
+        target: "select2"
+      });
+      tag.options.parser.content = [];
+      tag.options.handler();
+      this.assertEqual(true, $("select2").disabled);
+      this.assertEqual(1, $("select2").options.length);
+      this.assertEqual("emptyOptionValue", $F("select2"));
+    },
+    testHandlerContent: function() {
+      tag.setOptions({
+        target: "select2"
+      });
+      tag.options.parser.content = [["id1", "value 1"], ["id2", "value 2", "true"], ["id3", "value 3"]];
+      tag.options.handler();
+      this.assertEqual(false, $("select2").disabled);
+      this.assertEqual(3, $("select2").options.length);
+      this.assertEqual("value 2", $F("select2"));
+    },
+    testChainedSelect: function() {
+      tag.setOptions({
+        source: "select1",
+        target: "select2",
+        eventType: "click"
+      });
+      tag.setListeners();
+      var tag2 = new AjaxJspTag.Select({
+        source: "select2"
+      });
+      var fired = 0
+      tag2.listener = function() {
+        fired++;
+      };
+      tag2.setListeners();
+      tag.options.parser.content = [["id1", "value 1"], ["id2", "value 2", "true"], ["id3", "value 3"]];
+      tag.options.handler();
+      this.assertEqual(1, fired);
+    }
+  });
+</script>

@@ -24,16 +24,34 @@
     },
     testSetOptions: function() {
       this.assertEqual("text", tag.options.parser.type);
+      this.assertEqual("click", tag.options.eventType);
+      this.assertEqual(tag.handler, tag.options.handler);
       tag.setOptions({
         valueUpdateByName: true
       });
+      this.assertEqual(true, tag.options.valueUpdateByName);
       this.assertEqual("xml", tag.options.parser.type);
     },
     testSetListeners: function() {
-      // TODO setListeners
+      tag.setOptions({
+        action: "id1"
+      });
+      var s = $("id1");
+      this.assertNotNull(s);
+      tag.setListeners();
+      this.assertEqual(tag.listener, s.onclick);
     },
     testExecute: function() {
-      // TODO execute
+      var fired = 0, getAjaxRequest = AjaxJspTag.Base.prototype.getAjaxRequest;
+      AjaxJspTag.Base.prototype.getAjaxRequest = function() {
+        fired++;
+        return "fired";
+      };
+      tag = new AjaxJspTag.UpdateField();
+      tag.listener();
+      this.assertEqual(1, fired);
+      this.assertEqual("fired", tag.request);
+      AjaxJspTag.Base.prototype.getAjaxRequest = getAjaxRequest;
     },
     testHandler: function() {
       tag.options.target = "id1,id2";
