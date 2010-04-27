@@ -360,6 +360,7 @@ AjaxJspTag.Base = Class.create({
             pair = pair[1];
             field = null;
             if (Object.isString(pair) && pair.strip().length > 0) {
+                // TODO use id regexp from Prototype ([\w\-\*]+)
                 field = pair.match(/\{[\w\.:\(\)\[\]]*\}/g);
                 if (field) {
                     field = $(field[0].substring(1, field[0].length - 1));
@@ -372,7 +373,7 @@ AjaxJspTag.Base = Class.create({
                  if (v = value(field)) {
                     result.push(v);
                 }
-            } else if (['radio', 'text', 'textarea', 'password', 'hidden', 'select-one'].include(field.type)) {
+            } else if (/^(?:radio|text|textarea|password|hidden|select-one)$/i.test(field.type)) {
                 result.push(key + encodeURIComponent(field.value));
             } else {
                 result.push(key + encodeURIComponent(field.innerHTML));
@@ -567,25 +568,25 @@ AjaxJspTag.Callout = Class.create(AjaxJspTag.Base, {
         this.execute(e);
     },
     calloutClose: function (e) {
-        nd();
+        nd(); // TODO move nd() into JS
     },
     execute: function (event) {
         this.request = this.getAjaxRequest(null, Event.element(event));
     },
     handler: function () {
-        if (this.parser.content.strip().length !== 0) { // #4
+        var c = this.parser.content;
+        if (c.strip().length !== 0) { // #4
             if (this.overlib) {
                 if (this.title) {
-                    overlib(this.parser.content, CAPTION, this.title,
-                        this.overlib);
+                    overlib(c, CAPTION, this.title, this.overlib);
                 } else {
-                    overlib(this.parser.content, this.overlib);
+                    overlib(c, this.overlib);
                 }
             } else {
                 if (this.title) {
-                    overlib(this.parser.content, CAPTION, this.title);
+                    overlib(c, CAPTION, this.title);
                 } else {
-                    overlib(this.parser.content);
+                    overlib(c);
                 }
             }
         }
@@ -611,8 +612,7 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
         return e;
     },
     initialize: function (options) {
-        this.panel = $(options.id);
-        this.panel.addClassName("tabPanel");
+        this.panel = $(options.id).addClassName("tabPanel");
         this.content = new Element("div", {className: "tabContent"});
         var ul = new Element('ul');
         ul.innerHTML = '';
@@ -763,8 +763,7 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         this.setOptions(options);
         // erstellen des menu um doppelten code zu vermeiden
         var o = this.options;
-        var sourceBase = $(o.source);
-        sourceBase.addClassName(o.classNamePrefix + "Box");
+        var sourceBase = $(o.source).addClassName(o.classNamePrefix + "Box");
         if (o.withBar) {
             var bar = new Element("div", {className: o.classNamePrefix + "Tools"});
             if (o.close) {
@@ -909,9 +908,8 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
         }); // warp
     },
     toggle: function (e) {
-        var expanded = e.hasClassName(this.options.expandedClass);
-        [this.options.expandedClass, this.options.collapsedClass].each(e.removeClassName, e);
-        e.addClassName(expanded ? this.options.collapsedClass : this.options.expandedClass);
+        var o = this.options, expanded = e.hasClassName(o.expandedClass);
+        e.removeClassName(expanded ? o.expandedClass : o.collapsedClass).addClassName(expanded ? o.collapsedClass : o.expandedClass);
         return !expanded;
     },
     handler: function () {
@@ -952,6 +950,7 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
         // create message DIV
         this.container = $(this.options.source);
         if (this.options.messageClass) {
+            // TODO check if $(id) already exists
             this.messageContainer = new Element("div", {id: this.options.source + "_message", className: this.options.messageClass});
             this.container.insert({'top': this.messageContainer});
         }
