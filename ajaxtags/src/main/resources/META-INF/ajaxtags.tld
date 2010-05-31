@@ -1161,11 +1161,12 @@
         <attribute>
             <description>
                 CSS class name prefix to use for the portlet's 'Box',
-                'Tools', 'Refresh', 'Size', 'Close', 'Title', and
+                'Tools', 'Refresh', 'Toggle', 'Close', 'Title', and
                 'Content' elements.
+                Default: "portlet"
             </description>
             <name>classNamePrefix</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
 
