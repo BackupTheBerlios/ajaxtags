@@ -40,11 +40,11 @@ every 5 seconds. In addition, each of the optional toolbar elements
 
 <ajax:portlet source="portlet_3"
 	baseUrl="htmlcontent.view?make=ford" classNamePrefix="portlet"
-    title="Ford Portlet" imageMaximize="img/maximize.gif" imageMinimize="img/minimize.gif"
+	title="Ford Portlet" imageMaximize="img/maximize.gif" imageMinimize="img/minimize.gif"
 	imageRefresh="img/refresh.gif" refreshPeriod="5" startMinimize="true" />
 
 <br>
-<ajax:portlet source="portlet_1"  executeOnLoad="true"
+<ajax:portlet source="portlet_1" executeOnLoad="true"
 	baseUrl="htmlcontent.view?make=ford" classNamePrefix="portlet"
 	title="Ford Portlet" imageClose="img/close.gif"
 	imageRefresh="img/refresh.gif" refreshPeriod="5" />
@@ -52,6 +52,6 @@ every 5 seconds. In addition, each of the optional toolbar elements
 
 <ajax:portlet source="portlet_2" executeOnLoad="true"
 	baseUrl="htmlcontent.view?make=ford" classNamePrefix="portlet"
-	title="Ford Portlet" imageClose="img/close.gif"  
+	title="Ford Portlet" imageClose="img/close.gif"
 	imageMaximize="img/maximize.gif" imageMinimize="img/minimize.gif"
 	imageRefresh="img/refresh.gif" refreshPeriod="5" />
