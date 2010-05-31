@@ -1,0 +1,87 @@
+<h1>AjaxJspTag.Portlet</h1>
+<!-- Log output -->
+<div id="testlog"> </div>
+<br/>
+<!-- Tests -->
+<div id="portlet_test" style="border:1px dotted gray;"> </div>
+<script type="text/javascript">
+  var tag = null;
+
+  new Test.Unit.Runner({
+    setup: function() {
+      tag = new AjaxJspTag.Portlet({
+        source: "portlet_test"
+      });
+    },
+    teardown: function() {
+      $(tag.options.source).update();
+      tag = null;
+    },
+
+    testInitialize: function() {
+      this.assertInstanceOf(AjaxJspTag.Portlet, tag);
+      var e = $(tag.options.source);
+      this.assertNotNull(e);
+      this.assert(e.hasClassName("portletBox"));
+      this.assertNotNull(e.down("div.portletTitle"));
+      this.assertEqual("" + tag.options.title, e.down("div.portletTitle").innerHTML);
+      this.assertNotNull(e.down("div.portletContent"));
+      this.assertEnumEqual([tag], AjaxJspTag.tags);
+    },
+    testInitializeWithBar: function() {
+      tag = new AjaxJspTag.Portlet({
+        source: "portlet_test",
+        imageClose: "imageClose",
+        imageRefresh: "imageRefresh",
+        imageMinimize: "imageMinimize",
+        imageMaximize: "imageMaximize"
+      });
+      var e = $(tag.options.source).down("div.portletTools");
+      //this.assertNotNull(e);
+      this.assert(e.down("img.portletClose").src.indexOf("imageClose") > 0);
+      this.assert(e.down("img.portletRefresh").src.indexOf("imageRefresh") > 0);
+      this.assert(e.down("img.portletToggle").src.indexOf("imageMinimize") > 0);
+
+      this.assert(Object.isElement(tag.options.close));
+      this.assert(Object.isElement(tag.options.refresh));
+      this.assert(Object.isElement(tag.options.toggle));
+    },
+    testDefaultOptions: function() {
+      this.assert(!tag.options.withBar);
+      this.assertEqual("portlet", tag.options.classNamePrefix);
+      this.assertEqual("html", tag.options.parser.type);
+      this.assertInstanceOf(DefaultResponseParser, tag.options.parser);
+    },
+    testSetOptions: function() {
+      tag.setOptions({
+        source: "portlet_test",
+        imageClose: "imageClose",
+        imageRefresh: "imageRefresh",
+        imageMinimize: "imageMinimize",
+        imageMaximize: "imageMaximize"
+      });
+      this.assert(tag.options.withBar);
+      this.assert(tag.options.close);
+      this.assert(tag.options.refresh);
+      this.assert(tag.options.toggle);
+    },
+    testSetListeners: function() {
+      tag = new AjaxJspTag.Portlet({
+        source: "portlet_test",
+        imageClose: "imageClose",
+        imageRefresh: "imageRefresh",
+        imageMinimize: "imageMinimize",
+        imageMaximize: "imageMaximize"
+      });
+
+      this.assertNotNull(tag.closeListener);
+      this.assertNotNull(tag.refreshListener);
+      this.assertNotNull(tag.toggleListener);
+
+      var e = $(tag.options.source).down("div.portletTools");
+      this.assertEqual(tag.closeListener, e.down("img.portletClose").onclick);
+      this.assertEqual(tag.refreshListener, e.down("img.portletRefresh").onclick);
+      this.assertEqual(tag.toggleListener, e.down("img.portletToggle").onclick);
+    }
+  });
+</script>
