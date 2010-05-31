@@ -15,7 +15,12 @@
  * the License.
  */
 /*jslint bitwise: true, eqeqeq: true, immed: true, newcap: true, nomen: true, regexp: true, undef: true, white: true, maxerr: 50, indent: 4 */
-/*global $,$$,$F,Ajax,Autocompleter,Class,Element,Event,Form,Option,Prototype,overlib*/
+/*global $, $$, $F, Ajax, Autocompleter, Class, Element, Event, Form, Option, Prototype, overlib */
+
+// prototype and scriptaculous must be loaded before this script
+if ((typeof Prototype == 'undefined') || (typeof Element == 'undefined') || (typeof Element.Methods == 'undefined')) {
+    throw new Error("ajaxtags.js requires the Prototype JavaScript framework >= 1.6");
+}
 
 var AjaxJspTag = {
     Version: '1.5',
@@ -42,17 +47,13 @@ var AjaxJspTag = {
      * TODO reload after each request
      */
     reload: function () {
-        AjaxJspTag.tags.each(AjaxJspTag.fireListener);
-    },
-    // for internal use
-    fireListener: function (tag) {
-        if (Object.isFunction(tag.setListeners)) {
-            tag.setListeners();
-        }
+        AjaxJspTag.tags.each(function (tag) {
+            if (Object.isFunction(tag.setListeners)) {
+                tag.setListeners();
+            }
+        });
     }
 };
-
-// prototype and scriptaculous must be loaded before this script
 
 /**
  * Global Variables.
@@ -398,6 +399,7 @@ AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
         this.setListeners();
     },
     setOptions: function (options) {
+        // TODO extract Object.extend() to superclass
         this.options = Object.extend({
             // just set options to defaults
             // this will be changed with parameter options
@@ -766,21 +768,9 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         var sourceBase = $(o.source).addClassName(o.classNamePrefix + "Box");
         if (o.withBar) {
             var bar = new Element("div", {className: o.classNamePrefix + "Tools"});
-            if (o.close) {
-                o.close = new Element("img", {className: o.classNamePrefix + "Close"});
-                o.close.src = o.imageClose;
-                bar.appendChild(o.close);
-            }
-            if (o.refresh) {
-                o.refresh = new Element("img", {className: o.classNamePrefix + "Refresh"});
-                o.refresh.src = o.imageRefresh;
-                bar.appendChild(o.refresh);
-            }
-            if (o.toggle) {
-                o.toggle = new Element("img", {className: o.classNamePrefix + "Size"});
-                o.toggle.src = o.imageMinimize;
-                bar.appendChild(o.toggle);
-            }
+            this.createButton(bar, "close", o.imageClose);
+            this.createButton(bar, "refresh", o.imageRefresh);
+            this.createButton(bar, "toggle", o.imageMinimize);
             sourceBase.appendChild(bar);
         }
 
@@ -804,8 +794,15 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         }
         AjaxJspTag.add(this);
     },
+    createButton: function (bar, name, src) {
+        var o = this.options;
+        if (o[name]) {
+            bar.appendChild(o[name] = new Element("img", {className: o.classNamePrefix + name.capitalize(), src: src}));
+        }
+    },
     setOptions: function (options) {
         this.options = Object.extend({
+            classNamePrefix: "portlet",
             close: (options.imageClose && options.source),
             refresh: (options.imageRefresh && options.source),
             toggle: (options.imageMinimize && options.imageMaximize && options.source),
@@ -816,6 +813,7 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         this.options.withBar = (this.options.close || this.options.refresh || this.options.toggle);
     },
     setListeners: function () {
+        // TODO change to delegate listener on bar[evt]
         var o = this.options, evt = "on" + o.eventType;
         if (o.close) {
             o.close[evt] = this.closeListener;
@@ -974,6 +972,7 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
         element.onclick = this.clickListener;
     },
     setListeners: function () {
+        // TODO change to delegate listener on this.container
         // attach events to anchors
         this.container.select('a').each(this.setEvent, this);
     },
@@ -1060,7 +1059,7 @@ AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
         var erg = this.parser.content[0][0]; // on/off / 1,2,3
         if (Object.isFunction(this.updateFunction)) {
             this.updateFunction(erg); // ??? XXX do we need this!
-        // use onComplete?
+            // use onComplete?
         }
     }
 });
@@ -1091,20 +1090,22 @@ AjaxJspTag.OnClick = Class.create(AjaxJspTag.Base, {
  * Submit tag.
  */
 AjaxJspTag.Submit = Class.create(AjaxJspTag.Base, {
-    initialize: function(options){
+    initialize: function (options) {
+        AjaxJspTag.add(this);
         this.setOptions(options);
+        this.listener = this.execute.bind(this);
         this.setListeners();
     },
-    setOptions: function(options){
+    setOptions: function (options) {
         this.options = options || {};
     },
-    setListeners: function(){
+    setListeners: function () {
         var o = this.options, f = $(o.source);
         if (f) {
-            f.onsubmit = this.execute.bind(this);
+            f.onsubmit = this.listener;
         }
     },
-    execute: function(){
+    execute: function () {
         var o = this.options, f = $(o.source);
         if (f) {
             o.baseUrl = f.action;
