@@ -14,11 +14,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-/*jslint bitwise: true, eqeqeq: true, immed: true, newcap: true, nomen: true, regexp: true, undef: true, white: true, maxerr: 50, indent: 4 */
+/*jslint bitwise: true, browser: true, eqeqeq: true, immed: true, newcap: true, nomen: true, regexp: true, undef: true, white: true, maxerr: 50, indent: 4 */
 /*global $, $$, $F, Ajax, Autocompleter, Class, Element, Event, Form, Option, Prototype, overlib */
 
 // prototype and scriptaculous must be loaded before this script
-if ((typeof Prototype == 'undefined') || (typeof Element == 'undefined') || (typeof Element.Methods == 'undefined')) {
+if ((typeof Prototype === 'undefined') || (typeof Element === 'undefined') || (typeof Element.Methods === 'undefined')) {
     throw new Error("ajaxtags.js requires the Prototype JavaScript framework >= 1.6");
 }
 
@@ -292,7 +292,7 @@ AjaxJspTag.Base = Class.create({
         this.resolveParameters();
         return true;
     },
-    getDefaultOptions: function (options, ajaxParam) {
+    getRequestOptions: function (options, ajaxParam) {
         return Object.extend({
             asynchronous: true,
             method: this.getMethod(),
@@ -311,14 +311,14 @@ AjaxJspTag.Base = Class.create({
                 this.options.parser.load(request);
                 this.options.handler(this);
             }).bind(this)
-        }, this.getDefaultOptions(options, ajaxParam));
+        }, this.getRequestOptions(options, ajaxParam));
         return new Ajax.Request(this.options.baseUrl, options);
     },
     getAjaxUpdater: function (options, ajaxParam) {
         if (!this.initRequest()) {
             return null;
         }
-        options = this.getDefaultOptions(options, ajaxParam);
+        options = this.getRequestOptions(options, ajaxParam);
         return new Ajax.Updater(this.options.target,
             this.options.baseUrl, options);
     },
@@ -326,19 +326,19 @@ AjaxJspTag.Base = Class.create({
         if (!this.initRequest()) {
             return null;
         }
-        var data = {};
-        data.opt = xoptions;
-        data.that = this;
+
         xoptions = Object.extend({
             frequency: this.options.refreshPeriod
-        }, this.getDefaultOptions(xoptions, ajaxParam));
+        }, this.getRequestOptions(xoptions, ajaxParam));
 
+        // TODO refactor with closures
+        var data = {source: this.options.source}; // that: this, opt: xoptions
         // onComplete is used by API itself don't try to use it
-        data._complete = xoptions.onSuccess || Prototype.emptyFunction;
+        data._complete = xoptions.onSuccess.bind(this) || Prototype.emptyFunction;
         // cache the old one
-        xoptions.onSuccess = (function () { // need to test!!!
-            if ($(this.that.options.source)) { // try to get the element
-                this._complete.bind(this.that)(); // call the function
+        xoptions.onSuccess = (function () { // inside of onSuccess "this" points to "data"
+            if ($(this.source)) {
+                this._complete(); // call the original onSuccess function
             } else {
                 this._event.stop(); // should work
             }
@@ -371,7 +371,7 @@ AjaxJspTag.Base = Class.create({
             if (!field) {
                 result.push(key + encodeURIComponent(pair));
             } else if (('select-multiple' === field.type) || ('checkbox' === field.type)) { // BUG 016027
-                 if (v = value(field)) {
+                if (v = value(field)) {
                     result.push(v);
                 }
             } else if (/^(?:radio|text|textarea|password|hidden|select-one)$/i.test(field.type)) {
@@ -570,7 +570,7 @@ AjaxJspTag.Callout = Class.create(AjaxJspTag.Base, {
         this.execute(e);
     },
     calloutClose: function (e) {
-        nd(); // TODO move nd() into JS
+        nd(); // TODO make something with overlib's nd()
     },
     execute: function (event) {
         this.request = this.getAjaxRequest(null, Event.element(event));
@@ -578,19 +578,15 @@ AjaxJspTag.Callout = Class.create(AjaxJspTag.Base, {
     handler: function () {
         var c = this.parser.content;
         if (c.strip().length !== 0) { // #4
-            if (this.overlib) {
-                if (this.title) {
-                    overlib(c, CAPTION, this.title, this.overlib);
-                } else {
-                    overlib(c, this.overlib);
-                }
-            } else {
-                if (this.title) {
-                    overlib(c, CAPTION, this.title);
-                } else {
-                    overlib(c);
-                }
+            var args = [c];
+            if (this.title) {
+                args.push(CAPTION);
+                args.push(this.title);
             }
+            if (this.overlib) {
+                args.push(this.overlib);
+            }
+            overlib.apply(this, args);
         }
     }
 });
@@ -723,12 +719,12 @@ AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base, {
         var element = $(this.options.divElement);
         if (element) {
             element.stopObserving();
-            if(element.parentNode) {
+            if (element.parentNode) {
                 element.parentNode.removeChild(element);
             }
         }
         // insert div at the top of the document so it will not be hidden in case of overflow
-        Element.insert(document.body, {top:new Element("div", {id: this.options.divElement, className: this.options.className})});
+        Element.insert(document.body, {top: new Element("div", {id: this.options.divElement, className: this.options.className})});
         this.execute();
     },
     setOptions: function (options) {
