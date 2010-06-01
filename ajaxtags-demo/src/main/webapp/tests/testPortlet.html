@@ -74,9 +74,9 @@
         imageMaximize: "imageMaximize"
       });
 
-      this.assertNotNull(tag.closeListener);
-      this.assertNotNull(tag.refreshListener);
-      this.assertNotNull(tag.toggleListener);
+      this.assert(Object.isFunction(tag.closeListener));
+      this.assert(Object.isFunction(tag.refreshListener));
+      this.assert(Object.isFunction(tag.toggleListener));
 
       var e = $(tag.options.source).down("div.portletTools");
       this.assertEqual(tag.closeListener, e.down("img.portletClose").onclick);

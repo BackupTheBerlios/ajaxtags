@@ -1,0 +1,54 @@
+<h1>AjaxJspTag.TabPanel</h1>
+<!-- Log output -->
+<div id="testlog"> </div>
+<br/>
+<!-- Tests -->
+<div id="TabPanel"> </div>
+<script type="text/javascript">
+  var tag = null;
+
+  new Test.Unit.Runner({
+    setup: function() {
+      tag = new AjaxJspTag.TabPanel({
+        id: "TabPanel",
+        pages: []
+      });
+    },
+    teardown: function() {
+      $("TabPanel").update();
+      tag = null;
+    },
+
+    testInitialize: function() {
+      this.assertInstanceOf(AjaxJspTag.TabPanel, tag);
+    },
+    testCreateElements0Pages: function() {
+      var e = $("TabPanel");
+      this.assertEqual(e, tag.panel);
+      this.assert(e.hasClassName("tabPanel"));
+      var nav = e.down("div.tabNavigation");
+      this.assertNotNull(nav);
+      this.assertNotNull(nav.down("ul"));
+      var content = e.down("div.tabContent");
+    },
+    testCreateElements2Pages: function() {
+      tag = new AjaxJspTag.TabPanel({
+        id: "TabPanel",
+        pages: [{
+          caption: "Page 1",
+          baseUrl: "#"
+        }, {
+          caption: "Page 2",
+          baseUrl: "#"
+        }]
+      });
+      var e = $("TabPanel");
+      this.assertEqual(e, tag.panel);
+      this.assert(e.hasClassName("tabPanel"));
+      var nav = e.down("div.tabNavigation");
+      this.assertNotNull(nav);
+      this.assertNotNull(nav.down("ul"));
+      this.assertEqual(2, $$("#TabPanel > div.tabNavigation > ul > li").length);
+    }
+  });
+</script>
