@@ -124,13 +124,13 @@
       this.assertEqual(true, tag.initRequest());
       this.assertEqual(4, called);
     },
-    testGetDefaultOptions: function() {
-      var o = tag.getDefaultOptions();
+    testGetRequestOptions: function() {
+      var o = tag.getRequestOptions();
       this.assertEqual(true, o.asynchronous);
       this.assertEqual("post", o.method);
       this.assertEqual(true, o.evalScripts);
 
-      o = tag.getDefaultOptions({
+      o = tag.getRequestOptions({
         method: "get"
       });
       this.assertEqual(true, o.asynchronous);
