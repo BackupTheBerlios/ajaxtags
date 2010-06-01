@@ -1,0 +1,67 @@
+<h1>AjaxJspTag.Callout</h1>
+<!-- Log output -->
+<div id="testlog"> </div>
+<br/>
+<!-- Tests -->
+<script type="text/javascript">
+  var tag = null;
+
+  new Test.Unit.Runner({
+    setup: function() {
+      tag = new AjaxJspTag.Callout();
+    },
+    teardown: function() {
+      tag = null;
+    },
+
+    testInitialize: function() {
+      this.assertInstanceOf(AjaxJspTag.Callout, tag);
+      this.assertEnumEqual([tag], AjaxJspTag.tags);
+      this.assert(Object.isFunction(tag.openListener));
+      this.assert(Object.isFunction(tag.closeListener));
+    },
+    testHandler: function() {
+      var oldOverlib = window.overlib, oldCaption = window.CAPTION, fired = 0, args;
+      window.overlib = function(c, caption, title, overlib) {
+        fired++;
+        args = [c, caption, title, overlib];
+      };
+      window.CAPTION = "Test caption";
+
+      tag.parser = {
+        content: "Callout test content"
+      };
+
+      // 1. tag.overlib tag.title
+      tag.title = "Callout test title";
+      tag.overlib = "Callout test overlib";
+      tag.handler();
+      this.assertEqual(1, fired);
+      this.assertEnumEqual(["Callout test content", "Test caption", "Callout test title", "Callout test overlib"], args);
+
+      // 2. tag.overlib !tag.title
+      tag.title = "";
+      tag.overlib = "Callout test overlib";
+      tag.handler();
+      this.assertEqual(2, fired);
+      this.assertEnumEqual(["Callout test content", "Callout test overlib", undefined, undefined], args);
+
+      // 3. !tag.overlib tag.title
+      tag.title = "Callout test title";
+      tag.overlib = "";
+      tag.handler();
+      this.assertEqual(3, fired);
+      this.assertEnumEqual(["Callout test content", "Test caption", "Callout test title", undefined], args);
+
+      // 4. !tag.overlib !tag.title
+      tag.title = "";
+      tag.overlib = "";
+      tag.handler();
+      this.assertEqual(4, fired);
+      this.assertEnumEqual(["Callout test content", undefined, undefined, undefined], args);
+
+      window.CAPTION = oldCaption;
+      window.overlib = oldOverlib;
+    }
+  });
+</script>
