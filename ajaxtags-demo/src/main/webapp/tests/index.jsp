@@ -68,6 +68,7 @@ Documentation</a> | <a href="http://ajaxtags.sourceforge.net/"
 	<ajax:tab caption="AjaxJspTag.UpdateField" baseUrl="testUpdateField.html" />
 	<ajax:tab caption="AjaxJspTag.Select" baseUrl="testSelect.html" />
 	<ajax:tab caption="AjaxJspTag.Portlet" baseUrl="testPortlet.html" />
+	<ajax:tab caption="AjaxJspTag.Callout" baseUrl="testCallout.html" />
 </ajax:tabPanel></div>
 </body>
 </html>
