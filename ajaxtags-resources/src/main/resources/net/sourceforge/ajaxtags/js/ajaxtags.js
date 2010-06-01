@@ -262,6 +262,19 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
  * AjaxTags.
  */
 AjaxJspTag.Base = Class.create({
+    initialize: function (options) {
+        this.setOptions(options);
+        // TODO this.createElements();
+        // TODO this.createListeners();
+        this.setListeners();
+        AjaxJspTag.add(this);
+    },
+    setOptions: function () {
+        // override in descendants
+    },
+    setListeners: function () {
+        // override in descendants
+    },
     resolveParameters: function () {
         var o = this.options;
         if (o.baseUrl === null || Object.isUndefined(o.baseUrl) || o.baseUrl.strip().length === 0) {
@@ -334,7 +347,7 @@ AjaxJspTag.Base = Class.create({
         // TODO refactor with closures
         var data = {source: this.options.source}; // that: this, opt: xoptions
         // onComplete is used by API itself don't try to use it
-        data._complete = xoptions.onSuccess.bind(this) || Prototype.emptyFunction;
+        data._complete = xoptions.onSuccess? xoptions.onSuccess.bind(this) : Prototype.emptyFunction;
         // cache the old one
         xoptions.onSuccess = (function () { // inside of onSuccess "this" points to "data"
             if ($(this.source)) {
@@ -392,11 +405,9 @@ AjaxJspTag.Base = Class.create({
  * UpdateField tag.
  */
 AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
-    initialize: function (options) {
-        AjaxJspTag.add(this);
-        this.setOptions(options);
+    initialize: function ($super, options) {
         this.listener = this.execute.bind(this);
-        this.setListeners();
+        $super(options);
     },
     setOptions: function (options) {
         // TODO extract Object.extend() to superclass
@@ -442,11 +453,9 @@ AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
  * Select tag.
  */
 AjaxJspTag.Select = Class.create(AjaxJspTag.Base, {
-    initialize: function (options) {
-        AjaxJspTag.add(this);
-        this.setOptions(options);
+    initialize: function ($super, options) {
         this.listener = this.execute.bind(this);
-        this.setListeners();
+        $super(options);
         if (this.options.executeOnLoad) {
             this.execute();
         }
@@ -502,11 +511,9 @@ AjaxJspTag.Select = Class.create(AjaxJspTag.Base, {
  * HtmlContent tag.
  */
 AjaxJspTag.HtmlContent = Class.create(AjaxJspTag.Base, {
-    initialize: function (options) {
-        AjaxJspTag.add(this);
-        this.setOptions(options);
+    initialize: function ($super, options) {
         this.listener = this.execute.bindAsEventListener(this);
-        this.setListeners();
+        $super(options);
     },
     setOptions: function (options) {
         this.options = Object.extend({
@@ -542,12 +549,10 @@ AjaxJspTag.HtmlContent = Class.create(AjaxJspTag.Base, {
  * Callout tag.
  */
 AjaxJspTag.Callout = Class.create(AjaxJspTag.Base, {
-    initialize: function (options) {
-        AjaxJspTag.add(this);
-        this.setOptions(options);
+    initialize: function ($super, options) {
         this.openListener = this.calloutOpen.bindAsEventListener(this);
         this.closeListener = this.calloutClose.bindAsEventListener(this);
-        this.setListeners();
+        $super(options);
     },
     setOptions: function (options) {
         this.options = Object.extend({
@@ -777,6 +782,7 @@ AjaxJspTag.Portlet = Class.create(AjaxJspTag.Base, {
         o.target = new Element("div", {className: o.classNamePrefix + "Content"});
         sourceBase.appendChild(o.target);
 
+        // TODO move into createListeners()
         this.closeListener = this.closePortlet.bindAsEventListener(this);
         this.refreshListener = this.refreshPortlet.bindAsEventListener(this);
         this.toggleListener = this.togglePortlet.bindAsEventListener(this);
@@ -1086,11 +1092,9 @@ AjaxJspTag.OnClick = Class.create(AjaxJspTag.Base, {
  * Submit tag.
  */
 AjaxJspTag.Submit = Class.create(AjaxJspTag.Base, {
-    initialize: function (options) {
-        AjaxJspTag.add(this);
-        this.setOptions(options);
+    initialize: function ($super, options) {
         this.listener = this.execute.bind(this);
-        this.setListeners();
+        $super(options);
     },
     setOptions: function (options) {
         this.options = options || {};
