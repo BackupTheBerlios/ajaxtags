@@ -1056,7 +1056,7 @@
     </tag>
 
     <tag>
-        <description>A Tab wich is needed by the Tabpanel and present a site.</description>
+        <description>A Tab which is needed by the Tabpanel and present a site.</description>
         <name>tab</name>
         <tag-class>net.sourceforge.ajaxtags.tags.AjaxTabPageTag</tag-class>
         <body-content>empty</body-content>

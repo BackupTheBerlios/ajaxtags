@@ -33,7 +33,7 @@
 	display: block;
 	white-space: nowrap;
 	cursor: pointer;
-	margin: 0px;
+	margin: 0;
 	padding-left: 5px;
 	padding-right: 5px;
 	border: 1px solid #fff;
@@ -45,11 +45,11 @@
 }
 .tabContent {
 	background: #fff;
-	border: 1px solid #ccc;
-	border-top: 2px solid #ccc;
-    border-right: none;
+	border-color: #ccc;
+	border-style: solid;
+	border-width: 2px 0 1px 1px;
 	clear: both;
-	margin: 0px;
+	margin: 0;
 	padding: 15px;
 }
 .tabPanel {
@@ -121,17 +121,22 @@
 	padding: 4px;
 }
 /* --- TOGGLE CSS --- */
-div.power-rating a {
+div.power-rating,div.star-rating {
+	display: block;
+}
+div.power-rating a,div.star-rating a {
 	cursor: pointer;
-	margin: 0px;
+	margin: 0;
 	float: left;
 	display: block;
 	width: 18px;
 	height: 16px;
 	padding: 0 1px;
-	background-image: url(../img/throbber.gif);
 	background-repeat: no-repeat;
 	background-position: 1px 0;
+}
+div.power-rating a {
+	background-image: url(../img/throbber.gif);
 }
 div.power-rating a.over {
 	background-position: 1px 0;
@@ -145,20 +150,8 @@ div.power-rating a.selectedover {
 div.power-rating a.selectedless {
 	background-position: 1px -20px;
 }
-div.power-rating ,div.star-rating {
-    display: block;
-}
 div.star-rating a {
-	cursor: pointer;
-	margin: 0px;
-	float: left;
-	display: block;
-	width: 18px;
-	height: 16px;
-	padding: 0 1px;
 	background-image: url(../img/stars.gif);
-	background-repeat: no-repeat;
-	background-position: 1px 0;
 }
 div.star-rating a.over {
 	background-position: 1px -32px;
@@ -207,19 +200,19 @@ a.olclo:hover {
 	font-size: 12px;
 	color: #000;
 }
-/* --- Tree CSS --- */
-.tree li {
-	padding-left: 15px;
-}
+/* --- TREE CSS --- */
 .tree {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: black;
 	list-style: none;
 	list-style-type: none;
-	font-size: 12px;
 	line-height: 20px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
 	padding-left: 0;
 	margin-left: 0;
+}
+.tree li {
+	padding-left: 15px;
 }
 .tree li span {
 	display: block;
