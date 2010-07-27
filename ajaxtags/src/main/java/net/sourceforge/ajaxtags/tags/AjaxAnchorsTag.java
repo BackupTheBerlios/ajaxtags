@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
 /**
  * Rewrites HTML anchor tags (&lt;A&gt;), replacing the href attribute with an onclick event so that
  * retrieved content is loaded inside a region on the page.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  */
@@ -45,7 +45,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
     /**
      * rewrite the body and make use of ajax. rewriting all &lt;a&gt; links to use javascript calls
      * to prototype.
-     * 
+     *
      * @return EVAL_PAGE
      */
     @Override
@@ -56,7 +56,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
     /**
      * Rewrite anchors.
-     * 
+     *
      * @param html
      *            XHTML source
      * @param target
@@ -99,7 +99,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
     /**
      * Rewrite link. Change (or create) "onclick" attribute, set "href" attribute to
      * "javascript://nop/".
-     * 
+     *
      * @param link
      *            node of document with link
      * @param target
@@ -121,7 +121,7 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
     /**
      * Parse XHTML document from given string.
-     * 
+     *
      * @param html
      *            string with XHTML content
      * @return parsed document or null
@@ -134,9 +134,9 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
             return null;
         }
         // warp dirty hack to use internal HTML parser.
-        final String WARP0 = "<div>";
-        final String WARP1 = "</div>";
+        final String warp0 = "<div>";
+        final String warp1 = "</div>";
 
-        return XMLUtils.getXMLDocument(WARP0 + xhtml + WARP1);
+        return XMLUtils.getXMLDocument(warp0 + xhtml + warp1);
     }
 }

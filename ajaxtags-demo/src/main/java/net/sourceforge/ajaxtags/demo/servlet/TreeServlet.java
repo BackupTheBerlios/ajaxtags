@@ -29,7 +29,7 @@ import net.sourceforge.ajaxtags.xml.AjaxTreeXmlBuilder;
 
 /**
  * An example servlet that responds to an ajax:tree tag action.
- * 
+ *
  * @author Musachy Barroso
  * @version $Revision: 28 $ $Date: 2008-11-25 21:27:48 +0100 (Di, 25. Nov 2008) $
  */
@@ -56,27 +56,31 @@ public class TreeServlet extends BaseAjaxServlet {
 
         AjaxTreeXmlBuilder treeBuilder = new AjaxTreeXmlBuilder();
         if ("cars".equals(node)) {
-            treeBuilder.addItem("American", "American", true, "javascript://nop");
-            treeBuilder.addItem("Japanese", "Japanese", false, "javascript://nop");
-        } else if (node.equals("American")) {
-            treeBuilder.addItem("Ford", "Ford", true, "javascript://nop");
-        } else if (node.equals("Ford")) {
+            addItem(treeBuilder, "American", true);
+            addItem(treeBuilder, "Japanese", false);
+        } else if ("American".equals(node)) {
+            addItem(treeBuilder, "Ford", true);
+        } else if ("Ford".equals(node)) {
             TreeItem item = new TreeItem("Mustang", "Mustang", false);
             item.setLeaf(true);
             treeBuilder.add(item);
             item = new TreeItem("FordGT", "FordGT", false);
             item.setLeaf(true);
             treeBuilder.add(item);
-        } else if (node.equals("Ford")) {
-            treeBuilder.addItem("Mustang", "Mustang", false, "javascript://nop");
-            treeBuilder.addItem("FordGT", "FordGT", false, "javascript://nop");
-        } else if (node.equals("Japanese")) {
-            treeBuilder.addItem("Honda", "Honda", true, "javascript://nop");
-        } else if (node.equals("Honda")) {
-            treeBuilder.addItem("Civic", "Civic", true, "javascript://nop");
-            treeBuilder.addItem("Accord", "Accord", true, "javascript://nop");
+        } else if ("Ford".equals(node)) {
+            addItem(treeBuilder, "Mustang", false);
+            addItem(treeBuilder, "FordGT", false);
+        } else if ("Japanese".equals(node)) {
+            addItem(treeBuilder, "Honda", true);
+        } else if ("Honda".equals(node)) {
+            addItem(treeBuilder, "Civic", true);
+            addItem(treeBuilder, "Accord", true);
         }
         return treeBuilder.toString();
+    }
+
+    private void addItem(AjaxTreeXmlBuilder treeBuilder, String value, boolean collapsed) {
+        treeBuilder.addItem(value, value, collapsed, "javascript://nop");
     }
 
 }

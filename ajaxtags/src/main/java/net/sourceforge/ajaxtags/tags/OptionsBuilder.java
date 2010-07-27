@@ -28,7 +28,7 @@ import org.apache.commons.lang.StringUtils;
  * Helper class to assist in building options passed to JavaScript method. This class makes no
  * guarantees as to the order of the options; in particular, it does not guarantee that the order
  * will remain constant over time.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
@@ -50,7 +50,7 @@ public final class OptionsBuilder {
 
     /**
      * Get new OptionsBuilder with initial options.
-     * 
+     *
      * @param opt
      *            initial options
      * @return new empty OptionsBuilder
@@ -61,7 +61,7 @@ public final class OptionsBuilder {
 
     /**
      * Get new empty OptionsBuilder.
-     * 
+     *
      * @return new empty OptionsBuilder
      */
     public static OptionsBuilder getOptionsBuilder() {
@@ -85,7 +85,7 @@ public final class OptionsBuilder {
 
     /**
      * Add boolean option. Option with given name is added only once.
-     * 
+     *
      * @param parameter
      *            name of option
      * @param value
@@ -98,7 +98,7 @@ public final class OptionsBuilder {
 
     /**
      * Add integer option. Option with given name is added only once.
-     * 
+     *
      * @param parameter
      *            name of option
      * @param value
@@ -112,7 +112,7 @@ public final class OptionsBuilder {
     /**
      * Add option. Option is added only once. If {@link OptionsBuilder} already contains option with
      * given name, it will stay unchanged.
-     * 
+     *
      * @param parameter
      *            name of option
      * @param value
@@ -124,7 +124,7 @@ public final class OptionsBuilder {
     public OptionsBuilder add(final String parameter, final String value, final boolean quoted) {
         if (value != null && !this.parameters.containsKey(parameter)) {
             if (quoted) {
-                this.parameters.put(parameter, "\"" + value + "\"");
+                this.parameters.put(parameter, '"' + value + '"');
             } else {
                 this.parameters.put(parameter, value);
             }
@@ -134,7 +134,7 @@ public final class OptionsBuilder {
 
     /**
      * Add option. Overwrite previous value if it exists.
-     * 
+     *
      * @param parameter
      *            name of option
      * @param value
@@ -155,7 +155,7 @@ public final class OptionsBuilder {
 
     /**
      * Remove option.
-     * 
+     *
      * @param parameter
      *            name of option
      * @return updated OptionsBuilder
@@ -167,7 +167,7 @@ public final class OptionsBuilder {
 
     /**
      * Create string representation of options (in JSON format).
-     * 
+     *
      * @return options as string
      */
     @Override

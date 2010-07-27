@@ -32,7 +32,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxTabPanelTag.
- * 
+ *
  * @author Victor Homyakov
  */
 public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
@@ -56,38 +56,35 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
         assertEquals("No pages", "[]", tag.getPages());
 
         tag.addPage(page(1));
-        assertEquals("One page", "[" + pageText(1) + "]", tag.getPages());
+        assertEquals("One page", '[' + pageText(1) + ']', tag.getPages());
 
         tag.addPage(page(2));
-        assertEquals("Two pages", "[" + pageText(1) + "," + pageText(2) + "]", tag.getPages());
+        assertEquals("Two pages", '[' + pageText(1) + ',' + pageText(2) + ']', tag.getPages());
 
-        tag.addPage(page(3));
-        assertEquals("Three pages",
-                "[" + pageText(1) + "," + pageText(2) + "," + pageText(3) + "]", tag.getPages());
+        final int page3 = 3;
+        tag.addPage(page(page3));
+        assertEquals("Three pages", '[' + pageText(1) + ',' + pageText(2) + ',' + pageText(page3)
+                + ']', tag.getPages());
     }
 
     /**
      * Test method for tag content generation.
-     * 
+     *
      * @throws JspException
      *             on tag errors
      */
-    @Test
+    @Test(expected = JspException.class)
     public void testDoEndTagEmpty() throws JspException {
         assertStartTagEvalBody();
         assertAfterBody();
 
-        try {
-            tag.doEndTag();
-            fail("Empty tab panel should throw JspException");
-        } catch (JspException e) {
-            // annotation Test(expected) for exception doesn't work for me
-        }
+        tag.doEndTag();
+        fail("Empty tab panel should throw JspException");
     }
 
     /**
      * Test method for tag content generation.
-     * 
+     *
      * @throws JspException
      *             on tag errors
      * @throws SAXException

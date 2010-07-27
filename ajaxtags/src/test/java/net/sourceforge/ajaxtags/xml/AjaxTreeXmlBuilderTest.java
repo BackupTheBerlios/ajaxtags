@@ -26,7 +26,7 @@ import org.junit.Test;
 
 /**
  * Test for AjaxTreeXmlBuilder.
- * 
+ *
  * @author В.Хомяков
  */
 public class AjaxTreeXmlBuilderTest {
@@ -78,10 +78,9 @@ public class AjaxTreeXmlBuilderTest {
     @Test
     public void testAddItemAsCDataStringString() {
         xml.addItemAsCData("name 4", "Value contains <name> and <value> tags");
-        assertEquals(
-                AjaxTreeXmlBuilder.RESPONSE_START
-                        + "<item><name><![CDATA[name 4]]></name><value><![CDATA[Value contains <name> and <value> tags]]></value></item>"
-                        + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
+        assertEquals(AjaxTreeXmlBuilder.RESPONSE_START + "<item><name><![CDATA[name 4]]></name>"
+                + "<value><![CDATA[Value contains <name> and <value> tags]]></value></item>"
+                + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
     }
 
     /**
@@ -90,10 +89,9 @@ public class AjaxTreeXmlBuilderTest {
     @Test
     public void testAddItemStringStringStringBoolean() {
         xml.addItem("name5", "value5", "url5", false);
-        assertEquals(
-                AjaxTreeXmlBuilder.RESPONSE_START
-                        + "<item><name>name5</name><value>value5</value><collapsed>false</collapsed><url>url5</url></item>"
-                        + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
+        assertEquals(AjaxTreeXmlBuilder.RESPONSE_START + "<item><name>name5</name>"
+                + "<value>value5</value><collapsed>false</collapsed><url>url5</url></item>"
+                + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
     }
 
     /**
@@ -102,10 +100,9 @@ public class AjaxTreeXmlBuilderTest {
     @Test
     public void testAddItemStringStringBooleanString() {
         xml.addItem("name6", "value6", true, "url6");
-        assertEquals(
-                AjaxTreeXmlBuilder.RESPONSE_START
-                        + "<item><name>name6</name><value>value6</value><collapsed>true</collapsed><url>url6</url></item>"
-                        + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
+        assertEquals(AjaxTreeXmlBuilder.RESPONSE_START + "<item><name>name6</name>"
+                + "<value>value6</value><collapsed>true</collapsed><url>url6</url></item>"
+                + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
     }
 
     /**
@@ -117,7 +114,8 @@ public class AjaxTreeXmlBuilderTest {
         xml.addItem("name7", "value7", true, "url7", true);
         assertEquals(
                 AjaxTreeXmlBuilder.RESPONSE_START
-                        + "<item><name><![CDATA[name7]]></name><value><![CDATA[value7]]></value><collapsed>true</collapsed><url>url7</url></item>"
+                        + "<item><name><![CDATA[name7]]></name>"
+                        + "<value><![CDATA[value7]]></value><collapsed>true</collapsed><url>url7</url></item>"
                         + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
     }
 
@@ -129,7 +127,8 @@ public class AjaxTreeXmlBuilderTest {
         xml.addItemAsCData("name8", "value8", true, "url8");
         assertEquals(
                 AjaxTreeXmlBuilder.RESPONSE_START
-                        + "<item><name><![CDATA[name8]]></name><value><![CDATA[value8]]></value><collapsed>true</collapsed><url>url8</url></item>"
+                        + "<item><name><![CDATA[name8]]></name>"
+                        + "<value><![CDATA[value8]]></value><collapsed>true</collapsed><url>url8</url></item>"
                         + AjaxTreeXmlBuilder.RESPONSE_END, xml.getXMLString());
     }
 

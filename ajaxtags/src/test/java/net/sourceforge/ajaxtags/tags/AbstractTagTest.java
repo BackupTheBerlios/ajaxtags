@@ -40,6 +40,9 @@ import org.xml.sax.SAXException;
  */
 public abstract class AbstractTagTest<T extends BaseAjaxBodyTag> {
 
+    /**
+     * Tag instance under tests.
+     */
     protected T tag;
 
     /**

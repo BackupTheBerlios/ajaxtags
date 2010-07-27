@@ -20,7 +20,7 @@ import java.util.Collection;
 
 /**
  * Helper class to build valid XML typically returned in a response to the client.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/22 16:29:16 $ $Author: jenskapitza $
@@ -29,7 +29,7 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
 
     /**
      * Add item to XML.
-     * 
+     *
      * @param name
      *            The name of the item
      * @param value
@@ -42,7 +42,7 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
 
     /**
      * Add item wrapped with inside a CDATA element.
-     * 
+     *
      * @param name
      *            The name of the item
      * @param value
@@ -55,7 +55,7 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
 
     /**
      * Add item to XML.
-     * 
+     *
      * @param name
      *            The name of the item
      * @param value
@@ -78,6 +78,13 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
         boolean isCData();
     }
 
+    /**
+     * Add collection of items to XML.
+     *
+     * @param collection
+     *            collection of items
+     * @return the XML builder
+     */
     public AjaxXmlBuilder addItems(final Collection<? extends PropertyReader> collection) {
         for (PropertyReader element : collection) {
             addItem(element);
@@ -85,6 +92,13 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
         return this;
     }
 
+    /**
+     * Add item to XML.
+     *
+     * @param element
+     *            item
+     * @return the XML builder
+     */
     public AjaxXmlBuilder addItem(final PropertyReader element) {
         addItem(element.getName(), element.getValue(), element.isCData());
         return this;

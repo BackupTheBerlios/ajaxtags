@@ -30,27 +30,30 @@ import javax.servlet.http.HttpServletResponse;
 import static org.apache.commons.lang.StringUtils.trimToNull;
 
 /**
- * this class loads the frameworks, javascript files and css files from the jar file changes to the
- * javascript or css files can only be done by repacking the ajaxtags.jar
- * 
+ * This class loads the frameworks, javascript files and css files from the jar file. Changes to the
+ * javascript or css files can only be done by repacking the ajaxtags-resources.jar file.
+ *
  * @author Jens Kapitza
  * @since 1.5
  */
 public final class SourceLoader extends GenericServlet {
 
-    private static final long serialVersionUID = 4621190060172885624L;
-    private String prefix = null;
-    private static final int BUFFER = 1024;
     /**
-     * this is the base where we can find the source wich sould be loaded
+     * This is the base where we can find the source which should be loaded.
      */
     public static final String BASE = "/net/sourceforge/ajaxtags";
 
+    private static final int BUFFER = 1024;
+
+    private static final long serialVersionUID = 4621190060172885624L;
+
+    private String prefix;
+
     /**
-     * write the content from the jarfile to the client stream use bufferedwriter to handel newline
-     * the filename is found in the requestURI the contextpath is excluded and replaced with the
-     * base package name
-     * 
+     * Write the content from the jarfile to the client stream. Use bufferedwriter to handle
+     * newline. The filename is found in the requestURI, the contextpath is excluded and replaced
+     * with the base package name.
+     *
      * @param req
      *            the request
      * @param resp
@@ -92,8 +95,8 @@ public final class SourceLoader extends GenericServlet {
     }
 
     /**
-     * warp to http request and response
-     * 
+     * Warp to http request and response.
+     *
      * @param req0
      *            the request
      * @param resp0
@@ -110,8 +113,8 @@ public final class SourceLoader extends GenericServlet {
     }
 
     /**
-     * check the configuration if we do have a prefix.
-     * 
+     * Check the configuration if we do have a prefix.
+     *
      */
     @Override
     public void init() throws ServletException {

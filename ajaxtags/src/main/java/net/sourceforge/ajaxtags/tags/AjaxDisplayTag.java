@@ -137,6 +137,7 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      * return string representation of document.
      *
      * @param content XHTML source as string
+     * @return content with rewritten anchors
      * @throws JspException when links rewriting failed
      * @see net.sourceforge.ajaxtags.tags.AjaxAreaTag#processContent(java.lang.String)
      */

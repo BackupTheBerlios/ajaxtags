@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxToggleTag.
- * 
+ *
  * @author Victor Homyakov
  */
 public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
@@ -47,7 +47,7 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
 
     /**
      * Test method for tag content generation (star rating with empty value).
-     * 
+     *
      * @throws JspException
      *             on tag errors
      * @throws SAXException
@@ -79,7 +79,7 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
 
     /**
      * Test method for tag content generation (star rating).
-     * 
+     *
      * @throws JspException
      *             on tag errors
      * @throws SAXException
@@ -111,7 +111,7 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
 
     /**
      * Test method for tag content generation (star rating with selected element).
-     * 
+     *
      * @throws JspException
      *             on tag errors
      * @throws SAXException
@@ -145,7 +145,7 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
 
     /**
      * Test method for tag content generation (on-off toggle).
-     * 
+     *
      * @throws JspException
      *             on tag errors
      * @throws SAXException

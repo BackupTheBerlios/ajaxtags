@@ -34,13 +34,15 @@ import net.sourceforge.ajaxtags.xml.AjaxXmlBuilder;
  * <p>
  * This servlet should generate XML in the following format:
  * </p>
- * <code><![CDATA[<?xml version="1.0"?>
- * <list>
- *   <item value="Item1">First Item</item>
- *   <item value="Item2">Second Item</item>
- *   <item value="Item3">Third Item</item>
- * </list>]]></code>
- * 
+ * <pre>
+ * &lt;![CDATA[&lt;?xml version=&quot;1.0&quot;?&gt;
+ * &lt;list&gt;
+ *   &lt;item value=&quot;Item1&quot;&gt;First Item&lt;/item&gt;
+ *   &lt;item value=&quot;Item2&quot;&gt;Second Item&lt;/item&gt;
+ *   &lt;item value=&quot;Item3&quot;&gt;Third Item&lt;/item&gt;
+ * &lt;/list&gt;]]&gt;
+ * </pre>
+ *
  * @author Darren L. Spurgeon
  * @version $Revision: 28 $ $Date: 2008-11-09 23:12:33 +0100 (So, 09. Nov 2008) $
  */

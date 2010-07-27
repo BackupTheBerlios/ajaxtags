@@ -206,13 +206,13 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
         for (Entry<Object, String> e : getAttributes().entrySet()) {
             // if we do have a ENUM Object we try to get it in a lower case
             // type. toString should ensure the value is valid as key in HTML
-            s.append(" ").append(e.getKey().toString().toLowerCase(Locale.getDefault())).append(
+            s.append(' ').append(e.getKey().toString().toLowerCase(Locale.getDefault())).append(
                     "=\"");
-            s.append(e.getValue().replaceAll("\"", "\\\"")).append("\"");
+            s.append(e.getValue().replaceAll("\"", "\\\"")).append('"');
         }
-        s.append(">");
+        s.append('>');
         s.append(getBody());
-        s.append("</").append(getName()).append(">");
+        s.append("</").append(getName()).append('>');
         return s.toString();
     }
 
