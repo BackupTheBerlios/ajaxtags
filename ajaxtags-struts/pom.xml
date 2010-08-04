@@ -3,19 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>ajaxtags-doc</artifactId>
-    	        <groupId>net.sourceforge.ajaxtags</groupId>
-		<version>1.5.1</version>
+		<groupId>net.sourceforge.ajaxtags</groupId>
+		<version>1.5.2-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-    	<groupId>net.sourceforge.ajaxtags</groupId>
+	<groupId>net.sourceforge.ajaxtags</groupId>
 	<artifactId>ajaxtags-struts</artifactId>
 	<packaging>jar</packaging>
 	<name>AjaxTags Struts-binding</name>
 	<description>Here are the struts binding classes</description>
-
 	<dependencies>
 		<dependency>
-    			<groupId>net.sourceforge.ajaxtags</groupId>
+			<groupId>net.sourceforge.ajaxtags</groupId>
 			<artifactId>ajaxtags</artifactId>
 			<version>${parent.version}</version>
 		</dependency>

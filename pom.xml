@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sourceforge.ajaxtags</groupId>
 	<artifactId>ajaxtags-doc</artifactId>
-	<version>1.5.1</version>
+	<version>1.5.2-SNAPSHOT</version>
 	<name>AjaxTags JavaScript-JSP Library</name>
 	<packaging>pom</packaging>
 	<inceptionYear>2005</inceptionYear>
@@ -114,15 +114,15 @@
 			<distribution>manual</distribution>
 		</license>
 	</licenses>
+
 	<scm>
 		<connection>scm:hg:http://hg.berlios.de/repos/ajaxtags</connection>
 		<url>http://hg.berlios.de/repos/ajaxtags</url>
 	</scm>
 
-
 	<description>
-                The ajaxtags tag library is an open source suite of custom tags that provide high-level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being easy to use.
-  </description>
+		The ajaxtags tag library is an open source suite of custom tags that provide high-level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being easy to use.
+	</description>
 	<organization>
 		<name>The Ajaxtags Team</name>
 		<url>http://ajaxtags.sourceforge.net/</url>
@@ -133,7 +133,7 @@
 			<plugin>
 				<!-- we can use jetty to start the demo -->
 				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
+				<artifactId>jetty-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<!-- pack the ajaxtags jar file -->
@@ -144,12 +144,24 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.5</source>
+					<target>1.5</target>
 					<deprecation>on</deprecation>
 					<debug>on</debug>
 					<encoding>utf-8</encoding>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -225,11 +237,10 @@
 						-collpackages java.util.* -qualify
 						-postfixpackage -nodefontsize 9
 						-nodefontpackagesize 7
-                  </additionalparam>
+					</additionalparam>
 
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 	<dependencies>

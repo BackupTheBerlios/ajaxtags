@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <parent>
-        <artifactId>ajaxtags-doc</artifactId>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>ajaxtags-doc</artifactId>
+		<groupId>net.sourceforge.ajaxtags</groupId>
+		<version>1.5.2-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sourceforge.ajaxtags</groupId>
-	<version>1.5.1</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>net.sourceforge.ajaxtags</groupId>
-    <artifactId>ajaxtags-resources</artifactId>
-    <packaging>jar</packaging>
-    <name>AjaxTags Resources</name>
-    <description>Here are the javascript files, the images and the CSS files. You can provide this resources with simple the SourceLoader Servlet or on your own way</description>
-    <build>
-        <plugins>
-            <plugin>
-                <!-- package the stuff together -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/bin.xml</descriptor>
-                    </descriptors>
-                    <finalName>ajaxtags-resources-${parent.version}</finalName>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <dependencies>
-        <dependency>
-    	    <groupId>net.sourceforge.ajaxtags</groupId>
-            <artifactId>ajaxtags</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-    </dependencies>
+	<artifactId>ajaxtags-resources</artifactId>
+	<packaging>jar</packaging>
+	<name>AjaxTags Resources</name>
+	<description>Here are the javascript files, the images and the CSS files. You can provide this resources with simple the SourceLoader Servlet or on your own way</description>
+	<build>
+		<plugins>
+			<plugin>
+				<!-- package the stuff together -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/bin.xml</descriptor>
+					</descriptors>
+					<finalName>ajaxtags-resources-${parent.version}</finalName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>net.sourceforge.ajaxtags</groupId>
+			<artifactId>ajaxtags</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+	</dependencies>
 </project>
