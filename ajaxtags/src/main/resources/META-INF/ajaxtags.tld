@@ -1011,14 +1011,37 @@
         <tag-class>net.sourceforge.ajaxtags.tags.AjaxTabPanelTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
-            <description>The ID of the tab panel.</description>
+            <description>The ID of the created tab panel element.</description>
             <name>id</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
 
         <attribute>
-            <description>Function to execute before Ajax is called.</description>
+            <description>CSS class name to add to the tab panel element.</description>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <description>
+                The ID of the existing element to be used as tab content.
+            </description>
+            <name>contentId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <!-- <attribute>
+            <description>CSS class name to add to the tab content element.</description>
+            <name>contentStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute> -->
+
+        <attribute>
+            <description>Function to execute before AJAX is called.</description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

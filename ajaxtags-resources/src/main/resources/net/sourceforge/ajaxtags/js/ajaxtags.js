@@ -611,7 +611,7 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
     },
     setOptions: function (options) {
         this.options = Object.extend({
-            eventType: "click",
+            eventType: "click", // TODO unused?
             parser: new DefaultResponseParser("html")
         }, options || {});
     },
@@ -625,8 +625,9 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
             ul.appendChild(new Element("li").update(a));
         }, this);
         var nav = new Element("div", {className: "tabNavigation"}).update(ul);
-        this.content = new Element("div", {className: "tabContent"});
-        this.panel = $(o.id).addClassName("tabPanel").update(nav).insert(this.content);
+
+        this.panel = $(o.id).addClassName("tabPanel").update(nav);
+        this.content = this.createContent();
         this.options.target = this.content;
         if (Object.isFunction(f)) {
             f(); // click on default tab to make it active
@@ -646,14 +647,26 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
         e.parameters = tab.parameters;
         return e;
     },
+    createContent: function () {
+        var o = this.options;
+        if (o.contentId) {
+            return o.contentId;
+        } else {
+            // create content
+            var c = new Element("div", {className: "tabContent"});
+            this.panel.insert({
+                after: c
+            });
+            return c.identify();
+        }
+    },
     execute: function () {
         this.request = this.getAjaxUpdater({
             onSuccess: this.handler.bind(this)
         });
     },
     handler: function () {
-        // find current anchor
-        // remove class
+        // remove class from any tab
         this.panel.select(".ajaxCurrentTab").invoke("removeClassName", "ajaxCurrentTab");
         // add class to selected tab
         this.source.addClassName("ajaxCurrentTab");

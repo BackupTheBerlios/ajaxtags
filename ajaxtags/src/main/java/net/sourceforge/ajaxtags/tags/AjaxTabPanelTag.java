@@ -22,7 +22,7 @@ import net.sourceforge.ajaxtags.helpers.DIVElement;
 
 /**
  * Tag handler for AJAX tabbed panel.
- * 
+ *
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
@@ -32,8 +32,25 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
 
     private static final char PAGES_DELIMITER = ',';
 
+    private String contentId;
+
     // TODO refactor with List?
     private StringBuilder pages = new StringBuilder();
+
+    /**
+     * @return the contentId
+     */
+    public String getContentId() {
+        return contentId;
+    }
+
+    /**
+     * @param contentId
+     *            the contentId to set
+     */
+    public void setContentId(final String contentId) {
+        this.contentId = contentId;
+    }
 
     @Override
     protected void initParameters() throws JspException {
@@ -49,18 +66,22 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
     protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
         options.add("id", getId(), true);
+        // options.add("styleClass", getStyleClass(), true);
+        options.add("contentId", getContentId(), true);
         options.add("pages", getPages(), false);
         return options;
     }
 
     @Override
     public int doEndTag() throws JspException {
-        // tabs
+        // check for tabs presence
         if (pages.length() == 0) {
             throw new JspException("No tabs added to tab panel.");
         }
 
+        // div wrapper
         final DIVElement div = new DIVElement(getId());
+        div.setClassName(getStyleClass());
         div.append(buildScript());
         out(div);
         return EVAL_PAGE;
@@ -73,7 +94,7 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
 
     /**
      * Add one tab to panel.
-     * 
+     *
      * @param ajaxTabPageTag
      *            tab
      */
@@ -87,7 +108,7 @@ public class AjaxTabPanelTag extends BaseAjaxBodyTag {
 
     /**
      * Get list of tabs as JavaScript array (JSON).
-     * 
+     *
      * @return JSON string with array of tabs
      */
     protected String getPages() {

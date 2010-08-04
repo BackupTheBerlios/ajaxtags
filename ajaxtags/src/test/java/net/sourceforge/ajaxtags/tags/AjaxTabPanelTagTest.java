@@ -113,6 +113,71 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
         assertContent(expected, content);
     }
 
+    /**
+     * Test method for tag content generation.
+     *
+     * @throws JspException
+     *             on tag errors
+     * @throws SAXException
+     *             if any parse errors occur
+     * @throws TransformerException
+     *             if it is not possible to transform document to string
+     */
+    @Test
+    public void testDoEndTagIds() throws JspException, TransformerException, SAXException {
+        final PageContext context = new FakePageContext();
+        tag.setPageContext(context);
+
+        assertStartTagEvalBody();
+
+        tag.addPage(page(1));
+        tag.addPage(page(2));
+        tag.setId("idTabs");
+        tag.setContentId("idContent");
+
+        assertAfterBody();
+        assertEndTag();
+
+        final String content = ((FakeBodyContent) context.getOut()).getString();
+        final String expected = "<div id=\"idTabs\"><script type=\"text/javascript\">"
+                + "new AjaxJspTag.TabPanel({contentId:\"idContent\",id:\"idTabs\",pages: ["
+                + pageText(1) + "," + pageText(2) + "]});" + "</script></div>";
+
+        assertContent(expected, content);
+    }
+
+    /**
+     * Test method for tag content generation.
+     *
+     * @throws JspException
+     *             on tag errors
+     * @throws SAXException
+     *             if any parse errors occur
+     * @throws TransformerException
+     *             if it is not possible to transform document to string
+     */
+    @Test
+    public void testDoEndTagClasses() throws JspException, TransformerException, SAXException {
+        final PageContext context = new FakePageContext();
+        tag.setPageContext(context);
+
+        assertStartTagEvalBody();
+
+        tag.addPage(page(1));
+        tag.addPage(page(2));
+        tag.setStyleClass("customPanelClass");
+
+        assertAfterBody();
+        assertEndTag();
+
+        final String content = ((FakeBodyContent) context.getOut()).getString();
+        final String expected = "<div class=\"customPanelClass\"><script type=\"text/javascript\">"
+                + "new AjaxJspTag.TabPanel({pages: [" + pageText(1) + "," + pageText(2) + "]});"
+                + "</script></div>";
+
+        assertContent(expected, content);
+    }
+
     private AjaxTabPageTag page(final int pageNo) {
         final AjaxTabPageTag page = new AjaxTabPageTag();
         page.setCaption("c" + pageNo);
