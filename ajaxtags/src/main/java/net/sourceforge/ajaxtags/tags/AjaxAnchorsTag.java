@@ -42,6 +42,10 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
 
     private static final long serialVersionUID = -1732745741282114289L;
 
+    /** Warp dirty hack to use internal HTML parser. */
+    private static final String WARP0 = "<div>";
+    private static final String WARP1 = "</div>";
+
     /**
      * rewrite the body and make use of ajax. rewriting all &lt;a&gt; links to use javascript calls
      * to prototype.
@@ -77,23 +81,23 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
             throw new JspException(
                     "rewrite links failed (cannot transform XHTML to text)\n" + html, e);
         } catch (SAXException e) {
-            throw new JspException("rewrite links failed (is the content xhtml?)\n" + html, e);
+            throw new JspException("rewrite links failed (is the content valid XHTML?)\n" + html, e);
         }
     }
 
     private String rewriteAnchors(final Document document, final String target,
             final String className) throws XPathExpressionException, TransformerException {
-        String xpath = "//a";
-        if (className != null) {
-            xpath = xpath + "[@class=\"" + className + "\"]";
-        }
-
-        final NodeList links = XMLUtils.evaluateXPathExpression(xpath, document);
+        final NodeList links = XMLUtils
+                .evaluateXPathExpression(getAnchorXPath(className), document);
         // document.getElementsByTagName("a");
         for (int i = 0; i < links.getLength(); i++) {
             rewriteLink(links.item(i), target);
         }
         return XMLUtils.toString(document);
+    }
+
+    private String getAnchorXPath(final String className) {
+        return className == null ? "//a" : "//a[@class=\"" + className + "\"]";
     }
 
     /**
@@ -130,13 +134,6 @@ public class AjaxAnchorsTag extends BaseAjaxBodyTag {
      */
     protected static final Document getDocument(final String html) throws SAXException {
         final String xhtml = trimToNull(html); // .replaceAll("<br(.*?)>", "<br$1/>");
-        if (xhtml == null) {
-            return null;
-        }
-        // warp dirty hack to use internal HTML parser.
-        final String warp0 = "<div>";
-        final String warp1 = "</div>";
-
-        return XMLUtils.getXMLDocument(warp0 + xhtml + warp1);
+        return xhtml == null ? null : XMLUtils.getXMLDocument(WARP0 + xhtml + WARP1);
     }
 }

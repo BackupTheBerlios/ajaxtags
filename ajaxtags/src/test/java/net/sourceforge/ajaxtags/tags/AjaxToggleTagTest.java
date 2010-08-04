@@ -138,8 +138,8 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
                 + "<a href=\"javascript://nop\" class=\"selected\" title=\"Two\"></a>"
                 + toggle("Three")
                 + "<script type=\"text/javascript\">"
-                + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", defaultRating: \"Two\", ratings: \"One,Two,Three\", selectedClass: \"selected\"});"
-                + "</script></div>";
+                + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", defaultRating: \"Two\", "
+                + "ratings: \"One,Two,Three\", selectedClass: \"selected\"});" + "</script></div>";
         assertContent(expected, content);
     }
 

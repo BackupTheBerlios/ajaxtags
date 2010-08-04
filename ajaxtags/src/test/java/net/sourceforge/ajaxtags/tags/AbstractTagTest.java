@@ -110,6 +110,18 @@ public abstract class AbstractTagTest<T extends BaseAjaxBodyTag> {
         assertEquals("doEndTag() must return BodyTag.EVAL_PAGE", BodyTag.EVAL_PAGE, tag.doEndTag());
     }
 
+    /**
+     * Asserts that two XHTML contents are equal. Ignores different formatting.
+     *
+     * @param expected
+     *            expected content
+     * @param actual
+     *            actual content
+     * @throws TransformerException
+     *             if it is not possible to transform content to string
+     * @throws SAXException
+     *             if any parse errors occur
+     */
     public void assertContent(final String expected, final String actual)
             throws TransformerException, SAXException {
         assertEquals("HTML content", reformat(expected), reformat(actual));

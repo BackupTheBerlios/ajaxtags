@@ -26,7 +26,7 @@ import org.junit.Test;
 
 /**
  * Test for AjaxXmlBuilder.
- * 
+ *
  * @author В.Хомяков
  * @version $Revision$ $Date$ $Author$
  */
@@ -48,7 +48,7 @@ public class AjaxXmlBuilderTest {
     @Test
     public void testAddItemStringString() {
         xml.addItem("name1", "value1");
-        assertEquals(AjaxXmlBuilder.RESPONSE_START
+        assertEquals("Added item with name and value", AjaxXmlBuilder.RESPONSE_START
                 + "<item><name>name1</name><value>value1</value></item>"
                 + AjaxXmlBuilder.RESPONSE_END, xml.getXMLString());
     }
@@ -59,7 +59,7 @@ public class AjaxXmlBuilderTest {
     @Test
     public void testAddItemAsCData() {
         xml.addItemAsCData("name2", "value2");
-        assertEquals(AjaxXmlBuilder.RESPONSE_START
+        assertEquals("Added item with CDATA name and CDATA value", AjaxXmlBuilder.RESPONSE_START
                 + "<item><name><![CDATA[name2]]></name><value><![CDATA[value2]]></value></item>"
                 + AjaxXmlBuilder.RESPONSE_END, xml.getXMLString());
     }

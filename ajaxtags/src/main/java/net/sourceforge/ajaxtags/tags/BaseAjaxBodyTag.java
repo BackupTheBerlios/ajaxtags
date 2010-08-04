@@ -140,7 +140,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         this.sourceClass = null; // NOPMD
         this.eventType = null; // NOPMD
 
-        this.styleClass = null;
+        this.styleClass = null; // NOPMD
 
         releaseTag();
     }
@@ -189,7 +189,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
      * @return Returns the styleClass.
      */
     public final String getStyleClass() {
-        return this.styleClass;
+        return styleClass;
     }
 
     /**
@@ -203,7 +203,7 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     /**
      * Build JavaScript assignment string.
      *
-     * @return String with assignment to variable "var x = " or field "object.field = "
+     * @return String with left side of assignment to variable "var foo = " or field "object.foo = "
      */
     public final String getJSVariable() {
         final StringBuilder script = new StringBuilder();

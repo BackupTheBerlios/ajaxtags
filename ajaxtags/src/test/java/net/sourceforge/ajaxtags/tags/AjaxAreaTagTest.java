@@ -38,7 +38,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxAreaTag.
- * 
+ *
  * @author Victor Homyakov
  */
 public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
@@ -59,7 +59,7 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
 
     /**
      * Test method for tag content generation in response to usual HTTP request.
-     * 
+     *
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -87,7 +87,8 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
         final String expected = "<div>before tag"
                 + "<div class=\"textArea\" id=\"ajaxFrame\"><div>"
                 + "<div>Text<br/>link to "
-                + "<a href=\"javascript://nop/\" onclick=\"new AjaxJspTag.OnClick({baseUrl: &quot;pagearea.jsp&quot;, eventBase: this, requestHeaders: ['x-request-target', '"
+                + "<a href=\"javascript://nop/\" onclick=\"new AjaxJspTag.OnClick({"
+                + "baseUrl: &quot;pagearea.jsp&quot;, eventBase: this, requestHeaders: ['x-request-target', '"
                 + TAG_ID + "'], target: &quot;ajaxFrame&quot;}); return false;\">itself</a>"
                 + "<br/>Text</div>" + "</div></div>" + "after tag</div>";
 
@@ -103,7 +104,7 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
 
     /**
      * Test method for tag content generation in response to AJAX request.
-     * 
+     *
      * @throws JspException
      *             on errors
      * @throws IOException
@@ -134,7 +135,8 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
                 + "<br/>Text</div>";
         final String expected = "<div>"
                 + "<div>Text<br/>link to "
-                + "<a href=\"javascript://nop/\" onclick=\"new AjaxJspTag.OnClick({baseUrl: &quot;pagearea.jsp&quot;, eventBase: this, requestHeaders: ['x-request-target', '"
+                + "<a href=\"javascript://nop/\" onclick=\"new AjaxJspTag.OnClick({"
+                + "baseUrl: &quot;pagearea.jsp&quot;, eventBase: this, requestHeaders: ['x-request-target', '"
                 + TAG_ID + "'], target: &quot;ajaxFrame&quot;}); return false;\">itself</a>"
                 + "<br/>Text</div>" + "</div>";
         tag.getBodyContent().print(html);
@@ -172,7 +174,7 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
 
     /**
      * Test method for {@link AjaxAreaTag#processContent(String)}.
-     * 
+     *
      * @throws JspException
      *             on errors
      * @throws SAXException
@@ -205,7 +207,8 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
         html = "<div>Text<br/>link to " + "<a href=\"pagearea.jsp\">itself</a>" + "<br/>Text</div>";
         expected = "<div>"
                 + "<div>Text<br/>link to "
-                + "<a href=\"javascript://nop/\" onclick=\"new AjaxJspTag.OnClick({baseUrl: &quot;pagearea.jsp&quot;, eventBase: this, requestHeaders: ['x-request-target', '"
+                + "<a href=\"javascript://nop/\" onclick=\"new AjaxJspTag.OnClick({"
+                + "baseUrl: &quot;pagearea.jsp&quot;, eventBase: this, requestHeaders: ['x-request-target', '"
                 + TAG_ID + "'], target: &quot;ajaxFrame&quot;}); return false;\">itself</a>"
                 + "<br/>Text</div>" + "</div>";
         assertContent(expected, tag.processContent(html));
