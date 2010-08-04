@@ -16,6 +16,8 @@
  */
 package net.sourceforge.ajaxtags.helpers;
 
+import static org.apache.commons.lang.StringUtils.trimToNull;
+
 import java.util.Locale;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -35,7 +37,14 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
      * @author Jens Kapitza
      */
     public static enum HTMLAttribute {
-        CLASS, ID;
+        /**
+         * HTML class attribute.
+         */
+        CLASS,
+        /**
+         * HTML id attribute.
+         */
+        ID;
     }
 
     /**
@@ -190,7 +199,7 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
     }
 
     /**
-     * cleaning the Attributes. This method do nothing per default.
+     * Cleaning the attributes. This method does nothing by default.
      */
     protected void cleanAttributes() { // NOPMD
     }
@@ -204,11 +213,14 @@ public abstract class AbstractHTMLElement implements CharSequence, Appendable {
         s.append(getName());
         cleanAttributes();
         for (Entry<Object, String> e : getAttributes().entrySet()) {
-            // if we do have a ENUM Object we try to get it in a lower case
-            // type. toString should ensure the value is valid as key in HTML
-            s.append(' ').append(e.getKey().toString().toLowerCase(Locale.getDefault())).append(
-                    "=\"");
-            s.append(e.getValue().replaceAll("\"", "\\\"")).append('"');
+            String value = trimToNull(e.getValue());
+            if (value != null) {
+                // if we do have a ENUM Object we try to get it in a lower case
+                // type. toString should ensure the value is valid as key in HTML
+                s.append(' ').append(e.getKey().toString().toLowerCase(Locale.getDefault()))
+                        .append("=\"");
+                s.append(value.replaceAll("\"", "\\\"")).append('"');
+            }
         }
         s.append('>');
         s.append(getBody());

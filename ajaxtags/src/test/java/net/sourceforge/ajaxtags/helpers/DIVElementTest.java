@@ -31,6 +31,7 @@ import org.junit.Test;
  */
 public class DIVElementTest {
 
+    private static final String EMPTY_DIV = "<div></div>";
     private DIVElement div;
 
     /**
@@ -46,7 +47,7 @@ public class DIVElementTest {
      */
     @After
     public void tearDown() {
-        div = null;
+        div = null; // NOPMD
     }
 
     /**
@@ -55,7 +56,7 @@ public class DIVElementTest {
      */
     @Test
     public void testDIVElement() {
-        assertEquals("Empty div", "<div></div>", div.toString());
+        assertEquals("Empty div", EMPTY_DIV, div.toString());
 
         div = new DIVElement("idDiv1");
         assertEquals("Empty div with id", "<div id=\"idDiv1\"></div>", div.toString());
@@ -69,6 +70,13 @@ public class DIVElementTest {
     public void testSetClassName() {
         div.setClassName("class1");
         assertEquals("Empty div with class", "<div class=\"class1\"></div>", div.toString());
+        div.setClassName("");
+        assertEquals("Empty div without class", EMPTY_DIV, div.toString());
+        div.setClassName("class1 class2");
+        assertEquals("Empty div with classes", "<div class=\"class1 class2\"></div>", div
+                .toString());
+        div.setClassName(null);
+        assertEquals("Empty div without class", EMPTY_DIV, div.toString());
     }
 
     /**
