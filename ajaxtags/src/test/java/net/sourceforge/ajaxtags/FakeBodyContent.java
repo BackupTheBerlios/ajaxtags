@@ -25,7 +25,7 @@ import javax.servlet.jsp.tagext.BodyContent;
 
 /**
  * Fake BodyContent to test tags.
- * 
+ *
  * @author В.Хомяков
  * @version $Revision$ $Date$ $Author$
  */
@@ -35,7 +35,7 @@ public class FakeBodyContent extends BodyContent {
 
     private String content = "";
 
-    protected FakeBodyContent(JspWriter writer) {
+    protected FakeBodyContent(final JspWriter writer) {
         super(writer);
     }
 
@@ -55,7 +55,7 @@ public class FakeBodyContent extends BodyContent {
     }
 
     @Override
-    public void writeOut(Writer out) throws IOException {
+    public void writeOut(final Writer out) throws IOException {
         out.write(content);
     }
 
@@ -86,53 +86,53 @@ public class FakeBodyContent extends BodyContent {
     }
 
     @Override
-    public Writer append(CharSequence csq) throws IOException {
+    public Writer append(final CharSequence csq) throws IOException {
         this.content += csq;
         return this;
     }
 
     @Override
-    public void print(boolean b) throws IOException {
+    public void print(final boolean b) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void print(char c) throws IOException {
+    public void print(final char c) throws IOException {
         this.content += c;
     }
 
     @Override
-    public void print(int i) throws IOException {
+    public void print(final int i) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void print(long l) throws IOException {
+    public void print(final long l) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void print(float f) throws IOException {
+    public void print(final float f) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void print(double d) throws IOException {
+    public void print(final double d) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void print(char[] s) throws IOException {
+    public void print(final char[] s) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void print(String s) throws IOException {
+    public void print(final String s) throws IOException {
         this.content += s;
     }
 
     @Override
-    public void print(Object obj) throws IOException {
+    public void print(final Object obj) throws IOException {
         this.content += obj;
     }
 
@@ -142,52 +142,52 @@ public class FakeBodyContent extends BodyContent {
     }
 
     @Override
-    public void println(boolean x) throws IOException {
+    public void println(final boolean x) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void println(char x) throws IOException {
+    public void println(final char x) throws IOException {
         this.content += x + NEW_LINE;
     }
 
     @Override
-    public void println(int x) throws IOException {
+    public void println(final int x) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void println(long x) throws IOException {
+    public void println(final long x) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void println(float x) throws IOException {
+    public void println(final float x) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void println(double x) throws IOException {
+    public void println(final double x) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void println(char[] x) throws IOException {
+    public void println(final char[] x) throws IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void println(String x) throws IOException {
+    public void println(final String x) throws IOException {
         this.content += x + NEW_LINE;
     }
 
     @Override
-    public void println(Object x) throws IOException {
+    public void println(final Object x) throws IOException {
         this.content += x + NEW_LINE;
     }
 
     @Override
-    public void write(char[] cbuf, int off, int len) throws IOException {
+    public void write(final char[] cbuf, final int off, final int len) throws IOException {
         // TODO Auto-generated method stub
     }
 

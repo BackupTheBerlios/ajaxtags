@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package net.sourceforge.ajaxtags;
+package net.sourceforge.ajaxtags; // NOPMD
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,20 +50,19 @@ public class FakeHttpServletRequest implements HttpServletRequest {
     }
 
     public Cookie[] getCookies() {
-        final Cookie[] cookies = {};
-        return cookies;
+        return new Cookie[] {};
     }
 
-    public long getDateHeader(String name) {
+    public long getDateHeader(final String name) {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    public void setHeader(String name, String value) {
+    public void setHeader(final String name, final String value) {
         headers.put(name, value);
     }
 
-    public String getHeader(String name) {
+    public String getHeader(final String name) {
         final Object o = headers.get(name);
         return o == null ? null : String.valueOf(o);
     }
@@ -73,12 +72,12 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public Enumeration<?> getHeaders(String name) {
+    public Enumeration<?> getHeaders(final String name) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public int getIntHeader(String name) {
+    public int getIntHeader(final String name) {
         // TODO Auto-generated method stub
         return 0;
     }
@@ -133,7 +132,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public HttpSession getSession(boolean create) {
+    public HttpSession getSession(final boolean create) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -163,12 +162,12 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return false;
     }
 
-    public boolean isUserInRole(String role) {
+    public boolean isUserInRole(final String role) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    public Object getAttribute(String name) {
+    public Object getAttribute(final String name) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -223,7 +222,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public String getParameter(String name) {
+    public String getParameter(final String name) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -238,9 +237,8 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public String[] getParameterValues(String name) {
-        final String[] values = {};
-        return values;
+    public String[] getParameterValues(final String name) {
+        return new String[] {};
     }
 
     public String getProtocol() {
@@ -253,7 +251,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    public String getRealPath(String path) {
+    public String getRealPath(final String path) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -273,7 +271,7 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return 0;
     }
 
-    public RequestDispatcher getRequestDispatcher(String path) {
+    public RequestDispatcher getRequestDispatcher(final String path) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -298,15 +296,15 @@ public class FakeHttpServletRequest implements HttpServletRequest {
         return false;
     }
 
-    public void removeAttribute(String name) {
+    public void removeAttribute(final String name) {
         // TODO Auto-generated method stub
     }
 
-    public void setAttribute(String name, Object o) {
+    public void setAttribute(final String name, final Object o) {
         // TODO Auto-generated method stub
     }
 
-    public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+    public void setCharacterEncoding(final String env) throws UnsupportedEncodingException {
         // TODO Auto-generated method stub
     }
 

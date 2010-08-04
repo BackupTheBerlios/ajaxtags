@@ -35,18 +35,18 @@ import javax.servlet.jsp.tagext.BodyContent;
 
 /**
  * Fake PageContext to test tags.
- * 
+ *
  * @author В.Хомяков
  * @version $Revision$ $Date$ $Author$
  */
 public class FakePageContext extends PageContext {
 
-    private BodyContent content = new FakeBodyContent();
-    private ServletRequest request = new FakeHttpServletRequest();
-    private ServletResponse response = new FakeHttpServletResponse();
+    private final BodyContent content = new FakeBodyContent();
+    private final ServletRequest request = new FakeHttpServletRequest();
+    private final ServletResponse response = new FakeHttpServletResponse();
 
     @Override
-    public void forward(String relativeUrlPath) throws ServletException, IOException {
+    public void forward(final String relativeUrlPath) throws ServletException, IOException {
         // TODO Auto-generated method stub
     }
 
@@ -91,60 +91,65 @@ public class FakePageContext extends PageContext {
     }
 
     @Override
-    public void handlePageException(Exception e) throws ServletException, IOException {
+    public void handlePageException(final Exception e) throws ServletException, IOException {
+        // empty method
     }
 
     @Override
-    public void handlePageException(Throwable t) throws ServletException, IOException {
+    public void handlePageException(final Throwable t) throws ServletException, IOException {
+        // empty method
     }
 
     @Override
-    public void include(String relativeUrlPath) throws ServletException, IOException {
+    public void include(final String relativeUrlPath) throws ServletException, IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void include(String relativeUrlPath, boolean flush) throws ServletException, IOException {
+    public void include(final String relativeUrlPath, final boolean flush) throws ServletException,
+            IOException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void initialize(Servlet servlet, ServletRequest request, ServletResponse response,
-            String errorPageURL, boolean needsSession, int bufferSize, boolean autoFlush)
-            throws IOException, IllegalStateException, IllegalArgumentException {
+    public void initialize(final Servlet servlet, final ServletRequest request,
+            final ServletResponse response, final String errorPageURL, final boolean needsSession,
+            final int bufferSize, final boolean autoFlush) throws IOException,
+            IllegalStateException, IllegalArgumentException {
         // TODO Auto-generated method stub
     }
 
     @Override
     public void release() {
+        // empty method
     }
 
     @Override
-    public Object findAttribute(String name) {
+    public Object findAttribute(final String name) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Object getAttribute(String name) {
+    public Object getAttribute(final String name) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Object getAttribute(String name, int scope) {
+    public Object getAttribute(final String name, final int scope) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Enumeration<String> getAttributeNamesInScope(int scope) {
+    public Enumeration<String> getAttributeNamesInScope(final int scope) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public int getAttributesScope(String name) {
+    public int getAttributesScope(final String name) {
         // TODO Auto-generated method stub
         return 0;
     }
@@ -155,22 +160,22 @@ public class FakePageContext extends PageContext {
     }
 
     @Override
-    public void removeAttribute(String name) {
+    public void removeAttribute(final String name) {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void removeAttribute(String name, int scope) {
+    public void removeAttribute(final String name, final int scope) {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(final String name, final Object value) {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void setAttribute(String name, Object value, int scope) {
+    public void setAttribute(final String name, final Object value, final int scope) {
         // TODO Auto-generated method stub
     }
 

@@ -26,82 +26,82 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Fake HttpServletResponse to test tags.
- * 
+ *
  * @author В.Хомяков
  * @version $Revision$ $Date$ $Author$
  */
 public class FakeHttpServletResponse implements HttpServletResponse {
 
-    public void addCookie(Cookie cookie) {
+    public void addCookie(final Cookie cookie) {
         // TODO Auto-generated method stub
     }
 
-    public void addDateHeader(String name, long date) {
+    public void addDateHeader(final String name, final long date) {
         // TODO Auto-generated method stub
     }
 
-    public void addHeader(String name, String value) {
+    public void addHeader(final String name, final String value) {
         // TODO Auto-generated method stub
     }
 
-    public void addIntHeader(String name, int value) {
+    public void addIntHeader(final String name, final int value) {
         // TODO Auto-generated method stub
     }
 
-    public boolean containsHeader(String name) {
+    public boolean containsHeader(final String name) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    public String encodeRedirectURL(String url) {
+    public String encodeRedirectURL(final String url) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public String encodeRedirectUrl(String url) {
+    public String encodeRedirectUrl(final String url) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public String encodeURL(String url) {
+    public String encodeURL(final String url) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public String encodeUrl(String url) {
+    public String encodeUrl(final String url) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public void sendError(int sc) throws IOException {
+    public void sendError(final int sc) throws IOException {
         // TODO Auto-generated method stub
     }
 
-    public void sendError(int sc, String msg) throws IOException {
+    public void sendError(final int sc, final String msg) throws IOException {
         // TODO Auto-generated method stub
     }
 
-    public void sendRedirect(String location) throws IOException {
+    public void sendRedirect(final String location) throws IOException {
         // TODO Auto-generated method stub
     }
 
-    public void setDateHeader(String name, long date) {
+    public void setDateHeader(final String name, final long date) {
         // TODO Auto-generated method stub
     }
 
-    public void setHeader(String name, String value) {
+    public void setHeader(final String name, final String value) {
         // TODO Auto-generated method stub
     }
 
-    public void setIntHeader(String name, int value) {
+    public void setIntHeader(final String name, final int value) {
         // TODO Auto-generated method stub
     }
 
-    public void setStatus(int sc) {
+    public void setStatus(final int sc) {
         // TODO Auto-generated method stub
     }
 
-    public void setStatus(int sc, String sm) {
+    public void setStatus(final int sc, final String sm) {
         // TODO Auto-generated method stub
     }
 
@@ -152,23 +152,23 @@ public class FakeHttpServletResponse implements HttpServletResponse {
         // TODO Auto-generated method stub
     }
 
-    public void setBufferSize(int size) {
+    public void setBufferSize(final int size) {
         // TODO Auto-generated method stub
     }
 
-    public void setCharacterEncoding(String charset) {
+    public void setCharacterEncoding(final String charset) {
         // TODO Auto-generated method stub
     }
 
-    public void setContentLength(int len) {
+    public void setContentLength(final int len) {
         // TODO Auto-generated method stub
     }
 
-    public void setContentType(String type) {
+    public void setContentType(final String type) {
         // TODO Auto-generated method stub
     }
 
-    public void setLocale(Locale loc) {
+    public void setLocale(final Locale loc) {
         // TODO Auto-generated method stub
     }
 }
