@@ -49,6 +49,33 @@
       this.assertNotNull(nav);
       this.assertNotNull(nav.down("ul"));
       this.assertEqual(2, $$("#TabPanel > div.tabNavigation > ul > li").length);
+    },
+    testExistingContent: function() {
+      var e = $("TabContent");
+      this.assertNull(e);
+      Element.insert(document.body, new Element("div", {
+        id: "TabContent",
+        className: "existingTabContentClass"
+      }));
+      tag = new AjaxJspTag.TabPanel({
+        id: "TabPanel",
+        contentId: "TabContent",
+        contentClass: "additionalContentClass",
+        pages: []
+      });
+      e = $("TabContent");
+      this.assertNotNull(e);
+      this.assert(e.hasClassName("existingTabContentClass"), "Existing class names should not change");
+    },
+    testNewContent: function() {
+      tag = new AjaxJspTag.TabPanel({
+        id: "TabPanel",
+        contentClass: "additionalContentClass",
+        pages: []
+      });
+      e = $$("div.tabContent")[0];
+      this.assertNotNull(e);
+      this.assert(e.hasClassName("tabContent"), "Special class name for content should be added");
     }
   });
 </script>
