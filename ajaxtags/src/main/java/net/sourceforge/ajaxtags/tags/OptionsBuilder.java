@@ -110,8 +110,8 @@ public final class OptionsBuilder {
     }
 
     /**
-     * Add option. Option is added only once. If {@link OptionsBuilder} already contains option with
-     * given name, it will stay unchanged.
+     * Add option. Option is added only once and only when value is not null. If
+     * {@link OptionsBuilder} already contains option with given name, it will stay unchanged.
      *
      * @param parameter
      *            name of option

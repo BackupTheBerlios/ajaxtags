@@ -320,12 +320,20 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
     }
 
     /**
-     * @return the OptionsBuilder with default options
+     * @return the OptionsBuilder with non-empty subset of default options (baseUrl, parser, target,
+     *         source, sourceClass, eventType, parameters, onCreate, onComplete, onFailure)
      */
     protected OptionsBuilder getOptionsBuilder() {
         return getOptionsBuilder(false);
     }
 
+    /**
+     * @param empty
+     *            true to return empty OptionsBuilder (without any options), false to return
+     *            OptionsBuilder with non-empty subset of default options (baseUrl, parser, target,
+     *            source, sourceClass, eventType, parameters, onCreate, onComplete, onFailure)
+     * @return the OptionsBuilder
+     */
     protected OptionsBuilder getOptionsBuilder(final boolean empty) {
         final OptionsBuilder builder = OptionsBuilder.getOptionsBuilder();
         if (empty) {
@@ -378,11 +386,11 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return onclick.toString();
     }
 
+    /**
+     * @return String representation of current body content or null
+     */
     protected String getBody() {
         final BodyContent body = this.getBodyContent();
-        if (body == null) {
-            return null;
-        }
-        return body.getString();
+        return body == null ? null : body.getString();
     }
 }

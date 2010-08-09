@@ -20,7 +20,7 @@ import javax.servlet.jsp.JspException;
 
 /**
  * Tag handler for the select AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @author Jens Kapitza
  * @version $Revision: 86 $ $Date: 2007/07/08 17:52:30 $ $Author: jenskapitza $
@@ -37,20 +37,20 @@ public class AjaxSelectTag extends BaseAjaxTag {
 
     private String defaultOptions;
 
-    public void setEmptyOptionName(final String emptyOptionName) {
-        this.emptyOptionName = emptyOptionName;
-    }
-
     public String getEmptyOptionName() {
         return emptyOptionName;
     }
 
-    public void setEmptyOptionValue(final String emptyOptionValue) {
-        this.emptyOptionValue = emptyOptionValue;
+    public void setEmptyOptionName(final String emptyOptionName) {
+        this.emptyOptionName = emptyOptionName;
     }
 
     public String getEmptyOptionValue() {
         return emptyOptionValue;
+    }
+
+    public void setEmptyOptionValue(final String emptyOptionValue) {
+        this.emptyOptionValue = emptyOptionValue;
     }
 
     public boolean getExecuteOnLoad() {

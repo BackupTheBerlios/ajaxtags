@@ -75,7 +75,6 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      *            The pagelinksClass to set. Null-safe.
      */
     public void setPagelinksClass(final String pagelinksClass) {
-        // this.pagelinksClass = pagelinksClass == null ? StringUtils.EMPTY : pagelinksClass;
         this.pagelinksClass = trimToNull(pagelinksClass);
     }
 
@@ -91,7 +90,6 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      *            The columnClass to set. Null-safe.
      */
     public void setColumnClass(final String columnClass) {
-        // this.columnClass = columnClass == null ? StringUtils.EMPTY : columnClass;
         this.columnClass = trimToNull(columnClass);
     }
 
@@ -117,11 +115,10 @@ public class AjaxDisplayTag extends AjaxAreaTag {
 
             boolean rewrite = false;
             final String parentName = parent.getNodeName();
-            final String parentClassValue = parentClass.getNodeValue();
             if ("span".equals(parentName)) {
-                rewrite = StringUtils.contains(parentClassValue, getPagelinksClass());
+                rewrite = StringUtils.contains(parentClass.getNodeValue(), getPagelinksClass());
             } else if ("th".equals(parentName)) {
-                rewrite = StringUtils.contains(parentClassValue, getColumnClass());
+                rewrite = StringUtils.contains(parentClass.getNodeValue(), getColumnClass());
             }
 
             if (rewrite) {
@@ -136,9 +133,11 @@ public class AjaxDisplayTag extends AjaxAreaTag {
      * Parse content to XHTML {@link org.w3c.dom.Document}, rewrite DisplayTag anchor elements and
      * return string representation of document.
      *
-     * @param content XHTML source as string
+     * @param content
+     *            XHTML source as string
      * @return content with rewritten anchors
-     * @throws JspException when links rewriting failed
+     * @throws JspException
+     *             when links rewriting failed
      * @see net.sourceforge.ajaxtags.tags.AjaxAreaTag#processContent(java.lang.String)
      */
     @Override
