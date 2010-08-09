@@ -17,11 +17,7 @@
 package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.xml.transform.TransformerException;
-
-import net.sourceforge.ajaxtags.FakeBodyContent;
-import net.sourceforge.ajaxtags.FakePageContext;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +25,13 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxSubmitTag.
- * 
+ *
  * @author Victor Homyakov
  */
 public class AjaxSubmitTagTest extends AbstractTagTest<AjaxSubmitTag> {
+
+    private static final String SCRIPT_START = "<script type=\"text/javascript\">new AjaxJspTag.Submit({";
+    private static final String SCRIPT_END = "});</script>";
 
     /**
      * Set up.
@@ -43,11 +42,13 @@ public class AjaxSubmitTagTest extends AbstractTagTest<AjaxSubmitTag> {
     @Before
     public void setUp() throws Exception {
         setUp(AjaxSubmitTag.class);
+        tag.setSource("formId");
+        tag.setTarget("targetId");
     }
 
     /**
      * Test method for tag content generation.
-     * 
+     *
      * @throws JspException
      *             on tag errors
      * @throws SAXException
@@ -57,20 +58,38 @@ public class AjaxSubmitTagTest extends AbstractTagTest<AjaxSubmitTag> {
      */
     @Test
     public void testDoEndTag() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
-        tag.setSource("formId");
-        tag.setTarget("targetId");
+        assertStartTagSkipBody();
+        assertAfterBody();
+        assertEndTag();
+
+        final String expected = SCRIPT_START + "source: \"formId\", target: \"targetId\""
+                + SCRIPT_END;
+        assertContent(expected);
+    }
+
+    /**
+     * Test method for tag content generation.
+     *
+     * @throws JspException
+     *             on tag errors
+     * @throws SAXException
+     *             if any parse errors occur
+     * @throws TransformerException
+     *             if it is not possible to transform document to string
+     */
+    @Test
+    public void testCallbacks() throws JspException, TransformerException, SAXException {
+        tag.setPreFunction("preFunction");
+        tag.setPostFunction("postFunction");
 
         assertStartTagSkipBody();
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<script type=\"text/javascript\">"
-                + "new AjaxJspTag.Submit({source: \"formId\", target: \"targetId\"});"
-                + "</script>";
-        assertContent(expected, content);
+        final String expected = SCRIPT_START
+                + "onComplete:postFunction, onCreate:preFunction, source: \"formId\", target: \"targetId\""
+                + SCRIPT_END;
+        assertContent(expected);
     }
 
 }

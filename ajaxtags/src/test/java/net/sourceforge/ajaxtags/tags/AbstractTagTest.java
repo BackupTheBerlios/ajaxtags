@@ -19,6 +19,7 @@ package net.sourceforge.ajaxtags.tags;
 import static org.junit.Assert.assertEquals;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.Tag;
 import javax.xml.transform.TransformerException;
@@ -46,6 +47,11 @@ public abstract class AbstractTagTest<T extends BaseAjaxBodyTag> {
     protected T tag;
 
     /**
+     * Page context.
+     */
+    protected PageContext context;
+
+    /**
      * Set up.
      *
      * @param clazz
@@ -57,7 +63,8 @@ public abstract class AbstractTagTest<T extends BaseAjaxBodyTag> {
     public void setUp(final Class<T> clazz) throws Exception {
         tag = clazz.newInstance();
         tag.setBodyContent(new FakeBodyContent());
-        tag.setPageContext(new FakePageContext());
+        context = new FakePageContext();
+        tag.setPageContext(context);
     }
 
     /**
@@ -127,10 +134,31 @@ public abstract class AbstractTagTest<T extends BaseAjaxBodyTag> {
         assertEquals("HTML content", reformat(expected), reformat(actual));
     }
 
+    /**
+     * Asserts that page content is equal to expected. Ignores different formatting.
+     *
+     * @param expected
+     *            expected content
+     * @throws TransformerException
+     *             if it is not possible to transform content to string
+     * @throws SAXException
+     *             if any parse errors occur
+     */
+    public void assertContent(final String expected) throws TransformerException, SAXException {
+        assertContent(expected, getContent());
+    }
+
     protected String reformat(final String html) throws TransformerException, SAXException {
         // .replaceAll("[\\s|\n|\r\n]","") dirty hack, problem with WS remove all! cause
         // we just need to check the javascript here
         return XMLUtils.format(html).replaceAll("[\\s\r\n]", "");
+    }
+
+    /**
+     * @return the page content as string
+     */
+    protected String getContent() {
+        return ((FakeBodyContent) context.getOut()).getString();
     }
 
 }

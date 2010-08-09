@@ -19,11 +19,7 @@ package net.sourceforge.ajaxtags.tags;
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.xml.transform.TransformerException;
-
-import net.sourceforge.ajaxtags.FakeBodyContent;
-import net.sourceforge.ajaxtags.FakePageContext;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +27,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for AjaxPortletTag.
- * 
+ *
  * @author Victor Homyakov
  */
 public class AjaxPortletTagTest extends AbstractTagTest<AjaxPortletTag> {
@@ -51,7 +47,7 @@ public class AjaxPortletTagTest extends AbstractTagTest<AjaxPortletTag> {
 
     /**
      * Test method for tag content generation in response to usual HTTP request.
-     * 
+     *
      * @throws JspException
      *             on tag errors
      * @throws IOException
@@ -63,8 +59,6 @@ public class AjaxPortletTagTest extends AbstractTagTest<AjaxPortletTag> {
      */
     @Test
     public void testTag() throws JspException, IOException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
         tag.setId(TAG_ID);
 
         context.getOut().print("<div>before tag");
@@ -75,11 +69,10 @@ public class AjaxPortletTagTest extends AbstractTagTest<AjaxPortletTag> {
 
         context.getOut().print("after tag</div>");
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
         final String expected = "<div>before tag<div>" + "<script type=\"text/javascript\">"
                 + "newAjaxJspTag.Portlet({executeOnLoad:false,startMinimize:false});" + "</script>"
                 + "</div>after tag</div>";
-        assertContent(expected, content);
+        assertContent(expected);
     }
 
 }

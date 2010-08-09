@@ -23,13 +23,10 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTag;
 import javax.xml.transform.TransformerException;
 
-import net.sourceforge.ajaxtags.FakeBodyContent;
 import net.sourceforge.ajaxtags.FakeHttpServletRequest;
-import net.sourceforge.ajaxtags.FakePageContext;
 import net.sourceforge.ajaxtags.helpers.XMLUtils;
 
 import org.junit.Before;
@@ -71,9 +68,6 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
      */
     @Test
     public void testTag() throws JspException, IOException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
-
         tag.setId(TAG_ID);
         tag.setStyleClass(TAG_CLASS);
         tag.setAjaxAnchors(true);
@@ -98,8 +92,7 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
         assertEndTag();
 
         context.getOut().print("after tag</div>");
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        assertContent(expected, content);
+        assertContent(expected);
     }
 
     /**
@@ -116,8 +109,6 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
      */
     @Test
     public void testTagAjax() throws JspException, IOException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
         ((FakeHttpServletRequest) context.getRequest())
                 .setHeader(AjaxAreaTag.TARGET_HEADER, TAG_ID);
         ((FakeHttpServletRequest) context.getRequest()).setHeader(BaseAjaxBodyTag.HEADER_FLAG,
@@ -144,8 +135,7 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
         assertAfterBody();
         assertEquals("doEndTag() must return BodyTag.SKIP_PAGE", BodyTag.SKIP_PAGE, tag.doEndTag());
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        assertContent(expected, content);
+        assertContent(expected);
     }
 
     /**
@@ -156,8 +146,6 @@ public class AjaxAreaTagTest extends AbstractTagTest<AjaxAreaTag> {
         assertFalse("Request without headers", tag.isAjaxRequest());
 
         tag.setId(TAG_ID);
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
 
         ((FakeHttpServletRequest) context.getRequest())
                 .setHeader(AjaxAreaTag.TARGET_HEADER, TAG_ID);

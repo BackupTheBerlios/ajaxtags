@@ -19,11 +19,7 @@ package net.sourceforge.ajaxtags.tags;
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.xml.transform.TransformerException;
-
-import net.sourceforge.ajaxtags.FakeBodyContent;
-import net.sourceforge.ajaxtags.FakePageContext;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,8 +62,6 @@ public class AjaxAnchorsTagTest extends AbstractTagTest<AjaxAnchorsTag> {
     @Test
     public void testDoEndTag() throws JspException, IOException, TransformerException, SAXException {
         final OptionsBuilder options = OptionsBuilder.getOptionsBuilder();
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
         tag.setTarget("target");
 
         assertStartTagEvalBody();
@@ -85,8 +79,7 @@ public class AjaxAnchorsTagTest extends AbstractTagTest<AjaxAnchorsTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        assertContent(expected, content);
+        assertContent(expected);
     }
 
     /**

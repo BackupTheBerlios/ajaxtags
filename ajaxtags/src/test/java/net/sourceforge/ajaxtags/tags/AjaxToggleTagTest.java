@@ -17,11 +17,7 @@
 package net.sourceforge.ajaxtags.tags;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.xml.transform.TransformerException;
-
-import net.sourceforge.ajaxtags.FakeBodyContent;
-import net.sourceforge.ajaxtags.FakePageContext;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +29,9 @@ import org.xml.sax.SAXException;
  * @author Victor Homyakov
  */
 public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
+
+    private static final String SCRIPT_START = "<script type=\"text/javascript\">new AjaxJspTag.Toggle({";
+    private static final String SCRIPT_END = "});</script>";
 
     /**
      * Set up.
@@ -57,8 +56,6 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
      */
     @Test
     public void testDoEndTag0() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
         tag.setContainerClass("star-rating");
         tag.setRatings(",Two,Three");
 
@@ -66,15 +63,11 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<div class=\"star-rating\">"
-                + toggle("")
-                + toggle("Two")
-                + toggle("Three")
-                + "<script type=\"text/javascript\">"
-                + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", ratings: \",Two,Three\"});"
-                + "</script></div>";
-        assertContent(expected, content);
+        final String expected = "<div class=\"star-rating\">" + toggle("") + toggle("Two")
+                + toggle("Three") + SCRIPT_START
+                + "containerClass: \"star-rating\", ratings: \",Two,Three\"" + SCRIPT_END
+                + "</div>";
+        assertContent(expected);
     }
 
     /**
@@ -89,8 +82,6 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
      */
     @Test
     public void testDoEndTag1() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
         tag.setContainerClass("star-rating");
         tag.setRatings("One,Two,Three");
 
@@ -98,15 +89,11 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<div class=\"star-rating\">"
-                + toggle("One")
-                + toggle("Two")
-                + toggle("Three")
-                + "<script type=\"text/javascript\">"
-                + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", ratings: \"One,Two,Three\"});"
-                + "</script></div>";
-        assertContent(expected, content);
+        final String expected = "<div class=\"star-rating\">" + toggle("One") + toggle("Two")
+                + toggle("Three") + SCRIPT_START
+                + "containerClass: \"star-rating\", ratings: \"One,Two,Three\"" + SCRIPT_END
+                + "</div>";
+        assertContent(expected);
     }
 
     /**
@@ -121,8 +108,6 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
      */
     @Test
     public void testDoEndTag2() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
         tag.setContainerClass("star-rating");
         tag.setRatings("One,Two,Three");
         tag.setDefaultRating("Two");
@@ -132,15 +117,12 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<div class=\"star-rating\">"
-                + toggle("One")
+        final String expected = "<div class=\"star-rating\">" + toggle("One")
                 + "<a href=\"javascript://nop\" class=\"selected\" title=\"Two\"></a>"
-                + toggle("Three")
-                + "<script type=\"text/javascript\">"
-                + "new AjaxJspTag.Toggle({containerClass: \"star-rating\", defaultRating: \"Two\", "
-                + "ratings: \"One,Two,Three\", selectedClass: \"selected\"});" + "</script></div>";
-        assertContent(expected, content);
+                + toggle("Three") + SCRIPT_START
+                + "containerClass: \"star-rating\", defaultRating: \"Two\", "
+                + "ratings: \"One,Two,Three\", selectedClass: \"selected\"" + SCRIPT_END + "</div>";
+        assertContent(expected);
     }
 
     /**
@@ -155,8 +137,6 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
      */
     @Test
     public void testDoEndTagOnOff() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
         tag.setContainerClass("power-rating");
         tag.setRatings("true,false");
         tag.setOnOff("true");
@@ -165,13 +145,10 @@ public class AjaxToggleTagTest extends AbstractTagTest<AjaxToggleTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<div class=\"power-rating onoff\">"
-                + toggle("false")
-                + "<script type=\"text/javascript\">"
-                + "new AjaxJspTag.Toggle({containerClass: \"power-rating\", ratings: \"true,false\"});"
-                + "</script></div>";
-        assertContent(expected, content);
+        final String expected = "<div class=\"power-rating onoff\">" + toggle("false")
+                + SCRIPT_START + "containerClass: \"power-rating\", ratings: \"true,false\""
+                + SCRIPT_END + "</div>";
+        assertContent(expected);
     }
 
     private String toggle(final String rating) {

@@ -20,11 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.xml.transform.TransformerException;
-
-import net.sourceforge.ajaxtags.FakeBodyContent;
-import net.sourceforge.ajaxtags.FakePageContext;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +32,9 @@ import org.xml.sax.SAXException;
  * @author Victor Homyakov
  */
 public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
+
+    private static final String SCRIPT_START = "<script type=\"text/javascript\">new AjaxJspTag.TabPanel({";
+    private static final String SCRIPT_END = "});</script>";
 
     /**
      * Set up.
@@ -94,9 +93,6 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
      */
     @Test
     public void testDoEndTag() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
-
         assertStartTagEvalBody();
 
         tag.addPage(page(1));
@@ -105,12 +101,10 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<div><script type=\"text/javascript\">"
-                + "new AjaxJspTag.TabPanel({pages: [" + pageText(1) + "," + pageText(2) + "]});"
-                + "</script></div>";
+        final String expected = "<div>" + SCRIPT_START + "pages: [" + pageText(1) + ","
+                + pageText(2) + "]" + SCRIPT_END + "</div>";
 
-        assertContent(expected, content);
+        assertContent(expected);
     }
 
     /**
@@ -125,9 +119,6 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
      */
     @Test
     public void testDoEndTagIds() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
-
         assertStartTagEvalBody();
 
         tag.addPage(page(1));
@@ -138,12 +129,11 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<div id=\"idTabs\"><script type=\"text/javascript\">"
-                + "new AjaxJspTag.TabPanel({contentId:\"idContent\",id:\"idTabs\",pages: ["
-                + pageText(1) + "," + pageText(2) + "]});" + "</script></div>";
+        final String expected = "<div id=\"idTabs\">" + SCRIPT_START
+                + "contentId:\"idContent\",id:\"idTabs\",pages: [" + pageText(1) + ","
+                + pageText(2) + "]" + SCRIPT_END + "</div>";
 
-        assertContent(expected, content);
+        assertContent(expected);
     }
 
     /**
@@ -158,9 +148,6 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
      */
     @Test
     public void testDoEndTagClasses() throws JspException, TransformerException, SAXException {
-        final PageContext context = new FakePageContext();
-        tag.setPageContext(context);
-
         assertStartTagEvalBody();
 
         tag.addPage(page(1));
@@ -170,12 +157,10 @@ public class AjaxTabPanelTagTest extends AbstractTagTest<AjaxTabPanelTag> {
         assertAfterBody();
         assertEndTag();
 
-        final String content = ((FakeBodyContent) context.getOut()).getString();
-        final String expected = "<div class=\"customPanelClass\"><script type=\"text/javascript\">"
-                + "new AjaxJspTag.TabPanel({pages: [" + pageText(1) + "," + pageText(2) + "]});"
-                + "</script></div>";
+        final String expected = "<div class=\"customPanelClass\">" + SCRIPT_START + "pages: ["
+                + pageText(1) + "," + pageText(2) + "]" + SCRIPT_END + "</div>";
 
-        assertContent(expected, content);
+        assertContent(expected);
     }
 
     private AjaxTabPageTag page(final int pageNo) {
