@@ -134,7 +134,8 @@
 
         <attribute>
             <description>
-                Function to execute before AJAX is begun.
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
             </description>
             <name>preFunction</name>
             <required>false</required>
@@ -286,7 +287,8 @@
 
         <attribute>
             <description>
-                Function to execute before AJAX is begun.
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
             </description>
             <name>preFunction</name>
             <required>false</required>
@@ -478,7 +480,8 @@
 
         <attribute>
             <description>
-                Function to execute before AJAX is begun.
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
             </description>
             <name>preFunction</name>
             <required>false</required>
@@ -610,7 +613,10 @@
         </attribute>
 
         <attribute>
-            <description>Function to execute before AJAX is begun.</description>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -728,7 +734,10 @@
         </attribute>
 
         <attribute>
-            <description>Function to execute before Ajax is begun.</description>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -855,7 +864,10 @@
         </attribute>
 
         <attribute>
-            <description>Function to execute before Ajax is begun.</description>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -895,7 +907,10 @@
         </attribute>
 
         <attribute>
-            <description>Function to execute before Ajax is begun.</description>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -1033,15 +1048,18 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
 
-        <!-- <attribute>
-            <description>CSS class name to add to the tab content element.</description>
-            <name>contentStyleClass</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute> -->
+        <!--
+            <attribute> <description>CSS class name to add to the tab
+            content element.</description>
+            <name>contentStyleClass</name> <required>false</required>
+            <rtexprvalue>true</rtexprvalue> </attribute>
+        -->
 
         <attribute>
-            <description>Function to execute before AJAX is called.</description>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -1257,7 +1275,10 @@
         </attribute>
 
         <attribute>
-            <description>Function to execute before AJAX is begun.</description>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -1394,7 +1415,10 @@
         </attribute>
 
         <attribute>
-            <description>Function to execute before AJAX is started.</description>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
             <name>preFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -1596,6 +1620,26 @@
             </description>
             <name>target</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <description>
+                Function to execute before AJAX is started.
+                Should return string "cancel" to cancel AJAX execution.
+            </description>
+            <name>preFunction</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <description>
+                Function to execute after AJAX is finished, allowing for
+                a chain of additional functions to execute.
+            </description>
+            <name>postFunction</name>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>

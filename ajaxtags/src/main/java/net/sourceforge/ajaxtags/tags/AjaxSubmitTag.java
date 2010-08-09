@@ -20,7 +20,7 @@ import javax.servlet.jsp.JspException;
 
 /**
  * Builds the JavaScript required to submit form and retrieve response via AJAX.
- * 
+ *
  * @author Victor Homyakov
  */
 public class AjaxSubmitTag extends BaseAjaxTag {
@@ -30,15 +30,6 @@ public class AjaxSubmitTag extends BaseAjaxTag {
     @Override
     protected String getJsClass() {
         return JSCLASS_BASE + "Submit";
-    }
-
-    @Override
-    protected OptionsBuilder getOptions() {
-        // empty options
-        final OptionsBuilder options = getOptionsBuilder(true);
-        options.add("source", getSource(), true);
-        options.add("target", getTarget(), true);
-        return options;
     }
 
     @Override
