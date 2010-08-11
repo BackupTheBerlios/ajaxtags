@@ -14,6 +14,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
+/* --- AUTOCOMPLETE CSS --- */
 .autocomplete {
 	position: absolute;
 	color: #333;
@@ -23,12 +25,14 @@
 /**	overflow-y: auto;
 **/	height: 100px;
 }
+
 .autocomplete ul {
 	padding: 0;
 	margin: 0;
 	list-style: none;
 	overflow: hidden;
 }
+
 .autocomplete li {
 	display: block;
 	white-space: nowrap;
@@ -38,11 +42,14 @@
 	padding-right: 5px;
 	border: 1px solid #fff;
 }
+
 .autocomplete li.selected {
 	background-color: #cef;
 	border-top: 1px solid #9bc;
 	border-bottom: 1px solid #9bc;
 }
+
+/* --- TAB PANEL CSS --- */
 .tabContent {
 	background: #fff;
 	border-color: #ccc;
@@ -52,18 +59,21 @@
 	margin: 0;
 	padding: 15px;
 }
+
 .tabPanel {
 /**	border-bottom: 1px solid #ccc;
 **/	margin: 0;
 	padding-bottom: 19px;
 	padding-left: 10px;
 }
+
 .tabNavigation ul,.tabNavigation li {
 	display: inline;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
+
 .tabNavigation a:link,.tabNavigation a:visited {
 	background: #E8EBF0;
 	border: 1px solid #ccc;
@@ -76,19 +86,23 @@
 	padding: 2px 10px 2px 10px;
 	text-decoration: none;
 }
+
 .tabNavigation li a.ajaxCurrentTab {
 	background: #fff !important;
 	border-bottom: 1px solid #fff;
 	color: #000 !important;
 }
+
 .tabNavigation a:hover {
 	color: #f00;
 }
+
 /* --- PORTLET CSS --- */
 .portletBox {
 	width: 400px;
 	border: 1px solid #ccc;
 }
+
 .portletTitle {
 	background-color: #e8ebf0;
 	border-top: 0;
@@ -99,6 +113,7 @@
 	color: #666;
 	font: bold 10pt Arial;
 }
+
 .portletTools {
 	float: right;
 	padding: 2px 4px;
@@ -107,23 +122,28 @@
 	font: bold 8pt Arial;
 	cursor: pointer;
 }
+
 .portletTools img {
 	border-left: 1px solid #666;
 	padding: 0px 3px;
 	cursor: pointer;
 }
+
 .portletTools img:first-child {
 	border: none;
 }
+
 .portletContent {
 	min-height: 200px;
 	overflow: auto;
 	padding: 4px;
 }
+
 /* --- TOGGLE CSS --- */
 div.power-rating,div.star-rating {
 	display: block;
 }
+
 div.power-rating a,div.star-rating a {
 	cursor: pointer;
 	margin: 0;
@@ -135,71 +155,90 @@ div.power-rating a,div.star-rating a {
 	background-repeat: no-repeat;
 	background-position: 1px 0;
 }
+
 div.power-rating a {
 	background-image: url(../img/throbber.gif);
 }
+
 div.power-rating a.over {
 	background-position: 1px 0;
 }
+
 div.power-rating a.selected {
 	background-position: 1px -20px;
 }
+
 div.power-rating a.selectedover {
 	background-position: 1px -20px;
 }
+
 div.power-rating a.selectedless {
 	background-position: 1px -20px;
 }
+
 div.star-rating a {
 	background-image: url(../img/stars.gif);
 }
+
 div.star-rating a.over {
 	background-position: 1px -32px;
 }
+
 div.star-rating a.selected {
 	background-position: 1px -64px;
 }
+
 div.star-rating a.selectedover {
 	background-position: 1px -48px;
 }
+
 div.star-rating a.selectedless {
 	background-position: 1px -16px;
 }
+
 div.star-rating-message {
 	display: block;
 	height: 12px;
 	font: 10px Verdana;
 }
+
 /* --- CALLOUT CSS --- */
 .olbg {
 	background-color: #999;
 }
+
 .olcg {
 	background-color: #000;
 }
+
 .olfg {
 	background-color: #ddd;
 }
+
 .olcap {
 	font-family: Arial;
 	font-size: 12px;
 	font-weight: bold;
 	color: #fff;
 }
+
 a.olclo {
 	font-family: Arial;
 	font-size: 10px;
 	font-weight: bold;
 	color: #ddd;
 }
+
 a.olclo:hover {
 	color: #fff;
 }
+
 .oltxt {
 	font-family: Arial;
 	font-size: 12px;
 	color: #000;
 }
+
 /* --- TREE CSS --- */
 .tree {
 	color: black;
@@ -211,9 +250,11 @@ a.olclo:hover {
 	padding-left: 0;
 	margin-left: 0;
 }
+
 .tree li {
 	padding-left: 15px;
 }
+
 .tree li span {
 	display: block;
 	margin-top: 10px;
@@ -222,24 +263,22 @@ a.olclo:hover {
 	height: 10px;
 	cursor: pointer;
 }
+
 .tree li a {
 	left: 5px;
 }
+
 .expandedNode {
 	background: url(../img/arrow_down.gif) no-repeat;
 }
+
 .collapsedNode {
 	background: url(../img/arrow.gif) no-repeat;
 }
+
 .indicator {
 	padding-left: 16px;
 	background: url(../img/indicator.gif) no-repeat left;
 	width: 16px;
 	height: 16px;
-}
-a.external {
-	padding-left: 16px;
-	background: url(../img/external.gif) no-repeat left;
-	width: 11px;
-	height: 9px;
 }

@@ -27,6 +27,13 @@ a:hover {
 	color: #f00;
 }
 
+a.external {
+	padding-left: 16px;
+	background: url(../img0/external.gif) no-repeat left;
+	width: 11px;
+	height: 9px;
+}
+
 #header {
 	background-color: #369;
 	padding: 5px;
