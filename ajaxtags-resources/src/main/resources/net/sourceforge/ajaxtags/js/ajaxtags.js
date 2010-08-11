@@ -676,52 +676,48 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
 /**
  * Autocomplete tag.
  */
-AjaxJspTag.XmlToHtmlAutocompleter = Class.create(Autocompleter.Base, {
-    // AjaxJspTag.Autocomplete
-    initialize: function (autocomplete) {
+AjaxJspTag.XmlToHtmlAutocompleter = Class.create(Ajax.Autocompleter, {
+    initialize: function (/*AjaxJspTag.Autocomplete*/ autocomplete) {
         this.autocompleteTag = autocomplete;
-        this.baseInitialize(autocomplete.options.source, autocomplete.options.divElement, {
-            minChars: autocomplete.options.minChars,
-            asynchronous: true,
-            tokens: autocomplete.options.appendSeparator,
-            indicator: autocomplete.options.indicator,
+        var o = this.autocompleteTag.options;
+        this.baseInitialize(o.source, o.divElement, {
+            minChars: o.minChars,
+            tokens: o.appendSeparator,
+            indicator: o.indicator,
             evalScripts: true,
+            asynchronous: true,
             onComplete: this.onComplete.bind(this),
             afterUpdateElement: function (inputField, selectedItem) {
                 autocomplete.handler(selectedItem);
             }
         });
-        this.url = autocomplete.options.baseUrl;
-        // just 4 don't write a copy
-        // use own function?
-        this.getUpdatedChoices0 = Ajax.Autocompleter.prototype.getUpdatedChoices;
+        this.url = o.baseUrl;
     },
-    getUpdatedChoices: function () {
+    getUpdatedChoices: function ($super) {
         if (!this.autocompleteTag.initRequest()) {
             this.stopIndicator(); // stop ac tag
             return;
         }
         // parse parameters and do replacements
         this.options.defaultParams = this.autocompleteTag.buildParameterString();
-        // / don't write code a second time
-        this.getUpdatedChoices0();
+        $super(); // Ajax.Autocompleter#getUpdatedChoices()
     },
     onComplete: function (request) {
-        this.autocompleteTag.options.parser.load(request);
-        this.updateChoices(this.autocompleteTag.options.parser.content);
-        if (this.autocompleteTag.options.parser.content === null) {
+        var o = this.autocompleteTag.options;
+        o.parser.load(request);
+        this.updateChoices(o.parser.content);
+        if (o.parser.content === null) {
             this.stopIndicator(); // stop ac tag
         }
-        // chan 4 postfunction
-        if (Object.isFunction(this.autocompleteTag.options.onComplete)) {
-            // hier wird nicht base verwendet!!!!
+        // postFunction
+        if (Object.isFunction(o.onComplete)) {
+            // hier wird nicht base verwendet!!!
             // Disable onupdate event handler of input field
             // because, postFunction can change the content of
             // input field and get into eternal loop.
-            var inputf = $(this.autocompleteTag.options.source);
-            var onupdateHandler = inputf.onupdate;
+            var inputf = $(o.source), onupdateHandler = inputf.onupdate;
             inputf.onupdate = '';
-            this.autocompleteTag.options.onComplete();
+            o.onComplete();
             // Enable onupdate event handler of input field
             inputf.onupdate = onupdateHandler;
         }
@@ -741,8 +737,9 @@ AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base, {
         }, options || {});
     },
     createElements: function () {
+        var o = this.options;
         // remove previous element, if any
-        var element = $(this.options.divElement);
+        var element = $(o.divElement);
         if (element) {
             element.stopObserving();
             if (element.parentNode) {
@@ -750,25 +747,28 @@ AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base, {
             }
         }
         // insert div at the top of the document so it will not be hidden in case of overflow
-        Element.insert(document.body, {top: new Element("div", {id: this.options.divElement, className: this.options.className})});
+        Element.insert(document.body, {top: new Element("div", {id: o.divElement, className: o.className})});
     },
     execute: function () {
         new AjaxJspTag.XmlToHtmlAutocompleter(this);
     },
     handler: function (selectedItem) {
-        var target = $(this.options.target);
+        var o = this.options, target = $(o.target), value = selectedItem.id;
         if (target) {
-            if (this.options.appendSeparator) {
+            if (o.appendSeparator) {
                 if (target.value.length > 0) {
-                    target.value += this.options.appendSeparator;
+                    target.value += o.appendSeparator;
                 }
-                target.value += selectedItem.id;
+                target.value += value;
             } else {
-                target.value = selectedItem.id;
+                target.value = value;
             }
         }
         this.options.selectedIndex = selectedItem.autocompleteIndex;
         this.options.selectedObject = selectedItem;
+        if (Object.isFunction(o.afterUpdate)) {
+            o.afterUpdate(value);
+        }
     }
 });
 
@@ -1106,6 +1106,7 @@ AjaxJspTag.OnClick = Class.create(AjaxJspTag.Base, {
  */
 AjaxJspTag.Submit = Class.create(AjaxJspTag.Base, {
     setOptions: function (options) {
+        // TODO option for multiple submit buttons: serialize(true, {hash: false, submit: ?})
         this.options = options || {};
     },
     createListeners: function () {

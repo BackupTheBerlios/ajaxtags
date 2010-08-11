@@ -247,6 +247,7 @@
             <description>
                 CSS class name to apply to the popup autocomplete
                 dropdown.
+                Default: autocomplete
             </description>
             <name>className</name>
             <required>true</required>
@@ -276,8 +277,7 @@
         <attribute>
             <description>
                 The separator to use for the target field when values
-                are appended. If appendValue is not set
-                or is set to "false", this parameter has no effect.
+                are appended.
                 Default: space
             </description>
             <name>appendSeparator</name>
@@ -299,6 +299,7 @@
             <description>
                 Function to execute after AJAX is finished, allowing for
                 a chain of additional functions to execute.
+                Note: this happens before user selects any option.
             </description>
             <name>postFunction</name>
             <required>false</required>
@@ -311,6 +312,17 @@
                 (non-200 HTTP response).
             </description>
             <name>errorFunction</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <description>
+                Function to execute after user has selected some option
+                and source and target fields were updated with selected
+                values.
+            </description>
+            <name>afterUpdate</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

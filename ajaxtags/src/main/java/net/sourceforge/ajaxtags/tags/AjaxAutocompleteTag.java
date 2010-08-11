@@ -20,7 +20,7 @@ import javax.servlet.jsp.JspException;
 
 /**
  * Tag handler for the autocomplete AJAX tag.
- * 
+ *
  * @author Darren Spurgeon
  * @version $Revision: 86 $ $Date: 2007/06/20 20:55:56 $ $Author: jenskapitza $
  */
@@ -32,9 +32,18 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
 
     private String appendSeparator;
 
-    private String className;
+    /**
+     * CSS class name to apply to the popup autocomplete dropdown.
+     */
+    private String className = "autocomplete";
 
     private String indicator;
+
+    /**
+     * Function to execute after user has selected some option and source and target fields were
+     * updated with selected values.
+     */
+    private String afterUpdate;
 
     public String getAppendSeparator() {
         return appendSeparator;
@@ -68,6 +77,14 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         this.minimumCharacters = minimumCharacters;
     }
 
+    public String getAfterUpdate() {
+        return afterUpdate;
+    }
+
+    public void setAfterUpdate(final String afterUpdate) {
+        this.afterUpdate = afterUpdate;
+    }
+
     @Override
     protected String getJsClass() {
         return JSCLASS_BASE + "Autocomplete";
@@ -76,10 +93,11 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
     @Override
     protected OptionsBuilder getOptions() {
         final OptionsBuilder options = getOptionsBuilder();
-        options.add("className", this.className, true);
-        options.add("indicator", this.indicator, true);
-        options.add("minChars", this.minimumCharacters, true);
-        options.add("appendSeparator", this.appendSeparator, true);
+        options.add("className", className, true);
+        options.add("indicator", indicator, true);
+        options.add("minChars", minimumCharacters, true);
+        options.add("appendSeparator", appendSeparator, true);
+        options.add("afterUpdate", afterUpdate, true);
         return options;
     }
 
@@ -91,9 +109,10 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
 
     @Override
     public void releaseTag() {
-        this.className = null; // NOPMD
-        this.minimumCharacters = null; // NOPMD
-        this.appendSeparator = null; // NOPMD
-        this.indicator = null; // NOPMD
+        className = null; // NOPMD
+        minimumCharacters = null; // NOPMD
+        appendSeparator = null; // NOPMD
+        indicator = null; // NOPMD
+        afterUpdate = null; // NOPMD
     }
 }
