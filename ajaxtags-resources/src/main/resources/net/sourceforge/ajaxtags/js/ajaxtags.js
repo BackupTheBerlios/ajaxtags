@@ -23,7 +23,13 @@ if ((typeof Prototype === 'undefined') || (typeof Element === 'undefined') || (t
 }
 
 var AjaxJspTag = {
-    Version: '1.5',
+    Version: '1.5.2',
+
+    DEFAULT_PARAMETER: "ajaxParameter",
+    VOID_URL: "javascript://nop",
+    // unused? PORTLET_MAX: 1, PORTLET_MIN: 2, PORTLET_CLOSE: 3,
+    CALLOUT_OVERLIB_DEFAULT: "STICKY,CLOSECLICK,DELAY,250,TIMEOUT,5000,VAUTO,WRAPMAX,240,CSSCLASS,FGCLASS,'olfg',BGCLASS,'olbg',CGCLASS,'olcg',CAPTIONFONTCLASS,'olcap',CLOSEFONTCLASS,'olclo',TEXTFONTCLASS,'oltxt'",
+
     /**
      * Store all tags which have listeners.
      */
@@ -55,18 +61,8 @@ var AjaxJspTag = {
     }
 };
 
-/**
- * Global Variables.
- * TODO move to namespace AjaxJspTag
- */
-var AJAX_DEFAULT_PARAMETER = "ajaxParameter";
-var AJAX_DEFAULT_PARAMETER_REGEXP = new RegExp("(\\{" + AJAX_DEFAULT_PARAMETER + "\\})", 'g');
+AjaxJspTag.DEFAULT_PARAMETER_REGEXP = new RegExp("(\\{" + AjaxJspTag.DEFAULT_PARAMETER + "\\})", 'g');
 
-var AJAX_VOID_URL = "javascript://nop";
-var AJAX_PORTLET_MAX = 1;
-var AJAX_PORTLET_MIN = 2;
-var AJAX_PORTLET_CLOSE = 3;
-var AJAX_CALLOUT_OVERLIB_DEFAULT = "STICKY,CLOSECLICK,DELAY,250,TIMEOUT,5000,VAUTO,WRAPMAX,240,CSSCLASS,FGCLASS,'olfg',BGCLASS,'olbg',CGCLASS,'olcg',CAPTIONFONTCLASS,'olcap',CLOSEFONTCLASS,'olclo',TEXTFONTCLASS,'oltxt'";
 
 /**
  * Response Parsers defaults and functions which can be used for HTML, TEXT and
@@ -218,7 +214,7 @@ var ResponseXmlToHtmlLinkListParser = Class.create(DefaultResponseParser, {
                 if (nameNodes.length > 0 && valueNodes.length > 0) {
                     name = nameNodes[0].firstChild.nodeValue;
                     value = valueNodes[0].firstChild.nodeValue;
-                    url = (urlNodes.length > 0) ? urlNodes[0].firstChild.nodeValue : AJAX_VOID_URL;
+                    url = (urlNodes.length > 0) ? urlNodes[0].firstChild.nodeValue : AjaxJspTag.VOID_URL;
                     leaf = (leafnodes.length > 0) && (leafnodes[0].firstChild.nodeValue).toLowerCase() === "true";
                     collapsed = (collapsedNodes.length > 0) && (collapsedNodes[0].firstChild.nodeValue).toLowerCase() === "true";
                     li = new Element("li", {id: "li_" + value});
@@ -367,10 +363,9 @@ AjaxJspTag.Base = Class.create({
         return data._event;
     },
     buildParameterString: function (ajaxParam) {
-        var result = [];
+        var result = [], field, key, v;
         var value = Form.Element.serialize; // BUG 016027
-        var field, key, v;
-        var params = (this.replaceAJAX_DEFAULT(ajaxParam) || '');
+        var params = (this.replaceDefaultParam(ajaxParam) || '');
         params.split(',').each(function (pair) {
             if (pair.strip().length === 0) {
                 return;
@@ -401,9 +396,9 @@ AjaxJspTag.Base = Class.create({
         });
         return result.join('&');
     },
-    replaceAJAX_DEFAULT: function (elem) {
+    replaceDefaultParam: function (elem) {
         var o = this.options;
-        return (elem) ? o.parameters.replace(AJAX_DEFAULT_PARAMETER_REGEXP, (elem.type) ? $F(elem) : elem.innerHTML) : o.parameters;
+        return (elem) ? o.parameters.replace(AjaxJspTag.DEFAULT_PARAMETER_REGEXP, (elem.type) ? $F(elem) : elem.innerHTML) : o.parameters;
     }
 });
 
@@ -414,8 +409,7 @@ AjaxJspTag.UpdateField = Class.create(AjaxJspTag.Base, {
     setOptions: function (options) {
         // TODO extract getDefaultOptions
         this.options = Object.extend({
-            // just set options to defaults
-            // this will be changed with parameter options
+            // just set options to defaults; this will be changed with parameter options
             parameters: '',
             valueUpdateByName: false,
             eventType: "click",
@@ -541,8 +535,7 @@ AjaxJspTag.HtmlContent = Class.create(AjaxJspTag.Base, {
         }
     },
     execute: function (event) {
-        // replace default parameter with value/content of
-        // source element selected
+        // replace default parameter with value/content of source element
         if (this.options.sourceClass) {
             this.request = this.getAjaxUpdater(null, Event.element(event));
         } else {
@@ -558,7 +551,7 @@ AjaxJspTag.Callout = Class.create(AjaxJspTag.Base, {
     setOptions: function (options) {
         this.options = Object.extend({
             parameters:	'',
-            overlib: AJAX_CALLOUT_OVERLIB_DEFAULT,
+            overlib: AjaxJspTag.CALLOUT_OVERLIB_DEFAULT,
             parser: new DefaultResponseParser("xmltohtml"),
             openEvent: "mouseover",
             closeEvent: "mouseout",
@@ -637,7 +630,7 @@ AjaxJspTag.TabPanel = Class.create(AjaxJspTag.Base, {
         var e = new Element('a').update(tab.caption);
         e.base = this;
         e.baseUrl = tab.baseUrl;
-        e.href = AJAX_VOID_URL;
+        e.href = AjaxJspTag.VOID_URL;
         e.onclick = function () {
             this.base.options.baseUrl = this.baseUrl;
             this.base.options.parameters = this.parameters;
@@ -737,9 +730,8 @@ AjaxJspTag.Autocomplete = Class.create(AjaxJspTag.Base, {
         }, options || {});
     },
     createElements: function () {
-        var o = this.options;
+        var o = this.options, element = $(o.divElement);
         // remove previous element, if any
-        var element = $(o.divElement);
         if (element) {
             element.stopObserving();
             if (element.parentNode) {
@@ -960,7 +952,7 @@ AjaxJspTag.Tree = Class.create(AjaxJspTag.Base, {
 AjaxJspTag.Toggle = Class.create(AjaxJspTag.Base, {
     setOptions: function (options) {
         this.options = Object.extend({
-            parameters: ('rating={' + AJAX_DEFAULT_PARAMETER + '}'),
+            parameters: ('rating={' + AjaxJspTag.DEFAULT_PARAMETER + '}'),
             parser: new DefaultResponseParser("text"),
             handler: this.handler
         }, options || {});
