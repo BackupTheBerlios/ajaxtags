@@ -21,18 +21,21 @@ package net.sourceforge.ajaxtags.xml;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Test for AjaxXmlBuilder.
  *
- * @author В.Хомяков
+ * @author Victor Homyakov
  * @version $Revision$ $Date$ $Author$
  */
 public class AjaxXmlBuilderTest {
 
-    private AjaxXmlBuilder xml;
+    private transient AjaxXmlBuilder xml;
 
     /**
      * Set up.
@@ -43,7 +46,7 @@ public class AjaxXmlBuilderTest {
     }
 
     /**
-     * Test method for {@link AjaxXmlBuilder#addItem(String, String)} .
+     * Test method for {@link AjaxXmlBuilder#addItem(String, String)}.
      */
     @Test
     public void testAddItemStringString() {
@@ -54,7 +57,7 @@ public class AjaxXmlBuilderTest {
     }
 
     /**
-     * Test method for {@link AjaxXmlBuilder#addItemAsCData(String, String)} .
+     * Test method for {@link AjaxXmlBuilder#addItemAsCData(String, String)}.
      */
     @Test
     public void testAddItemAsCData() {
@@ -64,4 +67,25 @@ public class AjaxXmlBuilderTest {
                 + AjaxXmlBuilder.RESPONSE_END, xml.getXMLString());
     }
 
+    /**
+     * Test method for
+     * {@link AjaxXmlBuilder#addItems(java.util.Collection, AjaxXmlBuilder.PropertyProvider)}.
+     */
+    @Test
+    public void testAddItemsProvider() {
+        final List<String> collection = Arrays.asList("string1", "string2");
+        xml.addItems(collection, new AjaxXmlBuilder.AbstractPropertyProvider<String>() {
+            public String getName(final String item) {
+                return item + "-name";
+            }
+
+            public String getValue(final String item) {
+                return item + "-value";
+            }
+        });
+        assertEquals("Added collection of two items", AjaxXmlBuilder.RESPONSE_START
+                + "<item><name>string1-name</name><value>string1-value</value></item>"
+                + "<item><name>string2-name</name><value>string2-value</value></item>"
+                + AjaxXmlBuilder.RESPONSE_END, xml.getXMLString());
+    }
 }

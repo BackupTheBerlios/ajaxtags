@@ -69,15 +69,6 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
         return this;
     }
 
-    public interface PropertyReader {
-
-        String getName();
-
-        String getValue();
-
-        boolean isCData();
-    }
-
     /**
      * Add collection of items to XML.
      *
@@ -100,8 +91,113 @@ public final class AjaxXmlBuilder extends AjaxValueListXmlBuilder {
      * @return the XML builder
      */
     public AjaxXmlBuilder addItem(final PropertyReader element) {
-        addItem(element.getName(), element.getValue(), element.isCData());
+        return addItem(element.getName(), element.getValue(), element.isCData());
+    }
+
+    /**
+     * Add collection of items to XML.
+     *
+     * @param <T>
+     *            class of items
+     * @param collection
+     *            collection of items
+     * @param provider
+     *            provider to access properties of items
+     * @return the XML builder
+     */
+    public <T> AjaxXmlBuilder addItems(final Collection<? extends T> collection,
+            final PropertyProvider<T> provider) {
+        for (T item : collection) {
+            addItem(provider.getName(item), provider.getValue(item), provider.isCData(item));
+        }
         return this;
     }
 
+    /**
+     * Interface for objects with name/value/cData properties.
+     */
+    public interface PropertyReader {
+
+        /**
+         * @return the name of the item
+         */
+        String getName();
+
+        /**
+         * @return the value of the item
+         */
+        String getValue();
+
+        /**
+         * @return true if item should be added as CData
+         */
+        boolean isCData();
+    }
+
+    /**
+     * Interface for property provider. Provides access to name/value/CData properties for object of
+     * any class.
+     *
+     * @param <T>
+     *            class of items
+     */
+    public interface PropertyProvider<T> {
+
+        /**
+         * @param item
+         *            item
+         * @return the name of the item
+         */
+        String getName(T item);
+
+        /**
+         * @param item
+         *            item
+         * @return the value of the item
+         */
+        String getValue(T item);
+
+        /**
+         * @param item
+         *            item
+         * @return true if item should be added as CData
+         */
+        boolean isCData(T item);
+    }
+
+    /**
+     * Template for text property provider (all items should be added as text, not as CData).
+     *
+     * @param <T>
+     *            class of items
+     */
+    public abstract static class AbstractPropertyProvider<T> implements PropertyProvider<T> {
+
+        /**
+         * @param item
+         *            item
+         * @return always false
+         */
+        public boolean isCData(final T item) { // NOPMD
+            return false;
+        };
+    }
+
+    /**
+     * Template for CData property provider (all items should be added as CData).
+     *
+     * @param <T>
+     *            class of items
+     */
+    public abstract static class AbstractCDataPropertyProvider<T> implements PropertyProvider<T> {
+
+        /**
+         * @param item
+         *            item
+         * @return always true
+         */
+        public boolean isCData(final T item) { // NOPMD
+            return true;
+        };
+    }
 }
