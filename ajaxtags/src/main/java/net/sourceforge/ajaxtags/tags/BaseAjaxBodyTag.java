@@ -54,7 +54,13 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
 
     private String styleClass;
 
+    /**
+     * ID of the source element.
+     */
     private String source;
+    /**
+     * ID of the target element.
+     */
     private String target;
     private String baseUrl;
     private String parser;
@@ -165,6 +171,10 @@ public abstract class BaseAjaxBodyTag extends BodyTagSupport {
         return source;
     }
 
+    /**
+     * @param source
+     *            ID of the source element
+     */
     public final void setSource(final String source) {
         this.source = trimToNull(source);
     }

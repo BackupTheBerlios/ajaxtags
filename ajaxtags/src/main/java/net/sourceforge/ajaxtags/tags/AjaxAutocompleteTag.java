@@ -16,6 +16,8 @@
  */
 package net.sourceforge.ajaxtags.tags;
 
+import static org.apache.commons.lang.StringUtils.trimToNull;
+
 import javax.servlet.jsp.JspException;
 
 /**
@@ -58,7 +60,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
     }
 
     public void setClassName(final String className) {
-        this.className = className;
+        this.className = trimToNull(className);
     }
 
     public String getIndicator() {
@@ -82,7 +84,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
     }
 
     public void setAfterUpdate(final String afterUpdate) {
-        this.afterUpdate = afterUpdate;
+        this.afterUpdate = trimToNull(afterUpdate);
     }
 
     @Override
@@ -97,7 +99,7 @@ public class AjaxAutocompleteTag extends BaseAjaxTag {
         options.add("indicator", indicator, true);
         options.add("minChars", minimumCharacters, true);
         options.add("appendSeparator", appendSeparator, true);
-        options.add("afterUpdate", afterUpdate, true);
+        options.add("afterUpdate", afterUpdate, false);
         return options;
     }
 
