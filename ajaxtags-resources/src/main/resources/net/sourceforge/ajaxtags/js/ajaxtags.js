@@ -1111,13 +1111,19 @@ AjaxJspTag.Submit = Class.create(AjaxJspTag.Base, {
         }
     },
     execute: function () {
-        var o = this.options, f = $(o.source);
-        if (f) {
-            o.baseUrl = f.action;
-            this.request = this.getAjaxUpdater({
-                parameters: f.serialize(true)
-            });
+        try {
+            var o = this.options, f = $(o.source);
+            if (f) {
+                o.baseUrl = f.action;
+                this.request = this.getAjaxUpdater({
+                    parameters: f.serialize(true)
+                });
+            }
+        } catch (e) {
+            alert("Exception in form.onsubmit: " + e.message);
+        } finally {
+            // prevent form submission
+            return false;
         }
-        return false;
     }
 });
