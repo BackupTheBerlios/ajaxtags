@@ -250,7 +250,7 @@
                 Default: autocomplete
             </description>
             <name>className</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
 
@@ -1651,6 +1651,16 @@
                 a chain of additional functions to execute.
             </description>
             <name>postFunction</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <description>
+                Function to execute if there is a server exception
+                (non-200 HTTP response).
+            </description>
+            <name>errorFunction</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
