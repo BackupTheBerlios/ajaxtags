@@ -177,7 +177,6 @@ FORM.basicForm INPUT[type="text"]:focus {
 	border-color: #000;
 }
 
-
 #modelDescription {
 	position: absolute;
 	left: 300px;
@@ -188,6 +187,7 @@ FORM.basicForm INPUT[type="text"]:focus {
 	border-width: 1px;
 	border-color: #666 #ccc #ccc #666;
 	padding: 5px;
+	overflow-x: auto;
 }
 
 #htmlContentForm {

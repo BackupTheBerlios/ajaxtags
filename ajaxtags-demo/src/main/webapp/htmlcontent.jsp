@@ -57,6 +57,7 @@ select field.</p>
   <option value="mazda">Mazda</option>
 </select></form>
 </div>
+<input type="button" value="Test callouts" id="calloutTest" />
 <div id="progressMsg" class="indicator" style="padding-top: 5px; display: none;">Loading...</div>
 <div id="errorMsg"
   style="display: none; border: 1px solid #e00; background-color: #fee; padding: 2px; margin-top: 8px; width: 300px; font: normal 12px Arial; color: #900"></div>
@@ -69,3 +70,5 @@ select field.</p>
 
 <ajax:htmlContent baseUrl="htmlcontent.view" source="selmake" target="modelDescription"
   parameters="make={selmake}" eventType="change" />
+
+<ajax:htmlContent baseUrl="callout.jsp" source="calloutTest" target="modelDescription" parameters="" />
