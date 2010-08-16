@@ -27,6 +27,12 @@
         <author email="j.kapitza(at)schwarze-allianz.de">Jens Kapitza</author>
     </properties>
     <body>
+        <release version="1.5.1" date="In Version-Control-System" description="">
+            <action type="add" dev="victor-homyakov">JavaScript Unit tests.</action>
+            <action type="add" dev="victor-homyakov">More JUnit tests.</action>
+            <action type="update" dev="victor-homyakov">Added attributes 'preFunction', 'postFunction',
+               'errorFunction' to form submit tag.</action>
+        </release>
         <release version="1.5" date="In Version-Control-System" description="">
             <action type="update" dev="jenskapitza">Change the GroupID and update the pom.xml file.</action>
             <action type="add" dev="jenskapitza">XMLUtils methods updated</action>
